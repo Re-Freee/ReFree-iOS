@@ -14,6 +14,7 @@
 		6AD7E3A32A506C09007338DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AD7E3A12A506C09007338DB /* LaunchScreen.storyboard */; };
 		6AE80DBC2A507C21006CBB56 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6AE80DBB2A507C21006CBB56 /* SnapKit */; };
 		6AE80DC22A507C89006CBB56 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6AE80DC12A507C89006CBB56 /* Alamofire */; };
+		6AE80DCB2A507CDD006CBB56 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6AE80DCA2A507CDD006CBB56 /* RealmSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AE80DCB2A507CDD006CBB56 /* RealmSwift in Frameworks */,
 				6AE80DBC2A507C21006CBB56 /* SnapKit in Frameworks */,
 				6AE80DC22A507C89006CBB56 /* Alamofire in Frameworks */,
 			);
@@ -127,6 +129,7 @@
 			packageProductDependencies = (
 				6AE80DBB2A507C21006CBB56 /* SnapKit */,
 				6AE80DC12A507C89006CBB56 /* Alamofire */,
+				6AE80DCA2A507CDD006CBB56 /* RealmSwift */,
 			);
 			productName = ReFree;
 			productReference = 6AD7E3932A506C08007338DB /* ReFree.app */;
@@ -159,6 +162,7 @@
 			packageReferences = (
 				6AE80DBA2A507C21006CBB56 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				6AE80DC02A507C89006CBB56 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				6AE80DC92A507CDD006CBB56 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 6AD7E3942A506C08007338DB /* Products */;
 			projectDirPath = "";
@@ -412,6 +416,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		6AE80DC92A507CDD006CBB56 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -424,6 +436,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6AE80DC02A507C89006CBB56 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		6AE80DCA2A507CDD006CBB56 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6AE80DC92A507CDD006CBB56 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
