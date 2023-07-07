@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A0D30402A56C83500A9F44A /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D303F2A56C83500A9F44A /* UIView+.swift */; };
+		6A0D30452A56C8D300A9F44A /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D30442A56C8D300A9F44A /* SignInViewController.swift */; };
+		6A0D30472A56C8DD00A9F44A /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D30462A56C8DD00A9F44A /* SignInViewModel.swift */; };
 		6AD7E3972A506C08007338DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7E3962A506C08007338DB /* AppDelegate.swift */; };
 		6AD7E3992A506C08007338DB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7E3982A506C08007338DB /* SceneDelegate.swift */; };
 		6AD7E39B2A506C08007338DB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7E39A2A506C08007338DB /* ViewController.swift */; };
@@ -18,6 +21,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6A0D303F2A56C83500A9F44A /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		6A0D30442A56C8D300A9F44A /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		6A0D30462A56C8DD00A9F44A /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		6AD7E3932A506C08007338DB /* ReFree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReFree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AD7E3962A506C08007338DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6AD7E3982A506C08007338DB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +47,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6A0D303D2A56C80F00A9F44A /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				6A0D303E2A56C81800A9F44A /* Extension */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		6A0D303E2A56C81800A9F44A /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				6A0D303F2A56C83500A9F44A /* UIView+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		6A0D30412A56C88600A9F44A /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				6A0D30432A56C89200A9F44A /* ViewController */,
+				6A0D30422A56C88F00A9F44A /* ViewModel */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		6A0D30422A56C88F00A9F44A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6A0D30462A56C8DD00A9F44A /* SignInViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6A0D30432A56C89200A9F44A /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6A0D30442A56C8D300A9F44A /* SignInViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		6A7234F32A507303004FCFB4 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -63,6 +110,8 @@
 		6A7234F52A507334004FCFB4 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				6A0D30412A56C88600A9F44A /* SignIn */,
+				6A0D303D2A56C80F00A9F44A /* Util */,
 				6A7234F62A50734A004FCFB4 /* Common */,
 			);
 			path = Source;
@@ -190,8 +239,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A0D30402A56C83500A9F44A /* UIView+.swift in Sources */,
 				6AD7E39B2A506C08007338DB /* ViewController.swift in Sources */,
+				6A0D30472A56C8DD00A9F44A /* SignInViewModel.swift in Sources */,
 				6AD7E3972A506C08007338DB /* AppDelegate.swift in Sources */,
+				6A0D30452A56C8D300A9F44A /* SignInViewController.swift in Sources */,
 				6AD7E3992A506C08007338DB /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
