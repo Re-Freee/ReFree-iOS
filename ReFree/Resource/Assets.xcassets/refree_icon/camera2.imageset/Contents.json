@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "material-symbols_camera-outline.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
