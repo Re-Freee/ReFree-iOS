@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "grommet-icons_next.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
