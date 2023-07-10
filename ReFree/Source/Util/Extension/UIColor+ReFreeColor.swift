@@ -8,9 +8,9 @@
 import UIKit
 
 extension UIColor {
-    static let refreeColor = RFColor()
+    static let refreeColor = ReFreeColor()
     
-    struct RFColor {
+    struct ReFreeColor {
         // Background Colors
         let background1 = UIColor(named: "Background1")
         let background2 = UIColor(named: "Background2")
