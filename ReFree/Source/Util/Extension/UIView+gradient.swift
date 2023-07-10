@@ -9,18 +9,20 @@ import UIKit
 
 extension UIView {
     enum BackgroundType {
-        case conic
-        case axial
+        case mainConic
+        case mainAxial
+        case blackAxial
     }
     
     func gradientBackground(type: BackgroundType) {
         switch type {
-        case .conic: conicBackground()
-        case .axial: axialBackground()
+        case .mainConic: mainConicBackground()
+        case .mainAxial: mainAxialBackground()
+        case .blackAxial: blackAxialBackground()
         }
     }
     
-    private func conicBackground() {
+    private func mainConicBackground() {
         let colors: [CGColor] = [
             UIColor.refreeColor.background1.cgColor,
             UIColor.refreeColor.background2.cgColor,
@@ -37,7 +39,7 @@ extension UIView {
         )
     }
     
-    private func axialBackground() {
+    private func mainAxialBackground() {
         let colors: [CGColor] = [
             UIColor.white.cgColor,
             UIColor.refreeColor.background3.cgColor
@@ -48,6 +50,21 @@ extension UIView {
             colors: colors,
             startPoint: CGPoint(x: 0.5, y: 0.0),
             endPoint: CGPoint(x: 0.5, y: 1),
+            locations: nil
+        )
+    }
+    
+    private func blackAxialBackground() {
+        let colors: [CGColor] = [
+            UIColor.refreeColor.recipeBack1.cgColor,
+            UIColor.refreeColor.recipeBack2.cgColor
+        ]
+        
+        setGradientLayer(
+            type: .axial,
+            colors: colors,
+            startPoint: CGPoint(x: 0.0, y: 0.0),
+            endPoint: CGPoint(x: 1, y: 1),
             locations: nil
         )
     }
