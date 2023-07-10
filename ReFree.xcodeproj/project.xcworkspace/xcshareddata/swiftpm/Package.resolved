@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "aeconicalgradient",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tadija/AEConicalGradient.git",
+      "state" : {
+        "revision" : "c6d5dec4772028c588ab88d8be4953ba89ceccbb",
+        "version" : "2.1.1"
+      }
+    },
+    {
       "identity" : "alamofire",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Alamofire/Alamofire.git",
@@ -21,7 +30,7 @@
     {
       "identity" : "realm-swift",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/realm/realm-swift.git",
+      "location" : "https://github.com/realm/realm-swift",
       "state" : {
         "branch" : "master",
         "revision" : "5ed2c8ece79e63056641bd517435aaf81563f887"
