@@ -16,7 +16,11 @@ final class CarouselCell: UICollectionViewCell, Identifiable {
         // TODO: Font
     }
     
-    private let indicator = UIImageView(image: UIImage(systemName: "chevron.right"))
+    private let indicator = UIImageView(
+        image: UIImage(systemName: "chevron.right")
+    ).then {
+        $0.tintColor = .white
+    }
     
     private let materialLabel = UILabel().then {
         $0.text = "재료"
