@@ -61,6 +61,8 @@ final class RecipeViewController: UIViewController {
         $0.numberOfPages = 3
     }
     
+    private let sidebar = RecipeSidebarView()
+    
     private var previousIndex: Int?
     
     override func viewDidLoad() {
@@ -90,8 +92,13 @@ final class RecipeViewController: UIViewController {
             $0.centerX.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(24)
             $0.height.equalTo(30)
-//            $0.width.equalTo(100)
             $0.top.equalTo(carouselCollectionView.snp.bottom)
+        }
+        
+        view.addSubview(sidebar)
+        sidebar.snp.makeConstraints {
+            $0.leading.top.bottom.equalToSuperview()
+            $0.width.equalTo(250)
         }
     }
     
