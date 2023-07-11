@@ -16,7 +16,7 @@ final class RecipeTabHeader: UIView {
     
     private let bookmarkButton = BadgeButton(frame: .zero)
     
-    private let searchBar = UISearchBar() // TODO: 커스텀 searchBar로 변경
+    private let searchBar = RFSearchBar(height: 40)
     
     private let titleLabel = UILabel().then {
         $0.text = "OOO님을 위한 추천 레시피"
@@ -54,7 +54,6 @@ final class RecipeTabHeader: UIView {
         
         searchBar.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(Constant.spacing50)
             $0.top.equalTo(sideBarToggleButton.snp.bottom).offset(Constant.spacing12)
         }
         

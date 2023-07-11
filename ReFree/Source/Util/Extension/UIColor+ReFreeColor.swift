@@ -20,6 +20,7 @@ extension UIColor {
         // Point Colors
         let border1 = UIColor(named: "Border1") ?? .white
         let border2 = UIColor(named: "Border2") ?? .white
+        let rfGray = UIColor(named: "RFGray") ?? .white
         let defaultBack = UIColor(named: "DefaultBack") ?? .white
         let recipeBack1 = UIColor(named: "RecipeBack1") ?? .white
         let recipeBack2 = UIColor(named: "RecipeBack2") ?? .white
