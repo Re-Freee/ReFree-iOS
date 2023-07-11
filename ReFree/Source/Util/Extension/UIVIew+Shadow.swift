@@ -13,14 +13,14 @@ extension UIView {
         down: Double = 3,
         color: UIColor = .gray,
         opacity: Float = 0.4,
-        radius: CGFloat = 3
+        radius: CGFloat = 8
     ) {
         layer.masksToBounds = false
         layer.shadowOffset = CGSize(width: right, height: down)
         layer.shadowOpacity = opacity
         layer.shadowRadius = radius
         layer.shadowColor = color.cgColor
-        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: layer.cornerRadius).cgPath
+        layer.shadowPath = UIBezierPath(rect: bounds).cgPath
     }
     
     func removeShadow() {

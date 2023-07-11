@@ -77,7 +77,8 @@ final class RecipeViewController: UIViewController {
     }
     
     private func layout() {
-        view.addSubviews([header, carouselCollectionView, pageControl])
+        view.addSubviews([header, carouselCollectionView, pageControl, sidebar])
+        
         header.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(Constant.spacing24)
@@ -95,7 +96,6 @@ final class RecipeViewController: UIViewController {
             $0.top.equalTo(carouselCollectionView.snp.bottom)
         }
         
-        view.addSubview(sidebar)
         sidebar.snp.makeConstraints {
             $0.leading.top.bottom.equalToSuperview()
             $0.width.equalTo(250)

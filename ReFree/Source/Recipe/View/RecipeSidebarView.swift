@@ -41,18 +41,22 @@ final class RecipeSidebarView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func layout() {
-        backgroundColor = .white
-        addSubview(buttonStack)
-        
+    override func layoutSubviews() {
+        super.layoutSubviews()
         addShadow(
-            right: 3,
+            right: 8,
             down: 0,
             color: .gray,
             opacity: 0.4,
             radius: 2
         )
-        
+
+    }
+    
+    private func layout() {
+        backgroundColor = .white
+        addSubview(buttonStack)
+                
         line.backgroundColor = .black
         line.snp.makeConstraints {
             $0.height.equalTo(0.5)
