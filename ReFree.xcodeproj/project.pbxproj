@@ -11,6 +11,7 @@
 		6A0D30452A56C8D300A9F44A /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D30442A56C8D300A9F44A /* SignInViewController.swift */; };
 		6A0D30472A56C8DD00A9F44A /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D30462A56C8DD00A9F44A /* SignInViewModel.swift */; };
 		6A2B70732A5BF056002F92EB /* UIColor+ReFreeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2B70722A5BF056002F92EB /* UIColor+ReFreeColor.swift */; };
+		6A4ED1DB2A5D254600299B61 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 6A4ED1DA2A5D254600299B61 /* Then */; };
 		6ACEE6C62A5C92F70084C41A /* UIView+gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACEE6C52A5C92F70084C41A /* UIView+gradient.swift */; };
 		6AD7E3972A506C08007338DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7E3962A506C08007338DB /* AppDelegate.swift */; };
 		6AD7E3992A506C08007338DB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7E3982A506C08007338DB /* SceneDelegate.swift */; };
@@ -45,6 +46,7 @@
 				6AE80DCB2A507CDD006CBB56 /* RealmSwift in Frameworks */,
 				6AE80DBC2A507C21006CBB56 /* SnapKit in Frameworks */,
 				6AE80DC22A507C89006CBB56 /* Alamofire in Frameworks */,
+				6A4ED1DB2A5D254600299B61 /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,6 +187,7 @@
 				6AE80DBB2A507C21006CBB56 /* SnapKit */,
 				6AE80DC12A507C89006CBB56 /* Alamofire */,
 				6AE80DCA2A507CDD006CBB56 /* RealmSwift */,
+				6A4ED1DA2A5D254600299B61 /* Then */,
 			);
 			productName = ReFree;
 			productReference = 6AD7E3932A506C08007338DB /* ReFree.app */;
@@ -218,6 +221,7 @@
 				6AE80DBA2A507C21006CBB56 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				6AE80DC02A507C89006CBB56 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				6AE80DC92A507CDD006CBB56 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				6A4ED1D92A5D254600299B61 /* XCRemoteSwiftPackageReference "Then" */,
 			);
 			productRefGroup = 6AD7E3942A506C08007338DB /* Products */;
 			projectDirPath = "";
@@ -460,6 +464,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6A4ED1D92A5D254600299B61 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		6AE80DBA2A507C21006CBB56 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -487,6 +499,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6A4ED1DA2A5D254600299B61 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6A4ED1D92A5D254600299B61 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
 		6AE80DBB2A507C21006CBB56 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6AE80DBA2A507C21006CBB56 /* XCRemoteSwiftPackageReference "SnapKit" */;
