@@ -5,7 +5,7 @@
 //  Created by 이주훈 on 2023/07/11.
 //
 
-import Foundation
+import UIKit
 
 struct Constant {
     static let spacing6: Int = 6
@@ -15,4 +15,6 @@ struct Constant {
     static let spacing24: Int = 24
     static let spacing50: Int = 50
     static let spacing60: Int = 60
+    
+    static var screenSize: CGRect?
 }
