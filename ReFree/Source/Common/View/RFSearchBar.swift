@@ -18,7 +18,9 @@ final class RFSearchBar: UIView {
         $0.textColor = .refreeColor.unSelectedIcon
     }
     
-    private let searchStart = UIImageView(image: UIImage(named: "search"))
+    private let searchStart = UIImageView(
+        image: UIImage(named: "search")
+    )
     
     init(height: CGFloat = .zero) {
         super.init(frame: .zero)
