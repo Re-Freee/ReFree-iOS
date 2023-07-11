@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class RecipeTabHeader: UIView {
+final class RecipeTabHeader: UIView, Identifiable {
     private let sideBarToggleButton = UIButton().then {
         $0.setImage(UIImage(named: "hamberger_button"), for: .normal)
     }
