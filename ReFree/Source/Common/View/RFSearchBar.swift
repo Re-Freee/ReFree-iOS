@@ -27,6 +27,7 @@ final class RFSearchBar: UIView {
         } else {
             layout(height: height)
         }
+        addShadow()
     }
     
     required init?(coder: NSCoder) {

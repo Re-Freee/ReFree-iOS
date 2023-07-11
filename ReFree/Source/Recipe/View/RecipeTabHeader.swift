@@ -19,8 +19,9 @@ final class RecipeTabHeader: UIView {
     private let searchBar = RFSearchBar(height: 40)
     
     private let titleLabel = UILabel().then {
+        $0.textAlignment = .center
         $0.text = "OOO님을 위한 추천 레시피"
-        // TODO: 폰트 수정 필요
+        // TODO: 폰트 수정 필요 + Color
     }
     
     override init(frame: CGRect) {
