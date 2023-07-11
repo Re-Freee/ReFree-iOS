@@ -66,6 +66,6 @@ final class FoodKindView: UIView {
             $0.height.equalTo(60)
         }
         
-        layer.cornerRadius = 15
+        layer.cornerRadius = 10
     }
 }

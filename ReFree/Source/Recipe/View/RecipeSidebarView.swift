@@ -32,6 +32,13 @@ final class RecipeSidebarView: UIView {
         $0.axis = .vertical
     }
     
+    private let backButton = UIButton().then {
+        $0.tintColor = .white
+        $0.backgroundColor = .refreeColor.recipeBack1
+        $0.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        $0.layer.cornerRadius = 15
+    }
+    
     init() {
         super.init(frame: .zero)
         layout()
@@ -50,20 +57,25 @@ final class RecipeSidebarView: UIView {
             opacity: 0.4,
             radius: 2
         )
-
     }
     
     private func layout() {
         backgroundColor = .white
-        addSubview(buttonStack)
-                
+        addSubviews([buttonStack, backButton])
+        
         line.backgroundColor = .black
         line.snp.makeConstraints {
             $0.height.equalTo(0.5)
         }
         
+        backButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().offset(12)
+            $0.width.height.equalTo(30)
+            $0.top.equalToSuperview().offset(100)
+        }
+        
         buttonStack.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(8)
             $0.centerY.equalToSuperview().offset(-50)
         }
     }
