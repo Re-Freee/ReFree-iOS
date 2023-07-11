@@ -29,6 +29,10 @@ final class RFSearchBar: UIView {
         } else {
             layout(height: height)
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
         addShadow()
     }
     
