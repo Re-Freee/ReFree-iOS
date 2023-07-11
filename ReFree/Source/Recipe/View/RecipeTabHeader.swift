@@ -7,32 +7,21 @@
 
 import UIKit
 import SnapKit
+import Then
 
 final class RecipeTabHeader: UIView {
-    private let sideBarToggleButton: UIButton = {
-       let button = UIButton()
-        button.setImage(UIImage(named: "hamberger_button"), for: .normal)
-        
-        return button
-    }()
+    private let sideBarToggleButton = UIButton().then {
+        $0.setImage(UIImage(named: "hamberger_button"), for: .normal)
+    }
     
-    private let bookmarkButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "heart"), for: .normal)
-        
-        return button
-    }()
+    private let bookmarkButton = BadgeButton(frame: .zero)
     
     private let searchBar = UISearchBar() // TODO: 커스텀 searchBar로 변경
     
-    private let titleLabel: UILabel = {
-       let label = UILabel()
-        
-        label.text = "OOO님을 위한 추천 레시피"
-//        label.font = UIFont() // TODO: 폰트 수정 필요
-        
-        return label
-    }()
+    private let titleLabel = UILabel().then {
+        $0.text = "OOO님을 위한 추천 레시피"
+        // TODO: 폰트 수정 필요
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -66,7 +55,7 @@ final class RecipeTabHeader: UIView {
         searchBar.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(Constant.spacing50)
-            $0.top.equalTo(sideBarToggleButton.snp.bottom).inset(Constant.spacing12)
+            $0.top.equalTo(sideBarToggleButton.snp.bottom).offset(Constant.spacing12)
         }
         
         titleLabel.snp.makeConstraints {
