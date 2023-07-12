@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "refree 로고.png",
+      "filename" : "refree.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "refree 로고@2x.png",
+      "filename" : "refree@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "refree 로고@3x.png",
+      "filename" : "refree@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
