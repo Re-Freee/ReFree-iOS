@@ -120,14 +120,13 @@ final class RecipeViewController: UIViewController {
             .disposed(by: disposeBag)
         
         let swipe = sidebar.rx.swipeGesture(.left).when(.recognized)
-            .map { _ in return 0}
+            .map { _ in return Void() }
         let tap = sidebar.backButton.rx.tap
-            .map { _ in return 0}
+            .map { _ in return Void() }
         
         Observable.merge([swipe,tap])
         .subscribe { [weak self] _ in
             self?.closeSidebar()
-            print("닫기")
         }
         .disposed(by: disposeBag)
     }
