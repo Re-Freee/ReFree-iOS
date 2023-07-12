@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import Then
 import RxSwift
+import RxGesture
 
 final class RecipeViewController: UIViewController {
     private enum Const {
@@ -63,8 +64,8 @@ final class RecipeViewController: UIViewController {
     }
     
     private let sidebar = RecipeSidebarView()
-    
     private var previousIndex: Int?
+    private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,7 +100,8 @@ final class RecipeViewController: UIViewController {
         }
         
         sidebar.snp.makeConstraints {
-            $0.leading.top.bottom.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
+            $0.leading.equalToSuperview().offset(-280)
             $0.width.equalTo(250)
         }
     }
@@ -110,7 +112,47 @@ final class RecipeViewController: UIViewController {
     }
     
     private func bind() {
-//        header.sideBarToggleButton.rx.
+        header.sideBarToggleButton.rx.tapGesture()
+            .when(.recognized)
+            .bind { [weak self] _ in
+                self?.openSidebar()
+            }
+            .disposed(by: disposeBag)
+        
+        let swipe = sidebar.rx.swipeGesture(.left).when(.recognized)
+            .map { _ in return 0}
+        let tap = sidebar.backButton.rx.tap
+            .map { _ in return 0}
+        
+        Observable.merge([swipe,tap])
+        .subscribe { [weak self] _ in
+            self?.closeSidebar()
+            print("닫기")
+        }
+        .disposed(by: disposeBag)
+    }
+    
+    private func openSidebar() {
+        sidebar.snp.remakeConstraints {
+            $0.top.bottom.leading.equalToSuperview()
+            $0.width.equalTo(250)
+        }
+        
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    private func closeSidebar() {
+        sidebar.snp.remakeConstraints {
+            $0.top.bottom.equalToSuperview()
+            $0.leading.equalToSuperview().offset(-280)
+            $0.width.equalTo(250)
+        }
+        
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
     }
 }
 

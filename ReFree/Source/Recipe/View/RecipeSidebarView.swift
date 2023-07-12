@@ -10,12 +10,12 @@ import SnapKit
 import Then
 
 final class RecipeSidebarView: UIView {
-    private let bowlStack = FoodKindView(kind: .bowl)
-    private let soupStack = FoodKindView(kind: .soup)
-    private let sideStack = FoodKindView(kind: .sideMenu)
-    private let dessertStack = FoodKindView(kind: .dessert)
+    let bowlStack = FoodKindView(kind: .bowl)
+    let soupStack = FoodKindView(kind: .soup)
+    let sideStack = FoodKindView(kind: .sideMenu)
+    let dessertStack = FoodKindView(kind: .dessert)
     private let line = UIView()
-    private let saveStack = FoodKindView(kind: .save)
+    let saveStack = FoodKindView(kind: .save)
     
     private lazy var buttonStack = UIStackView(
         arrangedSubviews: [
@@ -32,7 +32,7 @@ final class RecipeSidebarView: UIView {
         $0.axis = .vertical
     }
     
-    private let backButton = UIButton().then {
+    let backButton = UIButton().then {
         $0.tintColor = .white
         $0.backgroundColor = .refreeColor.recipeBack1
         $0.setImage(UIImage(systemName: "chevron.left"), for: .normal)
