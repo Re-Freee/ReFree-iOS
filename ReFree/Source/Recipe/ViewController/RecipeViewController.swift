@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
 
 final class RecipeViewController: UIViewController {
     private enum Const {
@@ -74,6 +75,7 @@ final class RecipeViewController: UIViewController {
         view.gradientBackground(type: .reverseMainAxial)
         layout()
         configCollectionView()
+        bind()
     }
     
     private func layout() {
@@ -105,6 +107,10 @@ final class RecipeViewController: UIViewController {
     private func configCollectionView() {
         carouselCollectionView.dataSource = self
         carouselCollectionView.delegate = self
+    }
+    
+    private func bind() {
+//        header.sideBarToggleButton.rx.
     }
 }
 
