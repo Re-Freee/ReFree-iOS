@@ -121,10 +121,13 @@ final class RecipeViewController: UIViewController {
         
         let swipe = sidebar.rx.swipeGesture(.left).when(.recognized)
             .map { _ in return Void() }
-        let tap = sidebar.backButton.rx.tap
+        let sidebarCloseButtonTap = sidebar.backButton.rx.tap
             .map { _ in return Void() }
-        
-        Observable.merge([swipe,tap])
+    
+        Observable.merge([
+            swipe,
+            sidebarCloseButtonTap,
+        ])
         .subscribe { [weak self] _ in
             self?.closeSidebar()
         }
