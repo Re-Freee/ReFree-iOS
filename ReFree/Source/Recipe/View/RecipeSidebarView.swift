@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import Then
+import RxGesture
+import RxSwift
 
 final class RecipeSidebarView: UIView {
     let bowlStack = FoodKindView(kind: .bowl)
@@ -39,9 +41,12 @@ final class RecipeSidebarView: UIView {
         $0.layer.cornerRadius = 15
     }
     
+    private var disposeBag = DisposeBag()
+    
     init() {
         super.init(frame: .zero)
         layout()
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -77,6 +82,30 @@ final class RecipeSidebarView: UIView {
         buttonStack.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(8)
             $0.centerY.equalToSuperview().offset(-50)
+        }
+    }
+    
+    private func bind() {
+        [
+            bowlStack,
+            soupStack,
+            sideStack,
+            dessertStack,
+            saveStack
+        ].forEach { target in
+            target.rx.touchDownGesture()
+                .when(.began)
+                .bind { _ in
+                    target.backgroundColor = .refreeColor.background3
+                }
+                .disposed(by: disposeBag)
+            
+            target.rx.touchDownGesture()
+                .when(.ended)
+                .bind { _ in
+                    target.backgroundColor = .clear
+                }
+                .disposed(by: disposeBag)
         }
     }
 }
