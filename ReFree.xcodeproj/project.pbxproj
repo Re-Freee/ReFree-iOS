@@ -28,6 +28,8 @@
 		6A9D25002A5EC92C0025BF3B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 6A9D24FF2A5EC92C0025BF3B /* RxCocoa */; };
 		6A9D25022A5EC92C0025BF3B /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6A9D25012A5EC92C0025BF3B /* RxSwift */; };
 		6A9D25072A5F13D70025BF3B /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 6A9D25062A5F13D70025BF3B /* RxGesture */; };
+		6AA335E92A606F510037A2C1 /* IngredientDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA335E82A606F510037A2C1 /* IngredientDetailView.swift */; };
+		6AA335EB2A6070AB0037A2C1 /* UIView+StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA335EA2A6070AB0037A2C1 /* UIView+StackView.swift */; };
 		6ACEE6C62A5C92F70084C41A /* UIView+gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACEE6C52A5C92F70084C41A /* UIView+gradient.swift */; };
 		6AD7E3972A506C08007338DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7E3962A506C08007338DB /* AppDelegate.swift */; };
 		6AD7E3992A506C08007338DB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7E3982A506C08007338DB /* SceneDelegate.swift */; };
@@ -56,6 +58,8 @@
 		6A894D0C2A5F310200B053A5 /* RFModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFModalViewController.swift; sourceTree = "<group>"; };
 		6A9D24FA2A5DC9AD0025BF3B /* RecipeSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSidebarView.swift; sourceTree = "<group>"; };
 		6A9D24FC2A5DCA030025BF3B /* FoodKindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodKindView.swift; sourceTree = "<group>"; };
+		6AA335E82A606F510037A2C1 /* IngredientDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientDetailView.swift; sourceTree = "<group>"; };
+		6AA335EA2A6070AB0037A2C1 /* UIView+StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+StackView.swift"; sourceTree = "<group>"; };
 		6ACEE6C52A5C92F70084C41A /* UIView+gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+gradient.swift"; sourceTree = "<group>"; };
 		6AD7E3932A506C08007338DB /* ReFree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReFree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AD7E3962A506C08007338DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +135,7 @@
 				6ACEE6C52A5C92F70084C41A /* UIView+gradient.swift */,
 				6A4ED1DE2A5D402700299B61 /* UITextFiled+Attribute.swift */,
 				6A4ED1E02A5D432900299B61 /* UIVIew+Shadow.swift */,
+				6AA335EA2A6070AB0037A2C1 /* UIView+StackView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -193,6 +198,7 @@
 		6A7234F62A50734A004FCFB4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				6AA335E72A606F0A0037A2C1 /* ViewController */,
 				6A7234F72A50734E004FCFB4 /* View */,
 			);
 			path = Common;
@@ -202,9 +208,17 @@
 			isa = PBXGroup;
 			children = (
 				6A4ED1D72A5D237C00299B61 /* RFSearchBar.swift */,
-				6A894D0C2A5F310200B053A5 /* RFModalViewController.swift */,
+				6AA335E82A606F510037A2C1 /* IngredientDetailView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		6AA335E72A606F0A0037A2C1 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6A894D0C2A5F310200B053A5 /* RFModalViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		6AD7E38A2A506C08007338DB = {
@@ -323,6 +337,7 @@
 				6A0D30402A56C83500A9F44A /* UIView+addSubViews.swift in Sources */,
 				6ACEE6C62A5C92F70084C41A /* UIView+gradient.swift in Sources */,
 				6A4ED1E12A5D432900299B61 /* UIVIew+Shadow.swift in Sources */,
+				6AA335E92A606F510037A2C1 /* IngredientDetailView.swift in Sources */,
 				6A0D30472A56C8DD00A9F44A /* SignInViewModel.swift in Sources */,
 				6A4ED1E52A5D4B4600299B61 /* CarouselCell.swift in Sources */,
 				6AD7E3972A506C08007338DB /* AppDelegate.swift in Sources */,
@@ -335,6 +350,7 @@
 				6A4ED1E72A5D4E0D00299B61 /* Identifiable.swift in Sources */,
 				6A4ED1E32A5D4B3400299B61 /* CarouselCollectionView.swift in Sources */,
 				6A9D24FD2A5DCA030025BF3B /* FoodKindView.swift in Sources */,
+				6AA335EB2A6070AB0037A2C1 /* UIView+StackView.swift in Sources */,
 				6AD7E3992A506C08007338DB /* SceneDelegate.swift in Sources */,
 				6A9D24FB2A5DC9AD0025BF3B /* RecipeSidebarView.swift in Sources */,
 				6A4ED1DD2A5D31A800299B61 /* BadgeButton.swift in Sources */,

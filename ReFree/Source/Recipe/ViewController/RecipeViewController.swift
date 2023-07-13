@@ -72,6 +72,19 @@ final class RecipeViewController: UIViewController {
         config()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let ratio = 0.7
+        guard
+            let height = view.window?.windowScene?.screen.bounds.height
+        else { return }
+        let halfModal = RFModalViewController(
+            modalHeight: height * ratio,
+            type: .detail
+        )
+        present(halfModal, animated: true)
+    }
+    
     private func config() {
         view.gradientBackground(type: .reverseMainAxial)
         layout()
