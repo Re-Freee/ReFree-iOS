@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
 
 final class IngredientDetailView: UIView {
     private let titleLabel = UILabel().then {
@@ -41,8 +42,33 @@ final class IngredientDetailView: UIView {
     
     private let memoTextField = UITextField().then {
         // TODO: Font
+        $0.isUserInteractionEnabled = false
         $0.contentVerticalAlignment = .top
         $0.text = "가나다라마바사"
+    }
+    
+    let deleteButton = UIButton().then {
+        $0.layer.borderColor = UIColor.refreeColor.background3.cgColor
+        $0.layer.borderWidth = 0.5
+        $0.layer.cornerRadius = 25
+        $0.setTitleColor(.black, for: .normal)
+        $0.setTitle("삭제", for: .normal)
+    }
+    
+    let editButton = UIButton().then {
+        $0.backgroundColor = .refreeColor.background3
+        $0.layer.cornerRadius = 25
+        $0.setTitle("수정", for: .normal)
+        $0.setTitleColor(.white, for: .normal)
+    }
+    
+    private lazy var buttonStack = UIStackView(
+        arrangedSubviews: [
+            deleteButton,
+            editButton
+        ]
+    ).then {
+        $0.axis = .horizontal
     }
     
     override init(frame: CGRect) {
@@ -57,7 +83,8 @@ final class IngredientDetailView: UIView {
     private func layout() {
         addSubviews([
             contentStack,
-            memoTextField
+            memoTextField,
+            buttonStack
         ])
         
         titleLabel.snp.makeConstraints {
@@ -76,10 +103,21 @@ final class IngredientDetailView: UIView {
         memoTextField.snp.makeConstraints {
             $0.top.equalTo(contentStack.snp.bottom).offset(12)
             $0.leading.trailing.equalToSuperview().inset(48)
-            $0.bottom.equalToSuperview()
+        }
+        
+        [deleteButton, editButton].forEach {
+            $0.snp.makeConstraints {
+                $0.width.equalTo(100)
+                $0.height.equalTo(50)
+            }
+        }
+        
+        buttonStack.snp.makeConstraints {
+            $0.top.equalTo(memoTextField.snp.bottom)
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(48)
         }
     }
-    
 }
 
 final class lineView: UIView {
