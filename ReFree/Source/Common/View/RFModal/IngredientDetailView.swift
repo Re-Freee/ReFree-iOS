@@ -25,13 +25,13 @@ final class IngredientDetailView: UIView {
     private lazy var contentStack = UIStackView(
         arrangedSubviews: [
             titleLabel,
-            lineView(height: 0.5),
+            LineView(height: 0.5),
             category,
-            lineView(height: 0.5),
+            LineView(height: 0.5),
             expireDate,
-            lineView(height: 0.5),
+            LineView(height: 0.5),
             productCount,
-            lineView(height: 0.5),
+            LineView(height: 0.5),
             memoLabel
         ]
     ).then {
@@ -117,46 +117,5 @@ final class IngredientDetailView: UIView {
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview().inset(48)
         }
-    }
-}
-
-final class lineView: UIView {
-    init(height: CGFloat = 0.5) {
-        super.init(frame: .zero)
-        backgroundColor = .gray
-        snp.makeConstraints {
-            $0.height.equalTo(height)
-        }
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-
-final class DetailStackView: UIStackView {
-    private let titleLabel = UILabel().then {
-        $0.textAlignment = .left
-    }
-    private let descriptionLabel = UILabel().then {
-        $0.textAlignment = .right
-    }
-    
-    init(title: String, description: String? = nil) {
-        super.init(frame: .zero)
-        titleLabel.text = title
-        descriptionLabel.text = description
-        axis = .horizontal
-        distribution = .equalSpacing
-        addArrangedSubviews([titleLabel, descriptionLabel])
-        
-        snp.makeConstraints {
-            $0.height.equalTo(50)
-        }
-    }
-    
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
