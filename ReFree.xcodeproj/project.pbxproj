@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E7CC82B2A6128750072C1F0 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7CC82A2A6128750072C1F0 /* SignUpViewController.swift */; };
 		6A06E6122A5D1279005938DE /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06E6112A5D1279005938DE /* RecipeViewController.swift */; };
 		6A06E6142A5D1379005938DE /* RecipeTabHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06E6132A5D1378005938DE /* RecipeTabHeader.swift */; };
 		6A06E6162A5D15B2005938DE /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06E6152A5D15B2005938DE /* Constant.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E7CC82A2A6128750072C1F0 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		6A06E6112A5D1279005938DE /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		6A06E6132A5D1378005938DE /* RecipeTabHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTabHeader.swift; sourceTree = "<group>"; };
 		6A06E6152A5D15B2005938DE /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
@@ -91,6 +93,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E7CC8292A6128630072C1F0 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				2E7CC82A2A6128750072C1F0 /* SignUpViewController.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
 		6A06E60E2A5D1237005938DE /* Recipe */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +201,7 @@
 		6A7234F52A507334004FCFB4 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				2E7CC8292A6128630072C1F0 /* SignUp */,
 				6A7234F62A50734A004FCFB4 /* Common */,
 				6A0D30412A56C88600A9F44A /* SignIn */,
 				6A06E60E2A5D1237005938DE /* Recipe */,
@@ -352,6 +363,7 @@
 				6ACEE6C62A5C92F70084C41A /* UIView+gradient.swift in Sources */,
 				6A4ED1E12A5D432900299B61 /* UIVIew+Shadow.swift in Sources */,
 				6AA335EE2A6106290037A2C1 /* DetailStackView.swift in Sources */,
+				2E7CC82B2A6128750072C1F0 /* SignUpViewController.swift in Sources */,
 				6AA335E92A606F510037A2C1 /* IngredientDetailView.swift in Sources */,
 				6A0D30472A56C8DD00A9F44A /* SignInViewModel.swift in Sources */,
 				6A4ED1E52A5D4B4600299B61 /* CarouselCell.swift in Sources */,
