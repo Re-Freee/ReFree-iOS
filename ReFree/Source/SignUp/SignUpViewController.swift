@@ -9,11 +9,18 @@ import UIKit
 import SnapKit
 
 class SignUpViewController: UIViewController {
-    let rocketImageView = {
+    let signUpImageView1 = {
         let view = UIImageView()
-        view.image = UIImage(named: "RefreeLogo")
-        view.contentMode = .scaleAspectFit
-        view.clipsToBounds = true
+        view.image = UIImage(named: "four_circle")
+        view.contentMode = .scaleAspectFill
+        
+        return view
+    }()
+    
+    let signUpImageView2 = {
+        let view = UIImageView()
+        view.image = UIImage(named: "thread")
+        view.contentMode = .scaleAspectFill
         
         return view
     }()
@@ -30,7 +37,7 @@ class SignUpViewController: UIViewController {
         label.font = .pretendard.basic24
         label.font = .systemFont(ofSize: 30, weight: .bold)
         label.textColor = .black
-        label.text = "Sign Up"
+        label.text = "회원가입"
         label.textAlignment = .center
         
         return label
@@ -126,18 +133,14 @@ class SignUpViewController: UIViewController {
         return textField
     }()
     
-    
-    
-    lazy var stackView: UIStackView = {
-            let stackView = UIStackView(arrangedSubviews: [emailView, passwordView, confirmPasswordView, nicknameView])
-            stackView.axis = .vertical // default
-            stackView.distribution = .fill // default
-            stackView.alignment = .fill // default
-            view.addSubview(stackView)
+    let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical // default
+        stackView.distribution = .fill // default
+        stackView.alignment = .fill // default
 
-            return stackView
-        }()
-    
+        return stackView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,30 +154,30 @@ class SignUpViewController: UIViewController {
     
     private func layout(){
         view.addSubviews([
-            rocketImageView,
+            signUpImageView1,
+            signUpImageView2,
             signUpContainerView,
             signUpLabel,
             emailTextField,
             stackView
         ])
         
-        emailView.addSubview(emailTextField)
-        emailView.addSubview(emailLabel)
-        passwordView.addSubview(passwordTextField)
-        confirmPasswordView.addSubview(confirmPasswordTextField)
-        confirmPasswordView.addSubview(confirmPasswordLabel)
-        nicknameView.addSubview(nicknameTextField)
+        signUpImageView1.snp.makeConstraints{ make in
+            make.width.equalTo(144)
+            make.height.equalTo(140)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(50)
+            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(24)
+        }
         
-        
-        rocketImageView.snp.makeConstraints{ make in
-            make.height.equalTo(150)
-            make.leading.trailing.equalToSuperview().inset(24)
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(42)
-            make.centerX.equalToSuperview()
+        signUpImageView2.snp.makeConstraints{ make in
+            make.width.equalTo(144)
+            make.height.equalTo(140)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(50)
+            make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-24)
         }
         
         signUpContainerView.snp.makeConstraints { make in
-            make.top.equalTo(rocketImageView.snp.bottom).offset(7)
+            make.top.equalTo(signUpImageView1.snp.bottom).offset(7)
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-150)
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(35)
             make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-35)
@@ -195,11 +198,84 @@ class SignUpViewController: UIViewController {
             make.leading.equalTo(signUpContainerView.snp.leading).offset(31)
         }
         
-        stackView.snp.makeConstraints { make in
-            make.top.equalTo(signUpLabel.snp.bottom).offset(30)
-            
+        emailView.addSubview(emailTextField)
+        emailView.addSubview(emailLabel)
+        passwordView.addSubview(passwordTextField)
+        confirmPasswordView.addSubview(confirmPasswordTextField)
+        confirmPasswordView.addSubview(confirmPasswordLabel)
+        nicknameView.addSubview(nicknameTextField)
+        
+        stackView.addArrangedSubview(emailView)
+        stackView.addArrangedSubview(passwordView)
+        stackView.addArrangedSubview(confirmPasswordView)
+        stackView.addArrangedSubview(nicknameView)
+        
+        emailView.snp.makeConstraints { make in
+            make.height.equalTo(55)
+            make.width.equalTo(246)
         }
         
+        passwordView.snp.makeConstraints { make in
+            make.height.equalTo(55)
+            make.width.equalTo(246)
+        }
+        
+        confirmPasswordView.snp.makeConstraints { make in
+            make.height.equalTo(55)
+            make.width.equalTo(246)
+        }
+        
+        nicknameView.snp.makeConstraints { make in
+            make.height.equalTo(55)
+            make.width.equalTo(246)
+        }
+        
+        
+        emailTextField.snp.makeConstraints { make in
+            make.height.equalTo(30)
+            make.top.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
+        
+        emailLabel.snp.makeConstraints { make in
+            make.top.equalTo(emailTextField.snp.bottom).offset(5)
+            make.leading.equalTo(emailTextField.snp.leading).offset(9)
+        }
+        
+        passwordTextField.snp.makeConstraints { make in
+            make.height.equalTo(30)
+            make.top.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
+        
+        confirmPasswordTextField.snp.makeConstraints { make in
+            make.height.equalTo(30)
+            make.top.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
+        
+        confirmPasswordLabel.snp.makeConstraints { make in
+            make.top.equalTo(confirmPasswordTextField.snp.bottom).offset(5)
+            make.leading.equalTo(emailTextField.snp.leading).offset(9)
+        }
+        
+        nicknameTextField.snp.makeConstraints { make in
+            make.height.equalTo(30)
+            make.top.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
+        
+        stackView.snp.makeConstraints { make in
+            make.top.equalTo(signUpLabel.snp.bottom).offset(23)
+            make.leading.equalTo(signUpContainerView.snp.leading).offset(29)
+            make.trailing.equalTo(signUpContainerView.snp.leading).offset(-48)
+        }
+        
+
         
     }
     
