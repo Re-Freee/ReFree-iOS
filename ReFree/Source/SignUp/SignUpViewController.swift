@@ -11,8 +11,9 @@ import SnapKit
 class SignUpViewController: UIViewController {
     let rocketImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "Rocket")
-        view.contentMode = .scaleAspectFill
+        view.image = UIImage(named: "RefreeLogo")
+        view.contentMode = .scaleAspectFit
+        view.clipsToBounds = true
         
         return view
     }()
@@ -26,7 +27,7 @@ class SignUpViewController: UIViewController {
     
     let signUpLabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Pretendard", size: 30)
+        label.font = .pretendard.basic24
         label.font = .systemFont(ofSize: 30, weight: .bold)
         label.textColor = .black
         label.text = "Sign Up"
@@ -166,8 +167,8 @@ class SignUpViewController: UIViewController {
         
         
         rocketImageView.snp.makeConstraints{ make in
-            make.width.equalTo(170)
-            make.height.equalTo(164)
+            make.height.equalTo(150)
+            make.leading.trailing.equalToSuperview().inset(24)
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(42)
             make.centerX.equalToSuperview()
         }

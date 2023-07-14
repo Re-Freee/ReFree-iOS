@@ -84,6 +84,6 @@ final class CarouselCell: UICollectionViewCell, Identifiable {
     
     // Struct로 데이터를 받아올 예정
     func setData() {
-        imageView.image = UIImage(named: "rocket")
+        imageView.image = UIImage(named: "Rocket")
     }
 }

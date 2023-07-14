@@ -74,8 +74,18 @@ extension UIView {
     
     private func blackAxialBackground() {
         let colors: [CGColor] = [
-            UIColor.refreeColor.recipeBack1.cgColor,
-            UIColor.refreeColor.recipeBack2.cgColor
+            UIColor(
+                red: 31/255,
+                green: 53/255,
+                blue: 71/255,
+                alpha: 1
+            ).cgColor,
+            UIColor(
+                red: 133/255,
+                green: 118/255,
+                blue: 112/255,
+                alpha: 1
+            ).cgColor
         ]
         
         setGradientLayer(

@@ -36,7 +36,7 @@ final class RecipeSidebarView: UIView {
     
     let backButton = UIButton().then {
         $0.tintColor = .white
-        $0.backgroundColor = .refreeColor.recipeBack1
+        $0.backgroundColor = .refreeColor.main
         $0.setImage(UIImage(systemName: "chevron.left"), for: .normal)
         $0.layer.cornerRadius = 15
     }

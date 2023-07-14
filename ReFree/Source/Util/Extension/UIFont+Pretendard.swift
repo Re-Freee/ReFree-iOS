@@ -12,6 +12,8 @@ extension UIFont {
     
     struct Pretendard {
         // Basic
+        let basic8 = UIFont(name: PretendardStyle.basic.name, size: 8)
+        let basic10 = UIFont(name: PretendardStyle.basic.name, size: 10)
         let basic12 = UIFont(name: PretendardStyle.basic.name, size: 12)
         let basic16 = UIFont(name: PretendardStyle.basic.name, size: 16)
         let basic18 = UIFont(name: PretendardStyle.basic.name, size: 18)
@@ -20,6 +22,8 @@ extension UIFont {
         let basic24 = UIFont(name: PretendardStyle.basic.name, size: 24)
         
         // Bold
+        let bold8 = UIFont(name: PretendardStyle.bold.name, size: 8)
+        let bold10 = UIFont(name: PretendardStyle.bold.name, size: 10)
         let bold12 = UIFont(name: PretendardStyle.bold.name, size: 12)
         let bold16 = UIFont(name: PretendardStyle.bold.name, size: 16)
         let bold18 = UIFont(name: PretendardStyle.bold.name, size: 18)
@@ -28,6 +32,8 @@ extension UIFont {
         let bold24 = UIFont(name: PretendardStyle.bold.name, size: 24)
         
         // ExtraBold
+        let extraBold8 = UIFont(name: PretendardStyle.extraBold.name, size: 8)
+        let extraBold10 = UIFont(name: PretendardStyle.extraBold.name, size: 10)
         let extraBold12 = UIFont(name: PretendardStyle.extraBold.name, size: 12)
         let extraBold16 = UIFont(name: PretendardStyle.extraBold.name, size: 16)
         let extraBold18 = UIFont(name: PretendardStyle.extraBold.name, size: 18)
@@ -36,6 +42,8 @@ extension UIFont {
         let extraBold24 = UIFont(name: PretendardStyle.extraBold.name, size: 24)
         
         // ExtraLight
+        let extraLight8 = UIFont(name: PretendardStyle.extraLight.name, size: 8)
+        let extraLight10 = UIFont(name: PretendardStyle.extraLight.name, size: 10)
         let extraLight12 = UIFont(name: PretendardStyle.extraLight.name, size: 12)
         let extraLight16 = UIFont(name: PretendardStyle.extraLight.name, size: 16)
         let extraLight18 = UIFont(name: PretendardStyle.extraLight.name, size: 18)

@@ -11,7 +11,7 @@ import Then
 
 final class RecipeTabHeader: UIView {
     let sideBarToggleButton = UIButton().then {
-        $0.setImage(UIImage(named: "hamberger_button"), for: .normal)
+        $0.setImage(UIImage(named: "HambergerButton"), for: .normal)
     }
     
     private let bookmarkButton = BadgeButton(frame: .zero)
@@ -19,9 +19,10 @@ final class RecipeTabHeader: UIView {
     private let searchBar = RFSearchBar(height: 40)
     
     private let titleLabel = UILabel().then {
+        $0.textColor = .refreeColor.main
+        $0.font = .pretendard.bold20
         $0.textAlignment = .center
-        $0.text = "OOO님을 위한 추천 레시피"
-        // TODO: 폰트 수정 필요 + Color
+        $0.text = "000님을 위한 추천 레시피"
     }
     
     override init(frame: CGRect) {

@@ -20,13 +20,13 @@ extension UIColor {
         // Point Colors
         let main = UIColor(named: "Main") ?? .white
         let textFrame = UIColor(named: "TextFrame") ?? .white
-        let rfGray = UIColor(named: "RFGray") ?? .white
-        let defaultBack = UIColor(named: "DefaultBack") ?? .white
-        let recipeBack1 = UIColor(named: "RecipeBack1") ?? .white
-        let recipeBack2 = UIColor(named: "RecipeBack2") ?? .white
-        let selectedBack = UIColor(named: "SelectedBack") ?? .white
-        let sideBarIcon = UIColor(named: "SideBarIcon") ?? .white
-        let unSelectedBack = UIColor(named: "UnSelectedBack") ?? .white // == White
-        let unSelectedIcon = UIColor(named: "UnSelectedIcon") ?? .white
+        let text1 = UIColor(named: "Text1") ?? .white
+        let text2 = UIColor(named: "Text2") ?? .white
+        let text3 = UIColor(named: "Text3") ?? .white
+        let button1 = UIColor(named: "Button1") ?? .white
+        let button2 = UIColor(named: "Button2") ?? .white
+        let button3 = UIColor(named: "Button3") ?? .white
+        let button4 = UIColor(named: "Button4") ?? .white
+        let red = UIColor(named: "Red") ?? .white
     }
 }

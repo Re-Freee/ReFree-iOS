@@ -14,14 +14,14 @@ class HomeTabHeader: UIView {
     
     private let imminentFoodButton = UIButton().then {
         $0.setTitle("소비기한 임박 음식", for: .normal)
-        $0.setTitleColor(UIColor.refreeColor.unSelectedIcon, for: .normal)
-        $0.backgroundColor = UIColor.refreeColor.rfGray
+        $0.setTitleColor(UIColor.refreeColor.main, for: .normal)
+        $0.backgroundColor = UIColor.refreeColor.button1
     }
     
     private let expiredFoodButton = UIButton().then {
         $0.setTitle("소비기한 만료 음식", for: .normal)
-        $0.setTitleColor(UIColor.refreeColor.unSelectedIcon, for: .normal)
-        $0.backgroundColor = UIColor.refreeColor.rfGray
+        $0.setTitleColor(UIColor.refreeColor.main, for: .normal)
+        $0.backgroundColor = UIColor.refreeColor.button4
     }
     
     override init(frame: CGRect) {
