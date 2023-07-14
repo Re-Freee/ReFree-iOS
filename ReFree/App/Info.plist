@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>PRETENDARD-BLACK.TTF</string>
+		<string>PRETENDARD-BOLD.TTF</string>
+		<string>PRETENDARD-EXTRABOLD.TTF</string>
+		<string>PRETENDARD-EXTRALIGHT.TTF</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
