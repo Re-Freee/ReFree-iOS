@@ -13,8 +13,7 @@
 		6A06E6142A5D1379005938DE /* RecipeTabHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06E6132A5D1378005938DE /* RecipeTabHeader.swift */; };
 		6A06E6162A5D15B2005938DE /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06E6152A5D15B2005938DE /* Constant.swift */; };
 		6A0D30402A56C83500A9F44A /* UIView+addSubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D303F2A56C83500A9F44A /* UIView+addSubViews.swift */; };
-		6A0D30452A56C8D300A9F44A /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D30442A56C8D300A9F44A /* SignInViewController.swift */; };
-		6A0D30472A56C8DD00A9F44A /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D30462A56C8DD00A9F44A /* SignInViewModel.swift */; };
+		6A1C0EB82A613EBE00A7C1C1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C0EB72A613EBE00A7C1C1 /* SignUpViewController.swift */; };
 		6A2B70732A5BF056002F92EB /* UIColor+ReFreeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2B70722A5BF056002F92EB /* UIColor+ReFreeColor.swift */; };
 		6A4ED1D82A5D237C00299B61 /* RFSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4ED1D72A5D237C00299B61 /* RFSearchBar.swift */; };
 		6A4ED1DB2A5D254600299B61 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 6A4ED1DA2A5D254600299B61 /* Then */; };
@@ -51,8 +50,7 @@
 		6A06E6132A5D1378005938DE /* RecipeTabHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTabHeader.swift; sourceTree = "<group>"; };
 		6A06E6152A5D15B2005938DE /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		6A0D303F2A56C83500A9F44A /* UIView+addSubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+addSubViews.swift"; sourceTree = "<group>"; };
-		6A0D30442A56C8D300A9F44A /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
-		6A0D30462A56C8DD00A9F44A /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		6A1C0EB72A613EBE00A7C1C1 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		6A2B70722A5BF056002F92EB /* UIColor+ReFreeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ReFreeColor.swift"; sourceTree = "<group>"; };
 		6A4ED1D72A5D237C00299B61 /* RFSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFSearchBar.swift; sourceTree = "<group>"; };
 		6A4ED1DC2A5D31A800299B61 /* BadgeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeButton.swift; sourceTree = "<group>"; };
@@ -173,30 +171,14 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		6A0D30412A56C88600A9F44A /* SignIn */ = {
+		6A1C0EB62A613EBE00A7C1C1 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
-				6A0D30432A56C89200A9F44A /* ViewController */,
-				6A0D30422A56C88F00A9F44A /* ViewModel */,
+				6A1C0EB72A613EBE00A7C1C1 /* SignUpViewController.swift */,
 			);
-			path = SignIn;
-			sourceTree = "<group>";
-		};
-		6A0D30422A56C88F00A9F44A /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				6A0D30462A56C8DD00A9F44A /* SignInViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		6A0D30432A56C89200A9F44A /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				6A0D30442A56C8D300A9F44A /* SignInViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
+			name = SignUp;
+			path = ReFree/Source/SignUp;
+			sourceTree = SOURCE_ROOT;
 		};
 		6A7234F32A507303004FCFB4 /* App */ = {
 			isa = PBXGroup;
@@ -222,7 +204,7 @@
 			children = (
 				02ADE9312A6134BA0017B69D /* Home */,
 				6A7234F62A50734A004FCFB4 /* Common */,
-				6A0D30412A56C88600A9F44A /* SignIn */,
+				6A1C0EB62A613EBE00A7C1C1 /* SignUp */,
 				6A06E60E2A5D1237005938DE /* Recipe */,
 				6A0D303D2A56C80F00A9F44A /* Util */,
 			);
@@ -383,16 +365,14 @@
 				6ACEE6C62A5C92F70084C41A /* UIView+gradient.swift in Sources */,
 				6A4ED1E12A5D432900299B61 /* UIVIew+Shadow.swift in Sources */,
 				6AA335EE2A6106290037A2C1 /* DetailStackView.swift in Sources */,
-				2E7CC82B2A6128750072C1F0 /* SignUpViewController.swift in Sources */,
 				6AA335E92A606F510037A2C1 /* IngredientDetailView.swift in Sources */,
-				6A0D30472A56C8DD00A9F44A /* SignInViewModel.swift in Sources */,
+				6A1C0EB82A613EBE00A7C1C1 /* SignUpViewController.swift in Sources */,
 				6A4ED1E52A5D4B4600299B61 /* CarouselCell.swift in Sources */,
 				6AD7E3972A506C08007338DB /* AppDelegate.swift in Sources */,
 				6A4ED1D82A5D237C00299B61 /* RFSearchBar.swift in Sources */,
 				6A2B70732A5BF056002F92EB /* UIColor+ReFreeColor.swift in Sources */,
 				6A06E6142A5D1379005938DE /* RecipeTabHeader.swift in Sources */,
 				6A4ED1DF2A5D402700299B61 /* UITextFiled+Attribute.swift in Sources */,
-				6A0D30452A56C8D300A9F44A /* SignInViewController.swift in Sources */,
 				6A06E6162A5D15B2005938DE /* Constant.swift in Sources */,
 				6A4ED1E72A5D4E0D00299B61 /* Identifiable.swift in Sources */,
 				6A4ED1E32A5D4B3400299B61 /* CarouselCollectionView.swift in Sources */,
