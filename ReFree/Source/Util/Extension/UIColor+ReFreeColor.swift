@@ -18,8 +18,8 @@ extension UIColor {
         let background4 = UIColor(named: "Background4") ?? .white
         
         // Point Colors
-        let border1 = UIColor(named: "Border1") ?? .white
-        let border2 = UIColor(named: "Border2") ?? .white
+        let main = UIColor(named: "Main") ?? .white
+        let textFrame = UIColor(named: "TextFrame") ?? .white
         let rfGray = UIColor(named: "RFGray") ?? .white
         let defaultBack = UIColor(named: "DefaultBack") ?? .white
         let recipeBack1 = UIColor(named: "RecipeBack1") ?? .white
