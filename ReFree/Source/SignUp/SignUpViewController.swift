@@ -17,7 +17,7 @@ class SignUpViewController: UIViewController {
         return view
     }()
     
-    let signupContainerView = {
+    let signUpContainerView = {
         let view = UIView()
         view.backgroundColor = .white
         
@@ -149,10 +149,13 @@ class SignUpViewController: UIViewController {
     }
     
     private func layout(){
-        view.addSubview(rocketImageView)
-        view.addSubview(signupContainerView)
-        view.addSubview(signUpLabel)
-        view.addSubview(emailTextField)
+        view.addSubviews([
+            rocketImageView,
+            signUpContainerView,
+            signUpLabel,
+            emailTextField,
+            stackView
+        ])
         
         emailView.addSubview(emailTextField)
         emailView.addSubview(emailLabel)
@@ -161,7 +164,6 @@ class SignUpViewController: UIViewController {
         confirmPasswordView.addSubview(confirmPasswordLabel)
         nicknameView.addSubview(nicknameTextField)
         
-        view.addSubview(stackView)
         
         rocketImageView.snp.makeConstraints{ make in
             make.width.equalTo(170)
@@ -170,26 +172,26 @@ class SignUpViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
         
-        signupContainerView.snp.makeConstraints { make in
+        signUpContainerView.snp.makeConstraints { make in
             make.top.equalTo(rocketImageView.snp.bottom).offset(7)
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-150)
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(35)
             make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-35)
         }
         
-        signupContainerView.layer.cornerRadius = 26
+        signUpContainerView.layer.cornerRadius = 26
         
-        signupContainerView.layer.borderWidth = 5
-        signupContainerView.layer.borderColor = UIColor.clear.cgColor
-        signupContainerView.layer.masksToBounds = false
-        signupContainerView.layer.shadowColor = UIColor.gray.cgColor
-        signupContainerView.layer.shadowOffset = CGSize(width: 0, height: 4)
-        signupContainerView.layer.shadowOpacity = 1
-        signupContainerView.layer.shadowRadius = 4
+        signUpContainerView.layer.borderWidth = 5
+        signUpContainerView.layer.borderColor = UIColor.clear.cgColor
+        signUpContainerView.layer.masksToBounds = false
+        signUpContainerView.layer.shadowColor = UIColor.gray.cgColor
+        signUpContainerView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        signUpContainerView.layer.shadowOpacity = 1
+        signUpContainerView.layer.shadowRadius = 4
         
         signUpLabel.snp.makeConstraints { make in
-            make.top.equalTo(signupContainerView.snp.top).offset(34)
-            make.leading.equalTo(signupContainerView.snp.leading).offset(31)
+            make.top.equalTo(signUpContainerView.snp.top).offset(34)
+            make.leading.equalTo(signUpContainerView.snp.leading).offset(31)
         }
         
         stackView.snp.makeConstraints { make in
