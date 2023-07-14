@@ -23,6 +23,10 @@
 		6A4ED1E52A5D4B4600299B61 /* CarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4ED1E42A5D4B4600299B61 /* CarouselCell.swift */; };
 		6A4ED1E72A5D4E0D00299B61 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4ED1E62A5D4E0D00299B61 /* Identifiable.swift */; };
 		6A894D0D2A5F310200B053A5 /* RFModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A894D0C2A5F310200B053A5 /* RFModalViewController.swift */; };
+		6A8C53FA2A6136D5001EC332 /* PRETENDARD-EXTRALIGHT.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 6A8C53F62A6136D4001EC332 /* PRETENDARD-EXTRALIGHT.TTF */; };
+		6A8C53FB2A6136D5001EC332 /* PRETENDARD-BLACK.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 6A8C53F72A6136D4001EC332 /* PRETENDARD-BLACK.TTF */; };
+		6A8C53FC2A6136D5001EC332 /* PRETENDARD-EXTRABOLD.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 6A8C53F82A6136D4001EC332 /* PRETENDARD-EXTRABOLD.TTF */; };
+		6A8C53FD2A6136D5001EC332 /* PRETENDARD-BOLD.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 6A8C53F92A6136D5001EC332 /* PRETENDARD-BOLD.TTF */; };
 		6A9D24FB2A5DC9AD0025BF3B /* RecipeSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9D24FA2A5DC9AD0025BF3B /* RecipeSidebarView.swift */; };
 		6A9D24FD2A5DCA030025BF3B /* FoodKindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9D24FC2A5DCA030025BF3B /* FoodKindView.swift */; };
 		6A9D25002A5EC92C0025BF3B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 6A9D24FF2A5EC92C0025BF3B /* RxCocoa */; };
@@ -58,6 +62,10 @@
 		6A4ED1E42A5D4B4600299B61 /* CarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCell.swift; sourceTree = "<group>"; };
 		6A4ED1E62A5D4E0D00299B61 /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		6A894D0C2A5F310200B053A5 /* RFModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFModalViewController.swift; sourceTree = "<group>"; };
+		6A8C53F62A6136D4001EC332 /* PRETENDARD-EXTRALIGHT.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PRETENDARD-EXTRALIGHT.TTF"; sourceTree = "<group>"; };
+		6A8C53F72A6136D4001EC332 /* PRETENDARD-BLACK.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PRETENDARD-BLACK.TTF"; sourceTree = "<group>"; };
+		6A8C53F82A6136D4001EC332 /* PRETENDARD-EXTRABOLD.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PRETENDARD-EXTRABOLD.TTF"; sourceTree = "<group>"; };
+		6A8C53F92A6136D5001EC332 /* PRETENDARD-BOLD.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PRETENDARD-BOLD.TTF"; sourceTree = "<group>"; };
 		6A9D24FA2A5DC9AD0025BF3B /* RecipeSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSidebarView.swift; sourceTree = "<group>"; };
 		6A9D24FC2A5DCA030025BF3B /* FoodKindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodKindView.swift; sourceTree = "<group>"; };
 		6AA335E82A606F510037A2C1 /* IngredientDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientDetailView.swift; sourceTree = "<group>"; };
@@ -183,6 +191,7 @@
 		6A7234F42A50731D004FCFB4 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				6A8C53F52A6136B5001EC332 /* Fonts */,
 				6AD7E39F2A506C09007338DB /* Assets.xcassets */,
 			);
 			path = Resource;
@@ -216,6 +225,17 @@
 				6AA335EF2A61066D0037A2C1 /* LineView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		6A8C53F52A6136B5001EC332 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				6A8C53F72A6136D4001EC332 /* PRETENDARD-BLACK.TTF */,
+				6A8C53F92A6136D5001EC332 /* PRETENDARD-BOLD.TTF */,
+				6A8C53F82A6136D4001EC332 /* PRETENDARD-EXTRABOLD.TTF */,
+				6A8C53F62A6136D4001EC332 /* PRETENDARD-EXTRALIGHT.TTF */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		6AA335E72A606F0A0037A2C1 /* ViewController */ = {
@@ -338,6 +358,10 @@
 			files = (
 				6AD7E3A32A506C09007338DB /* LaunchScreen.storyboard in Resources */,
 				6AD7E3A02A506C09007338DB /* Assets.xcassets in Resources */,
+				6A8C53FA2A6136D5001EC332 /* PRETENDARD-EXTRALIGHT.TTF in Resources */,
+				6A8C53FB2A6136D5001EC332 /* PRETENDARD-BLACK.TTF in Resources */,
+				6A8C53FD2A6136D5001EC332 /* PRETENDARD-BOLD.TTF in Resources */,
+				6A8C53FC2A6136D5001EC332 /* PRETENDARD-EXTRABOLD.TTF in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
