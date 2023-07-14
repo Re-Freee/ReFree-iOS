@@ -13,13 +13,13 @@ final class RFSearchBar: UIView {
     private let textField = UITextField().then {
         $0.placeHolder(
             string: "재료명, 음식명으로 검색",
-            color: UIColor.refreeColor.unSelectedIcon
+            color: UIColor.refreeColor.text1
         )
-        $0.textColor = .refreeColor.unSelectedIcon
+        $0.textColor = .refreeColor.text1
     }
     
     private let searchStart = UIImageView(
-        image: UIImage(named: "search")
+        image: UIImage(named: "Search")
     )
     
     init(height: CGFloat = .zero) {
@@ -42,10 +42,10 @@ final class RFSearchBar: UIView {
     
     private func layout(height: CGFloat) {
         let cornerRadius = height / 2
-        let searchHeight = height/5*3
-        let inset = (height-searchHeight)/2
+        let searchHeight = height / 5 * 3
+        let inset = (height-searchHeight) / 2
         
-        backgroundColor = .refreeColor.rfGray
+        backgroundColor = .refreeColor.button4
         layer.cornerRadius = cornerRadius
         
         addSubviews([textField, searchStart])

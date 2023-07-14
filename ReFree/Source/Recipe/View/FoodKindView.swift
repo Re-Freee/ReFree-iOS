@@ -11,11 +11,11 @@ import Then
 
 final class FoodKindView: UIView {
     enum Kind: String {
-        case bowl = "bowl"
-        case soup = "soup"
-        case sideMenu = "side"
-        case dessert = "dessert"
-        case save = "saveHeart"
+        case bowl = "Bowl"
+        case soup = "Soup"
+        case sideMenu = "Side"
+        case dessert = "Dessert"
+        case save = "SaveHeart"
         
         var foodScript: String {
             switch self {

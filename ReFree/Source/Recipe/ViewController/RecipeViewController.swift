@@ -55,10 +55,15 @@ final class RecipeViewController: UIViewController {
     }
     
     private let pageControl = UIPageControl().then {
+        $0.backgroundColor = .refreeColor.button4
         $0.layer.cornerRadius = 15
-        $0.backgroundColor = .refreeColor.selectedBack
         $0.pageIndicatorTintColor = .refreeColor.background3
-        $0.currentPageIndicatorTintColor = .refreeColor.unSelectedIcon
+        $0.currentPageIndicatorTintColor = UIColor(
+            red: 120/255,
+            green: 120/255,
+            blue: 171/255,
+            alpha: 1
+        )
         // TODO: ViewModel과 함께 설정
         $0.numberOfPages = 3
     }
@@ -86,7 +91,7 @@ final class RecipeViewController: UIViewController {
     }
     
     private func config() {
-        view.gradientBackground(type: .reverseMainAxial)
+        view.gradientBackground(type: .mainAxial)
         layout()
         configCollectionView()
         bind()
