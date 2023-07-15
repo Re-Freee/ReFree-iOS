@@ -1,5 +1,7 @@
 .DS_Store
 *.xcuserstate
+Release.xcconfig
+Development.xcconfig
 
 # Xcode
 #
