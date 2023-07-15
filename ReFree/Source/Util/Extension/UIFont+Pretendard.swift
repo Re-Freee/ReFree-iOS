@@ -26,6 +26,7 @@ extension UIFont {
         let bold8 = UIFont(name: PretendardStyle.bold.name, size: 8)
         let bold10 = UIFont(name: PretendardStyle.bold.name, size: 10)
         let bold12 = UIFont(name: PretendardStyle.bold.name, size: 12)
+        let bold15 = UIFont(name: PretendardStyle.bold.name, size: 15)
         let bold16 = UIFont(name: PretendardStyle.bold.name, size: 16)
         let bold18 = UIFont(name: PretendardStyle.bold.name, size: 18)
         let bold20 = UIFont(name: PretendardStyle.bold.name, size: 20)
@@ -42,6 +43,7 @@ extension UIFont {
         let extraBold20 = UIFont(name: PretendardStyle.extraBold.name, size: 20)
         let extraBold22 = UIFont(name: PretendardStyle.extraBold.name, size: 22)
         let extraBold24 = UIFont(name: PretendardStyle.extraBold.name, size: 24)
+        let extraBold30 = UIFont(name: PretendardStyle.extraBold.name, size: 30)
         
         // ExtraLight
         let extraLight8 = UIFont(name: PretendardStyle.extraLight.name, size: 8)
