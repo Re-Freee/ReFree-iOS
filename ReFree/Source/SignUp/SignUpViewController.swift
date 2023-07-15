@@ -34,7 +34,7 @@ class SignUpViewController: UIViewController {
     
     let signUpLabel = {
         let label = UILabel()
-        label.font = .pretendard.bold30
+        label.font = .pretendard.extraBold30
         label.textColor = UIColor.refreeColor.main
         label.text = "회원가입"
         label.textAlignment = .center
@@ -69,8 +69,7 @@ class SignUpViewController: UIViewController {
         label.textColor = UIColor.refreeColor.red
         label.text = "이미 존재하는 계정입니다."
         label.textAlignment = .center
-        // 기본적으로 아래와 같이 설정해주고, 이벤트 처리 후 false로 지정
-//        label.isHidden = true
+        label.isHidden = true
         
         return label
     }()
@@ -123,8 +122,7 @@ class SignUpViewController: UIViewController {
         label.textColor = UIColor.refreeColor.red
         label.text = "비밀번호가 일치하지 않습니다."
         label.textAlignment = .center
-        // 기본적으로 아래와 같이 설정해주고, 이벤트 처리 후 false로 지정
-        //        label.isHidden = true
+        label.isHidden = true
         
         return label
     }()
@@ -150,34 +148,85 @@ class SignUpViewController: UIViewController {
         return textField
     }()
     
+    let createAccountButton = {
+        let button = UIButton()
+        button.setTitle("Create Account", for: .normal)
+        button.backgroundColor = UIColor.refreeColor.main
+        button.titleLabel?.font = .pretendard.bold15
+        
+        return button
+    }()
+    
     let stackView = {
         let stackView = UIStackView()
-        stackView.axis = .vertical // default
-        stackView.distribution = .fill // default
-        stackView.alignment = .fill // default
-        stackView.spacing = 1
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        let nicknameView = UIView()
+        stackView.setCustomSpacing(23, after: nicknameView)
 
         return stackView
     }()
     
     let emailValidityCheckButton = {
-        let view = UIImageView()
-        view.image = UIImage(named: "CircleCheck")
-        view.contentMode = .scaleAspectFit
-        // 기본적으로 아래와 같이 설정해주고, 이벤트 처리 후 false로 지정
-        //        view.isHidden = true
-        
-        return view
-    }()
+            let view = UIImageView()
+            view.image = UIImage(named: "CircleCheck")
+            view.contentMode = .scaleAspectFit
+            view.isHidden = true
+            
+            return view
+        }()
+    
+    let passwordCheckButton = {
+            let view = UIImageView()
+            view.image = UIImage(named: "CircleCheck")
+            view.contentMode = .scaleAspectFit
+            view.isHidden = true
+            
+            return view
+        }()
+    
+    let confirmpPasswordCheckButton = {
+            let view = UIImageView()
+            view.image = UIImage(named: "CircleCheck")
+            view.contentMode = .scaleAspectFit
+            view.isHidden = true
+            
+            return view
+        }()
+    
+    let nicknameCheckButton = {
+            let view = UIImageView()
+            view.image = UIImage(named: "CircleCheck")
+            view.contentMode = .scaleAspectFit
+            view.isHidden = true
+            
+            return view
+        }()
     
     let passwordErrorButton = {
         let view = UIImageView()
         view.image = UIImage(named: "CircleX")
         view.contentMode = .scaleAspectFit
-        // 기본적으로 아래와 같이 설정해주고, 이벤트 처리 후 false로 지정
-        //        view.isHidden = true
+        view.isHidden = true
         
         return view
+    }()
+    
+    let borderView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.refreeColor.text1
+        
+        return view
+    }()
+    
+    let logInButton = {
+        let button = UIButton()
+        button.setTitle("이미 계정이 있으신가요? Log In", for: .normal)
+        button.setTitleColor(UIColor.refreeColor.text1, for: .normal)
+        button.titleLabel?.font = .pretendard.extraLight12
+        
+        return button
     }()
     
     override func viewDidLoad() {
@@ -197,46 +246,63 @@ class SignUpViewController: UIViewController {
             signUpContainerView,
             signUpLabel,
             emailTextField,
-            stackView
+            stackView,
+            borderView,
+            logInButton
         ])
         
-        emailView.addSubview(emailTextField)
-        emailView.addSubview(emailLabel)
-        emailView.addSubview(emailValidityCheckButton)
-        passwordView.addSubview(passwordTextField)
-        confirmPasswordView.addSubview(confirmPasswordTextField)
-        confirmPasswordView.addSubview(confirmPasswordLabel)
-        confirmPasswordView.addSubview(passwordErrorButton)
-        nicknameView.addSubview(nicknameTextField)
+        emailView.addSubviews([
+            emailTextField,
+            emailLabel,
+            emailValidityCheckButton,
+        ])
+        passwordView.addSubviews([
+            passwordTextField,
+            passwordCheckButton
+        ])
         
-        stackView.addArrangedSubview(emailView)
-        stackView.addArrangedSubview(passwordView)
-        stackView.addArrangedSubview(confirmPasswordView)
-        stackView.addArrangedSubview(nicknameView)
+        confirmPasswordView.addSubviews([
+            confirmPasswordTextField,
+            confirmPasswordLabel,
+            passwordErrorButton,
+            confirmpPasswordCheckButton
+        ])
+        
+        nicknameView.addSubviews([
+            nicknameTextField,
+            nicknameCheckButton
+        ])
+        
+        stackView.addArrangedSubviews([
+            emailView,
+            passwordView,
+            confirmPasswordView,
+            nicknameView,
+            createAccountButton
+        ])
         
         signUpImageView1.snp.makeConstraints{ make in
             make.width.equalTo(144)
             make.height.equalTo(140)
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(50)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(40)
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(24)
         }
         
         signUpImageView2.snp.makeConstraints{ make in
             make.width.equalTo(144)
             make.height.equalTo(140)
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(50)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(40)
             make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-24)
         }
         
         signUpContainerView.snp.makeConstraints { make in
+            make.height.equalToSuperview().dividedBy(2)
             make.top.equalTo(signUpImageView1.snp.bottom).offset(7)
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-134)
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(35)
             make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-35)
         }
         
         signUpContainerView.layer.cornerRadius = 26
-        
         signUpContainerView.layer.borderWidth = 5
         signUpContainerView.layer.borderColor = UIColor.clear.cgColor
         signUpContainerView.layer.masksToBounds = false
@@ -257,6 +323,9 @@ class SignUpViewController: UIViewController {
         
         nicknameTextField.layer.cornerRadius = 13
         nicknameTextField.layer.masksToBounds = true
+        
+        createAccountButton.layer.cornerRadius = 13
+        createAccountButton.layer.masksToBounds = true
  
         signUpLabel.snp.makeConstraints { make in
             make.top.equalTo(signUpContainerView.snp.top).offset(23)
@@ -339,10 +408,43 @@ class SignUpViewController: UIViewController {
             make.trailing.equalToSuperview()
         }
         
+        passwordCheckButton.snp.makeConstraints { make in
+            make.width.height.equalTo(22)
+            make.centerY.equalTo(passwordTextField)
+            make.trailing.equalToSuperview()
+        }
         
+        confirmpPasswordCheckButton.snp.makeConstraints { make in
+            make.width.height.equalTo(22)
+            make.centerY.equalTo(confirmPasswordTextField)
+            make.trailing.equalToSuperview()
+        }
+        
+        nicknameCheckButton.snp.makeConstraints { make in
+            make.width.height.equalTo(22)
+            make.centerY.equalTo(nicknameTextField)
+            make.trailing.equalToSuperview()
+        }
+        
+        
+        
+        createAccountButton.snp.makeConstraints { make in
+            make.height.equalTo(30)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-28)
+        }
+        
+        borderView.snp.makeConstraints { make in
+            make.height.equalTo(1)
+            make.bottom.equalTo(signUpContainerView.snp.bottom).offset(-60)
+            make.width.equalTo(createAccountButton)
+            make.leading.equalTo(createAccountButton)
+        }
+        
+        logInButton.snp.makeConstraints { make in
+            make.top.equalTo(borderView.snp.bottom).offset(2)
+            make.leading.equalTo(borderView.snp.leading).offset(16)
+        }
     }
-    
-
-
 }
 
