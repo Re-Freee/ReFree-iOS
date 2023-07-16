@@ -10,20 +10,16 @@ import SnapKit
 
 final class RFModalViewController: UIViewController {
     
-    enum contentType {
+    enum ContentType {
         case detail
         case recipe
     }
     
     var contentView: UIView?
     
-    init(modalHeight: CGFloat, type: contentType) {
+    init(modalHeight: CGFloat, type: ContentType) {
         super.init(nibName: nil, bundle: Bundle.main)
-        switch type {
-        case .detail: configDetail()
-        case .recipe: break
-        }
-        config(height: modalHeight)
+        config(height: modalHeight, type: type)
     }
     
     required init?(coder: NSCoder) {
@@ -35,7 +31,12 @@ final class RFModalViewController: UIViewController {
         view.backgroundColor = .white
     }
     
-    private func config(height: CGFloat) {
+    private func config(height: CGFloat, type: ContentType) {
+        switch type {
+        case .detail: contentView = IngredientDetailView(frame: view.frame)
+        case .recipe: contentView = IngredientDetailView(frame: view.frame)
+        }
+        
         guard let sheet = sheetPresentationController else { return }
         sheet.detents = [
             .custom(
@@ -43,6 +44,7 @@ final class RFModalViewController: UIViewController {
             ),
             .large()
         ]
+        
         sheet.prefersGrabberVisible = true
         sheet.prefersScrollingExpandsWhenScrolledToEdge = true
         sheet.preferredCornerRadius = CGFloat(30)
@@ -54,10 +56,6 @@ final class RFModalViewController: UIViewController {
         contentView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-    }
-    
-    private func configDetail() {
-        contentView = IngredientDetailView(frame: view.frame)
     }
 }
 

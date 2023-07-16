@@ -12,10 +12,11 @@ import Then
 final class RFSearchBar: UIView {
     private let textField = UITextField().then {
         $0.placeHolder(
-            string: "재료명, 음식명으로 검색",
+            string: "Search",
             color: UIColor.refreeColor.text1
         )
         $0.textColor = .refreeColor.text1
+        $0.font = .pretendard.extraLight15
     }
     
     private let searchStart = UIImageView(

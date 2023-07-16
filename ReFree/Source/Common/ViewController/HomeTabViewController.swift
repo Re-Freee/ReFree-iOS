@@ -30,6 +30,7 @@ final class HomeTabViewController: UITabBarController {
     }
     
     private func tabBarConfig() {
+        tabBar.barTintColor = .refreeColor.lightGray
         tabBar.tintColor = .refreeColor.main
         
         let homeViewController = UINavigationController(
@@ -54,7 +55,7 @@ final class HomeTabViewController: UITabBarController {
             title: "홈",
             image: UIImage(systemName: "house.fill")?
                 .withRenderingMode(.alwaysOriginal)
-                .withTintColor(.refreeColor.text1),
+                .withTintColor(.refreeColor.lightGray),
             selectedImage: UIImage(systemName: "house.fill")
         )
         
@@ -62,7 +63,7 @@ final class HomeTabViewController: UITabBarController {
             title: "냉장고",
             image: UIImage(systemName: "refrigerator.fill")?
                 .withRenderingMode(.alwaysOriginal)
-                .withTintColor(.refreeColor.text1),
+                .withTintColor(.refreeColor.lightGray),
             selectedImage: UIImage(systemName: "refrigerator.fill")
         )
         
@@ -70,7 +71,7 @@ final class HomeTabViewController: UITabBarController {
             title: "음식추가",
             image: UIImage(systemName: "fork.knife")?
                 .withRenderingMode(.alwaysOriginal)
-                .withTintColor(.refreeColor.text1),
+                .withTintColor(.refreeColor.lightGray),
             selectedImage: UIImage(systemName: "fork.knife")
         )
         
@@ -78,7 +79,7 @@ final class HomeTabViewController: UITabBarController {
             title: "레시피",
             image: UIImage(systemName: "list.clipboard.fill")?
                 .withRenderingMode(.alwaysOriginal)
-                .withTintColor(.refreeColor.text1),
+                .withTintColor(.refreeColor.lightGray),
             selectedImage: UIImage(systemName: "list.clipboard.fill")
         )
         

@@ -13,18 +13,25 @@ import RxGesture
 
 final class RecipeViewController: UIViewController {
     private enum Const {
-        static let itemSize = CGSize(width: 250, height: 400)
+        static let itemSize = {
+            guard
+                let width = Constant.screenSize?.width,
+                let height = Constant.screenSize?.height
+            else { return CGSize(width: 200, height: 300) }
+            return CGSize(width: width*3/5, height: height*3/7)
+        }()
         static let itemSpacing = 30.0
         
         static var insetX: CGFloat {
-            (UIScreen.main.bounds.width - Self.itemSize.width) / 2.0
+            guard let screenWidth = Constant.screenSize?.width else { return 0 }
+            return ( screenWidth - self.itemSize.width) / 2.0
         }
         static var collectionViewContentInset: UIEdgeInsets {
             UIEdgeInsets(top: 0, left: Self.insetX, bottom: 0, right: Self.insetX)
         }
     }
-    private let header = RecipeTabHeader(frame: .zero)
     
+    private let header = RecipeTabHeader(frame: .zero)
     private lazy var carouselCollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: carouselFlowLayout
@@ -54,15 +61,10 @@ final class RecipeViewController: UIViewController {
     }
     
     private let pageControl = UIPageControl().then {
-        $0.backgroundColor = .refreeColor.button4
+        $0.backgroundColor = .refreeColor.lightGray
         $0.layer.cornerRadius = 15
         $0.pageIndicatorTintColor = .refreeColor.background3
-        $0.currentPageIndicatorTintColor = UIColor(
-            red: 120/255,
-            green: 120/255,
-            blue: 171/255,
-            alpha: 1
-        )
+        $0.currentPageIndicatorTintColor = .refreeColor.button1
         // TODO: ViewModel과 함께 설정
         $0.numberOfPages = 3
     }
