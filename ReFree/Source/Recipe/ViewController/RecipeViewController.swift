@@ -122,7 +122,7 @@ final class RecipeViewController: UIViewController {
         }
         
         sidebar.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
+            $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.leading.equalToSuperview().offset(-280)
             $0.width.equalTo(250)
         }
@@ -158,7 +158,8 @@ final class RecipeViewController: UIViewController {
     
     private func openSidebar() {
         sidebar.snp.remakeConstraints {
-            $0.top.bottom.leading.equalToSuperview()
+            $0.leading.equalToSuperview()
+            $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.width.equalTo(250)
         }
         
@@ -169,7 +170,7 @@ final class RecipeViewController: UIViewController {
     
     private func closeSidebar() {
         sidebar.snp.remakeConstraints {
-            $0.top.bottom.equalToSuperview()
+            $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.leading.equalToSuperview().offset(-280)
             $0.width.equalTo(250)
         }
