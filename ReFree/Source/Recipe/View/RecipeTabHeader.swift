@@ -61,8 +61,8 @@ final class RecipeTabHeader: UIView {
         
         titleLabel.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()
-            $0.top.equalTo(searchBar.snp.bottom).offset(Constant.spacing50)
-            $0.height.equalTo(Constant.spacing50)
+            $0.top.equalTo(searchBar.snp.bottom).offset(30)
+            $0.height.equalTo(70)
         }
     }
 }

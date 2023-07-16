@@ -40,7 +40,6 @@ final class RecipeViewController: UIViewController {
         $0.decelerationRate = .fast
         $0.translatesAutoresizingMaskIntoConstraints = false
         
-        
         $0.register(
             CarouselCell.self,
             forCellWithReuseIdentifier: CarouselCell.identifier
@@ -77,18 +76,23 @@ final class RecipeViewController: UIViewController {
         config()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        let ratio = 0.7
-        guard
-            let height = view.window?.windowScene?.screen.bounds.height
-        else { return }
-        let halfModal = RFModalViewController(
-            modalHeight: height * ratio,
-            type: .detail
-        )
-        present(halfModal, animated: true)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        let ratio = 0.7
+//        guard
+//            let height = view.window?.windowScene?.screen.bounds.height
+//        else { return }
+//        let extractedExpr = RFModalViewController(
+//            modalHeight: height * ratio,
+//            type: .detail
+//        )
+//        let halfModal = extractedExpr
+//        present(halfModal, animated: true)
+//    }
     
     private func config() {
         view.gradientBackground(type: .mainAxial)
