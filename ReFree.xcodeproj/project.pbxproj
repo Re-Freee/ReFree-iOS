@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		027BACC92A61B16E004FB258 /* LogInMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027BACC82A61B16E004FB258 /* LogInMainViewController.swift */; };
+		027BACCB2A61B199004FB258 /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027BACCA2A61B199004FB258 /* PasswordViewController.swift */; };
+		027BACCF2A61C044004FB258 /* PasswordFind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027BACCE2A61C044004FB258 /* PasswordFind.swift */; };
+		027BACD12A61C08A004FB258 /* NewPasswordSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027BACD02A61C08A004FB258 /* NewPasswordSetting.swift */; };
 		02ADE93B2A6136920017B69D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADE93A2A6136920017B69D /* HomeViewController.swift */; };
 		02ADE93D2A6136AA0017B69D /* HomeTabHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADE93C2A6136AA0017B69D /* HomeTabHeader.swift */; };
 		6A06E6122A5D1279005938DE /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06E6112A5D1279005938DE /* RecipeViewController.swift */; };
@@ -49,6 +53,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		027BACC82A61B16E004FB258 /* LogInMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInMainViewController.swift; sourceTree = "<group>"; };
+		027BACCA2A61B199004FB258 /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
+		027BACCE2A61C044004FB258 /* PasswordFind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordFind.swift; sourceTree = "<group>"; };
+		027BACD02A61C08A004FB258 /* NewPasswordSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPasswordSetting.swift; sourceTree = "<group>"; };
 		02ADE93A2A6136920017B69D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		02ADE93C2A6136AA0017B69D /* HomeTabHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabHeader.swift; sourceTree = "<group>"; };
 		6A06E6112A5D1279005938DE /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
@@ -103,6 +111,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		027BACC52A61AFB2004FB258 /* LogIn */ = {
+			isa = PBXGroup;
+			children = (
+				027BACC62A61B0CC004FB258 /* ViewController */,
+				027BACC72A61B0D5004FB258 /* View */,
+			);
+			path = LogIn;
+			sourceTree = "<group>";
+		};
+		027BACC62A61B0CC004FB258 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				027BACC82A61B16E004FB258 /* LogInMainViewController.swift */,
+				027BACCA2A61B199004FB258 /* PasswordViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		027BACC72A61B0D5004FB258 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				027BACCE2A61C044004FB258 /* PasswordFind.swift */,
+				027BACD02A61C08A004FB258 /* NewPasswordSetting.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		02ADE9312A6134BA0017B69D /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,6 +249,7 @@
 		6A7234F52A507334004FCFB4 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				027BACC52A61AFB2004FB258 /* LogIn */,
 				02ADE9312A6134BA0017B69D /* Home */,
 				6A7234F62A50734A004FCFB4 /* Common */,
 				6A1C0EB62A613EBE00A7C1C1 /* SignUp */,
@@ -387,6 +423,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				027BACD12A61C08A004FB258 /* NewPasswordSetting.swift in Sources */,
 				02ADE93B2A6136920017B69D /* HomeViewController.swift in Sources */,
 				6A0D30402A56C83500A9F44A /* UIView+addSubViews.swift in Sources */,
 				6ACEE6C62A5C92F70084C41A /* UIView+gradient.swift in Sources */,
@@ -402,6 +439,7 @@
 				6A06E6142A5D1379005938DE /* RecipeTabHeader.swift in Sources */,
 				6A4ED1DF2A5D402700299B61 /* UITextFiled+Attribute.swift in Sources */,
 				6A06E6162A5D15B2005938DE /* Constant.swift in Sources */,
+				027BACC92A61B16E004FB258 /* LogInMainViewController.swift in Sources */,
 				6A4ED1E72A5D4E0D00299B61 /* Identifiable.swift in Sources */,
 				6A4ED1E32A5D4B3400299B61 /* CarouselCollectionView.swift in Sources */,
 				6A9D24FD2A5DCA030025BF3B /* FoodKindView.swift in Sources */,
@@ -411,7 +449,9 @@
 				6AA335F02A61066D0037A2C1 /* LineView.swift in Sources */,
 				6A4ED1DD2A5D31A800299B61 /* BadgeButton.swift in Sources */,
 				02ADE93D2A6136AA0017B69D /* HomeTabHeader.swift in Sources */,
+				027BACCB2A61B199004FB258 /* PasswordViewController.swift in Sources */,
 				6A894D0D2A5F310200B053A5 /* RFModalViewController.swift in Sources */,
+				027BACCF2A61C044004FB258 /* PasswordFind.swift in Sources */,
 				6A06E6122A5D1279005938DE /* RecipeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
