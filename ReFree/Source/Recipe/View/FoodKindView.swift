@@ -28,7 +28,10 @@ final class FoodKindView: UIView {
         }
     }
     
-    private let title = UILabel() // TODO: Font
+    private let title = UILabel().then {
+        $0.font = .pretendard.bold15
+        $0.textColor = .refreeColor.text1
+    }
     private let imageView = UIImageView()
     
     var kind: Kind

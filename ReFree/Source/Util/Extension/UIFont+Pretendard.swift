@@ -49,6 +49,7 @@ extension UIFont {
         let extraLight8 = UIFont(name: PretendardStyle.extraLight.name, size: 8)
         let extraLight10 = UIFont(name: PretendardStyle.extraLight.name, size: 10)
         let extraLight12 = UIFont(name: PretendardStyle.extraLight.name, size: 12)
+        let extraLight15 = UIFont(name: PretendardStyle.extraLight.name, size: 15)
         let extraLight16 = UIFont(name: PretendardStyle.extraLight.name, size: 16)
         let extraLight18 = UIFont(name: PretendardStyle.extraLight.name, size: 18)
         let extraLight20 = UIFont(name: PretendardStyle.extraLight.name, size: 20)

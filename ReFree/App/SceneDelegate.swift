@@ -25,6 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.makeKeyAndVisible()
         
         self.window = window
+        Constant.screenSize = window.windowScene?.screen.bounds
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

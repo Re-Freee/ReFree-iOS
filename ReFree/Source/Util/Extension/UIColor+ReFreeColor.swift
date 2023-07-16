@@ -28,5 +28,8 @@ extension UIColor {
         let button3 = UIColor(named: "Button3") ?? .white
         let button4 = UIColor(named: "Button4") ?? .white
         let red = UIColor(named: "Red") ?? .white
+        
+        // Custom Colors
+        let lightGray = UIColor(named: "LightGray") ?? .white
     }
 }

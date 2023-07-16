@@ -12,13 +12,14 @@ import RxSwift
 
 final class IngredientDetailView: UIView {
     private let titleLabel = UILabel().then {
-        // TODO: Font
+        $0.textColor = .refreeColor.main
+        $0.font = .pretendard.basic30
         $0.textAlignment = .center
-        $0.text = "방울토마토"
+        $0.text = "방울토마토" // TODO: Remove
     }
-    private let category = DetailStackView(title: "카테고리")
-    private let expireDate = DetailStackView(title: "유통기한")
-    private let productCount = DetailStackView(title: "수량")
+    private let category = DetailStackView(kind: .category)
+    private let expireDate = DetailStackView(kind: .expire)
+    private let productCount = DetailStackView(kind: .count)
     private let memoLabel = UILabel().then {
         $0.text = "메모"
     }
@@ -36,15 +37,15 @@ final class IngredientDetailView: UIView {
         ]
     ).then {
         $0.alignment = .fill
-        $0.spacing = 8
+        $0.spacing = 15
         $0.axis = .vertical
     }
     
-    private let memoTextField = UITextField().then {
-        // TODO: Font
-        $0.isUserInteractionEnabled = false
-        $0.contentVerticalAlignment = .top
-        $0.text = "가나다라마바사"
+    private let memoTextView = UITextView().then {
+        $0.textColor = .refreeColor.text1
+        $0.font = .pretendard.extraLight16
+        $0.isUserInteractionEnabled = true
+        $0.text = "가나다라\n마바사"
     }
     
     let deleteButton = UIButton().then {
@@ -83,25 +84,17 @@ final class IngredientDetailView: UIView {
     private func layout() {
         addSubviews([
             contentStack,
-            memoTextField,
+            memoTextView,
             buttonStack
         ])
-        
-        titleLabel.snp.makeConstraints {
-            $0.height.equalTo(80)
-        }
-        
-        memoLabel.snp.makeConstraints {
-            $0.height.equalTo(50)
-        }
         
         contentStack.snp.makeConstraints {
             $0.top.equalToSuperview().inset(48)
             $0.leading.trailing.equalToSuperview().inset(48)
         }
         
-        memoTextField.snp.makeConstraints {
-            $0.top.equalTo(contentStack.snp.bottom).offset(12)
+        memoTextView.snp.makeConstraints {
+            $0.top.equalTo(contentStack.snp.bottom)
             $0.leading.trailing.equalToSuperview().inset(48)
         }
         
@@ -113,7 +106,7 @@ final class IngredientDetailView: UIView {
         }
         
         buttonStack.snp.makeConstraints {
-            $0.top.equalTo(memoTextField.snp.bottom)
+            $0.top.equalTo(memoTextView.snp.bottom)
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview().inset(48)
         }
