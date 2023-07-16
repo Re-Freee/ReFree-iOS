@@ -20,10 +20,10 @@ final class BadgeButton: UIView {
     }
     
     private let badgeCount = UILabel().then {
+        $0.font = .pretendard.basic8
         $0.textAlignment = .center
         $0.textColor = .white
         $0.text = "0"
-        // TODO: Font
     }
     
     override init(frame: CGRect) {

@@ -8,6 +8,22 @@
 import UIKit
 
 final class HomeTabViewController: UITabBarController {
+    private enum TabType: String {
+        case home = "홈"
+        case refrigerator = "냉장고"
+        case addFood = "음식추가"
+        case recipe = "레시피"
+        
+        var image: String {
+            switch self {
+            case .home: return "house.fill"
+            case .refrigerator: return "refrigerator.fill"
+            case .addFood: return "fork.knife"
+            case .recipe: return "list.clipboard.fill"
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBarConfig()
@@ -66,14 +82,17 @@ final class HomeTabViewController: UITabBarController {
             selectedImage: UIImage(systemName: "list.clipboard.fill")
         )
         
-        setViewControllers(
-            [
-                homeViewController,
-                refrigeratorViewController,
-                addFoodViewController,
-                recipeViewController
-            ],
-            animated: true
-        )
+        let tabItems = [
+            homeViewController,
+            refrigeratorViewController,
+            addFoodViewController,
+            recipeViewController
+        ]
+        
+        tabItems.forEach {
+            $0.isNavigationBarHidden = true
+        }
+        
+        setViewControllers(tabItems, animated: true)
     }
 }
