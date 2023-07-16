@@ -16,6 +16,7 @@
 		6A1C0EB82A613EBE00A7C1C1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C0EB72A613EBE00A7C1C1 /* SignUpViewController.swift */; };
 		6A1C0EBA2A61427400A7C1C1 /* UIFont+Pretendard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C0EB92A61427400A7C1C1 /* UIFont+Pretendard.swift */; };
 		6A2B70732A5BF056002F92EB /* UIColor+ReFreeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2B70722A5BF056002F92EB /* UIColor+ReFreeColor.swift */; };
+		6A3ADA5B2A63E99200D6D49A /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3ADA5A2A63E99200D6D49A /* HomeTabViewController.swift */; };
 		6A4ED1D82A5D237C00299B61 /* RFSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4ED1D72A5D237C00299B61 /* RFSearchBar.swift */; };
 		6A4ED1DB2A5D254600299B61 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 6A4ED1DA2A5D254600299B61 /* Then */; };
 		6A4ED1DD2A5D31A800299B61 /* BadgeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4ED1DC2A5D31A800299B61 /* BadgeButton.swift */; };
@@ -59,6 +60,7 @@
 		6A1C0EB72A613EBE00A7C1C1 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		6A1C0EB92A61427400A7C1C1 /* UIFont+Pretendard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Pretendard.swift"; sourceTree = "<group>"; };
 		6A2B70722A5BF056002F92EB /* UIColor+ReFreeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ReFreeColor.swift"; sourceTree = "<group>"; };
+		6A3ADA5A2A63E99200D6D49A /* HomeTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabViewController.swift; sourceTree = "<group>"; };
 		6A4ED1D72A5D237C00299B61 /* RFSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFSearchBar.swift; sourceTree = "<group>"; };
 		6A4ED1DC2A5D31A800299B61 /* BadgeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeButton.swift; sourceTree = "<group>"; };
 		6A4ED1DE2A5D402700299B61 /* UITextFiled+Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextFiled+Attribute.swift"; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				6A894D0C2A5F310200B053A5 /* RFModalViewController.swift */,
+				6A3ADA5A2A63E99200D6D49A /* HomeTabViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				6A06E6162A5D15B2005938DE /* Constant.swift in Sources */,
 				6A4ED1E72A5D4E0D00299B61 /* Identifiable.swift in Sources */,
 				6A4ED1E32A5D4B3400299B61 /* CarouselCollectionView.swift in Sources */,
+				6A3ADA5B2A63E99200D6D49A /* HomeTabViewController.swift in Sources */,
 				6A9D24FD2A5DCA030025BF3B /* FoodKindView.swift in Sources */,
 				6AA335EB2A6070AB0037A2C1 /* UIView+StackView.swift in Sources */,
 				6AD7E3992A506C08007338DB /* SceneDelegate.swift in Sources */,
