@@ -22,25 +22,6 @@ struct KeyChain {
         case refreshToken = "refreshToken"
     }
     
-    private enum InfoKey {
-        static let server = "REFREE_SERVER_DOMAIN"
-    }
-    
-    
-    private static let infoDictionary: [String: Any] = {
-        guard let dict = Bundle.main.infoDictionary else {
-            fatalError("info.plist가 없는데용?")
-        }
-        return dict
-    }()
-    
-    private static let server: String = {
-        guard let domain =  infoDictionary[InfoKey.server] as? String
-        else { fatalError("Error: Info.plist 또는 xcconfig 서버 도메인 설정 확인 필요")}
-        
-        return domain
-    }()
-    
     private init() {}
     
     func addToken(kind: KeyChain.TokenKind, token: String) throws {
@@ -49,7 +30,7 @@ struct KeyChain {
         let query: [String: Any] = [
             kSecClass as String: kSecClassInternetPassword,
             kSecAttrType as String : kind.rawValue,
-            kSecAttrServer as String: KeyChain.server,
+            kSecAttrServer as String: Network.server,
             kSecValueData as String: saveToken
         ]
         
@@ -61,7 +42,7 @@ struct KeyChain {
         let query: [String: Any] = [
             kSecClass as String: kSecClassInternetPassword,
             kSecAttrType as String : kind.rawValue,
-            kSecAttrServer as String: KeyChain.server,
+            kSecAttrServer as String: Network.server,
             kSecMatchLimit as String: kSecMatchLimitOne,
             kSecReturnAttributes as String: true,
             kSecReturnData as String: true
@@ -89,7 +70,7 @@ struct KeyChain {
         let query: [String: Any] = [
             kSecClass as String: kSecClassInternetPassword,
             kSecAttrType as String : kind.rawValue,
-            kSecAttrServer as String: KeyChain.server
+            kSecAttrServer as String: Network.server
         ]
         
         let attributes: [String: Any] = [
@@ -105,7 +86,7 @@ struct KeyChain {
         let query: [String: Any] = [
             kSecClass as String: kSecClassInternetPassword,
             kSecAttrType as String : kind.rawValue,
-            kSecAttrServer as String: KeyChain.server
+            kSecAttrServer as String: Network.server
         ]
         
         let status = SecItemDelete(query as CFDictionary)

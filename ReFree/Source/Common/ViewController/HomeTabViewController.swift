@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class HomeTabViewController: UITabBarController {
     private enum TabType: String {
@@ -23,6 +24,8 @@ final class HomeTabViewController: UITabBarController {
             }
         }
     }
+    
+    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,5 +98,17 @@ final class HomeTabViewController: UITabBarController {
         }
         
         setViewControllers(tabItems, animated: true)
+        
+//        test().subscribe {
+//            print($0.test)
+//            print("성공")
+//        } onError: { _ in
+//            print("실패...!")
+//        }
+//        .disposed(by: disposeBag)
     }
+    
+//    func test() -> Observable<TestStruct> {
+//        return Network.requestJSON(target: NetTest.post(TestStruct(test: "아아아")))
+//    }
 }
