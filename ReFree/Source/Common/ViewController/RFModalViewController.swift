@@ -16,7 +16,6 @@ final class RFModalViewController: UIViewController {
     }
     
     var contentView: UIView?
-    var tableView: UITableView?
     
     init(modalHeight: CGFloat, type: ContentType) {
         super.init(nibName: nil, bundle: Bundle.main)
@@ -57,43 +56,8 @@ final class RFModalViewController: UIViewController {
                 $0.edges.equalToSuperview()
             }
         }
-//        else if let tableView {
-//            view.addSubview(tableView)
-//            tableView.snp.makeConstraints {
-//                $0.edges.equalToSuperview()
-//            }
-//        }
     }
 }
-
-extension RFModalViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(
-            withIdentifier: RecipeDetailCell.identifier,
-            for: indexPath
-        )
-        
-        return cell
-    }
-}
-
-extension RFModalViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(
-            withIdentifier: RecipeDetailHeaderView.identifier
-        ) as? RecipeDetailHeaderView else { return nil }
-        return header
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-}
-
 
 //사용하는 곳에서 쓸 코드
 //override func viewDidAppear(_ animated: Bool) {

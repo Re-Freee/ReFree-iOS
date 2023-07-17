@@ -12,13 +12,13 @@ import SnapKit
 final class RecipeDetailView: UIView {
     
     private enum CollectionSize {
-        static var width: CGFloat {
+        static var headerWidth: CGFloat {
             guard let frameWidth = Constant.screenSize?.width else { return 0 }
             return frameWidth - 48
         }
         
-        static var height: CGFloat {
-            return 250
+        static var headerHeight: CGFloat {
+            return 200
         }
         
         static var defaultItemSize: CGSize {
@@ -31,7 +31,7 @@ final class RecipeDetailView: UIView {
     
     lazy var recipeCollection = UICollectionView(
         frame: .zero,
-        collectionViewLayout: flowLayout
+        collectionViewLayout: collectionViewLayout()
     ).then {
         $0.register(
             RecipeDetailHeaderView.self,
@@ -42,12 +42,6 @@ final class RecipeDetailView: UIView {
             RecipeDetailCell.self,
             forCellWithReuseIdentifier: RecipeDetailCell.identifier
         )
-    }
-    
-    private lazy var flowLayout = UICollectionViewFlowLayout().then {
-        $0.headerReferenceSize = CGSize(width: CollectionSize.width, height: CollectionSize.height)
-        $0.scrollDirection = .vertical
-        $0.minimumLineSpacing = 4
     }
     
     override init(frame: CGRect) {
@@ -61,11 +55,44 @@ final class RecipeDetailView: UIView {
     
     private func config() {
         recipeCollection.dataSource = self
-        recipeCollection.delegate = self
         
         addSubview(recipeCollection)
         recipeCollection.snp.makeConstraints {
             $0.edges.equalToSuperview()
+        }
+    }
+    
+    private func collectionViewLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { _, _ in
+            let item = NSCollectionLayoutItem(
+                layoutSize: .init(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .estimated(100)
+                )
+            )
+            let group = NSCollectionLayoutGroup.vertical(
+                layoutSize: .init(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .estimated(100)
+                ),
+                subitems: [item]
+            )
+            let section = NSCollectionLayoutSection(group: group)
+            section.interGroupSpacing = 8
+            section.contentInsets = .init(top: 4, leading: 24, bottom: 4, trailing: 24)
+            
+            section.boundarySupplementaryItems = [
+                NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .estimated(CollectionSize.headerHeight)
+                    ),
+                    elementKind: UICollectionView.elementKindSectionHeader,
+                    alignment: .top
+                )
+            ]
+            
+            return section
         }
     }
 }
@@ -100,15 +127,5 @@ extension RecipeDetailView: UICollectionViewDataSource {
         else { return UICollectionReusableView() }
         
         return header
-    }
-}
-
-extension RecipeDetailView: UICollectionViewDelegateFlowLayout {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
-        return CollectionSize.defaultItemSize
     }
 }
