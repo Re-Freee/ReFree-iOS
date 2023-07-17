@@ -8,7 +8,7 @@
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 
-REFREE_SERVER_DOMAIN = DevelopmentServer
+REFREE_SERVER_DOMAIN = https:/$()/defd7eac-c5ce-4e38-9b4f-c867f12fdfb4.mock.pstmn.io
 
 APP_NAME = Re:Free(dev)
 APP_BUNDLE_NAME = com.ReFree.dev
