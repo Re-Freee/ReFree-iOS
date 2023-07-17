@@ -29,8 +29,8 @@ struct Network {
         return domain
     }()
 
-    static func requestJSON<T: Decodable>(target: Target) -> Observable<T> {
-        return Observable.create { emmiter in
+    static func requestJSON<T: Decodable>(target: Target) -> Single<T> {
+        return Single.create { emmiter in
             guard var request = try? URLRequest(
                 url: target.url,
                 method: target.method,

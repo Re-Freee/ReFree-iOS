@@ -99,16 +99,16 @@ final class HomeTabViewController: UITabBarController {
         
         setViewControllers(tabItems, animated: true)
         
-//        test().subscribe {
-//            print($0.test)
-//            print("성공")
-//        } onError: { _ in
-//            print("실패...!")
-//        }
-//        .disposed(by: disposeBag)
+        test().subscribe {
+            print("성공 \($0.test)")
+        } onFailure: {
+            print("실패\($0.localizedDescription)")
+        }
+        .disposed(by: disposeBag)
+
     }
     
-//    func test() -> Observable<TestStruct> {
-//        return Network.requestJSON(target: NetTest.post(TestStruct(test: "아아아")))
-//    }
+    func test() -> Single<TestStruct> {
+        return Network.requestJSON(target: NetTest.post(TestStruct(test: "아아아")))
+    }
 }
