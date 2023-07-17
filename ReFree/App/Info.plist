@@ -4,12 +4,6 @@
 <dict>
 	<key>REFREE_SERVER_DOMAIN</key>
 	<string>$(REFREE_SERVER_DOMAIN)</string>
-	<key>CFBundleDisplayName</key>
-	<string>$(APP_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(APP_BUNDLE_NAME)</string>
-	<key>CFBundleName</key>
-	<string>$(APP_NAME)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>PRETENDARD-BLACK.TTF</string>
