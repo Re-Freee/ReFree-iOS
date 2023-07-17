@@ -90,7 +90,8 @@ final class RecipeDetailHeaderView: UICollectionReusableView, Identifiable {
         }
         
         bookmarkButton.snp.makeConstraints {
-            $0.top.trailing.equalToSuperview().inset(48)
+            $0.top.equalToSuperview().inset(48)
+            $0.trailing.equalToSuperview().inset(12)
         }
         
         ingredientTitle.snp.makeConstraints {
