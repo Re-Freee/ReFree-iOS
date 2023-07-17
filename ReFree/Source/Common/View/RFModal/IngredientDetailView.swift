@@ -45,6 +45,7 @@ final class IngredientDetailView: UIView {
         $0.textColor = .refreeColor.text1
         $0.font = .pretendard.extraLight16
         $0.isUserInteractionEnabled = true
+        // TODO: Remove
         $0.text = "가나다라\n마바사"
     }
     
