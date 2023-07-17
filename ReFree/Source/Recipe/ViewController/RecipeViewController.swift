@@ -82,19 +82,19 @@ final class RecipeViewController: UIViewController {
         super.viewWillAppear(animated)
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        let ratio = 0.7
-//        guard
-//            let height = view.window?.windowScene?.screen.bounds.height
-//        else { return }
-//        let extractedExpr = RFModalViewController(
-//            modalHeight: height * ratio,
-//            type: .detail
-//        )
-//        let halfModal = extractedExpr
-//        present(halfModal, animated: true)
-//    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let ratio = 0.7
+        guard
+            let height = view.window?.windowScene?.screen.bounds.height
+        else { return }
+        let extractedExpr = RFModalViewController(
+            modalHeight: height * ratio,
+            type: .recipe
+        )
+        let halfModal = extractedExpr
+        present(halfModal, animated: true)
+    }
     
     private func config() {
         view.gradientBackground(type: .mainAxial)
