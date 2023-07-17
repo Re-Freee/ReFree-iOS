@@ -16,6 +16,7 @@ final class RecipeDetailHeaderView: UICollectionReusableView, Identifiable {
         $0.numberOfLines = 0
         $0.textColor = .refreeColor.main
         $0.font = .pretendard.extraBold30
+        // TODO: Remove
         $0.text = "돼지고기 김치찌개"
     }
     
