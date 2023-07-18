@@ -39,8 +39,13 @@ final class SavedRecipeViewController: UIViewController {
     
     private func config() {
         view.gradientBackground(type: .mainAxial)
-        collectionView.dataSource = self
+        configCollectionView()
         layout()
+    }
+    
+    private func configCollectionView() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
     }
     
     private func layout() {
@@ -107,4 +112,16 @@ extension SavedRecipeViewController: UICollectionViewDataSource {
     }
 }
 
-
+extension SavedRecipeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let ratio = 0.7
+        let height = Constant.screenSize.height
+        
+        let extractedExpr = RFModalViewController(
+            modalHeight: height * ratio,
+            type: .recipe
+        )
+        let halfModal = extractedExpr
+        present(halfModal, animated: true)
+    }
+}

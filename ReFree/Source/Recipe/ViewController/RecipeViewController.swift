@@ -182,6 +182,36 @@ final class RecipeViewController: UIViewController {
     }
 }
 
+extension RecipeViewController: UICollectionViewDataSource {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        3
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: CarouselCell.identifier,
+            for: indexPath
+        ) as? CarouselCell else { return UICollectionViewCell() }
+        
+        if previousIndex == nil {
+            UIView.animate(withDuration: 1) {
+                cell.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+            }
+            previousIndex = 0
+        }
+        
+        cell.setData()
+        
+        return cell
+    }
+}
+
 extension RecipeViewController: UICollectionViewDelegateFlowLayout {
     func scrollViewWillEndDragging(
         _ scrollView: UIScrollView,
@@ -218,36 +248,6 @@ extension RecipeViewController: UICollectionViewDelegateFlowLayout {
         self.previousIndex = index
         pageControl.currentPage = index
     }
-}
-
-extension RecipeViewController: UICollectionViewDataSource {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
-        3
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: CarouselCell.identifier,
-            for: indexPath
-        ) as? CarouselCell else { return UICollectionViewCell() }
-        
-        if previousIndex == nil {
-            UIView.animate(withDuration: 1) {
-                cell.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-            }
-            previousIndex = 0
-        }
-        
-        cell.setData()
-        
-        return cell
-    }
     
     func collectionView(
         _ collectionView: UICollectionView,
@@ -264,3 +264,5 @@ extension RecipeViewController: UICollectionViewDataSource {
         present(halfModal, animated: true)
     }
 }
+
+
