@@ -82,9 +82,16 @@ final class RecipeViewController: UIViewController {
     
     private func config() {
         view.gradientBackground(type: .mainAxial)
-        layout()
+        configNavigation()
         configCollectionView()
+        layout()
         bind()
+    }
+    
+    private func configNavigation() {
+        let backButton = UIBarButtonItem(title: nil, style: .plain, target: self, action: nil)
+        backButton.tintColor = .refreeColor.main
+        navigationItem.backBarButtonItem = backButton
     }
     
     private func layout() {

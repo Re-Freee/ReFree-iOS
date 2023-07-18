@@ -22,8 +22,8 @@ final class SavedRecipeViewController: UIViewController {
     ).then {
         $0.backgroundColor = .clear
         $0.register(
-            RecipeCell.self,
-            forCellWithReuseIdentifier: RecipeCell.identifier
+            RecipeListCell.self,
+            forCellWithReuseIdentifier: RecipeListCell.identifier
         )
     }
     
@@ -85,9 +85,7 @@ final class SavedRecipeViewController: UIViewController {
                 ),
                 subitems: [item]
             )
-            
             let section = NSCollectionLayoutSection(group: group)
-//            section.interGroupSpacing = 8
             
             return section
         }
@@ -101,22 +99,12 @@ extension SavedRecipeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: RecipeCell.identifier,
-            for: indexPath) as? RecipeCell
+            withReuseIdentifier: RecipeListCell.identifier,
+            for: indexPath) as? RecipeListCell
         else { return UICollectionViewCell() }
         
         return cell
     }
 }
 
-final class RecipeCell: UICollectionViewCell, Identifiable {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = .black
-        layer.cornerRadius = 10
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
+
