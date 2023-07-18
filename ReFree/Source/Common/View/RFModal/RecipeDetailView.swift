@@ -13,8 +13,7 @@ final class RecipeDetailView: UIView {
     
     private enum CollectionSize {
         static var headerWidth: CGFloat {
-            guard let frameWidth = Constant.screenSize?.width else { return 0 }
-            return frameWidth - 48
+            return Constant.screenSize.width - 48
         }
         
         static var headerHeight: CGFloat {
@@ -22,10 +21,7 @@ final class RecipeDetailView: UIView {
         }
         
         static var defaultItemSize: CGSize {
-            guard
-                let width = Constant.screenSize?.width
-            else { return CGSize(width: 0, height: 0) }
-            return CGSize(width: width - 48, height: 100)
+            return CGSize(width: Constant.screenSize.width - 48, height: 100)
         }
     }
     

@@ -16,5 +16,5 @@ struct Constant {
     static let spacing50: Int = 50
     static let spacing60: Int = 60
     
-    static var screenSize: CGRect?
+    static var screenSize: CGRect = .zero
 }

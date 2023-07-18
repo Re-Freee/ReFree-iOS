@@ -23,13 +23,9 @@ final class RFSearchBar: UIView {
         image: UIImage(named: "Search")
     )
     
-    init(height: CGFloat = .zero) {
+    init(height: CGFloat = 40) {
         super.init(frame: .zero)
-        if height == .zero {
-            layout(height: 50)
-        } else {
-            layout(height: height)
-        }
+        layout(height: height)
     }
     
     override func layoutSubviews() {

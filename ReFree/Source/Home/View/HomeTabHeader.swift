@@ -10,7 +10,7 @@ import SnapKit
 import Then
 
 class HomeTabHeader: UIView {
-    private let searchBar = RFSearchBar(height: 40)
+    private let searchBar = RFSearchBar()
     
     private let imminentFoodButton = UIButton().then {
         $0.setTitle("소비기한 임박 음식", for: .normal)
