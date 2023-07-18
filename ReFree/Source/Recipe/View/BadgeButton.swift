@@ -11,7 +11,9 @@ import Then
 
 final class BadgeButton: UIView {
     private let heartButton = UIButton().then {
-        $0.setImage(UIImage(named: "Heart"), for: .normal)
+        $0.isEnabled = false
+        $0.setTitleColor(.black, for: .disabled)
+        $0.setImage(UIImage(named: "Heart"), for: .disabled)
     }
     
     private let redBadge = UIView().then {

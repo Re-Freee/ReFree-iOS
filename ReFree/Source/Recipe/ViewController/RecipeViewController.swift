@@ -14,17 +14,15 @@ import RxGesture
 final class RecipeViewController: UIViewController {
     private enum Const {
         static let itemSize = {
-            guard
-                let width = Constant.screenSize?.width,
-                let height = Constant.screenSize?.height
-            else { return CGSize(width: 200, height: 300) }
+            let width = Constant.screenSize.width
+            let height = Constant.screenSize.height
+            
             return CGSize(width: width*3/5, height: height*3/7)
         }()
         static let itemSpacing = 30.0
         
         static var insetX: CGFloat {
-            guard let screenWidth = Constant.screenSize?.width else { return 0 }
-            return ( screenWidth - self.itemSize.width) / 2.0
+            return ( Constant.screenSize.width - self.itemSize.width) / 2.0
         }
         static var collectionViewContentInset: UIEdgeInsets {
             UIEdgeInsets(top: 0, left: Self.insetX, bottom: 0, right: Self.insetX)
@@ -45,7 +43,6 @@ final class RecipeViewController: UIViewController {
         $0.contentInsetAdjustmentBehavior = .never
         $0.contentInset = Const.collectionViewContentInset
         $0.decelerationRate = .fast
-        $0.translatesAutoresizingMaskIntoConstraints = false
         
         $0.register(
             CarouselCell.self,
@@ -80,20 +77,7 @@ final class RecipeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        let ratio = 0.7
-        guard
-            let height = view.window?.windowScene?.screen.bounds.height
-        else { return }
-        let extractedExpr = RFModalViewController(
-            modalHeight: height * ratio,
-            type: .recipe
-        )
-        let halfModal = extractedExpr
-        present(halfModal, animated: true)
+        navigationController?.isNavigationBarHidden = true
     }
     
     private func config() {
@@ -156,6 +140,14 @@ final class RecipeViewController: UIViewController {
             self?.closeSidebar()
         }
         .disposed(by: disposeBag)
+        
+        header.bookmarkButton.rx.tapGesture()
+            .when(.recognized)
+            .bind { [weak self] _ in
+                let vc = SavedRecipeViewController()
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func openSidebar() {
@@ -248,5 +240,20 @@ extension RecipeViewController: UICollectionViewDataSource {
         cell.setData()
         
         return cell
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        let ratio = 0.7
+        let height = Constant.screenSize.height
+        
+        let extractedExpr = RFModalViewController(
+            modalHeight: height * ratio,
+            type: .recipe
+        )
+        let halfModal = extractedExpr
+        present(halfModal, animated: true)
     }
 }

@@ -13,8 +13,8 @@ final class RecipeTabHeader: UIView {
     let sideBarToggleButton = UIButton().then {
         $0.setImage(UIImage(named: "HambergerButton"), for: .normal)
     }
-    private let bookmarkButton = BadgeButton(frame: .zero)
-    private let searchBar = RFSearchBar(height: 40)
+    let bookmarkButton = BadgeButton(frame: .zero)
+    let searchBar = RFSearchBar()
     private let titleLabel = UILabel().then {
         $0.textColor = .refreeColor.main
         $0.font = .pretendard.bold20
