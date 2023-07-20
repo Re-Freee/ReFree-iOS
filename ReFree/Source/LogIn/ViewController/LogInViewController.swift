@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import RxSwift
 
 class LogInViewController: UIViewController {
-    private let test = LogInMainTab(frame: .zero)
-
+    private let loginTab = LogInMainTab(frame: .zero)
+    private var disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         config()
@@ -18,13 +20,51 @@ class LogInViewController: UIViewController {
     private func config() {
         view.gradientBackground(type: .mainConic)
         layout()
+        bind()
     }
     
     private func layout() {
-        self.view.addSubview(test)
+        self.view.addSubview(loginTab)
         
-        test.snp.makeConstraints {
+        loginTab.snp.makeConstraints {
             $0.top.leading.bottom.trailing.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+    
+    private func bind() {
+        loginTab.logInButton.rx
+            .touchDownGesture()
+            .when(.ended)
+            .bind { [weak self] _ in
+                self?.touchLoginButton()
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func touchLoginButton() {
+        // TODO: 뷰 이동용 임시 Alert
+        let alertVC = UIAlertController(
+            title: "로그인 하실?",
+            message: nil,
+            preferredStyle: .alert
+        )
+        let login = UIAlertAction(
+            title: "ㅇㅇ",
+            style: .default) { [weak self] _ in
+                self?.navigationController?.pushViewController(
+                    HomeTabViewController(),
+                    animated: true
+                )
+                self?.navigationController?.isNavigationBarHidden = true
+            }
+        alertVC.addAction(login)
+        
+        let cancel = UIAlertAction(
+            title: "ㄴㄴ",
+            style: .destructive
+        )
+        alertVC.addAction(cancel)
+        
+        present(alertVC, animated: true)
     }
 }
