@@ -32,7 +32,7 @@ class LogInMainTab: UIView {
     
     private let logInPasswordText = LogInTextField(message: "비밀번호", isPassword: true, height: 40)
     
-    private let logInButton = LogInButton(message: "Get started!", height: 40)
+    let logInButton = LogInButton(message: "Get started!", height: 40)
     
     private let passwordFindButton = UIButton().then {
         $0.setTitle("비밀번호를 잊으셨나요?", for: .normal)

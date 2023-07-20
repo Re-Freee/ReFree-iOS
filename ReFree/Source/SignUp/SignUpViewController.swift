@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 class SignUpViewController: UIViewController {
     let signUpImageView1 = {
@@ -229,10 +230,23 @@ class SignUpViewController: UIViewController {
         return button
     }()
     
+    private var disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.gradientBackground(type: .mainConic)
         config()
+        bind()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.isNavigationBarHidden = false
     }
     
     private func config(){
@@ -446,5 +460,17 @@ class SignUpViewController: UIViewController {
             make.leading.equalTo(borderView.snp.leading).offset(16)
         }
     }
+    
+    private func bind() {
+        logInButton.rx.tap
+            .bind { [weak self] _ in
+                self?.touchLoginButton()
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func touchLoginButton() {
+        navigationController?.pushViewController(LogInViewController(), animated: true)
+        navigationItem.backButtonTitle = "Sign"
+    }
 }
-
