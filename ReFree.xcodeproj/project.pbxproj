@@ -20,6 +20,8 @@
 		6A0D30402A56C83500A9F44A /* UIView+addSubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D303F2A56C83500A9F44A /* UIView+addSubViews.swift */; };
 		6A17A4262A6A644F001F0563 /* LaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A17A4252A6A644F001F0563 /* LaunchImage.png */; };
 		6A17A4282A6A6702001F0563 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A17A4272A6A6702001F0563 /* LaunchScreenView.swift */; };
+		6A17A42A2A6ADFB7001F0563 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A17A4292A6ADFB7001F0563 /* LoadingView.swift */; };
+		6A17A42D2A6AE33D001F0563 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 6A17A42C2A6AE33D001F0563 /* Lottie */; };
 		6A1C0EB82A613EBE00A7C1C1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C0EB72A613EBE00A7C1C1 /* SignUpViewController.swift */; };
 		6A1C0EBA2A61427400A7C1C1 /* UIFont+Pretendard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C0EB92A61427400A7C1C1 /* UIFont+Pretendard.swift */; };
 		6A2B70732A5BF056002F92EB /* UIColor+ReFreeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2B70722A5BF056002F92EB /* UIColor+ReFreeColor.swift */; };
@@ -78,6 +80,7 @@
 		6A0D303F2A56C83500A9F44A /* UIView+addSubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+addSubViews.swift"; sourceTree = "<group>"; };
 		6A17A4252A6A644F001F0563 /* LaunchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage.png; sourceTree = "<group>"; };
 		6A17A4272A6A6702001F0563 /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
+		6A17A4292A6ADFB7001F0563 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		6A1C0EB72A613EBE00A7C1C1 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		6A1C0EB92A61427400A7C1C1 /* UIFont+Pretendard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Pretendard.swift"; sourceTree = "<group>"; };
 		6A2B70722A5BF056002F92EB /* UIColor+ReFreeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ReFreeColor.swift"; sourceTree = "<group>"; };
@@ -131,6 +134,7 @@
 				6AE80DC22A507C89006CBB56 /* Alamofire in Frameworks */,
 				6A4ED1DB2A5D254600299B61 /* Then in Frameworks */,
 				6A9D25072A5F13D70025BF3B /* RxGesture in Frameworks */,
+				6A17A42D2A6AE33D001F0563 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +336,7 @@
 				6A4ED1D72A5D237C00299B61 /* RFSearchBar.swift */,
 				6AA335EF2A61066D0037A2C1 /* LineView.swift */,
 				6A17A4272A6A6702001F0563 /* LaunchScreenView.swift */,
+				6A17A4292A6ADFB7001F0563 /* LoadingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -428,6 +433,7 @@
 				6A9D24FF2A5EC92C0025BF3B /* RxCocoa */,
 				6A9D25012A5EC92C0025BF3B /* RxSwift */,
 				6A9D25062A5F13D70025BF3B /* RxGesture */,
+				6A17A42C2A6AE33D001F0563 /* Lottie */,
 			);
 			productName = ReFree;
 			productReference = 6AD7E3932A506C08007338DB /* ReFree.app */;
@@ -464,6 +470,7 @@
 				6A4ED1D92A5D254600299B61 /* XCRemoteSwiftPackageReference "Then" */,
 				6A9D24FE2A5EC92C0025BF3B /* XCRemoteSwiftPackageReference "RxSwift" */,
 				6A9D25052A5F13D70025BF3B /* XCRemoteSwiftPackageReference "RxGesture" */,
+				6A17A42B2A6AE33D001F0563 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
 			productRefGroup = 6AD7E3942A506C08007338DB /* Products */;
 			projectDirPath = "";
@@ -501,6 +508,7 @@
 				6AFFE7552A64785500744182 /* RecipeDetailView.swift in Sources */,
 				02B526C72A66A3260046D46E /* LogInViewController.swift in Sources */,
 				6A0D30402A56C83500A9F44A /* UIView+addSubViews.swift in Sources */,
+				6A17A42A2A6ADFB7001F0563 /* LoadingView.swift in Sources */,
 				02B526C92A66D6280046D46E /* LogInTextField.swift in Sources */,
 				6ACEE6C62A5C92F70084C41A /* UIView+gradient.swift in Sources */,
 				6A1C0EBA2A61427400A7C1C1 /* UIFont+Pretendard.swift in Sources */,
@@ -843,6 +851,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6A17A42B2A6AE33D001F0563 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		6A4ED1D92A5D254600299B61 /* XCRemoteSwiftPackageReference "Then" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/Then";
@@ -894,6 +910,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6A17A42C2A6AE33D001F0563 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6A17A42B2A6AE33D001F0563 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
+		};
 		6A4ED1DA2A5D254600299B61 /* Then */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6A4ED1D92A5D254600299B61 /* XCRemoteSwiftPackageReference "Then" */;
