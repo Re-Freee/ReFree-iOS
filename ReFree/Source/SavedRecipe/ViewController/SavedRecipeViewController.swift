@@ -116,7 +116,6 @@ extension SavedRecipeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let ratio = 0.7
         let height = Constant.screenSize.height
-        
         let extractedExpr = RFModalViewController(
             modalHeight: height * ratio,
             type: .recipe

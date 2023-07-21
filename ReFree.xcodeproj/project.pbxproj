@@ -18,6 +18,7 @@
 		6A06E6142A5D1379005938DE /* RecipeTabHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06E6132A5D1378005938DE /* RecipeTabHeader.swift */; };
 		6A06E6162A5D15B2005938DE /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A06E6152A5D15B2005938DE /* Constant.swift */; };
 		6A0D30402A56C83500A9F44A /* UIView+addSubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D303F2A56C83500A9F44A /* UIView+addSubViews.swift */; };
+		6A17A4262A6A644F001F0563 /* LaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A17A4252A6A644F001F0563 /* LaunchImage.png */; };
 		6A1C0EB82A613EBE00A7C1C1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C0EB72A613EBE00A7C1C1 /* SignUpViewController.swift */; };
 		6A1C0EBA2A61427400A7C1C1 /* UIFont+Pretendard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C0EB92A61427400A7C1C1 /* UIFont+Pretendard.swift */; };
 		6A2B70732A5BF056002F92EB /* UIColor+ReFreeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2B70722A5BF056002F92EB /* UIColor+ReFreeColor.swift */; };
@@ -74,6 +75,7 @@
 		6A06E6132A5D1378005938DE /* RecipeTabHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTabHeader.swift; sourceTree = "<group>"; };
 		6A06E6152A5D15B2005938DE /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		6A0D303F2A56C83500A9F44A /* UIView+addSubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+addSubViews.swift"; sourceTree = "<group>"; };
+		6A17A4252A6A644F001F0563 /* LaunchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage.png; sourceTree = "<group>"; };
 		6A1C0EB72A613EBE00A7C1C1 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		6A1C0EB92A61427400A7C1C1 /* UIFont+Pretendard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Pretendard.swift"; sourceTree = "<group>"; };
 		6A2B70722A5BF056002F92EB /* UIColor+ReFreeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ReFreeColor.swift"; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 				6AD7E3A42A506C09007338DB /* Info.plist */,
 				6A8B10D42A62EE5A0076A1CF /* Development.xcconfig */,
 				6A8B10D52A62EFD80076A1CF /* Release.xcconfig */,
+				6A17A4252A6A644F001F0563 /* LaunchImage.png */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -473,6 +476,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A17A4262A6A644F001F0563 /* LaunchImage.png in Resources */,
 				6AD7E3A32A506C09007338DB /* LaunchScreen.storyboard in Resources */,
 				6AD7E3A02A506C09007338DB /* Assets.xcassets in Resources */,
 				6A8C53FA2A6136D5001EC332 /* PRETENDARD-EXTRALIGHT.TTF in Resources */,
