@@ -10,6 +10,7 @@ import SnapKit
 import RxSwift
 
 class SignUpViewController: UIViewController {
+    let launchScreenView = LaunchScreenView()
     let signUpImageView1 = {
         let view = UIImageView()
         view.image = UIImage(named: "FourCircle")
@@ -251,6 +252,7 @@ class SignUpViewController: UIViewController {
     
     private func config(){
         layout()
+        configLaunchScreen()
     }
     
     private func layout(){
@@ -472,5 +474,13 @@ class SignUpViewController: UIViewController {
     private func touchLoginButton() {
         navigationController?.pushViewController(LogInViewController(), animated: true)
         navigationItem.backButtonTitle = "Sign"
+    }
+    
+    private func configLaunchScreen() {
+        view.addSubview(launchScreenView)
+        
+        launchScreenView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
 }
