@@ -20,7 +20,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchImage.png" translatesAutoresizingMaskIntoConstraints="NO" id="6FV-Xi-dGP">
-                                <rect key="frame" x="74" y="303" width="245" height="246"/>
+                                <rect key="frame" x="96.666666666666686" y="326" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="2f6-fe-qGQ"/>
+                                    <constraint firstAttribute="height" constant="200" id="mGC-I8-LMb"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -29,9 +33,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="v17-uT-Dn4" secondAttribute="trailing" id="1KX-sF-pDp"/>
                             <constraint firstItem="6FV-Xi-dGP" firstAttribute="centerX" secondItem="v17-uT-Dn4" secondAttribute="centerX" id="7XT-6B-5Mc"/>
                             <constraint firstItem="v17-uT-Dn4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="HlV-Iv-hHp"/>
-                            <constraint firstItem="6FV-Xi-dGP" firstAttribute="height" secondItem="v17-uT-Dn4" secondAttribute="height" multiplier="0.288732" id="b86-wj-8L4"/>
                             <constraint firstItem="6FV-Xi-dGP" firstAttribute="centerY" secondItem="v17-uT-Dn4" secondAttribute="centerY" id="i06-6C-j8M"/>
-                            <constraint firstItem="6FV-Xi-dGP" firstAttribute="width" secondItem="v17-uT-Dn4" secondAttribute="width" multiplier="0.62341" id="jOT-Gr-kSM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="v17-uT-Dn4" secondAttribute="top" constant="59" id="pWc-GO-6rs"/>
                             <constraint firstItem="v17-uT-Dn4" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="34" id="tH0-DA-Gy1"/>
                         </constraints>
