@@ -10,6 +10,7 @@ import SnapKit
 import Then
 import RxSwift
 import RxGesture
+import Lottie
 
 final class RecipeViewController: UIViewController {
     private enum Const {
@@ -28,8 +29,16 @@ final class RecipeViewController: UIViewController {
             UIEdgeInsets(top: 0, left: Self.insetX, bottom: 0, right: Self.insetX)
         }
     }
-    
+    private lazy var loadingView = LoadingView(frame: .zero)
     private let header = RecipeTabHeader(frame: .zero)
+    private let searchBar = RFSearchBar()
+    private let nameTitle = UILabel().then {
+        $0.textColor = .refreeColor.main
+        $0.font = .pretendard.bold20
+        $0.textAlignment = .center
+        $0.text = "000님을 위한 추천 레시피"
+    }
+    
     private lazy var carouselCollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: carouselFlowLayout
@@ -85,6 +94,7 @@ final class RecipeViewController: UIViewController {
         configNavigation()
         configCollectionView()
         layout()
+        configLoadingAnimation()
         bind()
     }
     
@@ -95,15 +105,35 @@ final class RecipeViewController: UIViewController {
     }
     
     private func layout() {
-        view.addSubviews([header, carouselCollectionView, pageControl, sidebar])
+        view.addSubviews([
+            header,
+            searchBar,
+            nameTitle,
+            carouselCollectionView,
+            pageControl,
+            loadingView,
+            sidebar
+        ])
         
         header.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(Constant.spacing24)
+            $0.height.equalTo(50)
+        }
+        
+        searchBar.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(24)
+            $0.top.equalTo(header.snp.bottom).offset(12)
+        }
+        
+        nameTitle.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(24)
+            $0.top.equalTo(searchBar.snp.bottom).offset(30)
+            $0.height.equalTo(70)
         }
         
         carouselCollectionView.snp.makeConstraints {
-            $0.top.equalTo(header.snp.bottom)
+            $0.top.equalTo(nameTitle.snp.bottom)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         
@@ -112,6 +142,12 @@ final class RecipeViewController: UIViewController {
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(24)
             $0.height.equalTo(30)
             $0.top.equalTo(carouselCollectionView.snp.bottom)
+        }
+        
+        loadingView.snp.makeConstraints {
+            $0.top.equalTo(header.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         sidebar.snp.makeConstraints {
@@ -124,6 +160,14 @@ final class RecipeViewController: UIViewController {
     private func configCollectionView() {
         carouselCollectionView.dataSource = self
         carouselCollectionView.delegate = self
+    }
+    
+    private func configLoadingAnimation() {
+        loadingView.isHidden = false
+        searchBar.isHidden = true
+        nameTitle.isHidden = true
+        carouselCollectionView.isHidden = true
+        pageControl.isHidden = true
     }
     
     private func bind() {
@@ -155,6 +199,11 @@ final class RecipeViewController: UIViewController {
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
+        
+        // TODO: 레시피 비동기 로딩이 끝나면 loadingCompelition 실행
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) { [weak self] in
+            self?.loadingCompletion()
+        }
     }
     
     private func openSidebar() {
@@ -179,6 +228,14 @@ final class RecipeViewController: UIViewController {
         UIView.animate(withDuration: 0.5) {
             self.view.layoutIfNeeded()
         }
+    }
+    
+    private func loadingCompletion() {
+        loadingView.isHidden = true
+        searchBar.isHidden = false
+        nameTitle.isHidden = false
+        carouselCollectionView.isHidden = false
+        pageControl.isHidden = false
     }
 }
 

@@ -14,13 +14,6 @@ final class RecipeTabHeader: UIView {
         $0.setImage(UIImage(named: "HambergerButton"), for: .normal)
     }
     let bookmarkButton = BadgeButton(frame: .zero)
-    let searchBar = RFSearchBar()
-    private let titleLabel = UILabel().then {
-        $0.textColor = .refreeColor.main
-        $0.font = .pretendard.bold20
-        $0.textAlignment = .center
-        $0.text = "000님을 위한 추천 레시피"
-    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,9 +28,7 @@ final class RecipeTabHeader: UIView {
         self.addSubviews(
             [
                 sideBarToggleButton,
-                bookmarkButton,
-                searchBar,
-                titleLabel
+                bookmarkButton
             ]
         )
         
@@ -49,17 +40,6 @@ final class RecipeTabHeader: UIView {
         bookmarkButton.snp.makeConstraints {
             $0.top.trailing.equalToSuperview()
             $0.width.height.equalTo(Constant.spacing50)
-        }
-        
-        searchBar.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(sideBarToggleButton.snp.bottom).offset(Constant.spacing12)
-        }
-        
-        titleLabel.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.top.equalTo(searchBar.snp.bottom).offset(30)
-            $0.height.equalTo(70)
         }
     }
 }

@@ -99,12 +99,13 @@ final class HomeTabViewController: UITabBarController {
         
         setViewControllers(tabItems, animated: true)
         
-        test().subscribe {
-            print("성공 \($0.test)")
-        } onFailure: {
-            print("실패\($0.localizedDescription)")
-        }
-        .disposed(by: disposeBag)
+        // 네트워킹 테스트..
+//        test().subscribe {
+//            print("성공 \($0.test)")
+//        } onFailure: {
+//            print("실패\($0.localizedDescription)")
+//        }
+//        .disposed(by: disposeBag)
 
     }
     
