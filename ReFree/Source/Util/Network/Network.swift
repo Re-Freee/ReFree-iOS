@@ -14,7 +14,6 @@ struct Network {
         static let server = "REFREE_SERVER_DOMAIN"
     }
     
-    
     private static let infoDictionary: [String: Any] = {
         guard let dict = Bundle.main.infoDictionary else {
             fatalError("info.plist가 없는데용?")
@@ -28,7 +27,7 @@ struct Network {
         
         return domain
     }()
-
+    
     static func requestJSON<T: Decodable>(target: Target) -> Single<T> {
         return Single.create { emmiter in
             guard var request = try? URLRequest(
@@ -54,5 +53,19 @@ struct Network {
                 task.cancel()
             }
         }
+    }
+    
+    static func requestCompletion<T: Decodable>(type: T.Type, target: Target, completion: @escaping (DataResponse<T, AFError>) -> ()) {
+        guard var request = try? URLRequest(
+            url: target.url,
+            method: target.method,
+            headers: target.header
+        ) else { return }
+        
+        request.httpBody = target.parameters
+        
+        AF.request(request)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: T.self, completionHandler: completion)
     }
 }
