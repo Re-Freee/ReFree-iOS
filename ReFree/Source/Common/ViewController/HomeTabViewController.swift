@@ -107,6 +107,15 @@ final class HomeTabViewController: UITabBarController {
 //        }
 //        .disposed(by: disposeBag)
 
+        // 네트워킹 테스트..2
+//        Network.requestCompletion(type: TestStruct.self, target: NetTest.post(TestStruct(test: "아아아"))) { respose in
+//            switch respose.result {
+//            case .success(let a):
+//                print(a.test)
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
     }
     
     func test() -> Single<TestStruct> {
