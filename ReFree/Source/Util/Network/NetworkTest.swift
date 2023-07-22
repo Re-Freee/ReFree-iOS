@@ -12,6 +12,7 @@ struct TestStruct: Codable {
 }
 
 enum NetTest {
+    case get([GetQuery])
     case post(TestStruct)
 }
 
@@ -22,16 +23,24 @@ extension NetTest: Target {
     
     var url: URLConvertible {
         switch self {
+        case .get(let query):
+            return setQuery(url: "\(baseURL)\(path)?", query: query)
         case .post:
             return "\(baseURL)\(path)"
         }
     }
     
     var method: HTTPMethod {
-        return .post
+        switch self {
+        case .post:
+            return .post
+        case .get:
+            return .get
+        }
     }
     
     var header: HTTPHeaders {
+        // TODO: 실제는 토큰 추가
         return [
             "Content-Type": "application/json"
         ]
@@ -39,6 +48,8 @@ extension NetTest: Target {
     
     var path: String {
         switch self {
+        case .get:
+            return "/getTest"
         case .post:
             return "/postTest"
         }
@@ -46,7 +57,9 @@ extension NetTest: Target {
     
     var parameters: Data? {
         switch self {
-        case let .post(params):
+        case .get:
+            return nil
+        case .post(let params):
             return try? JSONEncoder().encode(params)
         }
     }
@@ -57,6 +70,8 @@ extension NetTest: Target {
     
     var images: [UIImage] {
         switch self {
+        case .get:
+            return []
         case .post:
             return []
         }

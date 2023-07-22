@@ -99,7 +99,7 @@ final class HomeTabViewController: UITabBarController {
         
         setViewControllers(tabItems, animated: true)
         
-        // 네트워킹 테스트..
+//         네트워킹 테스트..
 //        test().subscribe {
 //            print("성공 \($0.test)")
 //        } onFailure: {
@@ -119,6 +119,7 @@ final class HomeTabViewController: UITabBarController {
     }
     
     func test() -> Single<TestStruct> {
-        return Network.requestJSON(target: NetTest.post(TestStruct(test: "아아아")))
+//        return Network.requestJSON(target: NetTest.post(TestStruct(test: "아아아")))
+        return Network.requestJSON(target: NetTest.get([.init("aaa", 111), .init("bbb", 222)]))
     }
 }
