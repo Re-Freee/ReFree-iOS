@@ -44,6 +44,7 @@ extension UIFont {
         let extraBold22 = UIFont(name: PretendardStyle.extraBold.name, size: 22)
         let extraBold24 = UIFont(name: PretendardStyle.extraBold.name, size: 24)
         let extraBold30 = UIFont(name: PretendardStyle.extraBold.name, size: 30)
+        let extraBold45 = UIFont(name: PretendardStyle.extraBold.name, size: 45)
         let extraBold50 = UIFont(name: PretendardStyle.extraBold.name, size: 50)
         
         // ExtraLight
