@@ -9,8 +9,8 @@ import UIKit
 import SnapKit
 import Then
 
-class LogInButton: UIView {
-    private let button = UIButton().then {
+final class LogInButton: UIView {
+    public let button = UIButton().then {
         $0.setTitleColor(UIColor.refreeColor.text3, for: .normal)
         $0.titleLabel?.font = .pretendard.bold15
         $0.contentHorizontalAlignment = .center

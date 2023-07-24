@@ -7,10 +7,39 @@
 
 import UIKit
 import RxSwift
+import SnapKit
+import Then
 
 class LogInViewController: UIViewController {
-    private let loginTab = LogInMainTab(frame: .zero)
-    private var disposeBag = DisposeBag()
+    private let mainLogoImage = UIImageView().then {
+        $0.image = UIImage(named: "RefreeLogo")
+        $0.contentMode = .scaleToFill
+    }
+    
+    private let stackViewBackground = LogInStackViewBackground(height: 280)
+    
+    private let logInStackView = UIStackView().then {
+        $0.spacing = 20
+        $0.axis = .vertical
+    }
+    
+    private let logInLabel = UILabel().then {
+        $0.text = "로그인"
+        $0.font = .pretendard.extraBold30
+        $0.textColor = .refreeColor.main
+    }
+    
+    private let logInEmailText = LogInTextField(message: "이메일", height: 40)
+    
+    private let logInPasswordText = LogInTextField(message: "비밀번호", isPassword: true, height: 40)
+    
+    private let logInButton = LogInButton(message: "Get started!", height: 40)
+    
+    private let passwordFindButton = UIButton().then {
+        $0.setTitle("비밀번호를 잊으셨나요?", for: .normal)
+        $0.setTitleColor(UIColor.refreeColor.text1, for: .normal)
+        $0.titleLabel?.font = .pretendard.bold15
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,51 +49,56 @@ class LogInViewController: UIViewController {
     private func config() {
         view.gradientBackground(type: .mainConic)
         layout()
-        bind()
+        logInButton.button.addTarget(self, action: #selector(logInButtonTapped), for: .touchUpInside)
+        passwordFindButton.addTarget(self, action: #selector(passwordFindButtonTapped), for: .touchUpInside)
     }
     
     private func layout() {
-        self.view.addSubview(loginTab)
+        view.addSubviews(
+            [
+                mainLogoImage,
+                stackViewBackground,
+                logInStackView,
+                passwordFindButton
+            ]
+        )
         
-        loginTab.snp.makeConstraints {
-            $0.top.leading.bottom.trailing.equalTo(view.safeAreaLayoutGuide)
+        logInStackView.addArrangedSubviews(
+            [
+                logInLabel,
+                logInEmailText,
+                logInPasswordText,
+                logInButton
+            ]
+        )
+        
+        mainLogoImage.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(100)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        stackViewBackground.snp.makeConstraints {
+            $0.top.equalTo(mainLogoImage.snp.bottom).offset(Constant.spacing8)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(Constant.spacing24)
+        }
+        
+        logInStackView.snp.makeConstraints {
+            $0.top.equalTo(stackViewBackground.snp.top).offset(Constant.spacing24)
+            $0.leading.equalTo(stackViewBackground.snp.leading).offset(32)
+            $0.trailing.equalTo(stackViewBackground.snp.trailing).offset(-32)
+        }
+        
+        passwordFindButton.snp.makeConstraints {
+            $0.top.equalTo(stackViewBackground.snp.bottom).offset(Constant.spacing8)
+            $0.leading.equalTo(logInStackView.snp.leading)
         }
     }
     
-    private func bind() {
-        loginTab.logInButton.rx
-            .touchDownGesture()
-            .when(.ended)
-            .bind { [weak self] _ in
-                self?.touchLoginButton()
-            }
-            .disposed(by: disposeBag)
+    @objc func logInButtonTapped() {
+        
     }
     
-    private func touchLoginButton() {
-        // TODO: 뷰 이동용 임시 Alert
-        let alertVC = UIAlertController(
-            title: "로그인 하실?",
-            message: nil,
-            preferredStyle: .alert
-        )
-        let login = UIAlertAction(
-            title: "ㅇㅇ",
-            style: .default) { [weak self] _ in
-                self?.navigationController?.pushViewController(
-                    HomeTabViewController(),
-                    animated: true
-                )
-                self?.navigationController?.isNavigationBarHidden = true
-            }
-        alertVC.addAction(login)
+    @objc func passwordFindButtonTapped() {
         
-        let cancel = UIAlertAction(
-            title: "ㄴㄴ",
-            style: .destructive
-        )
-        alertVC.addAction(cancel)
-        
-        present(alertVC, animated: true)
     }
 }
