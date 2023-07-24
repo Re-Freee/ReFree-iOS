@@ -9,10 +9,10 @@ import UIKit
 import SnapKit
 import Then
 
-class LogInTextField: UIView {
-    private let textField = UITextField().then {
+final class LogInTextField: UIView {
+    public let textField = UITextField().then {
         $0.textColor = .refreeColor.text2
-        $0.font = .pretendard.extraLight15
+        $0.font = .pretendard.extraLight12
         $0.autocapitalizationType = .none
     }
     
@@ -42,7 +42,7 @@ class LogInTextField: UIView {
         textField.isSecureTextEntry = isPassword
         textField.placeHolder(string: message, color: .refreeColor.text1)
         layer.cornerRadius = cornerRadius
-        backgroundColor = .refreeColor.button4
+        backgroundColor = .refreeColor.textFrame
         
         addSubview(textField)
         
