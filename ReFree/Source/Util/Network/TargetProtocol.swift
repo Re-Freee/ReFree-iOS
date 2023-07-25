@@ -22,7 +22,17 @@ protocol Target {
     var path: String { get }
     var parameters: Data? { get }
     var encoding: ParameterEncoding { get }
-    var images: [UIImage] { get }
+}
+
+protocol ImageTarget {
+    var baseURL: String { get }
+    var url: URLConvertible { get }
+    var method: HTTPMethod { get }
+    var header: HTTPHeaders { get }
+    var path: String { get }
+    var parameters: [String: Any]? { get }
+    var encoding: ParameterEncoding { get }
+    var imageData: [ImageData] { get }
 }
 
 struct GetQuery {
@@ -33,6 +43,13 @@ struct GetQuery {
         self.key = key
         self.value = value
     }
+}
+
+struct ImageData {
+    let image: UIImage
+    let withName: String
+    let fileName: String?
+    let mimeType: String = "image/jpeg"
 }
 
 extension Target {
