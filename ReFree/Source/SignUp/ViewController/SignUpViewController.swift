@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import Then
 import RxSwift
+
 class SignUpViewController: UIViewController {
     let launchScreenView = LaunchScreenView()
     

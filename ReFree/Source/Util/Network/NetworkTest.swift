@@ -16,6 +16,10 @@ enum NetTest {
     case post(TestStruct)
 }
 
+enum NetImageTest {
+    case upload(params: [String: Any]?, images: [ImageData])
+}
+
 extension NetTest: Target {
     var baseURL: String {
         return Network.server
@@ -41,9 +45,10 @@ extension NetTest: Target {
     
     var header: HTTPHeaders {
         // TODO: 실제는 토큰 추가
-        return [
-            "Content-Type": "application/json"
-        ]
+        switch self {
+        case .get, .post:
+            return [ "Content-Type": "application/json" ]
+        }
     }
     
     var path: String {
@@ -74,6 +79,56 @@ extension NetTest: Target {
             return []
         case .post:
             return []
+        }
+    }
+}
+
+extension NetImageTest: ImageTarget {
+    var baseURL: String {
+        return Network.server
+    }
+    
+    var url: URLConvertible {
+        switch self {
+        case .upload:
+            return "\(baseURL)\(path)"
+        }
+    }
+    
+    var method: HTTPMethod {
+        return .post
+    }
+    
+    var header: HTTPHeaders {
+        // TODO: 실제는 토큰 추가
+        switch self {
+        case .upload:
+            return [ "Content-Type": "multipart/form-data" ]
+        }
+    }
+    
+    var path: String {
+        switch self {
+        case .upload:
+            return "/imageTest"
+        }
+    }
+    
+    var parameters: [String: Any]? {
+        switch self {
+        case .upload(let params, _):
+            return params
+        }
+    }
+    
+    var encoding: ParameterEncoding {
+        return JSONEncoding.default
+    }
+    
+    var imageData: [ImageData] {
+        switch self {
+        case .upload( _, let imageData):
+            return imageData
         }
     }
 }

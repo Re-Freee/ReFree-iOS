@@ -118,8 +118,25 @@ final class HomeTabViewController: UITabBarController {
 //        }
     }
     
-    func test() -> Single<TestStruct> {
+//    func test() -> Single<TestStruct> {
 //        return Network.requestJSON(target: NetTest.post(TestStruct(test: "아아아")))
-        return Network.requestJSON(target: NetTest.get([.init("aaa", 111), .init("bbb", 222)]))
-    }
+//        return Network.requestJSON(target: NetTest.get([.init("aaa", 111), .init("bbb", 222)]))
+//    }
+    
+//    func imageTest() -> Single<TestStruct> {
+//        return Network.imageUpload(
+//            target: NetImageTest.upload(
+//                params: [
+//                    "hello" : "안녕"
+//                ],
+//                images: [
+//                    ImageData(
+//                        image: UIImage(systemName: "person")!,
+//                        withName: "imageNameeeee",
+//                        fileName: "fileNameeee"
+//                    )
+//                ]
+//            )
+//        )
+//    }
 }

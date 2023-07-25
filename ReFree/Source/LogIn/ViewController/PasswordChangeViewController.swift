@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
 
 class PasswordChangeViewController: UIViewController, UITextFieldDelegate {
     private let header = PasswordFindTabHeader(frame: .zero)
@@ -61,7 +62,7 @@ class PasswordChangeViewController: UIViewController, UITextFieldDelegate {
         $0.font = .pretendard.extraBold30
         $0.textColor = .refreeColor.main
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         config()
