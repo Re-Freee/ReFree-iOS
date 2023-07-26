@@ -20,9 +20,8 @@ final class RecipeListCell: UICollectionViewCell, Identifiable {
         $0.font = .pretendard.bold15
     }
     private let heartImageView = UIImageView(
-        image: UIImage(systemName: "heart.fill")?
-            .withRenderingMode(.alwaysOriginal)
-            .withTintColor(.white)
+        image: UIImage(systemName: "heart")?
+            .withTintColor(.white, renderingMode: .alwaysOriginal)
     )
     
     override init(frame: CGRect) {
@@ -61,5 +60,21 @@ final class RecipeListCell: UICollectionViewCell, Identifiable {
             $0.bottom.equalToSuperview().inset(24)
             
         }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.text = ""
+        imageView.image = UIImage(named: "FourCircle")
+        heartImageView.image = UIImage(systemName: "heart")?
+            .withTintColor(.white, renderingMode: .alwaysOriginal)
+    }
+    
+    func configCell(recipe: Recipe) {
+        let url = URL(string: recipe.imageURL)
+        titleLabel.text = recipe.title
+        imageView.kf.setImage(with: url)
+        let isHeartImage = recipe.isHeart ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+        heartImageView.image = isHeartImage?.withTintColor(.white, renderingMode: .alwaysOriginal)
     }
 }

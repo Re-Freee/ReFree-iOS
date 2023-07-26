@@ -10,6 +10,13 @@ import SnapKit
 import Then
 
 final class SavedRecipeViewController: UIViewController {
+    enum TitleKind: String {
+        case saved = "저장한 레시피"
+        case bowl = "밥 레시피"
+        case soup = "국&찌개 레시피"
+        case sideMenu = "반찬 레시피"
+    }
+    
     private let titleLabel = UILabel().then {
         $0.textColor = .refreeColor.main
         $0.text = "저장한 레시피"
@@ -26,6 +33,17 @@ final class SavedRecipeViewController: UIViewController {
             forCellWithReuseIdentifier: RecipeListCell.identifier
         )
     }
+    
+    init(kind: SavedRecipeViewController.TitleKind) {
+        super.init(nibName: nil, bundle: Bundle.main)
+        titleLabel.text = kind.rawValue
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private var recipes: [Recipe] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,7 +117,7 @@ final class SavedRecipeViewController: UIViewController {
 
 extension SavedRecipeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        30
+        recipes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -107,6 +125,9 @@ extension SavedRecipeViewController: UICollectionViewDataSource {
             withReuseIdentifier: RecipeListCell.identifier,
             for: indexPath) as? RecipeListCell
         else { return UICollectionViewCell() }
+        
+        cell.prepareForReuse()
+        cell.configCell(recipe: recipes[indexPath.row])
         
         return cell
     }

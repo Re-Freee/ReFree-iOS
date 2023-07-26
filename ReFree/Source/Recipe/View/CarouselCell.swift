@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Then
+import Kingfisher
 
 final class CarouselCell: UICollectionViewCell, Identifiable {
     private let titleLabel = UILabel().then {
@@ -34,7 +35,7 @@ final class CarouselCell: UICollectionViewCell, Identifiable {
         $0.font = .pretendard.extraLight12
     }
     
-    private let imageView = UIImageView()
+    private let imageView = UIImageView(image: UIImage(named: "Rocket"))
     
     private lazy var titleStack = UIStackView(
         arrangedSubviews: [titleLabel, indicator]
@@ -82,7 +83,17 @@ final class CarouselCell: UICollectionViewCell, Identifiable {
     }
     
     // Struct로 데이터를 받아올 예정
-    func setData() {
+    func configCell(recipe: Recipe) {
+        let url = URL(string: recipe.imageURL)
+        imageView.kf.setImage(with: url)
+        titleLabel.text = recipe.title
+        materialLists.text = recipe.ingredients
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.text = ""
+        materialLabel.text = ""
         imageView.image = UIImage(named: "Rocket")
     }
 }
