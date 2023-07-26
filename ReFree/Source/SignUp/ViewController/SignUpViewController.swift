@@ -11,8 +11,6 @@ import Then
 import RxSwift
 
 class SignUpViewController: UIViewController {
-    let launchScreenView = LaunchScreenView()
-    
     let signUpImageView1 = UIImageView().then {
         $0.image = UIImage(named: "FourCircle")
         $0.contentMode = .scaleAspectFit
@@ -186,7 +184,6 @@ class SignUpViewController: UIViewController {
     
     private func config(){
         layout()
-        configLaunchScreen()
     }
     
     private func layout(){
@@ -407,13 +404,5 @@ class SignUpViewController: UIViewController {
     private func touchLoginButton() {
         navigationController?.pushViewController(LogInViewController(), animated: true)
         navigationItem.backButtonTitle = "Sign"
-    }
-    
-    private func configLaunchScreen() {
-        view.addSubview(launchScreenView)
-        
-        launchScreenView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
     }
 }

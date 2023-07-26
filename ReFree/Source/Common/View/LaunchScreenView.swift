@@ -55,7 +55,8 @@ final class LaunchScreenView: UIView {
         
         logoImageView.snp.makeConstraints {
             $0.center.equalToSuperview()
-            $0.width.height.equalTo(200)
+            $0.width.equalTo(200)
+            $0.height.equalTo(195)
         }
         
         logoTitleLabel.snp.makeConstraints {
@@ -73,7 +74,7 @@ final class LaunchScreenView: UIView {
     }
     
     private func removeView() {
-        UIView.animate(withDuration: 1) { [weak self] in
+        UIView.animate(withDuration: 0.5) { [weak self] in
             self?.layer.opacity = 0
         } completion: { [weak self] _ in
             self?.removeFromSuperview()
