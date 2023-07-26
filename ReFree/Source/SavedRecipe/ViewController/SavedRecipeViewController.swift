@@ -139,7 +139,7 @@ extension SavedRecipeViewController: UICollectionViewDelegateFlowLayout {
         let height = Constant.screenSize.height
         let extractedExpr = RFModalViewController(
             modalHeight: height * ratio,
-            type: .recipe
+            type: .recipe(recipes[indexPath.row])
         )
         let halfModal = extractedExpr
         present(halfModal, animated: true)
