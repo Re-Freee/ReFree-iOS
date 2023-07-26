@@ -42,7 +42,7 @@
 		6A4ED1E52A5D4B4600299B61 /* CarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4ED1E42A5D4B4600299B61 /* CarouselCell.swift */; };
 		6A4ED1E72A5D4E0D00299B61 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4ED1E62A5D4E0D00299B61 /* Identifiable.swift */; };
 		6A63A0782A66CAC1008EA0DC /* RecipeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A63A0772A66CAC1008EA0DC /* RecipeListCell.swift */; };
-		6A63C1E32A66B3E000E69D06 /* SavedRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A63C1E22A66B3E000E69D06 /* SavedRecipeViewController.swift */; };
+		6A63C1E32A66B3E000E69D06 /* KindRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A63C1E22A66B3E000E69D06 /* KindRecipeViewController.swift */; };
 		6A7F8B9F2A6C2E1200DB38BD /* LoadingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 6A7F8B9E2A6C2E1200DB38BD /* LoadingAnimation.json */; };
 		6A7F8BA12A6C301500DB38BD /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F8BA02A6C301500DB38BD /* LoadingView.swift */; };
 		6A894D0D2A5F310200B053A5 /* RFModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A894D0C2A5F310200B053A5 /* RFModalViewController.swift */; };
@@ -113,7 +113,7 @@
 		6A4ED1E42A5D4B4600299B61 /* CarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCell.swift; sourceTree = "<group>"; };
 		6A4ED1E62A5D4E0D00299B61 /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		6A63A0772A66CAC1008EA0DC /* RecipeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeListCell.swift; sourceTree = "<group>"; };
-		6A63C1E22A66B3E000E69D06 /* SavedRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRecipeViewController.swift; sourceTree = "<group>"; };
+		6A63C1E22A66B3E000E69D06 /* KindRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindRecipeViewController.swift; sourceTree = "<group>"; };
 		6A7F8B9E2A6C2E1200DB38BD /* LoadingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingAnimation.json; sourceTree = "<group>"; };
 		6A7F8BA02A6C301500DB38BD /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		6A894D0C2A5F310200B053A5 /* RFModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFModalViewController.swift; sourceTree = "<group>"; };
@@ -321,19 +321,19 @@
 			path = ReFree/Source/SignUp;
 			sourceTree = SOURCE_ROOT;
 		};
-		6A63C1DF2A66B36700E69D06 /* SavedRecipe */ = {
+		6A63C1DF2A66B36700E69D06 /* KindRecipe */ = {
 			isa = PBXGroup;
 			children = (
 				6A63C1E02A66B3B000E69D06 /* ViewController */,
 				6A63C1E12A66B3B600E69D06 /* View */,
 			);
-			path = SavedRecipe;
+			path = KindRecipe;
 			sourceTree = "<group>";
 		};
 		6A63C1E02A66B3B000E69D06 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				6A63C1E22A66B3E000E69D06 /* SavedRecipeViewController.swift */,
+				6A63C1E22A66B3E000E69D06 /* KindRecipeViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -380,7 +380,7 @@
 				6A7234F62A50734A004FCFB4 /* Common */,
 				6A1C0EB62A613EBE00A7C1C1 /* SignUp */,
 				6A06E60E2A5D1237005938DE /* Recipe */,
-				6A63C1DF2A66B36700E69D06 /* SavedRecipe */,
+				6A63C1DF2A66B36700E69D06 /* KindRecipe */,
 				6A0D303D2A56C80F00A9F44A /* Util */,
 			);
 			path = Source;
@@ -423,7 +423,7 @@
 			children = (
 				6A9CDCDE2A6539680003F618 /* TargetProtocol.swift */,
 				6A9CDCE02A6551230003F618 /* Network.swift */,
-				6A9CDCE22A6557950003F618 /* NetworkTest.swift */,
+				6AA91E462A71301400CEFB3B /* DataSource */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -447,6 +447,14 @@
 				6AFFE7542A64785500744182 /* RecipeDetailView.swift */,
 			);
 			path = RFModal;
+			sourceTree = "<group>";
+		};
+		6AA91E462A71301400CEFB3B /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				6A9CDCE22A6557950003F618 /* NetworkTest.swift */,
+			);
+			path = DataSource;
 			sourceTree = "<group>";
 		};
 		6AD7E38A2A506C08007338DB = {
@@ -639,7 +647,7 @@
 				6A4ED1DD2A5D31A800299B61 /* BadgeButton.swift in Sources */,
 				2E35BAE92A6C0F3700D3C74C /* AddFoodViewController.swift in Sources */,
 				02ADE93D2A6136AA0017B69D /* HomeTabHeader.swift in Sources */,
-				6A63C1E32A66B3E000E69D06 /* SavedRecipeViewController.swift in Sources */,
+				6A63C1E32A66B3E000E69D06 /* KindRecipeViewController.swift in Sources */,
 				6A894D0D2A5F310200B053A5 /* RFModalViewController.swift in Sources */,
 				6AE16DBE2A711452008D0C3C /* DetailRecipe.swift in Sources */,
 				6A8B10D12A62EABC0076A1CF /* KeyChain.swift in Sources */,

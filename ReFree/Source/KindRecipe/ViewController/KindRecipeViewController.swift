@@ -1,5 +1,5 @@
 //
-//  SavedRecipeViewController.swift
+//  KindRecipeViewController.swift
 //  ReFree
 //
 //  Created by 이주훈 on 2023/07/18.
@@ -9,17 +9,17 @@ import UIKit
 import SnapKit
 import Then
 
-final class SavedRecipeViewController: UIViewController {
+final class KindRecipeViewController: UIViewController {
     enum TitleKind: String {
         case saved = "저장한 레시피"
         case bowl = "밥 레시피"
         case soup = "국&찌개 레시피"
+        case dessert = "디저트 레시피"
         case sideMenu = "반찬 레시피"
     }
     
     private let titleLabel = UILabel().then {
         $0.textColor = .refreeColor.main
-        $0.text = "저장한 레시피"
         $0.font = .pretendard.extraBold30
     }
     private let searchBar = RFSearchBar()
@@ -34,9 +34,10 @@ final class SavedRecipeViewController: UIViewController {
         )
     }
     
-    init(kind: SavedRecipeViewController.TitleKind) {
+    init(kind: KindRecipeViewController.TitleKind) {
         super.init(nibName: nil, bundle: Bundle.main)
         titleLabel.text = kind.rawValue
+        dataLoading(kind: kind)
     }
     
     required init?(coder: NSCoder) {
@@ -85,7 +86,7 @@ final class SavedRecipeViewController: UIViewController {
         
         collectionView.snp.makeConstraints {
             $0.top.equalTo(searchBar.snp.bottom).offset(24)
-            $0.leading.trailing.equalToSuperview().inset(4)
+            $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
@@ -94,12 +95,17 @@ final class SavedRecipeViewController: UIViewController {
         return UICollectionViewCompositionalLayout { _, _ in
             let item = NSCollectionLayoutItem(
                 layoutSize: .init(
-                    widthDimension: .absolute((Constant.screenSize.width-8)/2),
-                    heightDimension: .absolute((Constant.screenSize.width-8)/2)
+                    widthDimension: .absolute((Constant.screenSize.width)/2),
+                    heightDimension: .absolute((Constant.screenSize.width)/2)
                 )
             )
 
-            item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
+            item.contentInsets = NSDirectionalEdgeInsets(
+                top: 8,
+                leading: 8,
+                bottom: 8,
+                trailing: 8
+            )
             
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: .init(
@@ -108,14 +114,19 @@ final class SavedRecipeViewController: UIViewController {
                 ),
                 subitems: [item]
             )
+
             let section = NSCollectionLayoutSection(group: group)
             
             return section
         }
     }
+    
+    private func dataLoading(kind: TitleKind) {
+        // TODO: 형식에 따른 레시피 Networking 후 reload
+    }
 }
 
-extension SavedRecipeViewController: UICollectionViewDataSource {
+extension KindRecipeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         recipes.count
     }
@@ -133,8 +144,11 @@ extension SavedRecipeViewController: UICollectionViewDataSource {
     }
 }
 
-extension SavedRecipeViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+extension KindRecipeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
         let ratio = 0.7
         let height = Constant.screenSize.height
         let extractedExpr = RFModalViewController(

@@ -173,6 +173,22 @@ final class RecipeViewController: UIViewController {
     }
     
     private func bind() {
+        bindHeader()
+        bindSidebar()
+        bindRecipe()
+    }
+    
+    private func bindHeader() {
+        header.bookmarkButton.rx.tapGesture()
+            .when(.recognized)
+            .bind { [weak self] _ in
+                let vc = KindRecipeViewController(kind: .saved)
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindSidebar() {
         header.sideBarToggleButton.rx.tapGesture()
             .when(.recognized)
             .bind { [weak self] _ in
@@ -194,14 +210,28 @@ final class RecipeViewController: UIViewController {
         }
         .disposed(by: disposeBag)
         
-        header.bookmarkButton.rx.tapGesture()
-            .when(.recognized)
-            .bind { [weak self] _ in
-                let vc = SavedRecipeViewController(kind: .saved)
-                self?.navigationController?.pushViewController(vc, animated: true)
-            }
-            .disposed(by: disposeBag)
-        
+        [
+            (sidebar.bowlStack, KindRecipeViewController.TitleKind.bowl),
+            (sidebar.soupStack, KindRecipeViewController.TitleKind.soup),
+            (sidebar.dessertStack, KindRecipeViewController.TitleKind.dessert),
+            (sidebar.sideStack, KindRecipeViewController.TitleKind.sideMenu),
+            (sidebar.saveStack, KindRecipeViewController.TitleKind.saved),
+        ].forEach { (sideView, kind) in
+            sideView.rx.tapGesture()
+                .when(.ended)
+                .bind { [weak self] _ in
+                    let viewController = KindRecipeViewController(kind: kind)
+                    self?.navigationController?.pushViewController(
+                        viewController,
+                        animated: true
+                    )
+                    self?.closeSidebar()
+                }
+                .disposed(by: disposeBag)
+        }
+    }
+    
+    private func bindRecipe() {
         // TODO: 레시피 비동기 로딩이 끝나면 loadingCompelition 실행
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) { [weak self] in
             self?.loadingCompletion()
