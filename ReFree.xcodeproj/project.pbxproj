@@ -68,6 +68,10 @@
 		6AD7E3992A506C08007338DB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7E3982A506C08007338DB /* SceneDelegate.swift */; };
 		6AD7E3A02A506C09007338DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AD7E39F2A506C09007338DB /* Assets.xcassets */; };
 		6AD7E3A32A506C09007338DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AD7E3A12A506C09007338DB /* LaunchScreen.storyboard */; };
+		6AE16DBE2A711452008D0C3C /* DetailRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE16DBD2A711452008D0C3C /* DetailRecipe.swift */; };
+		6AE16DC12A7114C3008D0C3C /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE16DC02A7114C3008D0C3C /* Recipe.swift */; };
+		6AE16DC32A711595008D0C3C /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE16DC22A711595008D0C3C /* Ingredient.swift */; };
+		6AE16DC52A711642008D0C3C /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE16DC42A711642008D0C3C /* UserInfo.swift */; };
 		6AE80DBC2A507C21006CBB56 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6AE80DBB2A507C21006CBB56 /* SnapKit */; };
 		6AE80DC22A507C89006CBB56 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6AE80DC12A507C89006CBB56 /* Alamofire */; };
 		6AE80DCB2A507CDD006CBB56 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6AE80DCA2A507CDD006CBB56 /* RealmSwift */; };
@@ -134,6 +138,10 @@
 		6AD7E39F2A506C09007338DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6AD7E3A22A506C09007338DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6AD7E3A42A506C09007338DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6AE16DBD2A711452008D0C3C /* DetailRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRecipe.swift; sourceTree = "<group>"; };
+		6AE16DC02A7114C3008D0C3C /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		6AE16DC22A711595008D0C3C /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
+		6AE16DC42A711642008D0C3C /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		6AFFE7502A64128400744182 /* RecipeDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailCell.swift; sourceTree = "<group>"; };
 		6AFFE7522A6412CC00744182 /* RecipeDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailHeaderView.swift; sourceTree = "<group>"; };
 		6AFFE7542A64785500744182 /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
@@ -365,6 +373,7 @@
 		6A7234F52A507334004FCFB4 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				6AE16DBB2A7113CD008D0C3C /* Domain */,
 				2E35BAE32A6C0F3700D3C74C /* AddFood */,
 				02B526C12A6689000046D46E /* LogIn */,
 				02ADE9312A6134BA0017B69D /* Home */,
@@ -464,6 +473,25 @@
 				6A7234F52A507334004FCFB4 /* Source */,
 			);
 			path = ReFree;
+			sourceTree = "<group>";
+		};
+		6AE16DBB2A7113CD008D0C3C /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				6AE16DBC2A711429008D0C3C /* Entities */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		6AE16DBC2A711429008D0C3C /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				6AE16DBD2A711452008D0C3C /* DetailRecipe.swift */,
+				6AE16DC02A7114C3008D0C3C /* Recipe.swift */,
+				6AE16DC22A711595008D0C3C /* Ingredient.swift */,
+				6AE16DC42A711642008D0C3C /* UserInfo.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -573,6 +601,7 @@
 				6A0D30402A56C83500A9F44A /* UIView+addSubViews.swift in Sources */,
 				02B526C92A66D6280046D46E /* LogInTextField.swift in Sources */,
 				2E35BAF02A6C100E00D3C74C /* UIView+UIScreen.swift in Sources */,
+				6AE16DC52A711642008D0C3C /* UserInfo.swift in Sources */,
 				6ACEE6C62A5C92F70084C41A /* UIView+gradient.swift in Sources */,
 				6A1C0EBA2A61427400A7C1C1 /* UIFont+Pretendard.swift in Sources */,
 				02B526CB2A66E1510046D46E /* LogInButton.swift in Sources */,
@@ -584,9 +613,11 @@
 				6A63A0782A66CAC1008EA0DC /* RecipeListCell.swift in Sources */,
 				6A9CDCE32A6557950003F618 /* NetworkTest.swift in Sources */,
 				6A4ED1E52A5D4B4600299B61 /* CarouselCell.swift in Sources */,
+				6AE16DC12A7114C3008D0C3C /* Recipe.swift in Sources */,
 				2E35BAE82A6C0F3700D3C74C /* RefrigeratorTabHeader.swift in Sources */,
 				6AD7E3972A506C08007338DB /* AppDelegate.swift in Sources */,
 				6A4ED1D82A5D237C00299B61 /* RFSearchBar.swift in Sources */,
+				6AE16DC32A711595008D0C3C /* Ingredient.swift in Sources */,
 				6A2B70732A5BF056002F92EB /* UIColor+ReFreeColor.swift in Sources */,
 				6A06E6142A5D1379005938DE /* RecipeTabHeader.swift in Sources */,
 				6A4ED1DF2A5D402700299B61 /* UITextFiled+Attribute.swift in Sources */,
@@ -610,6 +641,7 @@
 				02ADE93D2A6136AA0017B69D /* HomeTabHeader.swift in Sources */,
 				6A63C1E32A66B3E000E69D06 /* SavedRecipeViewController.swift in Sources */,
 				6A894D0D2A5F310200B053A5 /* RFModalViewController.swift in Sources */,
+				6AE16DBE2A711452008D0C3C /* DetailRecipe.swift in Sources */,
 				6A8B10D12A62EABC0076A1CF /* KeyChain.swift in Sources */,
 				6A06E6122A5D1279005938DE /* RecipeViewController.swift in Sources */,
 				6A7F8BA12A6C301500DB38BD /* LoadingView.swift in Sources */,
