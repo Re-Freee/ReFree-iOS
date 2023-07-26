@@ -19,7 +19,7 @@ final class RecipeDetailCell: UICollectionViewCell, Identifiable {
         $0.textAlignment = .center
         $0.numberOfLines = 0
         // TODO: Remove
-        $0.text = "냄비에 썰어둔 김치와 밑간한 돼지고기, 김칫국물 5큰술, 참기름 1작은술을 넣어 약불에서 3~5분간 충분히 볶아줍니다.냄비에 썰어둔 김치와 밑간한 돼지고기, 김칫국물 5큰술, 참기름 1작은술을 넣어 약불에서 3~5분간 충분히 볶아줍니다.냄비에 썰어둔 김치와 밑간한 돼지고기, 김칫국물 5큰술, 참기름 1작은술을 넣어 약불에서 3~5분간 충분히 볶아줍니다."
+        $0.text = "레시피"
     }
     
     override init(frame: CGRect) {
@@ -45,5 +45,17 @@ final class RecipeDetailCell: UICollectionViewCell, Identifiable {
             $0.top.trailing.bottom.equalToSuperview()
             $0.leading.equalTo(imageView.snp.trailing).offset(12)
         }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = UIImage(named: "Rocket")
+        descriptionLabel.text = ""
+    }
+    
+    func configCell(detailReciple: DetailRecipe) {
+        let url = URL(string: detailReciple.imageURL)
+        imageView.kf.setImage(with: url)
+        descriptionLabel.text = detailReciple.description
     }
 }

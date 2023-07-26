@@ -79,6 +79,8 @@ final class RecipeViewController: UIViewController {
     private var previousIndex: Int?
     private var disposeBag = DisposeBag()
     
+    private var recipes: [Recipe] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         config()
@@ -195,7 +197,7 @@ final class RecipeViewController: UIViewController {
         header.bookmarkButton.rx.tapGesture()
             .when(.recognized)
             .bind { [weak self] _ in
-                let vc = SavedRecipeViewController()
+                let vc = SavedRecipeViewController(kind: .saved)
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
@@ -244,7 +246,7 @@ extension RecipeViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        3
+        recipes.count
     }
     
     func collectionView(
@@ -263,7 +265,8 @@ extension RecipeViewController: UICollectionViewDataSource {
             previousIndex = 0
         }
         
-        cell.setData()
+        cell.prepareForReuse()
+        cell.configCell(recipe: recipes[indexPath.row])
         
         return cell
     }
@@ -321,5 +324,3 @@ extension RecipeViewController: UICollectionViewDelegateFlowLayout {
         present(halfModal, animated: true)
     }
 }
-
-

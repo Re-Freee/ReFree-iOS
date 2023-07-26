@@ -40,6 +40,8 @@ final class RecipeDetailView: UIView {
         )
     }
     
+    private var detailRecipes: [DetailRecipe] = []
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         config()
@@ -51,11 +53,19 @@ final class RecipeDetailView: UIView {
     
     private func config() {
         recipeCollection.dataSource = self
-        
+        layout()
+        bind()
+    }
+    
+    private func layout() {
         addSubview(recipeCollection)
         recipeCollection.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+    }
+    
+    private func bind() {
+        // TODO: 네트워킹
     }
     
     private func collectionViewLayout() -> UICollectionViewCompositionalLayout {
@@ -95,7 +105,7 @@ final class RecipeDetailView: UIView {
 
 extension RecipeDetailView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        detailRecipes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -105,6 +115,9 @@ extension RecipeDetailView: UICollectionViewDataSource {
             for: indexPath
         ) as? RecipeDetailCell
         else { return UICollectionViewCell() }
+        
+        cell.prepareForReuse()
+        cell.configCell(detailReciple: detailRecipes[indexPath.row])
         
         return cell
     }
