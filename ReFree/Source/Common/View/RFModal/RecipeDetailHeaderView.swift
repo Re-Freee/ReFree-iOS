@@ -17,7 +17,7 @@ final class RecipeDetailHeaderView: UICollectionReusableView, Identifiable {
         $0.textColor = .refreeColor.main
         $0.font = .pretendard.extraBold30
         // TODO: Remove
-        $0.text = "돼지고기 김치찌개"
+        $0.text = "음식 이름"
     }
     
     private let bookmarkButton = UIButton().then {
@@ -39,7 +39,7 @@ final class RecipeDetailHeaderView: UICollectionReusableView, Identifiable {
         $0.textColor = .refreeColor.text1
         $0.font = .pretendard.extraLight12
         // TODO: 테스트 용 긴 문자열로 실제 정보 받을땐 제거 예정
-        $0.text = "물(250ml 기준) 구매2컵. 돼지고기 찌개용 또는 목살 구매250g. 신김치 구매200g. 김칫국물 구매5큰술. 참기름 구매1작은술. 양파 구매1/2개. 청고추 구매2개. 대파물(250ml 기준) 구매2컵. 돼지고기 찌개용 또는 목살 구매250g. 신김치 구매200g. 김칫국물 구매5큰술. 참기름 구매1작은술. 양파 구매1/2개. 청고추 구매2개. 대파물(250ml 기준) 구매2컵. 돼지고기 찌개용 또는 목살 구매250g. 신김치 구매200g. 김칫국물 구매5큰술. 참기름 구매1작은술. 양파 구매1/2개. 청고추 구매2개. 대파물(250ml 기준) 구매2컵. 돼지고기 찌개용 또는 목살 구매250g. 신김치 구매200g. 김칫국물 구매5큰술. 참기름 구매1작은술. 양파 구매1/2개. 청고추 구매2개. 대파물(250ml 기준) 구매2컵. 돼지고기 찌개용 또는 목살 구매250g. 신김치 구매200g. 김칫국물 구매5큰술. 참기름 구매1작은술. 양파 구매1/2개. 청고추 구매2개. 대파물(250ml 기준) 구매2컵. 돼지고기 찌개용 또는 목살 구매250g. 신김치 구매200g. 김칫국물 구매5큰술. 참기름 구매1작은술. 양파 구매1/2개. 청고추 구매2개. 대파"
+        $0.text = "재료 목록"
     }
     
     private let recipeTitle = UILabel().then {
@@ -111,5 +111,15 @@ final class RecipeDetailHeaderView: UICollectionReusableView, Identifiable {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview().offset(-12)
         }
+    }
+    
+    func configHeader(recipe: Recipe) {
+        titleLabel.text = recipe.title
+        ingredientsLists.text = recipe.ingredients
+        let bookmarkImage = recipe.isHeart ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+        bookmarkButton.setImage(
+            bookmarkImage?.withTintColor(.white, renderingMode: .alwaysOriginal),
+            for: .normal
+        )
     }
 }

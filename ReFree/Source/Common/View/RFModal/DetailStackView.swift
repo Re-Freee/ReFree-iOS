@@ -29,6 +29,12 @@ final class DetailStackView: UIStackView {
         $0.text = "안녕"
     }
     
+    var text: String = "" {
+        willSet {
+            descriptionLabel.text = newValue
+        }
+    }
+    
     private var kind: Kind
     
     init(kind: Kind, description: String? = nil) {

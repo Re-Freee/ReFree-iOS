@@ -11,8 +11,8 @@ import SnapKit
 final class RFModalViewController: UIViewController {
     
     enum ContentType {
-        case detail
-        case recipe
+        case detail(Ingredient)
+        case recipe(Recipe)
     }
     
     var contentView: UIView?
@@ -33,8 +33,10 @@ final class RFModalViewController: UIViewController {
     
     private func config(height: CGFloat, type: ContentType) {
         switch type {
-        case .detail: contentView = IngredientDetailView(frame: view.frame)
-        case .recipe: contentView = RecipeDetailView(frame: view.frame)
+        case .detail(let ingredient):
+            contentView = IngredientDetailView(ingredient: ingredient)
+        case .recipe(let recipe):
+            contentView = RecipeDetailView(recipe: recipe)
         }
         
         guard let sheet = sheetPresentationController else { return }
@@ -56,6 +58,11 @@ final class RFModalViewController: UIViewController {
                 $0.edges.equalToSuperview()
             }
         }
+    }
+    
+    func configRecipe(recipe: Recipe) {
+        guard let recipeView = contentView as? RecipeDetailView else { return }
+        recipeView.configView(recipe: recipe)
     }
 }
 

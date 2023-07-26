@@ -25,7 +25,7 @@ final class RecipeDetailView: UIView {
         }
     }
     
-    lazy var recipeCollection = UICollectionView(
+    private lazy var recipeCollection = UICollectionView(
         frame: .zero,
         collectionViewLayout: collectionViewLayout()
     ).then {
@@ -40,11 +40,13 @@ final class RecipeDetailView: UIView {
         )
     }
     
+    private var recipe: Recipe?
     private var detailRecipes: [DetailRecipe] = []
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(recipe: Recipe) {
+        super.init(frame: .zero)
         config()
+        configView(recipe: recipe)
     }
     
     required init?(coder: NSCoder) {
@@ -101,6 +103,11 @@ final class RecipeDetailView: UIView {
             return section
         }
     }
+    
+    func configView(recipe: Recipe) {
+        self.recipe = recipe
+        // TODO: 네트워킹 + 끝나면 reload   
+    }
 }
 
 extension RecipeDetailView: UICollectionViewDataSource {
@@ -134,6 +141,9 @@ extension RecipeDetailView: UICollectionViewDataSource {
                 for: indexPath
             ) as? RecipeDetailHeaderView
         else { return UICollectionReusableView() }
+        
+        guard let recipe = recipe else { return header }
+        header.configHeader(recipe: recipe)
         
         return header
     }
