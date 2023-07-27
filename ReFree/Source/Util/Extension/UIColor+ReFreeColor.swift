@@ -27,6 +27,8 @@ extension UIColor {
         let button2 = UIColor(named: "Button2") ?? .white
         let button3 = UIColor(named: "Button3") ?? .white
         let button4 = UIColor(named: "Button4") ?? .white
+        let button5 = UIColor(named: "Button5") ?? .white
+        let button6 = UIColor(named: "Button6") ?? .white
         let red = UIColor(named: "Red") ?? .white
         
         // Custom Colors

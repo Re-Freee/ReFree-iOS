@@ -10,22 +10,25 @@ import SnapKit
 import Then
 
 class HomeTabHeader: UIView {
+    private let colors: [CGColor] = [
+        UIColor.refreeColor.button5.cgColor,
+        UIColor.refreeColor.button6.cgColor
+    ]
+    
+    private let gradientLayer = CAGradientLayer()
+    
     private let searchBar = RFSearchBar()
     
     private let imminentFoodButton = UIButton().then {
         $0.setTitle("소비기한 임박 음식", for: .normal)
         $0.setTitleColor(UIColor.refreeColor.main, for: .normal)
         $0.backgroundColor = UIColor.refreeColor.button2
-        $0.layer.borderColor = UIColor.refreeColor.button3.cgColor      // TODO: 소비기한 임박 & 만료 음식 버튼 선택시 경계 색깔 설정
-        $0.layer.borderWidth = 1
     }
     
     private let expiredFoodButton = UIButton().then {
         $0.setTitle("소비기한 만료 음식", for: .normal)
         $0.setTitleColor(UIColor.refreeColor.main, for: .normal)
         $0.backgroundColor = UIColor.refreeColor.button3
-        $0.layer.borderColor = UIColor.refreeColor.button3.cgColor
-        $0.layer.borderWidth = 1
     }
     
     private var isImminentFoodButtonSelected: Bool = true
@@ -42,8 +45,9 @@ class HomeTabHeader: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        imminentFoodButton.addShadow(right: 4, down: 4, color: UIColor.gray, opacity: 0.5, radius: 8)
-        expiredFoodButton.addShadow(right: 0, down: 0, color: UIColor.gray, opacity: 0.2, radius: 8)
+        setButtonShadow(button: imminentFoodButton)
+        setButtonShadow(button: expiredFoodButton, isSelected: true)
+        setGradientButtonLayer(button: imminentFoodButton)
     }
     
     private func config() {
@@ -56,6 +60,8 @@ class HomeTabHeader: UIView {
         imminentFoodButton.layer.cornerRadius = imminentFoodButton.intrinsicContentSize.height / 2
         expiredFoodButton.layer.cornerRadius = expiredFoodButton.intrinsicContentSize.height / 2
         
+        expiredFoodButton.layer.borderColor = UIColor.refreeColor.button3.cgColor
+        
         self.addSubviews(
             [
                 searchBar,
@@ -65,7 +71,7 @@ class HomeTabHeader: UIView {
         )
         
         searchBar.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(Constant.spacing50)
+            $0.top.equalToSuperview().offset(20)
             $0.leading.trailing.equalToSuperview().inset(Constant.spacing24)
         }
         
@@ -84,13 +90,13 @@ class HomeTabHeader: UIView {
     
     @objc private func imminentFoodButtonTapped() {
         if !isImminentFoodButtonSelected {
+            setGradientButtonLayer(button: expiredFoodButton, isApplied: true)
+            setGradientButtonLayer(button: imminentFoodButton)
             imminentFoodButton.backgroundColor = UIColor.refreeColor.button2
-            imminentFoodButton.layer.borderColor = UIColor.refreeColor.button3.cgColor      // TODO: 소비기한 임박 & 만료 음식 버튼 선택시 경계 색깔 설정
             expiredFoodButton.backgroundColor = UIColor.refreeColor.button3
-            expiredFoodButton.layer.borderColor = UIColor.refreeColor.button3.cgColor
             
-            imminentFoodButton.addShadow(right: 4, down: 4, color: UIColor.gray, opacity: 0.5, radius: 8)
-            expiredFoodButton.addShadow(right: 0, down: 0, color: UIColor.gray, opacity: 0.2, radius: 8)
+            setButtonShadow(button: imminentFoodButton)
+            setButtonShadow(button: expiredFoodButton, isSelected: true)
             
             isImminentFoodButtonSelected = true
         }
@@ -98,16 +104,51 @@ class HomeTabHeader: UIView {
     
     @objc private func expiredFoodButtonTapped() {
         if isImminentFoodButtonSelected {
+            setGradientButtonLayer(button: imminentFoodButton, isApplied: true)
+            setGradientButtonLayer(button: expiredFoodButton)
             expiredFoodButton.backgroundColor = UIColor.refreeColor.button2
-            expiredFoodButton.layer.borderColor = UIColor.refreeColor.button3.cgColor       // TODO: 소비기한 임박 & 만료 음식 버튼 선택시 경계 색깔 설정
             imminentFoodButton.backgroundColor = UIColor.refreeColor.button3
-            imminentFoodButton.layer.borderColor = UIColor.refreeColor.button3.cgColor
             
-            imminentFoodButton.addShadow(right: 0, down: 0, color: UIColor.gray, opacity: 0.2, radius: 8)
-            expiredFoodButton.addShadow(right: 4, down: 4, color: UIColor.gray, opacity: 0.5, radius: 8)
-            
+            setButtonShadow(button: expiredFoodButton)
+            setButtonShadow(button: imminentFoodButton, isSelected: true)
             
             isImminentFoodButtonSelected = false
+        }
+    }
+    
+    private func setButtonShadow(
+        button:UIButton,
+        isSelected: Bool = false
+    ) {
+        if !isSelected {
+            button.addShadow(right: 0, down: 2, color: .gray, opacity: 0.6, radius: 8)
+        } else {
+            button.addShadow(right: 0, down: 0, color: .gray, opacity: 0.3, radius: 8)
+        }
+    }
+    
+    private func setGradientButtonLayer(
+        button: UIButton,
+        isApplied: Bool = false
+    ) {
+        if !isApplied {
+            gradientLayer.frame = button.bounds
+            gradientLayer.cornerRadius = button.layer.cornerRadius
+            gradientLayer.colors = colors
+            gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
+            gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
+            gradientLayer.type = .axial
+            
+            let mask = CAShapeLayer()
+            mask.lineWidth = 4
+            mask.path = UIBezierPath(roundedRect: button.bounds, cornerRadius: button.layer.cornerRadius).cgPath
+            mask.strokeColor = UIColor.black.cgColor
+            mask.fillColor = UIColor.clear.cgColor
+            
+            gradientLayer.mask = mask
+            button.layer.addSublayer(gradientLayer)
+        } else {
+            gradientLayer.removeFromSuperlayer()
         }
     }
 }

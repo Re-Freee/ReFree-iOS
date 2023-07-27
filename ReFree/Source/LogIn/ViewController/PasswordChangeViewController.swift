@@ -134,12 +134,12 @@ class PasswordChangeViewController: UIViewController, UITextFieldDelegate {
         }
         
         confirmNewPasswordCheckImage.snp.makeConstraints {
-            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(105)
+            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(102)
             $0.leading.equalTo(confirmNewPasswordText.snp.trailing).offset(5)
         }
         
         confirmNewPasswordXImage.snp.makeConstraints {
-            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(105)
+            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(102)
             $0.leading.equalTo(confirmNewPasswordText.snp.trailing).offset(5)
         }
         
