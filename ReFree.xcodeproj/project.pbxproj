@@ -16,6 +16,7 @@
 		02B526D12A6A2DD00046D46E /* EmailSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B526D02A6A2DD00046D46E /* EmailSearchViewController.swift */; };
 		02B526D32A6A369E0046D46E /* PasswordFindTabHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B526D22A6A369E0046D46E /* PasswordFindTabHeader.swift */; };
 		02B526D52A6A5CAE0046D46E /* PasswordChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B526D42A6A5CAE0046D46E /* PasswordChangeViewController.swift */; };
+		02B526D92A6E978B0046D46E /* FoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B526D82A6E978B0046D46E /* FoodTableViewCell.swift */; };
 		2E35BAE12A6C0C4100D3C74C /* Development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2E35BADF2A6C0C4100D3C74C /* Development.xcconfig */; };
 		2E35BAE22A6C0C4100D3C74C /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2E35BAE02A6C0C4100D3C74C /* Release.xcconfig */; };
 		2E35BAE82A6C0F3700D3C74C /* RefrigeratorTabHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E35BAE52A6C0F3700D3C74C /* RefrigeratorTabHeader.swift */; };
@@ -90,6 +91,7 @@
 		02B526D02A6A2DD00046D46E /* EmailSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSearchViewController.swift; sourceTree = "<group>"; };
 		02B526D22A6A369E0046D46E /* PasswordFindTabHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordFindTabHeader.swift; sourceTree = "<group>"; };
 		02B526D42A6A5CAE0046D46E /* PasswordChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChangeViewController.swift; sourceTree = "<group>"; };
+		02B526D82A6E978B0046D46E /* FoodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTableViewCell.swift; sourceTree = "<group>"; };
 		2E35BADF2A6C0C4100D3C74C /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		2E35BAE02A6C0C4100D3C74C /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		2E35BAE52A6C0F3700D3C74C /* RefrigeratorTabHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefrigeratorTabHeader.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				02ADE93C2A6136AA0017B69D /* HomeTabHeader.swift */,
+				02B526D82A6E978B0046D46E /* FoodTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -651,6 +654,7 @@
 				02ADE93D2A6136AA0017B69D /* HomeTabHeader.swift in Sources */,
 				6A63C1E32A66B3E000E69D06 /* KindRecipeViewController.swift in Sources */,
 				6A894D0D2A5F310200B053A5 /* RFModalViewController.swift in Sources */,
+				02B526D92A6E978B0046D46E /* FoodTableViewCell.swift in Sources */,
 				6AE16DBE2A711452008D0C3C /* DetailRecipe.swift in Sources */,
 				6A8B10D12A62EABC0076A1CF /* KeyChain.swift in Sources */,
 				6A06E6122A5D1279005938DE /* RecipeViewController.swift in Sources */,
