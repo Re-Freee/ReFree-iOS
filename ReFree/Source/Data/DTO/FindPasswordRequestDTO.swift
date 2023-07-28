@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct FindPasswordRequestDTO {
+struct FindPasswordRequestDTO: Encodable {
     let email: String
 }

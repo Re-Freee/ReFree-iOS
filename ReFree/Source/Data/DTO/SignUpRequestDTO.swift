@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SignUpRequestDTO {
+struct SignUpRequestDTO: Encodable {
     let email: String
     let password: String
     let checkPassword: String

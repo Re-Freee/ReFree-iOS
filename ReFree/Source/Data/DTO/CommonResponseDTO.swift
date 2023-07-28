@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CommonResponseDTO {
+struct CommonResponseDTO: Decodable {
     let code: String
     let message: String
 }

@@ -35,7 +35,7 @@ protocol ImageTarget {
     var imageData: [ImageData] { get }
 }
 
-struct GetQuery {
+struct RequestQuery {
     let key: String
     let value: Any
     
@@ -53,7 +53,7 @@ struct ImageData {
 }
 
 extension Target {
-    func setQuery(url: String, query: [GetQuery]?) -> String{
+    func setQuery(url: String, query: [RequestQuery]?) -> String{
         guard let query else { return url }
         var url = "\(url)?"
         query.forEach {

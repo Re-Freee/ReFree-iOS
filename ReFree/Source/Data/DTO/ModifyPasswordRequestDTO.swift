@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ModifyPasswordRequestDTO {
+struct ModifyPasswordRequestDTO: Encodable {
     let password: String
     let checkPassword: String
 }

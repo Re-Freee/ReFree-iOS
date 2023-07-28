@@ -251,7 +251,7 @@ final class RecipeViewController: UIViewController {
     
     private func request() -> Single<RecipeResponseDTO> {
         // TODO: 동적으로 재료 할당
-        return Network.requestJSON(target: NetworkRecipe.recommendRecipe(["토마토"]))
+        return Network.requestJSON(target: NetworkRecipe.recommendRecipe(ingredients: ["토마토"]))
     }
     
     private func openSidebar() {
