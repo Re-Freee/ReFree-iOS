@@ -93,7 +93,7 @@ final class CarouselCell: UICollectionViewCell, Identifiable {
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = ""
-        materialLabel.text = ""
+        materialLists.text = ""
         imageView.image = UIImage(named: "Rocket")
     }
 }

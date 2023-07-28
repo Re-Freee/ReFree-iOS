@@ -34,7 +34,10 @@ struct Network {
                 url: target.url,
                 method: target.method,
                 headers: target.header
-            ) else { return Disposables.create() }
+            ) else {
+                single(.failure(NetworkError.makeRequestError))
+                return Disposables.create()
+            }
             
             request.httpBody = target.parameters
             

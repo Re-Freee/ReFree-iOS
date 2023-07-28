@@ -232,10 +232,24 @@ final class RecipeViewController: UIViewController {
     }
     
     private func bindRecipe() {
-        // TODO: 레시피 비동기 로딩이 끝나면 loadingCompelition 실행
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) { [weak self] in
-            self?.loadingCompletion()
-        }
+        request()
+            .subscribe(
+                onSuccess: { [weak self] recipesDTO in
+                    self?.recipes = recipesDTO.toDomain()
+                    self?.carouselCollectionView.reloadData()
+                    self?.loadingCompletion()
+                    
+                },
+                onFailure: { error in
+                    print("\(error.localizedDescription)")
+                }
+            )
+            .disposed(by: disposeBag)
+    }
+    
+    private func request() -> Single<RecommendRecipeDTO> {
+        // TODO: 동적으로 재료 할당
+        return Network.requestJSON(target: NetworkRecipe.recommendRecipe(["토마토"]))
     }
     
     private func openSidebar() {
