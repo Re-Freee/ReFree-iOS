@@ -46,6 +46,7 @@ extension RecipeResponseDTO {
     func toDomain() -> [Recipe] {
         return data.map { recipeDTO in
             Recipe(
+                id: "\(recipeDTO.id)",
                 title: recipeDTO.name,
                 ingredients: recipeDTO.ingredient,
                 imageURL: recipeDTO.imageURL,
