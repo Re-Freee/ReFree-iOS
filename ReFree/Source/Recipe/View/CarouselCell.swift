@@ -35,7 +35,10 @@ final class CarouselCell: UICollectionViewCell, Identifiable {
         $0.font = .pretendard.extraLight12
     }
     
-    private let imageView = UIImageView(image: UIImage(named: "Rocket"))
+    private let imageView = UIImageView(image: UIImage(named: "Rocket")).then {
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 15
+    }
     
     private lazy var titleStack = UIStackView(
         arrangedSubviews: [titleLabel, indicator]

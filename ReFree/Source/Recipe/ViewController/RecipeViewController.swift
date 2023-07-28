@@ -18,7 +18,7 @@ final class RecipeViewController: UIViewController {
             let width = Constant.screenSize.width
             let height = Constant.screenSize.height
             
-            return CGSize(width: width*3/5, height: height*3/7)
+            return CGSize(width: width*0.7, height: height*0.45)
         }()
         static let itemSpacing = 30.0
         
