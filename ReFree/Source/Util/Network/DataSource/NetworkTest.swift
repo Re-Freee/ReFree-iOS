@@ -28,7 +28,7 @@ extension NetTest: Target {
     var url: URLConvertible {
         switch self {
         case .get(let query):
-            return setQuery(url: "\(baseURL)\(path)?", query: query)
+            return setQuery(url: "\(baseURL)\(path)", query: query)
         case .post:
             return "\(baseURL)\(path)"
         }
