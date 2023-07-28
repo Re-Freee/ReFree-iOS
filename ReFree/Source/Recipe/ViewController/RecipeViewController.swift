@@ -47,7 +47,7 @@ final class RecipeViewController: UIViewController {
         $0.showsHorizontalScrollIndicator = false
         $0.showsVerticalScrollIndicator = false
         $0.backgroundColor = .clear
-        $0.clipsToBounds = true
+        $0.clipsToBounds = false
         $0.isPagingEnabled = false
         $0.contentInsetAdjustmentBehavior = .never
         $0.contentInset = Const.collectionViewContentInset
@@ -71,7 +71,6 @@ final class RecipeViewController: UIViewController {
         $0.layer.cornerRadius = 15
         $0.pageIndicatorTintColor = .refreeColor.background3
         $0.currentPageIndicatorTintColor = .refreeColor.button1
-        // TODO: ViewModel과 함께 설정
         $0.numberOfPages = 3
     }
     
@@ -142,7 +141,6 @@ final class RecipeViewController: UIViewController {
         pageControl.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(24)
-            $0.height.equalTo(30)
             $0.top.equalTo(carouselCollectionView.snp.bottom)
         }
         
@@ -156,6 +154,10 @@ final class RecipeViewController: UIViewController {
             $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.leading.equalToSuperview().offset(-280)
             $0.width.equalTo(250)
+        }
+        
+        if Constant.screenSize.width < 400 {
+            pageControl.layer.opacity = 0
         }
     }
     
