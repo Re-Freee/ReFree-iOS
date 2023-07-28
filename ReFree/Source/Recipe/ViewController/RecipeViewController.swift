@@ -234,22 +234,22 @@ final class RecipeViewController: UIViewController {
     }
     
     private func bindRecipe() {
-        request()
-            .subscribe(
-                onSuccess: { [weak self] recipesDTO in
-                    self?.recipes = recipesDTO.toDomain()
-                    self?.carouselCollectionView.reloadData()
-                    self?.loadingCompletion()
-                    
-                },
-                onFailure: { error in
-                    print("\(error.localizedDescription)")
-                }
-            )
-            .disposed(by: disposeBag)
+//        request()
+//            .subscribe(
+//                onSuccess: { [weak self] recipesDTO in
+//                    self?.recipes = recipesDTO.toDomain()
+//                    self?.carouselCollectionView.reloadData()
+//                    self?.loadingCompletion()
+//
+//                },
+//                onFailure: { error in
+//                    print("\(error.localizedDescription)")
+//                }
+//            )
+//            .disposed(by: disposeBag)
     }
     
-    private func request() -> Single<RecommendRecipeDTO> {
+    private func request() -> Single<RecipeResponseDTO> {
         // TODO: 동적으로 재료 할당
         return Network.requestJSON(target: NetworkRecipe.recommendRecipe(["토마토"]))
     }
