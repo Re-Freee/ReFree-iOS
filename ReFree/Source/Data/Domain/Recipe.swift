@@ -8,6 +8,7 @@
 import Foundation
 
 struct Recipe {
+    let id: String
     let title: String
     let ingredients: String
     let imageURL: String
