@@ -46,7 +46,6 @@ final class RFModalViewController: UIViewController {
             ),
             .large()
         ]
-        
         sheet.prefersGrabberVisible = true
         sheet.prefersScrollingExpandsWhenScrolledToEdge = true
         sheet.preferredCornerRadius = CGFloat(30)

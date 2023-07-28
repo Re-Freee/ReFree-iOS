@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct RecipeResponseDTO: Codable {
+struct RecipeResponseDTO: Decodable {
     let code: Int
     let message: String
     let count: Int
     let data: [RecipeDTO]
     
-    struct RecipeDTO: Codable {
+    struct RecipeDTO: Decodable {
         let id: Int
         let name: String
         let calorie: Double
@@ -31,7 +31,7 @@ struct RecipeResponseDTO: Codable {
         }
     }
     
-    struct Manual: Codable {
+    struct Manual: Decodable {
         let describe: String
         let manuelImageURL: String
         

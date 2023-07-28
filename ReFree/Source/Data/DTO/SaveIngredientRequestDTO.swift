@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SaveIngredientRequestDTO {
+struct SaveIngredientRequestDTO: Encodable {
     let name: String
     let period: String
     let quantity: Int

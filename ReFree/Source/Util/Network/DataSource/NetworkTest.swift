@@ -12,7 +12,7 @@ struct TestStruct: Codable {
 }
 
 enum NetTest {
-    case get([GetQuery])
+    case get([RequestQuery])
     case post(TestStruct)
 }
 
