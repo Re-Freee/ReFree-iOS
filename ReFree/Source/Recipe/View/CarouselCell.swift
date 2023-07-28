@@ -30,6 +30,7 @@ final class CarouselCell: UICollectionViewCell, Identifiable {
     }
     
     private let materialLists = UILabel().then {
+        $0.numberOfLines = 2
         $0.text = "연어, 오이, 당근, 양상추, 발사믹 소스"
         $0.textColor = .refreeColor.text1
         $0.font = .pretendard.extraLight12
