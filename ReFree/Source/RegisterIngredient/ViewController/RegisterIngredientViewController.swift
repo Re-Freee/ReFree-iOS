@@ -76,5 +76,21 @@ final class RegisterIngredientViewController: UIViewController {
                 self?.view.endEditing(true)
             }
             .disposed(by: disposeBag)
+        
+        ingredientInfoView.saveButton.rx.tapGesture()
+            .when(.recognized)
+            .bind { [weak self] _ in
+                let alert = AlertView(
+                    title: "잠깐!",
+                    description: "그대로 저장하시겠습니까?"
+                )
+                alert.addAction(kind: .success) {
+                    print("저장!")
+                }
+                alert.addAction(kind: .cancel) {
+                    print("취소!")
+                }
+                self?.view.addSubview(alert)
+            }.disposed(by: disposeBag)
     }
 }

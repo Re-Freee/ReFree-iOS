@@ -10,8 +10,8 @@ import Foundation
 struct RecipeResponseDTO: Decodable {
     let code: Int
     let message: String
-    let count: Int
-    let data: [RecipeDTO]
+    let count: Int?
+    let data: [RecipeDTO]?
     
     struct RecipeDTO: Decodable {
         let id: Int
@@ -44,6 +44,7 @@ struct RecipeResponseDTO: Decodable {
 
 extension RecipeResponseDTO {
     func toDomain() -> [Recipe] {
+        guard let data else { return [] }
         return data.map { recipeDTO in
             Recipe(
                 id: "\(recipeDTO.id)",
