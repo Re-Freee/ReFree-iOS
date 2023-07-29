@@ -24,7 +24,7 @@ final class AlertView: UIView {
     }
     
     private let backgroundView = UIView().then {
-        $0.layer.opacity = 0.8
+        $0.layer.opacity = 0.7
         $0.backgroundColor = .black
     }
     
