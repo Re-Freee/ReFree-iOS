@@ -13,6 +13,16 @@ import RxGesture
 import RxCocoa
 
 final class AlertView: UIView {
+    enum AlertType {
+        case question
+        case check
+    }
+    
+    enum ButtonKind {
+        case success
+        case cancel
+    }
+    
     private let backgroundView = UIView().then {
         $0.layer.opacity = 0.8
         $0.backgroundColor = .black
@@ -72,8 +82,10 @@ final class AlertView: UIView {
     }
     
     private var disposeBag = DisposeBag()
+    private var alertType: AlertType
     
-    init(title: String, description: String) {
+    init(title: String, description: String, alertType: AlertType = .question) {
+        self.alertType = alertType
         super.init(frame: .zero)
         titleLabel.text = title
         descriptionLabel.text = description
@@ -109,6 +121,15 @@ final class AlertView: UIView {
     }
     
     private func layout() {
+        if alertType == .check {
+            buttonStack.removeArrangedSubview(cancelButton)
+            let attrString = NSAttributedString(
+                string: "확인했습니다!",
+                attributes: [.font: UIFont.pretendard.bold16 ?? UIFont.systemFont(ofSize: 16)]
+            )
+            successButton.setAttributedTitle(attrString, for: .normal)
+        }
+        
         addSubviews([
             backgroundView,
             alertBox
@@ -145,18 +166,13 @@ final class AlertView: UIView {
         
         buttonStack.snp.makeConstraints {
             $0.top.equalTo(descriptionLabel.snp.bottom).offset(12)
-            $0.height.equalTo(50)
+            $0.height.equalTo(40)
             $0.leading.trailing.bottom.equalToSuperview().inset(12)
         }
     }
     
     private func finishAlert() {
         removeFromSuperview()
-    }
-    
-    enum ButtonKind {
-        case success
-        case cancel
     }
     
     func addAction(kind: ButtonKind, action: @escaping () -> ()) {

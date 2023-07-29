@@ -82,7 +82,8 @@ final class RegisterIngredientViewController: UIViewController {
             .bind { [weak self] _ in
                 let alert = AlertView(
                     title: "잠깐!",
-                    description: "그대로 저장하시겠습니까?"
+                    description: "그대로 저장하시겠습니까?",
+                    alertType: .question
                 )
                 alert.addAction(kind: .success) {
                     print("저장!")
