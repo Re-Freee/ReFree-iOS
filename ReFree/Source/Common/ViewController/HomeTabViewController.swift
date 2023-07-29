@@ -35,6 +35,7 @@ final class HomeTabViewController: UITabBarController {
     private func tabBarConfig() {
         tabBar.barTintColor = .refreeColor.lightGray
         tabBar.tintColor = .refreeColor.main
+//        tabBar.clipsToBounds = true // 탭바 border 제거
         
         let homeViewController = UINavigationController(
             rootViewController: HomeViewController()

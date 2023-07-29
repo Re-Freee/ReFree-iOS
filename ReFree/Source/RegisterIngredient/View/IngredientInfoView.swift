@@ -123,6 +123,7 @@ final class IngredientInfoView: UIView {
     }
     
     let memoTextView = UITextView().then {
+        $0.font = .pretendard.extraLight20
         $0.clipsToBounds = true
         $0.backgroundColor = .refreeColor.textFrame
         $0.layer.cornerRadius = 10
@@ -259,7 +260,7 @@ final class IngredientInfoView: UIView {
         memoTextView.snp.makeConstraints {
             $0.top.equalTo(memoLabel.snp.bottom).offset(4)
             $0.leading.trailing.equalToSuperview().inset(24)
-            $0.height.greaterThanOrEqualTo(30)
+            $0.height.equalTo(150)
         }
     }
     
