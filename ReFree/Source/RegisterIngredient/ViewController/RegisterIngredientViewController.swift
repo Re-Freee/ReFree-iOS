@@ -9,8 +9,13 @@ import UIKit
 import SnapKit
 import Then
 import RxSwift
+import RxGesture
 
 final class RegisterIngredientViewController: UIViewController {
+    private let scrollVIew = UIScrollView().then {
+        $0.showsHorizontalScrollIndicator = false
+    }
+    private let scrollContentView = UIView()
     private let titleLabel = UILabel().then {
         $0.textColor = .refreeColor.main
         $0.font = .pretendard.extraBold30
@@ -18,6 +23,8 @@ final class RegisterIngredientViewController: UIViewController {
     }
     private let cameraView = CameraView()
     private let ingredientInfoView = IngredientInfoView()
+    
+    private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,10 +38,21 @@ final class RegisterIngredientViewController: UIViewController {
     }
     
     private func layout() {
-        view.addSubviews([titleLabel, cameraView, ingredientInfoView])
+        view.addSubview(scrollVIew)
+        scrollVIew.addSubview(scrollContentView)
+        scrollContentView.addSubviews([titleLabel, cameraView, ingredientInfoView])
+        
+        scrollVIew.snp.makeConstraints {
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        scrollContentView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.width.equalTo(Constant.screenSize.width)
+        }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview().inset(24)
         }
         
@@ -47,15 +65,16 @@ final class RegisterIngredientViewController: UIViewController {
         ingredientInfoView.snp.makeConstraints {
             $0.top.equalTo(cameraView.snp.bottom).offset(12)
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalToSuperview()
         }
     }
     
     private func bind() {
-        
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
+        scrollVIew.rx.touchDownGesture()
+            .when(.began)
+            .bind { [weak self] _ in
+                self?.view.endEditing(true)
+            }
+            .disposed(by: disposeBag)
     }
 }
