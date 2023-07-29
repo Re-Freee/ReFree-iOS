@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import Then
 import RxSwift
+import RxGesture
 import RxCocoa
 
 final class AlertView: UIView {
@@ -72,21 +73,11 @@ final class AlertView: UIView {
     
     private var disposeBag = DisposeBag()
     
-    init(title: String, description: String, frame: CGRect = .zero) {
-        super.init(frame: frame)
-        
+    init(title: String, description: String) {
+        super.init(frame: .zero)
         titleLabel.text = title
         descriptionLabel.text = description
-        
-        successButton.rx.tap
-            .subscribe { [weak self] _ in
-                self?.finishAlert()
-            }.disposed(by: disposeBag)
-        
-        cancelButton.rx.tap
-            .subscribe { [weak self] _ in
-                self?.finishAlert()
-            }.disposed(by: disposeBag)
+        config()
     }
     
     required init?(coder: NSCoder) {
@@ -98,6 +89,24 @@ final class AlertView: UIView {
         layout()
     }
     
+    private func config() {
+        successButton.rx.tap
+            .subscribe { [weak self] _ in
+                self?.finishAlert()
+            }.disposed(by: disposeBag)
+        
+        cancelButton.rx.tap
+            .subscribe { [weak self] _ in
+                self?.finishAlert()
+            }.disposed(by: disposeBag)
+        
+        backgroundView.rx.tapGesture()
+            .when(.recognized)
+            .bind { [weak self] _ in
+                self?.finishAlert()
+            }
+            .disposed(by: disposeBag)
+    }
     
     private func layout() {
         addSubviews([
