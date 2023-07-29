@@ -63,6 +63,7 @@ final class IngredientInfoView: UIView {
     }
     
     let expireDatePicker = UIDatePicker().then {
+        $0.locale = Locale(identifier: "ko_KR")
         $0.date = .now
         $0.preferredDatePickerStyle = .compact
         $0.datePickerMode = .date
