@@ -124,4 +124,8 @@ final class IngredientDetailView: UIView {
         productCount.text = "\(ingredient.count)"
         memoTextView.text = ingredient.memo
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        endEditing(true)
+    }
 }
