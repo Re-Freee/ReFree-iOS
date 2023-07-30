@@ -34,8 +34,9 @@ final class AlertView: UIView {
     }
     
     private let titleLabel = UILabel().then {
+        $0.numberOfLines = 3
         $0.textAlignment = .center
-        $0.font = .pretendard.bold24
+        $0.font = .pretendard.bold20
         $0.textColor = .black
     }
     
@@ -151,7 +152,7 @@ final class AlertView: UIView {
         
         alertBox.snp.makeConstraints {
             $0.center.equalToSuperview()
-            $0.width.equalToSuperview().multipliedBy(0.6)
+            $0.width.equalToSuperview().multipliedBy(0.7)
         }
         
         titleLabel.snp.makeConstraints {

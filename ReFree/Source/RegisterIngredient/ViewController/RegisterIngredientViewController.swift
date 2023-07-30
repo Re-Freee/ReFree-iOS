@@ -7,6 +7,7 @@
 
 import UIKit
 import PhotosUI
+import AVFoundation
 import SnapKit
 import Then
 import RxSwift
@@ -89,9 +90,7 @@ final class RegisterIngredientViewController: UIViewController {
                 alert.addAction(kind: .success) {
                     print("저장!")
                 }
-                alert.addAction(kind: .cancel) {
-                    print("취소!")
-                }
+
                 self?.view.addSubview(alert)
             }.disposed(by: disposeBag)
         
@@ -145,18 +144,35 @@ final class RegisterIngredientViewController: UIViewController {
     }
     
     private func startCamera() {
-        DispatchQueue.main.async { [weak self] in
-            let pickerController = UIImagePickerController()
-            pickerController.sourceType = .camera
-            pickerController.allowsEditing = false
-            pickerController.mediaTypes = ["public.image"]
-            //           오버레이 커스텀
-            //            pickerController.cameraOverlayView = nil
-            //            self?.overlay.frame = (pickerController.cameraOverlayView?.frame)!
-            //            pickerController.cameraOverlayView = self?.overlay
-            pickerController.cameraFlashMode = .off
-            pickerController.delegate = self
-            self?.present(pickerController, animated: true)
+        AVCaptureDevice.requestAccess(for: .video) { isAccess in
+            if isAccess {
+                DispatchQueue.main.async { [weak self] in
+                    let pickerController = UIImagePickerController()
+                    pickerController.sourceType = .camera
+                    pickerController.allowsEditing = false
+                    pickerController.mediaTypes = ["public.image"]
+                    //           오버레이 커스텀
+                    //            pickerController.cameraOverlayView = nil
+                    //            self?.overlay.frame = (pickerController.cameraOverlayView?.frame)!
+                    //            pickerController.cameraOverlayView = self?.overlay
+                    pickerController.cameraFlashMode = .off
+                    pickerController.delegate = self
+                    self?.present(pickerController, animated: true)
+                }
+            } else {
+                DispatchQueue.main.async { [weak self] in
+                    let alert = AlertView(
+                        title: "카메라 권한을 허용해주세요!",
+                        description: "앱설정으로 이동합니다.",
+                        alertType: .question
+                    )
+                    alert.addAction(kind: .success) {
+                        guard let settingURL = URL(string: UIApplication.openSettingsURLString) else { return }
+                        UIApplication.shared.open(settingURL)
+                    }
+                    self?.view.addSubview(alert)
+                }
+            }
         }
     }
     
