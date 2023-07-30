@@ -292,7 +292,8 @@ final class IngredientInfoView: UIView {
     func countMinus() {
         guard
             let currentCount = currentCountLabel.text,
-            let countNumber = Int(currentCount)
+            let countNumber = Int(currentCount),
+            countNumber > 0
         else { return }
         let newCount = countNumber - 1
         currentCountLabel.text = "\(newCount)"
