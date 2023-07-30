@@ -279,4 +279,22 @@ final class IngredientInfoView: UIView {
             $0.bottom.equalToSuperview().inset(24)
         }
     }
+        
+    func countPlus() {
+        guard
+            let currentCount = currentCountLabel.text,
+            let countNumber = Int(currentCount)
+        else { return }
+        let newCount = countNumber + 1
+        currentCountLabel.text = "\(newCount)"
+    }
+    
+    func countMinus() {
+        guard
+            let currentCount = currentCountLabel.text,
+            let countNumber = Int(currentCount)
+        else { return }
+        let newCount = countNumber - 1
+        currentCountLabel.text = "\(newCount)"
+    }
 }
