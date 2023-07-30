@@ -94,7 +94,7 @@ final class RegisterIngredientViewController: UIViewController {
                 alert.addAction(kind: .success) {
                     print("저장!")
                 }
-
+                
                 self?.view.addSubview(alert)
             }.disposed(by: disposeBag)
         
@@ -109,6 +109,16 @@ final class RegisterIngredientViewController: UIViewController {
                         return
                     }
                 }
+            }.disposed(by: disposeBag)
+        
+        ingredientInfoView.plusCountButton.rx.tap
+            .bind { [weak self] _ in
+                self?.ingredientInfoView.countPlus()
+            }.disposed(by: disposeBag)
+        
+        ingredientInfoView.minusCountButton.rx.tap
+            .bind { [weak self] _ in
+                self?.ingredientInfoView.countMinus()
             }.disposed(by: disposeBag)
     }
     
