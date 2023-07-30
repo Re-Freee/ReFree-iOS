@@ -37,6 +37,7 @@ final class IngredientInfoView: UIView {
     }
     
     let nameTextField = UITextField().then {
+        $0.addLeftPadding(padding: 10)
         $0.clipsToBounds = true
         $0.backgroundColor = .refreeColor.textFrame
         $0.layer.cornerRadius = 10
@@ -49,7 +50,7 @@ final class IngredientInfoView: UIView {
         $0.text = "카테고리"
     }
     
-    let categorySelectLabel = UILabel().then {
+    let categorySelectLabel = PaddingLabel().then {
         $0.clipsToBounds = true
         $0.backgroundColor = .refreeColor.textFrame
         $0.layer.cornerRadius = 10
