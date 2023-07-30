@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 import SnapKit
 import Then
 import RxSwift
@@ -122,6 +123,13 @@ final class RegisterIngredientViewController: UIViewController {
             self?.startAlbum()
         }
         
+        let deleteImage = UIAlertAction(
+            title: "이미지 제거",
+            style: .default
+        ) { [weak self] _ in
+            self?.cameraView.setDefault()
+        }
+        
         let cancel = UIAlertAction(
             title: "취소",
             style: .destructive
@@ -129,8 +137,10 @@ final class RegisterIngredientViewController: UIViewController {
         
         alert.addAction(takePhto)
         alert.addAction(selectPhoto)
+        if cameraView.currentImage != UIImage(named: "Camera1") {
+            alert.addAction(deleteImage)
+        }
         alert.addAction(cancel)
-        
         present(alert, animated: true)
     }
     
@@ -140,10 +150,10 @@ final class RegisterIngredientViewController: UIViewController {
             pickerController.sourceType = .camera
             pickerController.allowsEditing = false
             pickerController.mediaTypes = ["public.image"]
-//           오버레이 커스텀
-//            pickerController.cameraOverlayView = nil
-//            self?.overlay.frame = (pickerController.cameraOverlayView?.frame)!
-//            pickerController.cameraOverlayView = self?.overlay
+            //           오버레이 커스텀
+            //            pickerController.cameraOverlayView = nil
+            //            self?.overlay.frame = (pickerController.cameraOverlayView?.frame)!
+            //            pickerController.cameraOverlayView = self?.overlay
             pickerController.cameraFlashMode = .off
             pickerController.delegate = self
             self?.present(pickerController, animated: true)
@@ -151,7 +161,13 @@ final class RegisterIngredientViewController: UIViewController {
     }
     
     private func startAlbum() {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        configuration.selectionLimit = 1
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
         
+        present(picker, animated: true)
     }
 }
 
@@ -163,6 +179,8 @@ extension RegisterIngredientViewController: UINavigationControllerDelegate, UIIm
         _ picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
     ) {
+        picker.dismiss(animated: true)
+        
         guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         else {
             picker.dismiss(animated: true)
@@ -170,7 +188,28 @@ extension RegisterIngredientViewController: UINavigationControllerDelegate, UIIm
         }
         
         cameraView.setImage(image: image)
+    }
+}
+
+extension RegisterIngredientViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
         
-        picker.dismiss(animated: true, completion: nil)
+        if let provider = results.first?.itemProvider,
+           provider.canLoadObject(ofClass: UIImage.self) {
+            provider.loadObject(ofClass: UIImage.self) { (image, error) in
+                DispatchQueue.main.async { [weak self] in
+                    guard let image = image as? UIImage else { return }
+                    self?.cameraView.setImage(image: image)
+                }
+            }
+        } else {
+            let alert = AlertView(
+                title: "오류!",
+                description: "이미지를 불러오지 못했습니다.",
+                alertType: .check
+            )
+            view.addSubview(alert)
+        }
     }
 }
