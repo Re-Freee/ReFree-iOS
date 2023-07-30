@@ -79,6 +79,11 @@ final class RegisterIngredientViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
+        bindIngredientView()
+        bindCameraView()
+    }
+    
+    private func bindIngredientView() {
         ingredientInfoView.saveButton.rx.tapGesture()
             .when(.recognized)
             .bind { [weak self] _ in
@@ -94,6 +99,9 @@ final class RegisterIngredientViewController: UIViewController {
                 self?.view.addSubview(alert)
             }.disposed(by: disposeBag)
         
+    }
+    
+    private func bindCameraView() {
         cameraView.rx.tapGesture()
             .when(.recognized)
             .bind { [weak self] _ in
