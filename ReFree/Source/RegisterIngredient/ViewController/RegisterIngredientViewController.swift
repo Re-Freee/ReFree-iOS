@@ -14,9 +14,14 @@ import RxSwift
 import RxGesture
 
 final class RegisterIngredientViewController: UIViewController {
-    private let scrollVIew = UIScrollView().then {
-        $0.showsHorizontalScrollIndicator = false
+    final class CustomScrollView: UIScrollView {
+        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            super.touchesBegan(touches, with: event)
+            endEditing(true)
+        }
     }
+    
+    private let scrollVIew = CustomScrollView()
     private let scrollContentView = UIView()
     private let titleLabel = UILabel().then {
         $0.textColor = .refreeColor.main
@@ -50,7 +55,7 @@ final class RegisterIngredientViewController: UIViewController {
         
         scrollContentView.snp.makeConstraints {
             $0.edges.equalToSuperview()
-            $0.width.equalTo(Constant.screenSize.width)
+            $0.width.equalTo(scrollVIew.snp.width)
         }
         
         titleLabel.snp.makeConstraints {
@@ -72,13 +77,6 @@ final class RegisterIngredientViewController: UIViewController {
     }
     
     private func bind() {
-        scrollVIew.rx.touchDownGesture()
-            .when(.began)
-            .bind { [weak self] _ in
-                self?.view.endEditing(true)
-            }
-            .disposed(by: disposeBag)
-        
         bindIngredientView()
         bindCameraView()
     }
@@ -194,9 +192,6 @@ final class RegisterIngredientViewController: UIViewController {
         present(picker, animated: true)
     }
 }
-
-
-
 
 extension RegisterIngredientViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     func imagePickerController(

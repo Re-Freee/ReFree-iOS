@@ -146,11 +146,16 @@ final class IngredientInfoView: UIView {
     
     init() {
         super.init(frame: .zero)
-        layout()
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layout()
     }
     
     private func layout() {
