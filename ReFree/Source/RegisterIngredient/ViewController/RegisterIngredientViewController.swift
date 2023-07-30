@@ -30,8 +30,9 @@ final class RegisterIngredientViewController: UIViewController {
     }
     private let cameraView = CameraView()
     private let ingredientInfoView = IngredientInfoView()
-    
     private var disposeBag = DisposeBag()
+    
+    private var category: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,6 +98,18 @@ final class RegisterIngredientViewController: UIViewController {
                 self?.view.addSubview(alert)
             }.disposed(by: disposeBag)
         
+        ingredientInfoView.nameTextField.rx.text.orEmpty
+            .skip(1)
+            .debounce(.seconds(2), scheduler: MainScheduler.instance)
+            .map { $0 as String }
+            .bind { text in
+                Constant.category.forEach { [weak self] category in
+                    if text.contains(category) {
+                        self?.ingredientInfoView.categorySelectLabel.text = category
+                        return
+                    }
+                }
+            }.disposed(by: disposeBag)
     }
     
     private func bindCameraView() {
