@@ -169,8 +169,7 @@ extension RegisterIngredientViewController: UINavigationControllerDelegate, UIIm
             return
         }
         
-        cameraView.imageView.image = image
-        cameraView.imageView.contentMode = .scaleAspectFit
+        cameraView.setImage(image: image)
         
         picker.dismiss(animated: true, completion: nil)
     }
