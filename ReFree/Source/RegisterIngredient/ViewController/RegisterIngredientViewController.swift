@@ -93,5 +93,85 @@ final class RegisterIngredientViewController: UIViewController {
                 }
                 self?.view.addSubview(alert)
             }.disposed(by: disposeBag)
+        
+        cameraView.rx.tapGesture()
+            .when(.recognized)
+            .bind { [weak self] _ in
+                self?.bindCamera()
+            }.disposed(by: disposeBag)
+    }
+    
+    private func bindCamera() {
+        let alert = UIAlertController(
+            title: "사진 등록",
+            message: "어떻게 사진을 등록 하시겠어요?",
+            preferredStyle: .actionSheet
+        )
+        
+        let takePhto = UIAlertAction(
+            title: "사진 찍기",
+            style: .default
+        ) { [weak self] _ in
+            self?.startCamera()
+        }
+        
+        let selectPhoto = UIAlertAction(
+            title: "앨범에서 선택",
+            style: .default
+        ) { [weak self] _ in
+            self?.startAlbum()
+        }
+        
+        let cancel = UIAlertAction(
+            title: "취소",
+            style: .destructive
+        )
+        
+        alert.addAction(takePhto)
+        alert.addAction(selectPhoto)
+        alert.addAction(cancel)
+        
+        present(alert, animated: true)
+    }
+    
+    private func startCamera() {
+        DispatchQueue.main.async { [weak self] in
+            let pickerController = UIImagePickerController()
+            pickerController.sourceType = .camera
+            pickerController.allowsEditing = false
+            pickerController.mediaTypes = ["public.image"]
+//           오버레이 커스텀
+//            pickerController.cameraOverlayView = nil
+//            self?.overlay.frame = (pickerController.cameraOverlayView?.frame)!
+//            pickerController.cameraOverlayView = self?.overlay
+            pickerController.cameraFlashMode = .off
+            pickerController.delegate = self
+            self?.present(pickerController, animated: true)
+        }
+    }
+    
+    private func startAlbum() {
+        
+    }
+}
+
+
+
+
+extension RegisterIngredientViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
+    ) {
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        else {
+            picker.dismiss(animated: true)
+            return
+        }
+        
+        cameraView.imageView.image = image
+        cameraView.imageView.contentMode = .scaleAspectFit
+        
+        picker.dismiss(animated: true, completion: nil)
     }
 }
