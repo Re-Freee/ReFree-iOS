@@ -34,6 +34,8 @@ final class RegisterIngredientViewController: UIViewController {
     
     private var category: [String] = []
     
+    private var info = Ingredient()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.gradientBackground(type: .mainAxial)
@@ -83,35 +85,44 @@ final class RegisterIngredientViewController: UIViewController {
     }
     
     private func bindIngredientView() {
-        ingredientInfoView.saveButton.rx.tapGesture()
-            .when(.recognized)
-            .bind { [weak self] _ in
-                let alert = AlertView(
-                    title: "잠깐!",
-                    description: "그대로 저장하시겠습니까?",
-                    alertType: .question
-                )
-                alert.addAction(kind: .success) {
-                    print("저장!")
-                }
+        
+        ingredientInfoView.selectIngredientKind.rx.selectedSegmentIndex
+            .asDriver(onErrorJustReturn: 0)
+            .drive(onNext: { [weak self] index in
+                guard
+                    let self,
+                    let saveMethod = self
+                        .ingredientInfoView
+                        .selectIngredientKind
+                        .titleForSegment(at: index)
+                else { return }
                 
-                self?.view.addSubview(alert)
-            }.disposed(by: disposeBag)
+                self.info = self.info.saveMethod(method: saveMethod)
+            })
+            .disposed(by: disposeBag)
         
         ingredientInfoView.nameTextField.rx.text.orEmpty
             .skip(1)
+            .distinctUntilChanged()
             .debounce(.seconds(2), scheduler: MainScheduler.instance)
             .map { $0 as String }
             .bind { [weak self] text in
+                guard let self else { return }
                 var categories: [String] = []
                 Constant.category.forEach { category in
                     if text.contains(category) {
                         categories.append(category)
                     }
                 }
-                self?.ingredientInfoView.categoryRecommand(categories: categories)
-                
+                self.ingredientInfoView.categoryRecommand(categories: categories)
             }.disposed(by: disposeBag)
+        
+        ingredientInfoView.categorySubject.asDriver(onErrorJustReturn: "기타")
+            .drive(onNext: { [weak self] category in
+                guard let self else { return }
+                self.info = self.info.setCategory(category: category)
+            })
+            .disposed(by: disposeBag)
         
         ingredientInfoView.categorySelectButton.rx.tapGesture()
             .when(.recognized)
@@ -147,6 +158,15 @@ final class RegisterIngredientViewController: UIViewController {
                 .disposed(by: disposeBag)
         }
         
+        ingredientInfoView.expireDatePicker.rx.date
+            .map { $0 as Date }
+            .subscribe(onNext: { [weak self] date in
+                guard let self else { return }
+                let dateString = date.description // TODO: formatting 필요
+                self.info = self.info.expireDate(date: dateString)
+            })
+            .disposed(by: disposeBag)
+        
         ingredientInfoView.plusCountButton.rx.tap
             .bind { [weak self] _ in
                 self?.ingredientInfoView.countPlus()
@@ -157,6 +177,41 @@ final class RegisterIngredientViewController: UIViewController {
             .bind { [weak self] _ in
                 self?.ingredientInfoView.countMinus()
             }
+            .disposed(by: disposeBag)
+        
+        ingredientInfoView.countSubject.asDriver(onErrorJustReturn: "1")
+            .drive(onNext: { [weak self] count in
+                guard
+                    let self,
+                    let count = Int(count)
+                else { return }
+                self.info = self.info.setCount(count: count)
+            })
+            .disposed(by: disposeBag)
+        
+        ingredientInfoView.saveButton.rx.tapGesture()
+            .when(.recognized)
+            .bind { [weak self] _ in
+                let alert = AlertView(
+                    title: "잠깐!",
+                    description: "그대로 저장하시겠습니까?",
+                    alertType: .question
+                )
+                alert.addAction(kind: .success) {
+                    //TODO: 유효성 체크
+                    print("저장!")
+                    print(self?.info)
+                }
+                
+                self?.view.addSubview(alert)
+            }.disposed(by: disposeBag)
+        
+        ingredientInfoView.memoTextView.rx.text
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] memoText in
+                guard let self else { return }
+                self.info = self.info.setMemo(memo: (memoText ?? "") as String)
+            })
             .disposed(by: disposeBag)
     }
     

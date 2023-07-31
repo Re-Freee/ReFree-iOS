@@ -8,10 +8,22 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
 
 final class IngredientInfoView: UIView {
     enum IngredientViewText {
         static let categoryExplain = "카테고리를 선택해주세요!"
+    }
+    
+    enum SaveMethod: String, CaseIterable {
+        case refrigeration = "냉장"
+        case frozen = "냉동"
+        case roomtemp = "상온"
+        case etcs = "기타"
+        
+        static var allStringCases: [String] = {
+            SaveMethod.allCases.map { $0.rawValue }
+        }()
     }
     
     let selectIngredientKind = UISegmentedControl().then { segment in
@@ -26,7 +38,7 @@ final class IngredientInfoView: UIView {
         )
         segment.selectedSegmentTintColor = .refreeColor.button1
         segment.backgroundColor = .refreeColor.textFrame
-        ["냉장", "냉동", "실외", "기타"].enumerated().forEach { (index: Int, element: String) in
+        SaveMethod.allStringCases.enumerated().forEach { (index: Int, element: String) in
             segment.insertSegment(withTitle: element, at: index, animated: true)
         }
         segment.selectedSegmentIndex = 0
@@ -159,7 +171,8 @@ final class IngredientInfoView: UIView {
         $0.setAttributedTitle(attrString, for: .normal)
     }
     
-    var info = Ingredient()
+    let categorySubject = PublishSubject<String>()
+    let countSubject = BehaviorSubject(value: "1")
     
     init() {
         super.init(frame: .zero)
@@ -321,7 +334,7 @@ final class IngredientInfoView: UIView {
         }
         
         if categories.count == 1 && categories[0] != IngredientViewText.categoryExplain {
-            info = info.setCategory(category: categories[0])
+            categorySubject.onNext(categories[0])
         }
         
         var categories = categories
@@ -343,6 +356,7 @@ final class IngredientInfoView: UIView {
         else { return }
         let newCount = countNumber + 1
         currentCountLabel.text = "\(newCount)"
+        countSubject.onNext("\(newCount)")
     }
     
     func countMinus() {
@@ -353,5 +367,6 @@ final class IngredientInfoView: UIView {
         else { return }
         let newCount = countNumber - 1
         currentCountLabel.text = "\(newCount)"
+        countSubject.onNext("\(newCount)")
     }
 }
