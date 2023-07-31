@@ -10,27 +10,32 @@ import SnapKit
 import Then
 
 final class RFSearchBar: UIView {
-    private let textField = UITextField().then {
+    let textField = UITextField().then {
         $0.placeHolder(
             string: "Search",
             color: UIColor.refreeColor.text1
         )
-        $0.textColor = .refreeColor.text1
-        $0.font = .pretendard.extraLight15
+        $0.textColor = .refreeColor.text2
+        $0.font = .pretendard.extraLight20
     }
     
     private let searchStart = UIImageView(
         image: UIImage(named: "Search")
     )
     
-    init(height: CGFloat = 40) {
+    private let shadow: Bool
+    
+    init(height: CGFloat = 40, shadow: Bool = true) {
+        self.shadow = shadow
         super.init(frame: .zero)
         layout(height: height)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        addShadow()
+        if shadow {
+            addShadow()
+        }
     }
     
     required init?(coder: NSCoder) {

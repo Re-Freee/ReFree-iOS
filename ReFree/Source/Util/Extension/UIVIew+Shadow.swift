@@ -24,7 +24,6 @@ extension UIView {
     }
     
     func removeShadow() {
-        layer.shadowOffset = CGSize(width: 0, height: 0)
-        layer.shadowPath = nil
+        layer.shadowOpacity = Float(0.0)
     }
 }
