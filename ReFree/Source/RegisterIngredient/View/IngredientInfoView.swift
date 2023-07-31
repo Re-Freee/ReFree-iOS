@@ -171,7 +171,7 @@ final class IngredientInfoView: UIView {
         $0.setAttributedTitle(attrString, for: .normal)
     }
     
-    let categorySubject = PublishSubject<String>()
+    let categorySubject = PublishSubject<String?>()
     let countSubject = BehaviorSubject(value: "1")
     
     init() {
@@ -321,12 +321,11 @@ final class IngredientInfoView: UIView {
     func categoryRecommand(categories: [String]) {
         categoryStack.arrangedSubviews.forEach { $0.isHidden = true }
         
-        print("음")
         guard !categories.isEmpty else {
             let titleLabel = categoryStack.arrangedSubviews[0] as? CategorySelectLabel
             titleLabel?.isHidden = false
             titleLabel?.text = IngredientViewText.categoryExplain
-            print("여긴가")
+            categorySubject.onNext(nil)
             return
         }
         
