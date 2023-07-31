@@ -207,7 +207,7 @@ final class RegisterIngredientViewController: UIViewController {
                     alertType: .question
                 )
                 alert.addAction(kind: .success) {
-                    // TODO: Request
+                    self.registerIngredientHandling()
                 }
                 self.view.addSubview(alert)
             }.disposed(by: disposeBag)
@@ -317,13 +317,33 @@ final class RegisterIngredientViewController: UIViewController {
     
     private func validCheck() -> Bool {
         guard let message = info.isAllPropertiesFilled() else { return true }
-        let alert = AlertView(
+        Alert.checkAlert(
+            viewController: self,
             title: "확인해주세요!",
-            description: message,
-            alertType: .check
+            message: message
         )
-        view.addSubview(alert)
         return false
+    }
+    
+    private func registerIngredientHandling() {
+        requestRegisterIngredient()
+            .subscribe(onSuccess: { responseDTO in
+                // TODO: 데이터 결과 확인
+            }, onFailure: { [weak self] error in
+                guard let self else { return }
+                Alert.erroAlert(
+                    viewController: self,
+                    errorMessage: error.localizedDescription
+                )
+            })
+            .disposed(by: disposeBag)
+            
+    }
+    
+    private func requestRegisterIngredient() -> Single<CommonResponseDTO> {
+        return Network.requestJSON(
+            target: NetworkIngredient.saveIngredient(ingredient: info)
+        )
     }
 }
 
