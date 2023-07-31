@@ -118,10 +118,10 @@ final class IngredientDetailView: UIView {
     }
     
     private func bind(ingredient: Ingredient) {
-        titleLabel.text = ingredient.title
-        category.text = ingredient.category
-        expireDate.text = ingredient.expireDate
-        productCount.text = "\(ingredient.count)"
+        titleLabel.text = ingredient.title ?? ""
+        category.text = ingredient.category ?? ""
+        expireDate.text = ingredient.expireDate ?? ""
+        productCount.text = "\(ingredient.count ?? 0)"
         memoTextView.text = ingredient.memo
     }
     
