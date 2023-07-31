@@ -15,7 +15,10 @@ final class LaunchScreenView: UIView {
     )
     private let logoImageView = UIImageView(
         image: UIImage(named: "LaunchImage.png")
-    )
+    ).then {
+        $0.contentMode = .scaleToFill
+    }
+    
     private let logoTitleLabel = UILabel().then {
         $0.layer.opacity = 0
         $0.textColor = .refreeColor.main
@@ -37,6 +40,7 @@ final class LaunchScreenView: UIView {
         gradientBackground(type: .mainConic)
         layout()
         layoutAnimation()
+
     }
     
     private func layout() {
@@ -56,7 +60,7 @@ final class LaunchScreenView: UIView {
         logoImageView.snp.makeConstraints {
             $0.center.equalToSuperview()
             $0.width.equalTo(200)
-            $0.height.equalTo(195)
+            $0.height.equalTo(logoImageView.snp.width)
         }
         
         logoTitleLabel.snp.makeConstraints {
