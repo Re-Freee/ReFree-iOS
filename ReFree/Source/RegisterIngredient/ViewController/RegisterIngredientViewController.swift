@@ -196,14 +196,17 @@ final class RegisterIngredientViewController: UIViewController {
         ingredientInfoView.saveButton.rx.tapGesture()
             .when(.recognized)
             .bind { [weak self] _ in
-                guard let self else { return }
+                guard
+                    let self,
+                    self.validCheck()
+                else { return }
+                
                 let alert = AlertView(
                     title: "잠깐!",
                     description: "그대로 저장하시겠습니까?",
                     alertType: .question
                 )
                 alert.addAction(kind: .success) {
-                    guard self.validCheck() else { return }
                     // TODO: Request
                 }
                 self.view.addSubview(alert)
@@ -313,8 +316,14 @@ final class RegisterIngredientViewController: UIViewController {
     }
     
     private func validCheck() -> Bool {
-        print(info)
-        return info.isAllPropertiesFilled()
+        guard let message = info.isAllPropertiesFilled() else { return true }
+        let alert = AlertView(
+            title: "확인해주세요!",
+            description: message,
+            alertType: .check
+        )
+        view.addSubview(alert)
+        return false
     }
 }
 

@@ -97,14 +97,27 @@ struct Ingredient {
         )
     }
     
-    func isAllPropertiesFilled() -> Bool {
-        guard
-            let _ = saveMethod,
-            let _ = title,
-            let _ = category,
-            let _ = expireDate,
-            let _ = count
-        else { return false } // memo는 상관없음
-        return true
+    enum IngredientValidationMessage {
+        static let savedMethodIsNil = "보관 방법을 채워주세요."
+        static let titleIsNil = "이름을 채워주세요."
+        static let categoryIsNil = "카테고리를 채워주세요."
+        static let expireDateIsNil = "소비기한을 채워주세요."
+        static let countIsNil = "수량을 채워주세요."
+    }
+    
+    func isAllPropertiesFilled() -> String? {
+        if saveMethod == nil {
+            return IngredientValidationMessage.savedMethodIsNil
+        } else if title == nil {
+            return IngredientValidationMessage.titleIsNil
+        } else if category == nil {
+            return IngredientValidationMessage.categoryIsNil
+        } else if expireDate == nil {
+            return IngredientValidationMessage.expireDateIsNil
+        } else if count == nil {
+            return IngredientValidationMessage.countIsNil
+        }
+        
+        return nil
     }
 }
