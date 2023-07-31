@@ -176,16 +176,11 @@ final class IngredientInfoView: UIView {
     
     init() {
         super.init(frame: .zero)
-        
+        config()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        config()
     }
     
     private func  config() {
@@ -326,10 +321,12 @@ final class IngredientInfoView: UIView {
     func categoryRecommand(categories: [String]) {
         categoryStack.arrangedSubviews.forEach { $0.isHidden = true }
         
+        print("음")
         guard !categories.isEmpty else {
             let titleLabel = categoryStack.arrangedSubviews[0] as? CategorySelectLabel
             titleLabel?.isHidden = false
             titleLabel?.text = IngredientViewText.categoryExplain
+            print("여긴가")
             return
         }
         
