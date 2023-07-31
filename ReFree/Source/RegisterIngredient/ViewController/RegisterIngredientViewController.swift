@@ -111,15 +111,35 @@ final class RegisterIngredientViewController: UIViewController {
                 }
             }.disposed(by: disposeBag)
         
+        ingredientInfoView.categorySelectLabel.rx.tapGesture()
+            .when(.recognized)
+            .bind { [weak self] _ in
+                guard let self else { return }
+                let categoryVC = CategorySelectViewController()
+                
+                categoryVC.selectedCategory.asDriver(onErrorJustReturn: "기타")
+                    .drive { category in
+                        if !category.isEmpty {
+                            self.ingredientInfoView.categorySelectLabel.text = category
+                        }
+                    }
+                    .disposed(by: self.disposeBag)
+                
+                self.present(categoryVC, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
         ingredientInfoView.plusCountButton.rx.tap
             .bind { [weak self] _ in
                 self?.ingredientInfoView.countPlus()
-            }.disposed(by: disposeBag)
+            }
+            .disposed(by: disposeBag)
         
         ingredientInfoView.minusCountButton.rx.tap
             .bind { [weak self] _ in
                 self?.ingredientInfoView.countMinus()
-            }.disposed(by: disposeBag)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func bindCameraView() {
@@ -127,7 +147,8 @@ final class RegisterIngredientViewController: UIViewController {
             .when(.recognized)
             .bind { [weak self] _ in
                 self?.bindCamera()
-            }.disposed(by: disposeBag)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func bindCamera() {
