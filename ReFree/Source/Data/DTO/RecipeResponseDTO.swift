@@ -19,7 +19,7 @@ struct RecipeResponseDTO: Decodable {
         let calorie: Double
         let ingredient: String
         let imageURL: String
-        let manual: [Manual]?
+        let manual: [ManualDTO]?
         
         enum CodingKeys: String, CodingKey {
             case id
@@ -31,13 +31,20 @@ struct RecipeResponseDTO: Decodable {
         }
     }
     
-    struct Manual: Decodable {
+    struct ManualDTO: Decodable {
         let describe: String
         let manuelImageURL: String
         
         enum CodingKeys: String, CodingKey {
             case describe
             case manuelImageURL = "manuelImage"
+        }
+        
+        func toDomain() -> Manual {
+            return Manual(
+                describe: self.describe,
+                imageURL: self.manuelImageURL
+            )
         }
     }
 }
@@ -51,7 +58,10 @@ extension RecipeResponseDTO {
                 title: recipeDTO.name,
                 ingredients: recipeDTO.ingredient,
                 imageURL: recipeDTO.imageURL,
-                isHeart: false // TODO: 추천 레시피에선 사용하지 않음
+                isHeart: false,
+                manual: recipeDTO.manual?.map{
+                    $0.toDomain()
+                }
             )
         }
     }

@@ -13,4 +13,10 @@ struct Recipe {
     let ingredients: String
     let imageURL: String
     let isHeart: Bool
+    let manual: [Manual]?
+}
+
+struct Manual {
+    let describe: String
+    let imageURL: String
 }
