@@ -102,16 +102,18 @@ final class RegisterIngredientViewController: UIViewController {
             .skip(1)
             .debounce(.seconds(2), scheduler: MainScheduler.instance)
             .map { $0 as String }
-            .bind { text in
-                Constant.category.forEach { [weak self] category in
+            .bind { [weak self] text in
+                var categories: [String] = []
+                Constant.category.forEach { category in
                     if text.contains(category) {
-                        self?.ingredientInfoView.categorySelectLabel.text = category
-                        return
+                        categories.append(category)
                     }
                 }
+                self?.ingredientInfoView.categoryRecommand(categories: categories)
+                
             }.disposed(by: disposeBag)
         
-        ingredientInfoView.categorySelectLabel.rx.tapGesture()
+        ingredientInfoView.categorySelectButton.rx.tapGesture()
             .when(.recognized)
             .bind { [weak self] _ in
                 guard let self else { return }
@@ -120,7 +122,9 @@ final class RegisterIngredientViewController: UIViewController {
                 categoryVC.selectedCategory.asDriver(onErrorJustReturn: "기타")
                     .drive { category in
                         if !category.isEmpty {
-                            self.ingredientInfoView.categorySelectLabel.text = category
+                            self.ingredientInfoView.categoryRecommand(
+                                categories: [category]
+                            )
                         }
                     }
                     .disposed(by: self.disposeBag)
@@ -128,6 +132,20 @@ final class RegisterIngredientViewController: UIViewController {
                 self.present(categoryVC, animated: true)
             }
             .disposed(by: disposeBag)
+        
+        ingredientInfoView.categoryStack.arrangedSubviews.forEach {
+            guard
+                let categoryLabel = $0 as? CategorySelectLabel
+            else { return }
+            
+            categoryLabel.rx.tapGesture()
+                .when(.recognized)
+                .bind { [weak self] _ in
+                    guard let categoryText = categoryLabel.text else { return }
+                    self?.ingredientInfoView.categoryRecommand(categories: [categoryText])
+                }
+                .disposed(by: disposeBag)
+        }
         
         ingredientInfoView.plusCountButton.rx.tap
             .bind { [weak self] _ in

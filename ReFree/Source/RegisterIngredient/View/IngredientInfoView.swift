@@ -9,8 +9,11 @@ import UIKit
 import SnapKit
 import Then
 
-
 final class IngredientInfoView: UIView {
+    enum IngredientViewText {
+        static let categoryExplain = "카테고리를 선택해주세요!"
+    }
+    
     let selectIngredientKind = UISegmentedControl().then { segment in
         let defaultFont = UIFont.systemFont(ofSize: 16)
         segment.setTitleTextAttributes(
@@ -50,11 +53,23 @@ final class IngredientInfoView: UIView {
         $0.text = "카테고리"
     }
     
-    let categorySelectLabel = PaddingLabel().then {
-        $0.clipsToBounds = true
-        $0.backgroundColor = .refreeColor.textFrame
-        $0.layer.cornerRadius = 10
+    lazy var categoryStack = UIStackView(
+        arrangedSubviews: [
+            CategorySelectLabel(),
+            CategorySelectLabel(),
+            CategorySelectLabel()
+        ]
+    ).then {
+        $0.alignment = .fill
+        $0.spacing = 5
+        $0.distribution = .fillProportionally
+        $0.axis = .horizontal
     }
+    
+    let categorySelectButton = UIImageView(
+        image: UIImage(systemName: "chevron.right")?
+            .withTintColor(.refreeColor.main, renderingMode: .alwaysOriginal)
+    )
     
     private let expireLabel = UILabel().then {
         $0.textColor = .refreeColor.main
@@ -144,6 +159,8 @@ final class IngredientInfoView: UIView {
         $0.setAttributedTitle(attrString, for: .normal)
     }
     
+    var info = Ingredient()
+    
     init() {
         super.init(frame: .zero)
         
@@ -155,7 +172,12 @@ final class IngredientInfoView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        config()
+    }
+    
+    private func  config() {
         layout()
+        categoryRecommand(categories: []) // 최초 
     }
     
     private func layout() {
@@ -169,7 +191,8 @@ final class IngredientInfoView: UIView {
                 nameLabel,
                 nameTextField,
                 categoryLabel,
-                categorySelectLabel,
+                categoryStack,
+                categorySelectButton,
                 expireLabel,
                 expireDatePicker,
                 countLabel,
@@ -215,16 +238,23 @@ final class IngredientInfoView: UIView {
             $0.leading.trailing.equalToSuperview().inset(24)
         }
         
-        categorySelectLabel.snp.makeConstraints {
+        categorySelectButton.snp.makeConstraints {
             $0.top.equalTo(categoryLabel.snp.bottom).offset(4)
-            $0.leading.trailing.equalToSuperview().inset(24)
+            $0.trailing.equalToSuperview().inset(24)
+            $0.height.width.equalTo(25)
+        }
+        
+        categoryStack.snp.makeConstraints {
+            $0.top.equalTo(categoryLabel.snp.bottom).offset(4)
+            $0.leading.equalToSuperview().inset(24)
+            $0.trailing.equalTo(categorySelectButton.snp.leading).offset(-12)
             $0.height.equalTo(30)
         }
     }
     
     private func layoutExpireDate() {
         expireLabel.snp.makeConstraints {
-            $0.top.equalTo(categorySelectLabel.snp.bottom).offset(20)
+            $0.top.equalTo(categoryStack.snp.bottom).offset(20)
             $0.leading.equalToSuperview().inset(24)
         }
         
@@ -279,7 +309,32 @@ final class IngredientInfoView: UIView {
             $0.bottom.equalToSuperview().inset(24)
         }
     }
+    
+    func categoryRecommand(categories: [String]) {
+        categoryStack.arrangedSubviews.forEach { $0.isHidden = true }
         
+        guard !categories.isEmpty else {
+            let titleLabel = categoryStack.arrangedSubviews[0] as? CategorySelectLabel
+            titleLabel?.isHidden = false
+            titleLabel?.text = IngredientViewText.categoryExplain
+            return
+        }
+        
+        if categories.count == 1 && categories[0] != IngredientViewText.categoryExplain {
+            info = info.setCategory(category: categories[0])
+        }
+        
+        var categories = categories
+        if categories.count > 3 {
+            categories = [categories[0], categories[1], categories[2]]
+        }
+        categories.enumerated().forEach { [weak self] in
+            let titleLabel = self?.categoryStack.arrangedSubviews[$0.offset] as? CategorySelectLabel
+            titleLabel?.isHidden = false
+            titleLabel?.text = $0.element
+        }
+    }
+    
     func countPlus() {
         guard
             let currentCount = currentCountLabel.text,
