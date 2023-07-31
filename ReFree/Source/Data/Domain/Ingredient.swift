@@ -13,7 +13,7 @@ struct Ingredient {
     let category: String?
     let expireDate: String?
     let count: Int?
-    let memo: String?
+    let memo: String
     
     init(
         saveMethod: String? = nil,
@@ -21,7 +21,7 @@ struct Ingredient {
         category: String? = nil,
         expireDate: String? = nil,
         count: Int? = nil,
-        memo: String? = nil
+        memo: String = ""
     ){
         self.saveMethod = saveMethod
         self.title = title
@@ -31,7 +31,7 @@ struct Ingredient {
         self.memo = memo
     }
     
-    func saveMethod(method: String) -> Ingredient {
+    func saveMethod(method: String?) -> Ingredient {
         return Ingredient(
             saveMethod: method,
             title: self.title,
@@ -42,7 +42,7 @@ struct Ingredient {
         )
     }
     
-    func setTitle(title: String) -> Ingredient {
+    func setTitle(title: String?) -> Ingredient {
         return Ingredient(
             saveMethod: self.saveMethod,
             title: title,
@@ -53,7 +53,7 @@ struct Ingredient {
         )
     }
     
-    func setCategory(category: String) -> Ingredient {
+    func setCategory(category: String?) -> Ingredient {
         return Ingredient(
             saveMethod: self.saveMethod,
             title: self.title,
@@ -64,7 +64,7 @@ struct Ingredient {
         )
     }
     
-    func expireDate(date: String) -> Ingredient {
+    func expireDate(date: String?) -> Ingredient {
         return Ingredient(
             saveMethod: self.saveMethod,
             title: self.title,
@@ -75,7 +75,7 @@ struct Ingredient {
         )
     }
     
-    func setCount(count: Int) -> Ingredient {
+    func setCount(count: Int?) -> Ingredient {
         return Ingredient(
             saveMethod: self.saveMethod,
             title: self.title,
@@ -95,5 +95,16 @@ struct Ingredient {
             count: self.count,
             memo: memo
         )
+    }
+    
+    func isAllPropertiesFilled() -> Bool {
+        guard
+            let _ = saveMethod,
+            let _ = title,
+            let _ = category,
+            let _ = expireDate,
+            let _ = count
+        else { return false } // memo는 상관없음
+        return true
     }
 }

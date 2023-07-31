@@ -85,7 +85,6 @@ final class RegisterIngredientViewController: UIViewController {
     }
     
     private func bindIngredientView() {
-        
         ingredientInfoView.selectIngredientKind.rx.selectedSegmentIndex
             .asDriver(onErrorJustReturn: 0)
             .drive(onNext: { [weak self] index in
@@ -104,10 +103,11 @@ final class RegisterIngredientViewController: UIViewController {
         ingredientInfoView.nameTextField.rx.text.orEmpty
             .skip(1)
             .distinctUntilChanged()
-            .debounce(.seconds(2), scheduler: MainScheduler.instance)
+            .debounce(.seconds(1), scheduler: MainScheduler.instance)
             .map { $0 as String }
             .bind { [weak self] text in
                 guard let self else { return }
+                self.info = self.info.setTitle(title: text)
                 var categories: [String] = []
                 Constant.category.forEach { category in
                     if text.contains(category) {
@@ -120,6 +120,10 @@ final class RegisterIngredientViewController: UIViewController {
         ingredientInfoView.categorySubject.asDriver(onErrorJustReturn: "기타")
             .drive(onNext: { [weak self] category in
                 guard let self else { return }
+                guard let category else {
+                    self.info = self.info.setCategory(category: nil)
+                    return
+                }
                 self.info = self.info.setCategory(category: category)
             })
             .disposed(by: disposeBag)
@@ -192,18 +196,17 @@ final class RegisterIngredientViewController: UIViewController {
         ingredientInfoView.saveButton.rx.tapGesture()
             .when(.recognized)
             .bind { [weak self] _ in
+                guard let self else { return }
                 let alert = AlertView(
                     title: "잠깐!",
                     description: "그대로 저장하시겠습니까?",
                     alertType: .question
                 )
                 alert.addAction(kind: .success) {
-                    //TODO: 유효성 체크
-                    print("저장!")
-                    print(self?.info)
+                    guard self.validCheck() else { return }
+                    // TODO: Request
                 }
-                
-                self?.view.addSubview(alert)
+                self.view.addSubview(alert)
             }.disposed(by: disposeBag)
         
         ingredientInfoView.memoTextView.rx.text
@@ -307,6 +310,11 @@ final class RegisterIngredientViewController: UIViewController {
         picker.delegate = self
         
         present(picker, animated: true)
+    }
+    
+    private func validCheck() -> Bool {
+        print(info)
+        return info.isAllPropertiesFilled()
     }
 }
 
