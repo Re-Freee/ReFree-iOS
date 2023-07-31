@@ -95,6 +95,7 @@
 		6AF713C32A76D68700F4CF96 /* CategorySelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF713C22A76D68700F4CF96 /* CategorySelectViewController.swift */; };
 		6AF713C52A77745800F4CF96 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF713C42A77745800F4CF96 /* CategoryTableViewCell.swift */; };
 		6AF713C72A778BE000F4CF96 /* CategorySelectLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF713C62A778BE000F4CF96 /* CategorySelectLabel.swift */; };
+		6AF713C92A77AE3D00F4CF96 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF713C82A77AE3D00F4CF96 /* Alert.swift */; };
 		6AFFE7512A64128400744182 /* RecipeDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFFE7502A64128400744182 /* RecipeDetailCell.swift */; };
 		6AFFE7532A6412CC00744182 /* RecipeDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFFE7522A6412CC00744182 /* RecipeDetailHeaderView.swift */; };
 		6AFFE7552A64785500744182 /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFFE7542A64785500744182 /* RecipeDetailView.swift */; };
@@ -183,6 +184,7 @@
 		6AF713C22A76D68700F4CF96 /* CategorySelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectViewController.swift; sourceTree = "<group>"; };
 		6AF713C42A77745800F4CF96 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		6AF713C62A778BE000F4CF96 /* CategorySelectLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectLabel.swift; sourceTree = "<group>"; };
+		6AF713C82A77AE3D00F4CF96 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		6AFFE7502A64128400744182 /* RecipeDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailCell.swift; sourceTree = "<group>"; };
 		6AFFE7522A6412CC00744182 /* RecipeDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailHeaderView.swift; sourceTree = "<group>"; };
 		6AFFE7542A64785500744182 /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				6A06E6152A5D15B2005938DE /* Constant.swift */,
 				6A4ED1E62A5D4E0D00299B61 /* Identifiable.swift */,
 				6A8B10D02A62EABC0076A1CF /* KeyChain.swift */,
+				6AF713C82A77AE3D00F4CF96 /* Alert.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -697,6 +700,7 @@
 			files = (
 				6A9CDCDF2A6539680003F618 /* TargetProtocol.swift in Sources */,
 				02ADE93B2A6136920017B69D /* HomeViewController.swift in Sources */,
+				6AF713C92A77AE3D00F4CF96 /* Alert.swift in Sources */,
 				6AFFE7552A64785500744182 /* RecipeDetailView.swift in Sources */,
 				6A5F071B2A73DED100526B18 /* SignUpRequestDTO.swift in Sources */,
 				02B526C72A66A3260046D46E /* LogInViewController.swift in Sources */,
