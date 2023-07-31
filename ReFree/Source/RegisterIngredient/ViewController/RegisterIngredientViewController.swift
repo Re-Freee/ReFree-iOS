@@ -326,24 +326,17 @@ final class RegisterIngredientViewController: UIViewController {
     }
     
     private func registerIngredientHandling() {
-        requestRegisterIngredient()
-            .subscribe(onSuccess: { responseDTO in
-                // TODO: 데이터 결과 확인
-            }, onFailure: { [weak self] error in
-                guard let self else { return }
-                Alert.erroAlert(
-                    viewController: self,
-                    errorMessage: error.localizedDescription
-                )
-            })
-            .disposed(by: disposeBag)
-            
-    }
-    
-    private func requestRegisterIngredient() -> Single<CommonResponseDTO> {
-        return Network.requestJSON(
-            target: NetworkIngredient.saveIngredient(ingredient: info)
-        )
+        // Single
+//            .subscribe(onSuccess: { common in
+//                // TODO: 데이터 결과 확인
+//            }, onFailure: { [weak self] error in
+//                guard let self else { return }
+//                Alert.erroAlert(
+//                    viewController: self,
+//                    errorMessage: error.localizedDescription
+//                )
+//            })
+//            .disposed(by: disposeBag)
     }
 }
 

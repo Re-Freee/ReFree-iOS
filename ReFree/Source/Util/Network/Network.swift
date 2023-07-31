@@ -28,14 +28,14 @@ struct Network {
         return domain
     }()
     
-    static func requestJSON<T: Decodable>(target: Target) -> Single<T> {
-        return Single.create { single in
+    static func requestJSON<T: Decodable>(target: Target) -> Observable<T> {
+        return Observable.create { emitter in
             guard var request = try? URLRequest(
                 url: target.url,
                 method: target.method,
                 headers: target.header
             ) else {
-                single(.failure(NetworkError.makeRequestError))
+                emitter.onError(NetworkError.makeRequestError)
                 return Disposables.create()
             }
             
@@ -46,9 +46,9 @@ struct Network {
                 .responseDecodable(of: T.self) { response in
                     switch response.result {
                     case let .success(data):
-                        single(.success(data))
+                        emitter.onNext(data)
                     case let .failure(error):
-                        single(.failure(error))
+                        emitter.onError(error)
                     }
                 }
             

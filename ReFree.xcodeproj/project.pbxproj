@@ -42,6 +42,8 @@
 		6A4ED1E12A5D432900299B61 /* UIVIew+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4ED1E02A5D432900299B61 /* UIVIew+Shadow.swift */; };
 		6A4ED1E52A5D4B4600299B61 /* CarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4ED1E42A5D4B4600299B61 /* CarouselCell.swift */; };
 		6A4ED1E72A5D4E0D00299B61 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4ED1E62A5D4E0D00299B61 /* Identifiable.swift */; };
+		6A51C50F2A7818D300FF5341 /* Network+Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A51C50E2A7818D300FF5341 /* Network+Recipe.swift */; };
+		6A51C5112A781A7F00FF5341 /* CommonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A51C5102A781A7F00FF5341 /* CommonResponse.swift */; };
 		6A5E934B2A7513E4006659E2 /* RegisterIngredientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5E934A2A7513E4006659E2 /* RegisterIngredientViewController.swift */; };
 		6A5E934D2A751434006659E2 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5E934C2A751434006659E2 /* CameraView.swift */; };
 		6A5E934F2A75143D006659E2 /* IngredientInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5E934E2A75143D006659E2 /* IngredientInfoView.swift */; };
@@ -135,6 +137,8 @@
 		6A4ED1E02A5D432900299B61 /* UIVIew+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIew+Shadow.swift"; sourceTree = "<group>"; };
 		6A4ED1E42A5D4B4600299B61 /* CarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCell.swift; sourceTree = "<group>"; };
 		6A4ED1E62A5D4E0D00299B61 /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
+		6A51C50E2A7818D300FF5341 /* Network+Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network+Recipe.swift"; sourceTree = "<group>"; };
+		6A51C5102A781A7F00FF5341 /* CommonResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponse.swift; sourceTree = "<group>"; };
 		6A5E934A2A7513E4006659E2 /* RegisterIngredientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterIngredientViewController.swift; sourceTree = "<group>"; };
 		6A5E934C2A751434006659E2 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		6A5E934E2A75143D006659E2 /* IngredientInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientInfoView.swift; sourceTree = "<group>"; };
@@ -500,8 +504,9 @@
 			children = (
 				6A9CDCDE2A6539680003F618 /* TargetProtocol.swift */,
 				6A9CDCE02A6551230003F618 /* Network.swift */,
-				6AA91E462A71301400CEFB3B /* DataSource */,
 				6AC48A932A73D07B009F647B /* NetworkError.swift */,
+				6A51C50E2A7818D300FF5341 /* Network+Recipe.swift */,
+				6AA91E462A71301400CEFB3B /* DataSource */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -594,6 +599,7 @@
 				6AE16DC02A7114C3008D0C3C /* Recipe.swift */,
 				6AE16DC22A711595008D0C3C /* Ingredient.swift */,
 				6AE16DC42A711642008D0C3C /* UserInfo.swift */,
+				6A51C5102A781A7F00FF5341 /* CommonResponse.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -716,6 +722,7 @@
 				02B526CB2A66E1510046D46E /* LogInButton.swift in Sources */,
 				6A4ED1E12A5D432900299B61 /* UIVIew+Shadow.swift in Sources */,
 				2E35BAEE2A6C0FB500D3C74C /* SignUpCompleteViewController.swift in Sources */,
+				6A51C50F2A7818D300FF5341 /* Network+Recipe.swift in Sources */,
 				6A17A4282A6A6702001F0563 /* LaunchScreenView.swift in Sources */,
 				6AA335EE2A6106290037A2C1 /* DetailStackView.swift in Sources */,
 				6AA335E92A606F510037A2C1 /* IngredientDetailView.swift in Sources */,
@@ -744,6 +751,7 @@
 				6A4ED1E72A5D4E0D00299B61 /* Identifiable.swift in Sources */,
 				6AFFE7512A64128400744182 /* RecipeDetailCell.swift in Sources */,
 				6A5F07172A73DDC700526B18 /* SignInRequestDTO.swift in Sources */,
+				6A51C5112A781A7F00FF5341 /* CommonResponse.swift in Sources */,
 				6A3ADA5B2A63E99200D6D49A /* HomeTabViewController.swift in Sources */,
 				6A5F07192A73DEAE00526B18 /* CommonResponseDTO.swift in Sources */,
 				6A9D24FD2A5DCA030025BF3B /* FoodKindView.swift in Sources */,
