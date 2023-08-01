@@ -44,6 +44,9 @@
 		6A4ED1E72A5D4E0D00299B61 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4ED1E62A5D4E0D00299B61 /* Identifiable.swift */; };
 		6A51C50F2A7818D300FF5341 /* Network+Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A51C50E2A7818D300FF5341 /* Network+Recipe.swift */; };
 		6A51C5112A781A7F00FF5341 /* CommonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A51C5102A781A7F00FF5341 /* CommonResponse.swift */; };
+		6A51C5132A7823B100FF5341 /* Network+Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A51C5122A7823B100FF5341 /* Network+Ingredient.swift */; };
+		6A51C5152A7823B900FF5341 /* Network+Sign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A51C5142A7823B900FF5341 /* Network+Sign.swift */; };
+		6A51C5172A78E37000FF5341 /* IngredientResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A51C5162A78E37000FF5341 /* IngredientResponseDTO.swift */; };
 		6A5E934B2A7513E4006659E2 /* RegisterIngredientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5E934A2A7513E4006659E2 /* RegisterIngredientViewController.swift */; };
 		6A5E934D2A751434006659E2 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5E934C2A751434006659E2 /* CameraView.swift */; };
 		6A5E934F2A75143D006659E2 /* IngredientInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5E934E2A75143D006659E2 /* IngredientInfoView.swift */; };
@@ -139,6 +142,9 @@
 		6A4ED1E62A5D4E0D00299B61 /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		6A51C50E2A7818D300FF5341 /* Network+Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network+Recipe.swift"; sourceTree = "<group>"; };
 		6A51C5102A781A7F00FF5341 /* CommonResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponse.swift; sourceTree = "<group>"; };
+		6A51C5122A7823B100FF5341 /* Network+Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network+Ingredient.swift"; sourceTree = "<group>"; };
+		6A51C5142A7823B900FF5341 /* Network+Sign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network+Sign.swift"; sourceTree = "<group>"; };
+		6A51C5162A78E37000FF5341 /* IngredientResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientResponseDTO.swift; sourceTree = "<group>"; };
 		6A5E934A2A7513E4006659E2 /* RegisterIngredientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterIngredientViewController.swift; sourceTree = "<group>"; };
 		6A5E934C2A751434006659E2 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		6A5E934E2A75143D006659E2 /* IngredientInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientInfoView.swift; sourceTree = "<group>"; };
@@ -506,6 +512,8 @@
 				6A9CDCE02A6551230003F618 /* Network.swift */,
 				6AC48A932A73D07B009F647B /* NetworkError.swift */,
 				6A51C50E2A7818D300FF5341 /* Network+Recipe.swift */,
+				6A51C5122A7823B100FF5341 /* Network+Ingredient.swift */,
+				6A51C5142A7823B900FF5341 /* Network+Sign.swift */,
 				6AA91E462A71301400CEFB3B /* DataSource */,
 			);
 			path = Network;
@@ -553,6 +561,7 @@
 				6A5F071C2A73DF2A00526B18 /* FindPasswordRequestDTO.swift */,
 				6A5F071E2A73DF5B00526B18 /* ModifyPasswordRequestDTO.swift */,
 				6A5F07202A73E0AC00526B18 /* SaveIngredientRequestDTO.swift */,
+				6A51C5162A78E37000FF5341 /* IngredientResponseDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -713,6 +722,7 @@
 				2E35BAED2A6C0FB500D3C74C /* SignUpViewController.swift in Sources */,
 				6A0D30402A56C83500A9F44A /* UIView+addSubViews.swift in Sources */,
 				02B526C92A66D6280046D46E /* LogInTextField.swift in Sources */,
+				6A51C5132A7823B100FF5341 /* Network+Ingredient.swift in Sources */,
 				2E35BAF02A6C100E00D3C74C /* UIView+UIScreen.swift in Sources */,
 				6AE16DC52A711642008D0C3C /* UserInfo.swift in Sources */,
 				6AF713C52A77745800F4CF96 /* CategoryTableViewCell.swift in Sources */,
@@ -749,10 +759,12 @@
 				6ADB30EE2A765F7D00F48549 /* PaddingLabel.swift in Sources */,
 				6A5F07292A740E9800526B18 /* NetworkIngredient.swift in Sources */,
 				6A4ED1E72A5D4E0D00299B61 /* Identifiable.swift in Sources */,
+				6A51C5152A7823B900FF5341 /* Network+Sign.swift in Sources */,
 				6AFFE7512A64128400744182 /* RecipeDetailCell.swift in Sources */,
 				6A5F07172A73DDC700526B18 /* SignInRequestDTO.swift in Sources */,
 				6A51C5112A781A7F00FF5341 /* CommonResponse.swift in Sources */,
 				6A3ADA5B2A63E99200D6D49A /* HomeTabViewController.swift in Sources */,
+				6A51C5172A78E37000FF5341 /* IngredientResponseDTO.swift in Sources */,
 				6A5F07192A73DEAE00526B18 /* CommonResponseDTO.swift in Sources */,
 				6A9D24FD2A5DCA030025BF3B /* FoodKindView.swift in Sources */,
 				02B526D12A6A2DD00046D46E /* EmailSearchViewController.swift in Sources */,
