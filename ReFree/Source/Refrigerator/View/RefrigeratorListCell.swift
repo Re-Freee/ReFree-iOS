@@ -90,6 +90,12 @@ final class RefrigeratorListCell: UICollectionViewCell, Identifiable {
             $0.leading.equalToSuperview().inset(14)
         }
         
+    func configCell(ingredient: Ingredient) {
+        else { return }
+            let expireDate = ingredient.expireDate
+            let title = ingredient.title,
+            let image = ingredient.image,
+        guard
 //        let gradientLayer = CAGradientLayer()
 //            gradientLayer.colors = [UIColor.white.cgColor, UIColor.clear.cgColor]
 //            gradientLayer.locations = [0.0, 1.0]
@@ -97,7 +103,9 @@ final class RefrigeratorListCell: UICollectionViewCell, Identifiable {
 //
 //        gradientWhiteView.layer.addSublayer(gradientLayer)
         
-        
+        imageView.image = image
+        titleLabel.text = title
+        expirationDateLabel.text = "\(expireDate)까지"
     }
 }
 

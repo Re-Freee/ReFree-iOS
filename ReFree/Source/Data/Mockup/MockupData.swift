@@ -37,7 +37,7 @@ struct Mockup {
     }()
     
     static let savedRecipe: [Recipe] = {
-        return (0..<3).map { _ in
+        return (0..<30).map { _ in
             return Recipe(
                 id: "0",
                 title: "맛있는 코드",
