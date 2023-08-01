@@ -35,7 +35,6 @@ final class HomeTabViewController: UITabBarController {
     private func tabBarConfig() {
         tabBar.barTintColor = .refreeColor.lightGray
         tabBar.tintColor = .refreeColor.main
-//        tabBar.clipsToBounds = true // 탭바 border 제거
         
         let homeViewController = UINavigationController(
             rootViewController: HomeViewController()
@@ -99,45 +98,5 @@ final class HomeTabViewController: UITabBarController {
         }
         
         setViewControllers(tabItems, animated: true)
-        
-//         네트워킹 테스트..
-//        test().subscribe {
-//            print("성공 \($0.test)")
-//        } onFailure: {
-//            print("실패\($0.localizedDescription)")
-//        }
-//        .disposed(by: disposeBag)
-
-        // 네트워킹 테스트..2
-//        Network.requestCompletion(type: TestStruct.self, target: NetTest.post(TestStruct(test: "아아아"))) { respose in
-//            switch respose.result {
-//            case .success(let a):
-//                print(a.test)
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
     }
-    
-//    func test() -> Single<TestStruct> {
-//        return Network.requestJSON(target: NetTest.post(TestStruct(test: "아아아")))
-//        return Network.requestJSON(target: NetTest.get([.init("aaa", 111), .init("bbb", 222)]))
-//    }
-    
-//    func imageTest() -> Single<TestStruct> {
-//        return Network.imageUpload(
-//            target: NetImageTest.upload(
-//                params: [
-//                    "hello" : "안녕"
-//                ],
-//                images: [
-//                    ImageData(
-//                        image: UIImage(systemName: "person")!,
-//                        withName: "imageNameeeee",
-//                        fileName: "fileNameeee"
-//                    )
-//                ]
-//            )
-//        )
-//    }
 }

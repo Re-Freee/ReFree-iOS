@@ -74,6 +74,7 @@ final class RecipeViewController: UIViewController {
         $0.numberOfPages = 3
     }
     
+    let recipeRepository = RecipeRepository()
     private let sidebar = RecipeSidebarView()
     private var previousIndex: Int?
     private var disposeBag = DisposeBag()
@@ -234,7 +235,7 @@ final class RecipeViewController: UIViewController {
     }
     
     private func bindRecipe() {
-        Network.request(
+        recipeRepository.request(
             recommendRecipe: NetworkRecipe.recommendRecipe(
                 ingredients: ["토마토", "연어", "오이"]
             )
