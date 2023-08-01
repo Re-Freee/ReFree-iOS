@@ -12,7 +12,7 @@ protocol RecipeRepositoryProtocol {
     func request(recommendRecipe: NetworkRecipe) -> Observable<[Recipe]>
     func request(searchRecipe: NetworkRecipe) -> Observable<[Recipe]>
     func request(bookMark: NetworkRecipe) -> Observable<CommonResponse>
-    func request(detailRecipe: NetworkRecipe) -> Observable<Recipe?>
+    func request(detailRecipe: NetworkRecipe) -> Observable<[Manual]?>
     func request(savedRecipe: NetworkRecipe) -> Observable<[Recipe]>
 }
 
@@ -32,9 +32,9 @@ struct RecipeRepository: RecipeRepositoryProtocol {
         return observable.map { $0.toDomain() }
     }
     
-    func request(detailRecipe: NetworkRecipe) -> Observable<Recipe?> {
+    func request(detailRecipe: NetworkRecipe) -> Observable<[Manual]?> {
         let observable: Observable<RecipeResponseDTO> = Network.requestJSON(target: detailRecipe)
-        return observable.map { $0.toDomain().first }
+        return observable.map { $0.toDomainManual() }
     }
     
     func request(savedRecipe: NetworkRecipe) -> Observable<[Recipe]> {

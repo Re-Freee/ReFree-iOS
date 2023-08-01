@@ -5,9 +5,11 @@
 //  Created by 이주훈 on 2023/07/26.
 //
 
-import Foundation
+import UIKit
 
 struct Ingredient {
+    let image: UIImage?
+    let imageURL: String?
     let saveMethod: String?
     let title: String?
     let category: String?
@@ -16,6 +18,8 @@ struct Ingredient {
     let memo: String
     
     init(
+        image: UIImage? = UIImage(named: "ReFree_non"),
+        imageURL: String? = nil,
         saveMethod: String? = nil,
         title: String? = nil,
         category: String? = nil,
@@ -23,6 +27,8 @@ struct Ingredient {
         count: Int? = nil,
         memo: String = ""
     ){
+        self.image = image
+        self.imageURL = imageURL
         self.saveMethod = saveMethod
         self.title = title
         self.category = category
@@ -31,8 +37,36 @@ struct Ingredient {
         self.memo = memo
     }
     
-    func saveMethod(method: String?) -> Ingredient {
+    func setImage(image: UIImage?) -> Ingredient {
         return Ingredient(
+            image: image,
+            imageURL: self.imageURL,
+            saveMethod: self.saveMethod,
+            title: self.title,
+            category: self.category,
+            expireDate: self.expireDate,
+            count: self.count,
+            memo: self.memo
+        )
+    }
+    
+    func setImageURL(imageURL: String?) -> Ingredient {
+        return Ingredient(
+            image: self.image,
+            imageURL: imageURL,
+            saveMethod: self.saveMethod,
+            title: self.title,
+            category: self.category,
+            expireDate: self.expireDate,
+            count: self.count,
+            memo: self.memo
+        )
+    }
+    
+    func setSaveMethod(method: String?) -> Ingredient {
+        return Ingredient(
+            image: self.image,
+            imageURL: self.imageURL,
             saveMethod: method,
             title: self.title,
             category: self.category,
@@ -44,6 +78,8 @@ struct Ingredient {
     
     func setTitle(title: String?) -> Ingredient {
         return Ingredient(
+            image: self.image,
+            imageURL: self.imageURL,
             saveMethod: self.saveMethod,
             title: title,
             category: self.category,
@@ -55,6 +91,8 @@ struct Ingredient {
     
     func setCategory(category: String?) -> Ingredient {
         return Ingredient(
+            image: self.image,
+            imageURL: self.imageURL,
             saveMethod: self.saveMethod,
             title: self.title,
             category: category,
@@ -64,8 +102,10 @@ struct Ingredient {
         )
     }
     
-    func expireDate(date: String?) -> Ingredient {
+    func setExpireDate(date: String?) -> Ingredient {
         return Ingredient(
+            image: self.image,
+            imageURL: self.imageURL,
             saveMethod: self.saveMethod,
             title: self.title,
             category: self.category,
@@ -77,6 +117,8 @@ struct Ingredient {
     
     func setCount(count: Int?) -> Ingredient {
         return Ingredient(
+            image: self.image,
+            imageURL: self.imageURL,
             saveMethod: self.saveMethod,
             title: self.title,
             category: self.category,
@@ -88,6 +130,8 @@ struct Ingredient {
     
     func setMemo(memo: String) -> Ingredient {
         return Ingredient(
+            image: self.image,
+            imageURL: self.imageURL,
             saveMethod: self.saveMethod,
             title: self.title,
             category: self.category,

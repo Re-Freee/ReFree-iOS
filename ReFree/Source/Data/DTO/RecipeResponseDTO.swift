@@ -65,4 +65,14 @@ extension RecipeResponseDTO {
             )
         }
     }
+    
+    func toDomainManual() -> [Manual] {
+        guard let manualData = data?.first?.manual else { return [] }
+        return manualData.map{ manualDTO in
+            Manual(
+                describe: manualDTO.describe,
+                imageURL: manualDTO.manuelImageURL
+            )
+        }
+    }
 }
