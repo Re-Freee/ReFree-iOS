@@ -96,7 +96,7 @@ final class RegisterIngredientViewController: UIViewController {
                         .titleForSegment(at: index)
                 else { return }
                 
-                self.info = self.info.saveMethod(method: saveMethod)
+                self.info = self.info.setSaveMethod(method: saveMethod)
             })
             .disposed(by: disposeBag)
         
@@ -167,7 +167,7 @@ final class RegisterIngredientViewController: UIViewController {
             .subscribe(onNext: { [weak self] date in
                 guard let self else { return }
                 let dateString = date.description // TODO: formatting 필요
-                self.info = self.info.expireDate(date: dateString)
+                self.info = self.info.setExpireDate(date: dateString)
             })
             .disposed(by: disposeBag)
         
@@ -222,6 +222,13 @@ final class RegisterIngredientViewController: UIViewController {
     }
     
     private func bindCameraView() {
+        cameraView.currentImage
+            .subscribe(onNext: { [weak self] image in
+                guard let self else { return }
+                self.info = self.info.setImage(image: image)
+            })
+            .disposed(by: disposeBag)
+        
         cameraView.rx.tapGesture()
             .when(.recognized)
             .bind { [weak self] _ in
@@ -265,7 +272,7 @@ final class RegisterIngredientViewController: UIViewController {
         
         alert.addAction(takePhto)
         alert.addAction(selectPhoto)
-        if cameraView.currentImage != UIImage(named: "Camera1") {
+        if (try? cameraView.currentImage.value()) != UIImage(named: "Camera1") {
             alert.addAction(deleteImage)
         }
         alert.addAction(cancel)
@@ -280,10 +287,6 @@ final class RegisterIngredientViewController: UIViewController {
                     pickerController.sourceType = .camera
                     pickerController.allowsEditing = false
                     pickerController.mediaTypes = ["public.image"]
-                    //           오버레이 커스텀
-                    //            pickerController.cameraOverlayView = nil
-                    //            self?.overlay.frame = (pickerController.cameraOverlayView?.frame)!
-                    //            pickerController.cameraOverlayView = self?.overlay
                     pickerController.cameraFlashMode = .off
                     pickerController.delegate = self
                     self?.present(pickerController, animated: true)
@@ -326,17 +329,7 @@ final class RegisterIngredientViewController: UIViewController {
     }
     
     private func registerIngredientHandling() {
-        // Single
-//            .subscribe(onSuccess: { common in
-//                // TODO: 데이터 결과 확인
-//            }, onFailure: { [weak self] error in
-//                guard let self else { return }
-//                Alert.erroAlert(
-//                    viewController: self,
-//                    errorMessage: error.localizedDescription
-//                )
-//            })
-//            .disposed(by: disposeBag)
+        //
     }
 }
 

@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 import Then
 
 final class CameraView: UIView {
@@ -17,9 +18,7 @@ final class CameraView: UIView {
         $0.contentMode = .center
     }
     
-    var currentImage: UIImage? {
-        return imageView.image
-    }
+    let currentImage = BehaviorSubject(value: UIImage(named: "Camera1"))
     
     init() {
         super.init(frame: .zero)
@@ -39,12 +38,14 @@ final class CameraView: UIView {
     }
     
     func setImage(image: UIImage) {
+        currentImage.onNext(image)
         imageView.image = image
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .clear
     }
     
     func setDefault() {
+        currentImage.onNext(UIImage(named: "ReFree_non"))
         imageView.image = UIImage(named: "Camera1")
         imageView.backgroundColor = .refreeColor.text1
         imageView.contentMode = .center

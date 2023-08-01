@@ -40,12 +40,10 @@ final class HomeTabViewController: UITabBarController {
             rootViewController: HomeViewController()
         )
         
-        // TODO: 냉장고 탭 구현시 변경
         let refrigeratorViewController = UINavigationController(
             rootViewController: RefrigeratorViewController()
         )
         
-        // TODO: 음식 추가 탭 구현시 변경
         let addFoodViewController = UINavigationController(
             rootViewController: RegisterIngredientViewController()
         )
