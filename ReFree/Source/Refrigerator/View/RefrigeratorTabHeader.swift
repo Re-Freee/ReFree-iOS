@@ -30,12 +30,18 @@ final class RefrigeratorTabHeader: UIView {
     
     private func layout() {
         self.addSubviews([
-                searchBar,
-                titleLabel
+                titleLabel,
+                searchBar
         ])
+
+        titleLabel.snp.makeConstraints {
+            $0.top.leading.equalToSuperview()
+        }
         
-        
-        
+        searchBar.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(titleLabel.snp.bottom).offset(Constant.spacing30)
+        }
         
         
     }
