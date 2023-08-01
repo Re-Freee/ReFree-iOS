@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 import Then
-
+import Kingfisher
 
 final class RecipeDetailCell: UICollectionViewCell, Identifiable {
     let imageView = UIImageView().then {
@@ -49,13 +49,13 @@ final class RecipeDetailCell: UICollectionViewCell, Identifiable {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        imageView.image = UIImage(named: "Rocket")
+        imageView.image = UIImage(named: "ReFree_non")
         descriptionLabel.text = ""
     }
     
-    func configCell(detailReciple: DetailRecipe) {
-        let url = URL(string: detailReciple.imageURL)
+    func configCell(manual: Manual) {
+        let url = URL(string: manual.imageURL)
         imageView.kf.setImage(with: url)
-        descriptionLabel.text = detailReciple.description
+        descriptionLabel.text = manual.describe
     }
 }

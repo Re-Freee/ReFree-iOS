@@ -120,10 +120,17 @@ final class FoodTableViewCell: UITableViewCell, Identifiable {
         }
     }
     
-    public func setData() {
-        foodImage.image = UIImage(named: "CookingBowl")
-        foodTitleLabel.text = "서울우유"
-        foodUsedByDateLabel.text = "소비기한 " + foodUsedByDate
-        foodRemainDateLabel.text = "\(foodRemainDate)일 남았습니다!"
+    public func setData(ingredient: Ingredient) {
+        guard
+            let image = ingredient.image,
+            let title = ingredient.title,
+            let expireDate = ingredient.expireDate
+        else { return }
+        
+        
+        foodImage.image = image
+        foodTitleLabel.text = title
+        foodUsedByDateLabel.text = "소비기한 " + expireDate
+        foodRemainDateLabel.text = "N일 남았습니다!" // TODO: expireDate와 현재 시간을 계산해서 적용
     }
 }

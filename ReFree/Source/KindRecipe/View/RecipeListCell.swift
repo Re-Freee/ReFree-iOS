@@ -10,7 +10,8 @@ import SnapKit
 import Then
 
 final class RecipeListCell: UICollectionViewCell, Identifiable {
-    private let imageView = UIImageView(image: UIImage(named: "FourCircle")).then {
+    private let imageView = UIImageView(image: UIImage(named: "ReFree_non")).then {
+        $0.contentMode = .scaleAspectFill
         $0.layer.opacity = 0.8
     }
     private let titleLabel = UILabel().then {
@@ -65,7 +66,7 @@ final class RecipeListCell: UICollectionViewCell, Identifiable {
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = ""
-        imageView.image = UIImage(named: "FourCircle")
+        imageView.image = UIImage(named: "ReFree_non")
         heartImageView.image = UIImage(systemName: "heart")?
             .withTintColor(.white, renderingMode: .alwaysOriginal)
     }
@@ -73,7 +74,7 @@ final class RecipeListCell: UICollectionViewCell, Identifiable {
     func configCell(recipe: Recipe) {
         let url = URL(string: recipe.imageURL)
         titleLabel.text = recipe.title
-        imageView.kf.setImage(with: url)
+//        imageView.kf.setImage(with: url) // TODO: Mockup 제거시 활성
         let isHeartImage = recipe.isHeart ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
         heartImageView.image = isHeartImage?.withTintColor(.white, renderingMode: .alwaysOriginal)
     }

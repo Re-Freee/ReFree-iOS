@@ -27,6 +27,8 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         )
     }
 
+    private var ingredients: [Ingredient] = Mockup.ingredients
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         config()
@@ -70,7 +72,7 @@ extension HomeViewController: UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return Mockup.ingredients.count
+        return ingredients.count
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -92,9 +94,20 @@ extension HomeViewController: UITableViewDataSource {
             for: indexPath
         ) as? FoodTableViewCell else { return UITableViewCell() }
         
-        cell.setData()
+        cell.setData(ingredient: ingredients[indexPath.row])
         cell.selectionStyle = .none
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let ratio = 0.7
+        let height = Constant.screenSize.height
+        
+        let halfModal = RFModalViewController(
+            modalHeight: height * ratio,
+            type: .detail(ingredients[indexPath.row])
+        )
+        present(halfModal, animated: true)
     }
 }

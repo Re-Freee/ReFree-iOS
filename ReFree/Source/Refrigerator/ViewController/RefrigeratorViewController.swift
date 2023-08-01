@@ -114,6 +114,8 @@ class RefrigeratorViewController: UIViewController {
         )
     }
 
+    private var ingredients: [Ingredient] = Mockup.ingredients
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         config()
@@ -397,7 +399,7 @@ class RefrigeratorViewController: UIViewController {
 
 extension RefrigeratorViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        30
+        ingredients.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -408,12 +410,22 @@ extension RefrigeratorViewController: UICollectionViewDataSource {
         ) as? RefrigeratorListCell
         else { return UICollectionViewCell() }
 
+        cell.configCell(ingredient: ingredients[indexPath.row])
+        
         return cell
     }
 }
 
 extension RefrigeratorViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let ratio = 0.7
+        let height = Constant.screenSize.height
+        
+        let halfModal = RFModalViewController(
+            modalHeight: height * ratio,
+            type: .detail(ingredients[indexPath.row])
+        )
+        present(halfModal, animated: true)
     }
 }
 

@@ -44,7 +44,7 @@ final class KindRecipeViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private var recipes: [Recipe] = []
+    private var recipes: [Recipe] = Mockup.savedRecipe // TODO: Mockup 제거 필요
     
     override func viewDidLoad() {
         super.viewDidLoad()

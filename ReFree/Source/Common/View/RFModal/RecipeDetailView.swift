@@ -41,7 +41,7 @@ final class RecipeDetailView: UIView {
     }
     
     private var recipe: Recipe?
-    private var detailRecipes: [DetailRecipe] = []
+    private var manual: [Manual] = Mockup.detailRecipe
     
     init(recipe: Recipe) {
         super.init(frame: .zero)
@@ -56,7 +56,6 @@ final class RecipeDetailView: UIView {
     private func config() {
         recipeCollection.dataSource = self
         layout()
-        bind()
     }
     
     private func layout() {
@@ -64,10 +63,6 @@ final class RecipeDetailView: UIView {
         recipeCollection.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-    }
-    
-    private func bind() {
-        // TODO: 네트워킹
     }
     
     private func collectionViewLayout() -> UICollectionViewCompositionalLayout {
@@ -106,13 +101,14 @@ final class RecipeDetailView: UIView {
     
     func configView(recipe: Recipe) {
         self.recipe = recipe
-        // TODO: 네트워킹 + 끝나면 reload   
+        // TODO: 네트워킹 + 끝나면 reload
+        // TODO: 목업데이터 제거
     }
 }
 
 extension RecipeDetailView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        detailRecipes.count
+        manual.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -124,7 +120,7 @@ extension RecipeDetailView: UICollectionViewDataSource {
         else { return UICollectionViewCell() }
         
         cell.prepareForReuse()
-        cell.configCell(detailReciple: detailRecipes[indexPath.row])
+        cell.configCell(manual: manual[indexPath.row])
         
         return cell
     }
