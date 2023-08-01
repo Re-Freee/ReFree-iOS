@@ -41,8 +41,7 @@ final class RefrigeratorTabHeader: UIView {
         searchBar.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(titleLabel.snp.bottom).offset(Constant.spacing30)
+            $0.bottom.equalToSuperview()
         }
-        
-        
     }
 }

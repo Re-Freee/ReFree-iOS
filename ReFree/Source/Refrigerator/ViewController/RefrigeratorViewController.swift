@@ -137,17 +137,17 @@ class RefrigeratorViewController: UIViewController {
     }
     
     private func configCollectionView() {
-        collectionView.isHidden = true
+//        collectionView.isHidden = true
         collectionView.dataSource = self
         collectionView.delegate = self
     }
 
     private func layout() {
         view.addSubviews([
-            collectionView,
             header,
             categoryStackView,
-            dropDownMenuButton
+            dropDownMenuButton,
+            collectionView
         ])
         
         categoryStackView.addArrangedSubviews([
@@ -162,9 +162,8 @@ class RefrigeratorViewController: UIViewController {
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(Constant.spacing24)
         }
         
-        
         categoryStackView.snp.makeConstraints {
-            $0.top.equalTo(header.snp.bottom).offset(140)
+            $0.top.equalTo(header.snp.bottom).offset(24)
             $0.centerX.equalToSuperview()
         }
         
@@ -196,7 +195,7 @@ class RefrigeratorViewController: UIViewController {
         }
         
         collectionView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(370)
+            $0.top.equalTo(dropDownMenuButton.snp.bottom).offset(12)
             $0.leading.trailing.equalToSuperview().inset(4)
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
@@ -302,10 +301,11 @@ extension RefrigeratorViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier:
-                    RefrigeratorListCell.identifier,
-            for: indexPath) as? RefrigeratorListCell
+        guard
+            let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: RefrigeratorListCell.identifier,
+            for: indexPath
+        ) as? RefrigeratorListCell
         else { return UICollectionViewCell() }
 
         return cell
