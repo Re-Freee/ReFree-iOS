@@ -235,14 +235,20 @@ final class RecipeViewController: UIViewController {
     
     private func bindRecipe() {
         Network.request(
-            recommendRecipe: NetworkRecipe.recommendRecipe(ingredients: ["토마토", "연어"])
+            recommendRecipe: NetworkRecipe.recommendRecipe(
+                ingredients: ["토마토", "연어", "오이"]
+            )
         )
-        .subscribe(onSuccess: { [weak self] recipes in
+        .subscribe(onNext: { [weak self] recipes in
             self?.recipes = recipes
             self?.carouselCollectionView.reloadData()
             self?.loadingCompletion()
-        }, onFailure: { error in
-            print("\(error.localizedDescription)")
+        }, onError: { error in
+            Alert.checkAlert(
+                viewController: self,
+                title: "에러!",
+                message: "\(error.localizedDescription)"
+            )
         })
         .disposed(by: disposeBag)
     }

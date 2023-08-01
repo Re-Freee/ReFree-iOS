@@ -9,36 +9,36 @@ import Foundation
 import RxSwift
 
 protocol NetworkRecipeProtocol {
-    static func request(recommendRecipe: NetworkRecipe) -> Single<[Recipe]>
-    static func request(searchRecipe: NetworkRecipe) -> Single<[Recipe]>
-    static func request(bookMark: NetworkRecipe) -> Single<CommonResponse>
-    static func request(detailRecipe: NetworkRecipe) -> Single<Recipe?>
-    static func request(savedRecipe: NetworkRecipe) -> Single<[Recipe]>
+    static func request(recommendRecipe: NetworkRecipe) -> Observable<[Recipe]>
+    static func request(searchRecipe: NetworkRecipe) -> Observable<[Recipe]>
+    static func request(bookMark: NetworkRecipe) -> Observable<CommonResponse>
+    static func request(detailRecipe: NetworkRecipe) -> Observable<Recipe?>
+    static func request(savedRecipe: NetworkRecipe) -> Observable<[Recipe]>
 }
 
 extension Network: NetworkRecipeProtocol {
-    static func request(recommendRecipe: NetworkRecipe) -> Single<[Recipe]> {
+    static func request(recommendRecipe: NetworkRecipe) -> Observable<[Recipe]> {
         let observable: Observable<RecipeResponseDTO> = Network.requestJSON(target: recommendRecipe)
-        return observable.flatMap { Observable.of($0.toDomain()) }.asSingle()
+        return observable.map { $0.toDomain() }
     }
     
-    static func request(searchRecipe: NetworkRecipe) -> Single<[Recipe]> {
-            let observable: Observable<RecipeResponseDTO> = Network.requestJSON(target: searchRecipe)
-            return observable.flatMap { Observable.of($0.toDomain()) }.asSingle()
+    static func request(searchRecipe: NetworkRecipe) -> Observable<[Recipe]> {
+        let observable: Observable<RecipeResponseDTO> = Network.requestJSON(target: searchRecipe)
+        return observable.map { $0.toDomain() }
     }
     
-    static func request(bookMark: NetworkRecipe) -> Single<CommonResponse> {
+    static func request(bookMark: NetworkRecipe) -> Observable<CommonResponse> {
         let observable: Observable<CommonResponseDTO> = Network.requestJSON(target: bookMark)
-        return observable.flatMap { Observable.of($0.toDomain()) }.asSingle()
+        return observable.map { $0.toDomain() }
     }
     
-    static func request(detailRecipe: NetworkRecipe) -> Single<Recipe?> {
+    static func request(detailRecipe: NetworkRecipe) -> Observable<Recipe?> {
         let observable: Observable<RecipeResponseDTO> = Network.requestJSON(target: detailRecipe)
-        return observable.flatMap { Observable.of($0.toDomain().first) }.asSingle()
+        return observable.map { $0.toDomain().first }
     }
     
-    static func request(savedRecipe: NetworkRecipe) -> Single<[Recipe]> {
+    static func request(savedRecipe: NetworkRecipe) -> Observable<[Recipe]> {
         let observable: Observable<RecipeResponseDTO> = Network.requestJSON(target: savedRecipe)
-        return observable.flatMap { Observable.of($0.toDomain()) }.asSingle()
+        return observable.map { $0.toDomain() }
     }
 }
