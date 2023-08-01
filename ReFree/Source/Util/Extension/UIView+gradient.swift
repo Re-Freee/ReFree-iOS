@@ -14,6 +14,7 @@ extension UIView {
         case reverseMainAxial
         case blackAxial
         case halfBlackAxial
+        case halfWhiteAxial
     }
     
     func gradientBackground(type: BackgroundType) {
@@ -23,6 +24,7 @@ extension UIView {
         case .reverseMainAxial: reverseMainAxialBackground()
         case .blackAxial: blackAxialBackground()
         case .halfBlackAxial: halfBlackAxialBackground()
+        case .halfWhiteAxial: halfWhiteAxialBackground()
         }
     }
     
@@ -102,7 +104,7 @@ extension UIView {
     private func halfBlackAxialBackground() {
         let colors: [CGColor] = [
             UIColor.clear.cgColor,
-            UIColor.black.cgColor,
+            UIColor.black.cgColor
         ]
         
         setGradientLayer(
@@ -110,7 +112,22 @@ extension UIView {
             colors: colors,
             startPoint: CGPoint(x: 0.5, y: 0.0),
             endPoint: CGPoint(x: 0.5, y: 1),
-            locations: [-0.8]
+            locations:  [-0.8]
+        )
+    }
+    
+    private func halfWhiteAxialBackground() {
+        let colors: [CGColor] = [
+            UIColor.clear.cgColor,
+            UIColor.white.cgColor
+        ]
+        
+        setGradientLayer(
+            type: .axial,
+            colors: colors,
+            startPoint: CGPoint(x: 0.5, y: 0.0),
+            endPoint: CGPoint(x: 0.5, y: 1),
+            locations:  [0.4]
         )
     }
     
