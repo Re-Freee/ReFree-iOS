@@ -12,15 +12,15 @@ import Then
 final class RefrigeratorListCell: UICollectionViewCell, Identifiable {
     static let identifier = "RefrigeratorListCellIdentifier"
     
-    private let imageView = UIImageView(image: UIImage(named: "FourCircle")).then {
+    lazy var imageView = UIImageView(image: UIImage(named: "FourCircle")).then {
         $0.layer.opacity = 0.8
     }
     
-    private let gradientWhiteView = UIView().then {
+    lazy var gradientWhiteView = UIView().then {
         $0.backgroundColor = .white
     }
     
-    let stackView = UIStackView().then {
+    private let stackView = UIStackView().then {
         $0.axis = .vertical
         $0.distribution = .fill
         $0.alignment = .fill
@@ -42,7 +42,7 @@ final class RefrigeratorListCell: UICollectionViewCell, Identifiable {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        gradientBackground(type: .halfBlackAxial)
+        gradientBackground(type: .halfWhiteAxial)
         layout()
     }
     
@@ -90,13 +90,15 @@ final class RefrigeratorListCell: UICollectionViewCell, Identifiable {
             $0.leading.equalToSuperview().inset(14)
         }
         
-        let gradientLayer = CAGradientLayer()
-            gradientLayer.colors = [UIColor.white.cgColor, UIColor.clear.cgColor]
-            gradientLayer.locations = [0.0, 1.0]
-            gradientLayer.frame = gradientWhiteView.bounds
-        
-        gradientWhiteView.layer.addSublayer(gradientLayer)
+//        let gradientLayer = CAGradientLayer()
+//            gradientLayer.colors = [UIColor.white.cgColor, UIColor.clear.cgColor]
+//            gradientLayer.locations = [0.0, 1.0]
+//            gradientLayer.frame = gradientWhiteView.bounds
+//
+//        gradientWhiteView.layer.addSublayer(gradientLayer)
         
         
     }
 }
+
+

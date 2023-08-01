@@ -32,7 +32,15 @@ class SignUpCompleteViewController: UIViewController {
         $0.setTitle("Continue", for: .normal)
         $0.backgroundColor = UIColor.refreeColor.main
         $0.titleLabel?.font = .pretendard.bold15
-        $0.setImage(UIImage(named: "arrow.forward"), for: .normal)
+    }
+    
+    let imageView = UIImageView().then {
+        let symbolName = "arrow.forward"
+        let symbolConfig = UIImage.SymbolConfiguration(pointSize: 15.0, weight: .bold)
+        let symbolImage = UIImage(systemName: symbolName, withConfiguration: symbolConfig)
+        $0.image = symbolImage
+        $0.contentMode = .scaleAspectFit
+        $0.tintColor = .white
     }
 
     override func viewDidLoad() {
@@ -42,13 +50,28 @@ class SignUpCompleteViewController: UIViewController {
     
     private func config(){
         layout()
+//        addPaddingToButton()
     }
+    
+//    private func addPaddingToButton() {
+//        if #available(iOS 15.0, *) {
+//            var config = UIButton.Configuration.plain()
+//            config.imagePadding = 30
+//            config.titlePadding = 10
+//            config.baseForegroundColor = .white
+//            continueButton.configuration = config
+//        } else {
+//            continueButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 0)
+//            continueButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 30)
+//        }
+//    }
     
     private func layout(){
         view.addSubviews([
             rocketImageView,
             registerCompleteLabel,
-            continueButton
+            continueButton,
+            imageView
         ])
         
         continueButton.layer.cornerRadius = 13
@@ -66,7 +89,6 @@ class SignUpCompleteViewController: UIViewController {
             $0.top.equalTo(rocketImageView.snp.bottom)
         }
         
-        
         continueButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(registerCompleteLabel.snp.bottom).offset(40)
@@ -75,5 +97,10 @@ class SignUpCompleteViewController: UIViewController {
             $0.height.equalTo(35)
         }
         
+        imageView.snp.makeConstraints {
+            $0.width.height.equalTo(20)
+            $0.centerY.equalTo(continueButton.snp.centerY)
+            $0.trailing.equalTo(continueButton.snp.trailing).offset(-10)
+        }
     }
 }

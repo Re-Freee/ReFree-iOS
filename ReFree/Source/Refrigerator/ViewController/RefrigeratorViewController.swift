@@ -72,13 +72,11 @@ class RefrigeratorViewController: UIViewController {
         $0.setImage(symbolImage, for: .normal)
         $0.setTitle("소비기한 빠른 순", for: .normal)
         $0.setTitleColor(UIColor.refreeColor.text1, for: .normal)
-        $0.titleLabel?.font = .pretendard.extraLight15
+        $0.titleLabel?.font = .pretendard.extraLight12
         $0.layer.masksToBounds = false
         $0.layer.cornerRadius = 5
         $0.tintColor = UIColor.refreeColor.main
         $0.semanticContentAttribute = .forceRightToLeft
-        $0.imageEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 0)
-        $0.titleEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 10)
     }
     
     private lazy var menuItems: [UIAction] = {
@@ -121,9 +119,6 @@ class RefrigeratorViewController: UIViewController {
         config()
         configCollectionView()
         setupActions()
-//        addShadowsToButtons()
-        dropDownMenuButton.menu = menu
-        dropDownMenuButton.showsMenuAsPrimaryAction = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -134,6 +129,8 @@ class RefrigeratorViewController: UIViewController {
     private func config() {
         view.gradientBackground(type: .mainAxial)
         layout()
+        addDropDownMenu()
+        addPaddingToButton()
     }
     
     private func configCollectionView() {
@@ -141,7 +138,27 @@ class RefrigeratorViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
     }
+    
+    private func addDropDownMenu() {
+        dropDownMenuButton.menu = menu
+        dropDownMenuButton.showsMenuAsPrimaryAction = true
+    }
 
+    private func addPaddingToButton() {
+        if #available(iOS 15.0, *) {
+            var config = UIButton.Configuration.plain()
+            config.imagePadding = 10
+            config.titlePadding = 10
+            config.baseForegroundColor = UIColor.refreeColor.text1
+            dropDownMenuButton.configuration = config
+        } else {
+            dropDownMenuButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+            dropDownMenuButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+        }
+    }
+    
+
+    
     private func layout() {
         view.addSubviews([
             header,
@@ -229,14 +246,72 @@ class RefrigeratorViewController: UIViewController {
 
     private func setupActions() {
         foodCategoryButton.addTarget(self, action: #selector(foodCategoryButtonTapped), for: .touchUpInside)
+        refrigeratedFoodCategoryButton.addTarget(self, action: #selector(refrigeratedFoodCategoryButtonTapped), for: .touchUpInside)
+        frozenFoodCategoryButton.addTarget(self, action: #selector(frozenFoodCategoryButtonTapped), for: .touchUpInside)
+        outdoorFoodCategoryButton.addTarget(self, action: #selector(outdoorFoodCategoryButtonTapped), for: .touchUpInside)
     }
     
     @objc private func foodCategoryButtonTapped() {
         collectionView.isHidden = false // collectionView를 화면에 보이도록 설정
         foodCategoryButton.backgroundColor = UIColor.refreeColor.button1
-        foodCategoryButton.setTitleColor(.white, for: .normal) // 텍스트 색상을 흰색으로 변경
-        foodCategoryButton.tintColor = .white // 이미지 색상을 흰색으로 변경
+        foodCategoryButton.setTitleColor(.white, for: .normal)
+        
+        refrigeratedFoodCategoryButton.backgroundColor = .white
+        refrigeratedFoodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
+        
+        frozenFoodCategoryButton.backgroundColor = .white
+        frozenFoodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
+        
+        outdoorFoodCategoryButton.backgroundColor = .white
+        outdoorFoodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
     }
+    
+    @objc private func refrigeratedFoodCategoryButtonTapped() {
+        collectionView.isHidden = false // collectionView를 화면에 보이도록 설정
+        refrigeratedFoodCategoryButton.backgroundColor = UIColor.refreeColor.button1
+        refrigeratedFoodCategoryButton.setTitleColor(.white, for: .normal)
+        
+        foodCategoryButton.backgroundColor = .white
+        foodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
+        
+        frozenFoodCategoryButton.backgroundColor = .white
+        frozenFoodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
+        
+        outdoorFoodCategoryButton.backgroundColor = .white
+        outdoorFoodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
+    }
+    
+    @objc private func frozenFoodCategoryButtonTapped() {
+        collectionView.isHidden = false // collectionView를 화면에 보이도록 설정
+        frozenFoodCategoryButton.backgroundColor = UIColor.refreeColor.button1
+        frozenFoodCategoryButton.setTitleColor(.white, for: .normal)
+        
+        refrigeratedFoodCategoryButton.backgroundColor = .white
+        refrigeratedFoodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
+        
+        foodCategoryButton.backgroundColor = .white
+        foodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
+        
+        outdoorFoodCategoryButton.backgroundColor = .white
+        outdoorFoodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
+    }
+    
+    @objc private func outdoorFoodCategoryButtonTapped() {
+        collectionView.isHidden = false // collectionView를 화면에 보이도록 설정
+        outdoorFoodCategoryButton.backgroundColor = UIColor.refreeColor.button1
+        outdoorFoodCategoryButton.setTitleColor(.white, for: .normal)
+        
+        refrigeratedFoodCategoryButton.backgroundColor = .white
+        refrigeratedFoodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
+        
+        frozenFoodCategoryButton.backgroundColor = .white
+        frozenFoodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
+        
+        foodCategoryButton.backgroundColor = .white
+        foodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
+    }
+    
+    
     
     
 //    private func addShadowsToButtons() {
