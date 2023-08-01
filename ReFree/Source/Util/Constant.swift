@@ -13,6 +13,7 @@ struct Constant {
     static let spacing10: Int = 10
     static let spacing12: Int = 12
     static let spacing24: Int = 24
+    static let spacing30: Int = 30
     static let spacing50: Int = 50
     static let spacing60: Int = 60
     
