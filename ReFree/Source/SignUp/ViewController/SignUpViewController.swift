@@ -174,12 +174,11 @@ class SignUpViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.isNavigationBarHidden = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.isNavigationBarHidden = false
     }
     
     private func config(){
@@ -403,6 +402,6 @@ class SignUpViewController: UIViewController {
     
     private func touchLoginButton() {
         navigationController?.pushViewController(LogInViewController(), animated: true)
-        navigationItem.backButtonTitle = "Sign"
+        navigationItem.backButtonTitle = "회원가입"
     }
 }

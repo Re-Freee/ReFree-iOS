@@ -40,7 +40,6 @@ final class LaunchScreenView: UIView {
         gradientBackground(type: .mainConic)
         layout()
         layoutAnimation()
-
     }
     
     private func layout() {
