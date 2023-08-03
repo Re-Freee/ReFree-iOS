@@ -101,13 +101,12 @@ extension HomeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let ratio = 0.7
-        let height = Constant.screenSize.height
-        
-        let halfModal = RFModalViewController(
-            modalHeight: height * ratio,
+        let modalVC = RFModalParentViewController(
             type: .detail(ingredients[indexPath.row])
         )
-        present(halfModal, animated: true)
+        navigationController?.pushViewController(
+            modalVC,
+            animated: false
+        )
     }
 }

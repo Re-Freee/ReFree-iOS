@@ -72,7 +72,7 @@ final class RecipeListCell: UICollectionViewCell, Identifiable {
     }
     
     func configCell(recipe: Recipe) {
-        let url = URL(string: recipe.imageURL)
+//        let url = URL(string: recipe.imageURL)
         titleLabel.text = recipe.title
 //        imageView.kf.setImage(with: url) // TODO: Mockup 제거시 활성
         let isHeartImage = recipe.isHeart ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")

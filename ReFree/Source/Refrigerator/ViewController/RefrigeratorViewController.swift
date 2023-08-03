@@ -125,7 +125,7 @@ class RefrigeratorViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = false
+        navigationController?.isNavigationBarHidden = true
     }
     
     private func config() {
@@ -418,14 +418,13 @@ extension RefrigeratorViewController: UICollectionViewDataSource {
 
 extension RefrigeratorViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let ratio = 0.7
-        let height = Constant.screenSize.height
-        
-        let halfModal = RFModalViewController(
-            modalHeight: height * ratio,
+        let modalVC = RFModalParentViewController(
             type: .detail(ingredients[indexPath.row])
         )
-        present(halfModal, animated: true)
+        navigationController?.pushViewController(
+            modalVC,
+            animated: false
+        )
     }
 }
 

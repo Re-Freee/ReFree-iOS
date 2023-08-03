@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 final class RFModalViewController: UIViewController {
     
@@ -15,7 +16,8 @@ final class RFModalViewController: UIViewController {
         case recipe(Recipe)
     }
     
-    var contentView: UIView?
+    private var contentView: UIView?
+    let endsubject = PublishSubject<Void>()
     
     init(modalHeight: CGFloat, type: ContentType) {
         super.init(nibName: nil, bundle: Bundle.main)
@@ -29,6 +31,11 @@ final class RFModalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        endsubject.onNext(())
     }
     
     private func config(height: CGFloat, type: ContentType) {
