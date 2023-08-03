@@ -37,6 +37,7 @@
 		6A1C0EBA2A61427400A7C1C1 /* UIFont+Pretendard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C0EB92A61427400A7C1C1 /* UIFont+Pretendard.swift */; };
 		6A2B70732A5BF056002F92EB /* UIColor+ReFreeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2B70722A5BF056002F92EB /* UIColor+ReFreeColor.swift */; };
 		6A3ADA5B2A63E99200D6D49A /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3ADA5A2A63E99200D6D49A /* HomeTabViewController.swift */; };
+		6A4781292A7C1A2A004C55D0 /* RFModalParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4781282A7C1A2A004C55D0 /* RFModalParentViewController.swift */; };
 		6A4ED1D82A5D237C00299B61 /* RFSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4ED1D72A5D237C00299B61 /* RFSearchBar.swift */; };
 		6A4ED1DB2A5D254600299B61 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 6A4ED1DA2A5D254600299B61 /* Then */; };
 		6A4ED1DD2A5D31A800299B61 /* BadgeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4ED1DC2A5D31A800299B61 /* BadgeButton.swift */; };
@@ -138,6 +139,7 @@
 		6A1C0EB92A61427400A7C1C1 /* UIFont+Pretendard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Pretendard.swift"; sourceTree = "<group>"; };
 		6A2B70722A5BF056002F92EB /* UIColor+ReFreeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ReFreeColor.swift"; sourceTree = "<group>"; };
 		6A3ADA5A2A63E99200D6D49A /* HomeTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabViewController.swift; sourceTree = "<group>"; };
+		6A4781282A7C1A2A004C55D0 /* RFModalParentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFModalParentViewController.swift; sourceTree = "<group>"; };
 		6A4BA8502A71352A00CCEC7B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		6A4ED1D72A5D237C00299B61 /* RFSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFSearchBar.swift; sourceTree = "<group>"; };
 		6A4ED1DC2A5D31A800299B61 /* BadgeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeButton.swift; sourceTree = "<group>"; };
@@ -545,6 +547,7 @@
 		6AA335E72A606F0A0037A2C1 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				6A4781282A7C1A2A004C55D0 /* RFModalParentViewController.swift */,
 				6A894D0C2A5F310200B053A5 /* RFModalViewController.swift */,
 				6A3ADA5A2A63E99200D6D49A /* HomeTabViewController.swift */,
 				6AFE1B642A7A3BAB0049D523 /* AppInitViewController.swift */,
@@ -818,6 +821,7 @@
 				6A5F07232A7407BA00526B18 /* NetworkSign.swift in Sources */,
 				6A06E6122A5D1279005938DE /* RecipeViewController.swift in Sources */,
 				6A7F8BA12A6C301500DB38BD /* LoadingView.swift in Sources */,
+				6A4781292A7C1A2A004C55D0 /* RFModalParentViewController.swift in Sources */,
 				6A5F071F2A73DF5B00526B18 /* ModifyPasswordRequestDTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

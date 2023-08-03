@@ -148,14 +148,13 @@ extension KindRecipeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
-    ) {
-        let ratio = 0.7
-        let height = Constant.screenSize.height
-        let extractedExpr = RFModalViewController(
-            modalHeight: height * ratio,
+    ) {        
+        let modalVC = RFModalParentViewController(
             type: .recipe(recipes[indexPath.row])
         )
-        let halfModal = extractedExpr
-        present(halfModal, animated: true)
+        navigationController?.pushViewController(
+            modalVC,
+            animated: false
+        )
     }
 }
