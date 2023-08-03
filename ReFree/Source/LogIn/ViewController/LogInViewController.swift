@@ -41,16 +41,38 @@ class LogInViewController: UIViewController {
         $0.titleLabel?.font = .pretendard.bold15
     }
     
+    private let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         config()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
     private func config() {
         view.gradientBackground(type: .mainConic)
+        configNavigation()
         layout()
         logInButton.button.addTarget(self, action: #selector(logInButtonTapped), for: .touchUpInside)
         passwordFindButton.addTarget(self, action: #selector(passwordFindButtonTapped), for: .touchUpInside)
+    }
+    
+    private func configNavigation() {
+        let backButton = UIBarButtonItem(
+            title: "시작 화면으로",
+            style: .plain,
+            target: self,
+            action: #selector(toRootViewController)
+        )
+        navigationItem.leftBarButtonItem = backButton
+    }
+    
+    @objc private func toRootViewController() {
+        navigationController?.popToRootViewController(animated: true)
     }
     
     private func layout() {
@@ -95,7 +117,11 @@ class LogInViewController: UIViewController {
     }
     
     @objc func logInButtonTapped() {
-        
+        let tabBarController = HomeTabViewController()
+        navigationController?.pushViewController(
+            tabBarController,
+            animated: true
+        )
     }
     
     @objc func passwordFindButtonTapped() {

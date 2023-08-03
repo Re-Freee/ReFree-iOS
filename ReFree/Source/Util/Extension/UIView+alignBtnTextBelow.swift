@@ -9,23 +9,20 @@ import UIKit
 
 extension UIButton {
     func alignBtnTextBelow(spacing: CGFloat = 4.0) {
-        guard let image = self.imageView?.image else {
-            return
-        }
+//        guard
+//            let image = self.imageView?.image,
+//            let titleLabel = self.titleLabel,
+//            let titleText = titleLabel.textelse
+//        { return }
+//        
+//        let titleSize = titleText.size(withAttributes: [
+//            NSAttributedString.Key.font: titleLabel.font as Any
+//        ])
         
-        guard let titleLabel = self.titleLabel else {
-            return
-        }
-        
-        guard let titleText = titleLabel.text else {
-            return
-        }
-        
-        let titleSize = titleText.size(withAttributes: [
-            NSAttributedString.Key.font: titleLabel.font as Any
-        ])
-        
-        titleEdgeInsets = UIEdgeInsets(top: spacing, left: -image.size.width, bottom: -image.size.height, right: 0)
-        imageEdgeInsets = UIEdgeInsets(top: -(titleSize.height + spacing), left: 0, bottom: 0, right: -titleSize.width)
+        var config = UIButton.Configuration.plain()
+        config.imagePadding = spacing
+        config.baseForegroundColor = UIColor.refreeColor.text1
+        config.imagePlacement = .top
+        self.configuration = config
     }
 }

@@ -58,11 +58,6 @@ final class RFModalViewController: UIViewController {
             }
         }
     }
-    
-    func configRecipe(recipe: Recipe) {
-        guard let recipeView = contentView as? RecipeDetailView else { return }
-        recipeView.configView(recipe: recipe)
-    }
 }
 
 //사용하는 곳에서 쓸 코드

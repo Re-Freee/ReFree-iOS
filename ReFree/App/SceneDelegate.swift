@@ -30,6 +30,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let height = window.windowScene?.screen.bounds {
             Constant.screenSize = height
         }
+        
+        UINavigationBar.appearance().tintColor = .refreeColor.main
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
