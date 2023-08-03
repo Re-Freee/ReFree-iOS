@@ -103,6 +103,7 @@ final class RecipeDetailView: UIView {
         self.recipe = recipe
         // TODO: 네트워킹 + 끝나면 reload
         // TODO: 목업데이터 제거
+        recipeCollection.reloadData()
     }
 }
 

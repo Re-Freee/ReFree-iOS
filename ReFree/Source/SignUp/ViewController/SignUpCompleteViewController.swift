@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
 
 class SignUpCompleteViewController: UIViewController {
     private enum Constant {
@@ -43,14 +44,27 @@ class SignUpCompleteViewController: UIViewController {
         $0.tintColor = .white
     }
 
+    private var disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         view.gradientBackground(type: .mainConic)
         config()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
     private func config(){
         layout()
 //        addPaddingToButton()
+        bind()
     }
     
 //    private func addPaddingToButton() {
@@ -102,5 +116,14 @@ class SignUpCompleteViewController: UIViewController {
             $0.centerY.equalTo(continueButton.snp.centerY)
             $0.trailing.equalTo(continueButton.snp.trailing).offset(-10)
         }
+    }
+    
+    private func bind() {
+        continueButton.rx.tap
+            .bind { [weak self] in
+                let signInVC = LogInViewController()
+                self?.navigationController?.pushViewController(signInVC, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 }

@@ -32,6 +32,16 @@ final class HomeTabViewController: UITabBarController {
         tabBarConfig()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
     private func tabBarConfig() {
         tabBar.barTintColor = .refreeColor.lightGray
         tabBar.tintColor = .refreeColor.main

@@ -21,10 +21,10 @@ final class RecipeDetailHeaderView: UICollectionReusableView, Identifiable {
     }
     
     private let bookmarkButton = UIButton().then {
-//        $0.tintColor = .refreeColor.main
         var config = UIButton.Configuration.plain()
         config.baseForegroundColor = .refreeColor.main
-        config.image = UIImage(systemName: "heart")
+        config.image = UIImage(systemName: "heart")?
+            .withTintColor(.refreeColor.main, renderingMode: .alwaysOriginal)
         $0.configuration = config
     }
     
@@ -116,10 +116,15 @@ final class RecipeDetailHeaderView: UICollectionReusableView, Identifiable {
     func configHeader(recipe: Recipe) {
         titleLabel.text = recipe.title
         ingredientsLists.text = recipe.ingredients
-        let bookmarkImage = recipe.isHeart ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
-        bookmarkButton.setImage(
-            bookmarkImage?.withTintColor(.white, renderingMode: .alwaysOriginal),
-            for: .normal
-        )
+        
+        let bookmarkImage = recipe.isHeart ?
+        UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+        
+        var config = UIButton.Configuration.plain()
+        config.baseForegroundColor = .refreeColor.main
+        config.image = bookmarkImage?
+            .withTintColor(.refreeColor.main, renderingMode: .alwaysOriginal)
+        bookmarkButton.configuration = config
+        
     }
 }

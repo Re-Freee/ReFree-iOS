@@ -398,10 +398,23 @@ class SignUpViewController: UIViewController {
                 self?.touchLoginButton()
             }
             .disposed(by: disposeBag)
+        
+        createAccountButton.rx.tap
+            .bind { [weak self] in
+                self?.touchCreatAccountButton()
+            }
+            .disposed(by: disposeBag)
     }
     
     private func touchLoginButton() {
-        navigationController?.pushViewController(LogInViewController(), animated: true)
+        let loginVC = LogInViewController()
+        navigationController?.pushViewController(loginVC, animated: true)
         navigationItem.backButtonTitle = "회원가입"
+    }
+    
+    private func touchCreatAccountButton() {
+        // TODO: ValidCheck(유효성 검사) 후
+        let signUpCompleteVC = SignUpCompleteViewController()
+        navigationController?.pushViewController(signUpCompleteVC, animated: true)
     }
 }

@@ -16,7 +16,7 @@ final class RecipeDetailCell: UICollectionViewCell, Identifiable {
         $0.backgroundColor = .refreeColor.lightGray
     }
     let descriptionLabel = UILabel().then {
-        $0.textAlignment = .center
+        $0.textAlignment = .left
         $0.numberOfLines = 0
         // TODO: Remove
         $0.text = "레시피"

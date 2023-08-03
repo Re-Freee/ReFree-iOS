@@ -16,7 +16,7 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         frame: .zero,
         style: .plain
     ).then {
-//        $0.clipsToBounds = false
+        $0.showsVerticalScrollIndicator = false
         $0.separatorStyle = .none
         $0.backgroundColor = .clear
         $0.rowHeight = 100
