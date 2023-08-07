@@ -10,7 +10,7 @@ import SnapKit
 import Then
 import RxSwift
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UITextFieldDelegate {
     let signUpImageView1 = UIImageView().then {
         $0.image = UIImage(named: "FourCircle")
         $0.contentMode = .scaleAspectFit
@@ -70,6 +70,14 @@ class SignUpViewController: UIViewController {
         $0.addLeftPadding()
     }
     
+    let passwordLabel = UILabel().then {
+        $0.font = .pretendard.extraLight12
+        $0.textColor = UIColor.refreeColor.red
+        $0.text = "비밀번호는 8자 이상 입력하셔야 합니다."
+        $0.textAlignment = .center
+        $0.isHidden = true
+    }
+    
     let confirmPasswordView = UIView().then {
         $0.backgroundColor = .clear
     }
@@ -107,6 +115,14 @@ class SignUpViewController: UIViewController {
         $0.font = .pretendard.extraLight12
         $0.borderStyle = .none
         $0.addLeftPadding()
+    }
+    
+    let nicknameLabel = UILabel().then {
+        $0.font = .pretendard.extraLight12
+        $0.textColor = UIColor.refreeColor.red
+        $0.text = "닉네임은 2~8자 이내로 입력하셔야 합니다."
+        $0.textAlignment = .center
+        $0.isHidden = true
     }
     
     let createAccountButton = UIButton().then {
@@ -153,6 +169,18 @@ class SignUpViewController: UIViewController {
         $0.isHidden = true
     }
     
+    let confirmPasswordErrorButton = UIImageView().then {
+        $0.image = UIImage(named: "CircleX")
+        $0.contentMode = .scaleAspectFit
+        $0.isHidden = true
+    }
+    
+    let nicknameErrorButton = UIImageView().then {
+        $0.image = UIImage(named: "CircleX")
+        $0.contentMode = .scaleAspectFit
+        $0.isHidden = true
+    }
+    
     let borderView = UIView().then {
         $0.backgroundColor = UIColor.refreeColor.text1
     }
@@ -165,11 +193,126 @@ class SignUpViewController: UIViewController {
     
     private var disposeBag = DisposeBag()
     
+    private func isEmailValid(_ email: String) -> Bool {
+        // 간단한 이메일 유효성 검사를 수행하는 함수
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegex)
+        return emailPredicate.evaluate(with: email)
+    }
+
+    private func isPasswordValid(_ password: String) -> Bool {
+        // 비밀번호가 8자 이상인지 검사하는 함수
+        return password.count >= 8
+    }
+
+    private func isNicknameValid(_ nickname: String) -> Bool {
+        // 닉네임이 2~8자인지 검사하는 함수
+        return nickname.count >= 2 && nickname.count <= 8
+    }
+    
+    // 두 텍스트필드 문자가 같은 지 확인
+    func isSameBothTextField(_ first: UITextField,_ second: UITextField) -> Bool {
+        if(first.text == second.text) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    
+    @objc func TFdidChanged(_ sender: UITextField) {
+        print("텍스트 변경 감지")
+        if let text = sender.text {
+            print("text :", text)
+        }
+
+        // 이메일 유효성 검사
+        if sender == emailTextField {
+            emailValidityCheckButton.isHidden = !isEmailValid(sender.text ?? "")
+        }
+
+        // 비밀번호 유효성 검사
+        if sender == passwordTextField {
+            passwordCheckButton.isHidden = isPasswordValid(sender.text ?? "")
+
+            // 비밀번호 길이 검사
+            if passwordTextField.text?.count ?? 0 < 8 {
+                passwordCheckButton.isHidden = true
+            } else {
+                // 비밀번호 확인 일치 여부 검사
+                if isSameBothTextField(passwordTextField, confirmPasswordTextField) {
+                    confirmpPasswordCheckButton.isHidden = false
+                    confirmPasswordLabel.isHidden = true
+                    confirmPasswordErrorButton.isHidden = true
+                } else {
+                    confirmpPasswordCheckButton.isHidden = true
+                    confirmPasswordLabel.isHidden = false
+                    confirmPasswordErrorButton.isHidden = false
+                }
+                passwordCheckButton.isHidden = false // 비밀번호가 8자 이상인 경우에만 활성화
+            }
+        }
+
+        if sender == confirmPasswordTextField {
+            if confirmPasswordTextField.text?.isEmpty ?? true {
+                confirmPasswordErrorButton.isHidden = true
+                confirmpPasswordCheckButton.isHidden = true
+                confirmPasswordLabel.isHidden = true
+            } else {
+                if isSameBothTextField(passwordTextField, confirmPasswordTextField) {
+                    confirmPasswordErrorButton.isHidden = true
+                    confirmpPasswordCheckButton.isHidden = false
+                    confirmPasswordLabel.isHidden = true
+                    confirmPasswordErrorButton.isHidden = true
+                } else {
+                    confirmPasswordErrorButton.isHidden = false
+                    confirmpPasswordCheckButton.isHidden = true
+                    confirmPasswordLabel.isHidden = false
+                    confirmPasswordErrorButton.isHidden = false
+                }
+            }
+        }
+
+        // 닉네임 유효성 검사
+        if sender == nicknameTextField {
+            nicknameCheckButton.isHidden = isNicknameValid(sender.text ?? "")
+            
+            if let nickname = sender.text, nickname.count >= 2 && nickname.count <= 8 {
+                nicknameCheckButton.isHidden = false
+                nicknameErrorButton.isHidden = true
+                nicknameLabel.isHidden = true
+            } else {
+                nicknameCheckButton.isHidden = true
+                nicknameErrorButton.isHidden = false
+                nicknameLabel.isHidden = false
+            }
+        }
+
+        // 모든 조건을 만족할 경우에만 버튼 활성화
+        updateNextButton()
+    }
+
+    //'Create Account' 버튼 활성화/비활성화
+    private func updateNextButton() {
+            // 각 필드의 유효성 검사 결과를 가져와서 버튼 활성화 여부 결정
+            let isEmailFormatValid = isEmailValid(emailTextField.text ?? "")
+            let isPasswordFormatValid = isPasswordValid(passwordTextField.text ?? "")
+            let isPasswordsMatch = isSameBothTextField(passwordTextField, confirmPasswordTextField)
+            let isNicknameFormatValid = isNicknameValid(nicknameTextField.text ?? "")
+            
+            // 모든 조건을 만족할 경우에만 버튼 활성화
+            createAccountButton.isEnabled = isEmailFormatValid && isPasswordFormatValid && isPasswordsMatch && isNicknameFormatValid
+            createAccountButton.setTitleColor(createAccountButton.isEnabled ? UIColor.white : UIColor.gray, for: .normal)
+        }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.gradientBackground(type: .mainConic)
         config()
         bind()
+        
+        signUpValidation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -183,6 +326,18 @@ class SignUpViewController: UIViewController {
     
     private func config(){
         layout()
+    }
+    
+    private func signUpValidation(){
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        confirmPasswordTextField.delegate = self
+        nicknameTextField.delegate = self
+        
+        emailTextField.addTarget(self, action: #selector(self.TFdidChanged(_:)), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(self.TFdidChanged(_:)), for: .editingChanged)
+        confirmPasswordTextField.addTarget(self, action: #selector(self.TFdidChanged(_:)), for: .editingChanged)
+        nicknameTextField.addTarget(self, action: #selector(self.TFdidChanged(_:)), for: .editingChanged)
     }
     
     private func layout(){
@@ -202,21 +357,26 @@ class SignUpViewController: UIViewController {
             emailLabel,
             emailValidityCheckButton,
         ])
+        
         passwordView.addSubviews([
             passwordTextField,
-            passwordCheckButton
+            passwordCheckButton,
+            passwordLabel,
+            passwordErrorButton
         ])
         
         confirmPasswordView.addSubviews([
             confirmPasswordTextField,
             confirmPasswordLabel,
-            passwordErrorButton,
+            confirmPasswordErrorButton,
             confirmpPasswordCheckButton
         ])
         
         nicknameView.addSubviews([
             nicknameTextField,
-            nicknameCheckButton
+            nicknameCheckButton,
+            nicknameLabel,
+            nicknameErrorButton
         ])
         
         stackView.addArrangedSubviews([
@@ -318,6 +478,11 @@ class SignUpViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-28)
         }
         
+        passwordLabel.snp.makeConstraints {
+            $0.top.equalTo(passwordTextField.snp.bottom).offset(4)
+            $0.leading.equalTo(emailTextField.snp.leading).offset(9)
+        }
+        
         confirmPasswordTextField.snp.makeConstraints { make in
             make.height.equalTo(30)
             make.top.equalToSuperview()
@@ -337,6 +502,12 @@ class SignUpViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-28)
         }
         
+        nicknameLabel.snp.makeConstraints{
+            $0.top.equalTo(nicknameTextField.snp.bottom).offset(4)
+            $0.leading.equalTo(emailTextField.snp.leading).offset(9)
+        }
+
+        
         stackView.snp.makeConstraints { make in
             make.top.equalTo(signUpLabel.snp.bottom).offset(23)
             make.leading.equalTo(signUpContainerView.snp.leading).offset(29)
@@ -348,7 +519,13 @@ class SignUpViewController: UIViewController {
             make.trailing.equalToSuperview()
         }
         
-        passwordErrorButton.snp.makeConstraints { make in
+        passwordErrorButton.snp.makeConstraints{
+            $0.width.height.equalTo(22)
+            $0.centerY.equalTo(passwordTextField)
+            $0.trailing.equalToSuperview()
+        }
+        
+        confirmPasswordErrorButton.snp.makeConstraints { make in
             make.width.height.equalTo(22)
             make.centerY.equalTo(confirmPasswordTextField)
             make.trailing.equalToSuperview()
@@ -367,6 +544,12 @@ class SignUpViewController: UIViewController {
         }
         
         nicknameCheckButton.snp.makeConstraints { make in
+            make.width.height.equalTo(22)
+            make.centerY.equalTo(nicknameTextField)
+            make.trailing.equalToSuperview()
+        }
+        
+        nicknameErrorButton.snp.makeConstraints { make in
             make.width.height.equalTo(22)
             make.centerY.equalTo(nicknameTextField)
             make.trailing.equalToSuperview()
