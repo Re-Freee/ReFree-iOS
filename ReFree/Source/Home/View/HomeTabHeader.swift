@@ -19,19 +19,17 @@ class HomeTabHeader: UIView {
     
     private let searchBar = RFSearchBar()
     
-    private let imminentFoodButton = UIButton().then {
+    public let imminentFoodButton = UIButton().then {
         $0.setTitle("소비기한 임박 음식", for: .normal)
         $0.setTitleColor(UIColor.refreeColor.main, for: .normal)
         $0.backgroundColor = UIColor.refreeColor.button2
     }
     
-    private let expiredFoodButton = UIButton().then {
+    public let expiredFoodButton = UIButton().then {
         $0.setTitle("소비기한 만료 음식", for: .normal)
         $0.setTitleColor(UIColor.refreeColor.main, for: .normal)
         $0.backgroundColor = UIColor.refreeColor.button3
     }
-    
-    private var isImminentFoodButtonSelected: Bool = true
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,8 +50,6 @@ class HomeTabHeader: UIView {
     
     private func config() {
         layout()
-        imminentFoodButton.addTarget(self, action: #selector(imminentFoodButtonTapped), for: .touchUpInside)
-        expiredFoodButton.addTarget(self, action: #selector(expiredFoodButtonTapped), for: .touchUpInside)
     }
     
     private func layout() {
@@ -88,35 +84,7 @@ class HomeTabHeader: UIView {
         }
     }
     
-    @objc private func imminentFoodButtonTapped() {
-        if !isImminentFoodButtonSelected {
-            setGradientButtonLayer(button: expiredFoodButton, isApplied: true)
-            setGradientButtonLayer(button: imminentFoodButton)
-            imminentFoodButton.backgroundColor = UIColor.refreeColor.button2
-            expiredFoodButton.backgroundColor = UIColor.refreeColor.button3
-            
-            setButtonShadow(button: imminentFoodButton)
-            setButtonShadow(button: expiredFoodButton, isSelected: true)
-            
-            isImminentFoodButtonSelected = true
-        }
-    }
-    
-    @objc private func expiredFoodButtonTapped() {
-        if isImminentFoodButtonSelected {
-            setGradientButtonLayer(button: imminentFoodButton, isApplied: true)
-            setGradientButtonLayer(button: expiredFoodButton)
-            expiredFoodButton.backgroundColor = UIColor.refreeColor.button2
-            imminentFoodButton.backgroundColor = UIColor.refreeColor.button3
-            
-            setButtonShadow(button: expiredFoodButton)
-            setButtonShadow(button: imminentFoodButton, isSelected: true)
-            
-            isImminentFoodButtonSelected = false
-        }
-    }
-    
-    private func setButtonShadow(
+    public func setButtonShadow(
         button:UIButton,
         isSelected: Bool = false
     ) {
@@ -127,7 +95,7 @@ class HomeTabHeader: UIView {
         }
     }
     
-    private func setGradientButtonLayer(
+    public func setGradientButtonLayer(
         button: UIButton,
         isApplied: Bool = false
     ) {

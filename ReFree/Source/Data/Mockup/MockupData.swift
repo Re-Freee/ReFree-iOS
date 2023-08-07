@@ -23,6 +23,36 @@ struct Mockup {
         }
     }()
     
+    static let testIngredients1: [Ingredient] = {
+        return (0..<20).map { _ in
+            return Ingredient(
+                image: UIImage(named: "RefreeLogo"),
+                imageURL: nil,
+                saveMethod: "냉장",
+                title: "돼지고기",
+                category: "돼지고기",
+                expireDate: "2023-08-02",
+                count: 2,
+                memo: "메모메모"
+            )
+        }
+    }()
+    
+    static let testIngredients2: [Ingredient] = {
+        return (0..<10).map { _ in
+            return Ingredient(
+                image: UIImage(named: "RefreeLogo"),
+                imageURL: nil,
+                saveMethod: "냉동",
+                title: "소고기",
+                category: "소고기",
+                expireDate: "2023-08-031",
+                count: 4,
+                memo: "메모메모"
+            )
+        }
+    }()
+    
     static let recommendReciple: [Recipe] = {
         return (0..<3).map { _ in
             return Recipe(
