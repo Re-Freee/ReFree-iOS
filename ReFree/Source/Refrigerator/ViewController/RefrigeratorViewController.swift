@@ -28,7 +28,7 @@ class RefrigeratorViewController: UIViewController {
         $0.alignBtnTextBelow(spacing: 6)
         $0.layer.masksToBounds = false
         $0.layer.cornerRadius = 5
-//        $0.addShadow(right: 5, down: 5, color: .red, opacity: 0.5, radius: 5)
+        $0.addShadow(right: 0, down: 2, color: .gray, opacity: 0.6, radius: 8)
     }
     
     let refrigeratedFoodCategoryButton = UIButton().then {
@@ -40,6 +40,7 @@ class RefrigeratorViewController: UIViewController {
         $0.alignBtnTextBelow(spacing: 6)
         $0.layer.masksToBounds = false
         $0.layer.cornerRadius = 5
+        $0.addShadow(right: 0, down: 2, color: .gray, opacity: 0.6, radius: 8)
     }
     
     let frozenFoodCategoryButton = UIButton().then {
@@ -51,6 +52,7 @@ class RefrigeratorViewController: UIViewController {
         $0.alignBtnTextBelow(spacing: 6)
         $0.layer.masksToBounds = false
         $0.layer.cornerRadius = 5
+        $0.addShadow(right: 0, down: 2, color: .gray, opacity: 0.6, radius: 8)
     }
     
     let outdoorFoodCategoryButton = UIButton().then {
@@ -62,6 +64,7 @@ class RefrigeratorViewController: UIViewController {
         $0.alignBtnTextBelow(spacing: 6)
         $0.layer.masksToBounds = false
         $0.layer.cornerRadius = 5
+        $0.addShadow(right: 0, down: 2, color: .gray, opacity: 0.6, radius: 8)
     }
     
     let dropDownMenuButton = UIButton().then {
@@ -101,7 +104,7 @@ class RefrigeratorViewController: UIViewController {
     private lazy var menu: UIMenu = {
         let options: UIMenu.Options = [.displayInline]
             return UIMenu(title: "", options: [], children: menuItems)
-        }()
+    }()
 
     private lazy var collectionView = UICollectionView(
         frame: .zero,
@@ -218,7 +221,6 @@ class RefrigeratorViewController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(4)
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-        
     }
     
     private func collectionViewLayout() -> UICollectionViewCompositionalLayout {
@@ -244,7 +246,6 @@ class RefrigeratorViewController: UIViewController {
             return section
         }
     }
-    
 
     private func setupActions() {
         foodCategoryButton.addTarget(self, action: #selector(foodCategoryButtonTapped), for: .touchUpInside)
