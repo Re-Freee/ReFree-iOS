@@ -68,6 +68,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         $0.font = .pretendard.extraLight12
         $0.borderStyle = .none
         $0.addLeftPadding()
+        $0.isSecureTextEntry = true
+        $0.textContentType = .oneTimeCode
     }
     
     let passwordLabel = UILabel().then {
@@ -92,6 +94,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         $0.font = .pretendard.extraLight12
         $0.borderStyle = .none
         $0.addLeftPadding()
+        $0.isSecureTextEntry = true
+        $0.textContentType = .oneTimeCode
     }
     
     let confirmPasswordLabel = UILabel().then {
