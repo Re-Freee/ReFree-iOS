@@ -67,15 +67,15 @@ final class FoodTableViewCell: UITableViewCell, Identifiable {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
 //        layer.masksToBounds = false
 //        layer.shadowOffset = CGSize(width: 0, height: 2
 //        )
 //        layer.shadowOpacity = 1
 //        layer.shadowRadius = 4
 //        layer.shadowColor = UIColor.gray.cgColor
-    }
+//    }
     
     private func layout() {
         self.backgroundColor = .white
