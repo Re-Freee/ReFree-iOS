@@ -17,7 +17,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     let signUpImageView2 = UIImageView().then {
-        $0.image = UIImage(named: "thread")
+        $0.image = UIImage(named: "Thread")
         $0.contentMode = .scaleAspectFit
     }
     
