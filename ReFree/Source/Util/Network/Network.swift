@@ -125,12 +125,12 @@ struct Network {
                         multipart.append(
                             imageData,
                             withName: data.withName,
-                            fileName: "\(data.fileName).jpg",
+                            fileName: data.fileName,
                             mimeType: data.mimeType
                         )
                     }
                     
-                    print(multipart)
+//                    print(multipart["image"])
                 },
                 to: target.url,
                 method: target.method,

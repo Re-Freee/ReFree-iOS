@@ -202,7 +202,7 @@ final class RegisterIngredientViewController: UIViewController {
             .map { $0 as Date }
             .subscribe(onNext: { [weak self] date in
                 guard let self else { return }
-                let dateString = date.description // TODO: formatting 필요
+                let dateString = date.toString()
                 self.info = self.info.setExpireDate(date: dateString)
             })
             .disposed(by: disposeBag)

@@ -67,7 +67,7 @@ extension NetworkImage: ImageTarget {
             return [
                 "name": title,
                  "category": category,
-                 "period" : "2023.08.13",
+                "period" : period,
                  "quantity": quantity,
                  "content": ingredient.memo,
                  "options": options,
@@ -87,7 +87,7 @@ extension NetworkImage: ImageTarget {
                 ImageData(
                     image: image,
                     withName: "image",
-                    fileName: "image"
+                    fileName: "image.jpg"
                 )
             ]
         }
