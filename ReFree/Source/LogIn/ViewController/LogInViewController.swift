@@ -137,7 +137,6 @@ class LogInViewController: UIViewController {
                     Alert.erroAlert(viewController: self, errorMessage: response.message)
                     return
                 }
-                
                 do {
                     try KeyChain.shared.deleteToken(kind: .accessToken)
                     try KeyChain.shared.addToken(kind: .accessToken, token: token)

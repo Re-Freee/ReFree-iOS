@@ -49,7 +49,7 @@ struct ImageData {
     let image: UIImage
     let withName: String
     let fileName: String?
-    let mimeType: String = "image/jpeg"
+    let mimeType: String = "image/jpg"
 }
 
 extension Target {

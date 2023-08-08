@@ -36,9 +36,8 @@ extension NetworkImage: ImageTarget {
         case .saveIngredient, .modifyIngredient:
             guard let token = try? KeyChain.shared.searchToken(kind: .accessToken)
             else { return [] }
-            
             return [
-                "Content-Type": "Multipart/form-data",
+                "Content-Type": "multipart/form-data",
                 "Authorization" : token
             ]
         }
@@ -68,7 +67,7 @@ extension NetworkImage: ImageTarget {
             return [
                 "name": title,
                  "category": category,
-                 "period" : period,
+                 "period" : "2023.08.13",
                  "quantity": quantity,
                  "content": ingredient.memo,
                  "options": options,
