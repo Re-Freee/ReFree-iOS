@@ -51,7 +51,7 @@ class AuthenticationCodeViewController: UIViewController {
     let codeLabel = UILabel().then {
         $0.font = .pretendard.extraBold30
         $0.textColor = UIColor.refreeColor.main
-        $0.text = "ABC123"
+        $0.text = ""
         $0.textAlignment = .center
     }
     
@@ -72,6 +72,8 @@ class AuthenticationCodeViewController: UIViewController {
         $0.tintColor = .white
     }
     
+    private var disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.gradientBackground(type: .mainConic)
@@ -80,6 +82,7 @@ class AuthenticationCodeViewController: UIViewController {
     
     private func config(){
         layout()
+        bind()
     }
 
     private func layout(){
@@ -160,9 +163,14 @@ class AuthenticationCodeViewController: UIViewController {
             $0.centerY.equalTo(continueButton.snp.centerY)
             $0.trailing.equalTo(continueButton.snp.trailing).offset(-10)
         }
-        
     }
     
-    
-    
+    private func bind() {
+        continueButton.rx.tap
+            .bind(onNext: { [weak self] _ in
+                let signUpCompleteVC = SignUpCompleteViewController()
+                self?.navigationController?.pushViewController(signUpCompleteVC, animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
 }
