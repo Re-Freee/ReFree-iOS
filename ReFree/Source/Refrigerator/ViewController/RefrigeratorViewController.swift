@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
+
 
 class RefrigeratorViewController: UIViewController {
     private let header = RefrigeratorTabHeader(frame: .zero)
@@ -117,7 +119,7 @@ class RefrigeratorViewController: UIViewController {
         )
     }
 
-    private var ingredients: [Ingredient] = Mockup.ingredients
+//    private var ingredients: [Ingredient] = Mockup.ingredients
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -136,10 +138,10 @@ class RefrigeratorViewController: UIViewController {
         layout()
         addDropDownMenu()
         addPaddingToButton()
+        bind()
     }
     
     private func configCollectionView() {
-//        collectionView.isHidden = true
         collectionView.dataSource = self
         collectionView.delegate = self
     }
@@ -162,7 +164,21 @@ class RefrigeratorViewController: UIViewController {
         }
     }
     
-
+    // 서버
+    let ingredientRepo = IngredientRepository()
+    var ingredients: [Ingredient] = []
+    let disposeBag = DisposeBag()
+    
+    private func bind() {
+        ingredientRepo.request(searchIngredients: .searchIngredients(searchKey: ""))
+            .subscribe(onNext: { [weak self] ingredients in
+                self?.ingredients = ingredients
+                self?.collectionView.reloadData()
+            }, onError: { error in
+                Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
+            })
+            .disposed(by:disposeBag)
+    }
     
     private func layout() {
         view.addSubviews([
@@ -338,64 +354,6 @@ class RefrigeratorViewController: UIViewController {
         foodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
         foodCategoryButton.setImage(UIImage(named: "CookingBowl")?.withRenderingMode(.alwaysOriginal), for: .normal)
     }
-    
-    
-    
-    
-//    private func addShadowsToButtons() {
-//            foodCategoryButton.layer.masksToBounds = false
-//            refrigeratedFoodCategoryButton.layer.masksToBounds = false
-//            frozenFoodCategoryButton.layer.masksToBounds = false
-//            outdoorFoodCategoryButton.layer.masksToBounds = false
-//            immeButton.layer.masksToBounds = false
-//
-//            foodCategoryButton.layer.cornerRadius = 5
-//            refrigeratedFoodCategoryButton.layer.cornerRadius = 5
-//            frozenFoodCategoryButton.layer.cornerRadius = 5
-//            outdoorFoodCategoryButton.layer.cornerRadius = 5
-//            immeButton.layer.cornerRadius = 5
-//
-//            foodCategoryButton.addShadow(
-//                right: 2,
-//                down: 3,
-//                color: .gray,
-//                opacity: 0.5,
-//                radius: 5
-//            )
-//
-//            refrigeratedFoodCategoryButton.addShadow(
-//                right: 2,
-//                down: 3,
-//                color: .gray,
-//                opacity: 0.5,
-//                radius: 5
-//            )
-//
-//            frozenFoodCategoryButton.addShadow(
-//                right: 2,
-//                down: 3,
-//                color: .gray,
-//                opacity: 0.5,
-//                radius: 5
-//            )
-//
-//            outdoorFoodCategoryButton.addShadow(
-//                right: 2,
-//                down: 3,
-//                color: .gray,
-//                opacity: 0.5,
-//                radius: 5
-//            )
-//
-//        immeButton.addShadow(
-//            right: 2,
-//            down: 3,
-//            color: .gray,
-//            opacity: 0.5,
-//            radius: 5
-//        )
-//    }
-    
 }
 
 extension RefrigeratorViewController: UICollectionViewDataSource {
@@ -428,4 +386,3 @@ extension RefrigeratorViewController: UICollectionViewDelegateFlowLayout {
         )
     }
 }
-

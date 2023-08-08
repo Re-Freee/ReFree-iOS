@@ -133,7 +133,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         $0.setTitle("Create Account", for: .normal)
         $0.backgroundColor = UIColor.refreeColor.main
         $0.titleLabel?.font = .pretendard.bold15
+        $0.setTitleColor(UIColor.gray, for: .normal)
+        $0.isEnabled = false
     }
+    
+//    createAccountButton.isEnabled = isEmailFormatValid && isPasswordFormatValid && isPasswordsMatch && isNicknameFormatValid
+//    createAccountButton.setTitleColor(createAccountButton.isEnabled ? UIColor.white : UIColor.gray, for: .normal)
     
     let stackView = UIStackView().then {
         $0.axis = .vertical
@@ -299,15 +304,15 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     //'Create Account' 버튼 활성화/비활성화
     private func updateNextButton() {
             // 각 필드의 유효성 검사 결과를 가져와서 버튼 활성화 여부 결정
-            let isEmailFormatValid = isEmailValid(emailTextField.text ?? "")
-            let isPasswordFormatValid = isPasswordValid(passwordTextField.text ?? "")
-            let isPasswordsMatch = isSameBothTextField(passwordTextField, confirmPasswordTextField)
-            let isNicknameFormatValid = isNicknameValid(nicknameTextField.text ?? "")
+        let isEmailFormatValid = isEmailValid(emailTextField.text ?? "")
+        let isPasswordFormatValid = isPasswordValid(passwordTextField.text ?? "")
+        let isPasswordsMatch = isSameBothTextField(passwordTextField, confirmPasswordTextField)
+        let isNicknameFormatValid = isNicknameValid(nicknameTextField.text ?? "")
             
             // 모든 조건을 만족할 경우에만 버튼 활성화
-            createAccountButton.isEnabled = isEmailFormatValid && isPasswordFormatValid && isPasswordsMatch && isNicknameFormatValid
-            createAccountButton.setTitleColor(createAccountButton.isEnabled ? UIColor.white : UIColor.gray, for: .normal)
-        }
+        createAccountButton.isEnabled = isEmailFormatValid && isPasswordFormatValid && isPasswordsMatch && isNicknameFormatValid
+        createAccountButton.setTitleColor(createAccountButton.isEnabled ? UIColor.white : UIColor.gray, for: .normal)
+    }
     
     
     override func viewDidLoad() {

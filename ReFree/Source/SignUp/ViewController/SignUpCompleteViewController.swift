@@ -63,22 +63,8 @@ class SignUpCompleteViewController: UIViewController {
     
     private func config(){
         layout()
-//        addPaddingToButton()
         bind()
     }
-    
-//    private func addPaddingToButton() {
-//        if #available(iOS 15.0, *) {
-//            var config = UIButton.Configuration.plain()
-//            config.imagePadding = 30
-//            config.titlePadding = 10
-//            config.baseForegroundColor = .white
-//            continueButton.configuration = config
-//        } else {
-//            continueButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 0)
-//            continueButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 30)
-//        }
-//    }
     
     private func layout(){
         view.addSubviews([
