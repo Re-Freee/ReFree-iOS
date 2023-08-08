@@ -149,28 +149,28 @@ class SignUpViewController: UIViewController {
     }
     
     let emailValidityCheckButton = UIImageView().then {
-            $0.image = UIImage(named: "CircleCheck")
-            $0.contentMode = .scaleAspectFit
-            $0.isHidden = true
-        }
+        $0.image = UIImage(named: "CircleCheck")
+        $0.contentMode = .scaleAspectFit
+        $0.isHidden = true
+    }
     
     let passwordCheckButton = UIImageView().then {
-            $0.image = UIImage(named: "CircleCheck")
-            $0.contentMode = .scaleAspectFit
-            $0.isHidden = true
-        }
+        $0.image = UIImage(named: "CircleCheck")
+        $0.contentMode = .scaleAspectFit
+        $0.isHidden = true
+    }
     
     let confirmpPasswordCheckButton = UIImageView().then {
-            $0.image = UIImage(named: "CircleCheck")
-            $0.contentMode = .scaleAspectFit
-            $0.isHidden = true
-        }
+        $0.image = UIImage(named: "CircleCheck")
+        $0.contentMode = .scaleAspectFit
+        $0.isHidden = true
+    }
     
     let nicknameCheckButton = UIImageView().then {
-            $0.image = UIImage(named: "CircleCheck")
-            $0.contentMode = .scaleAspectFit
-            $0.isHidden = true
-        }
+        $0.image = UIImage(named: "CircleCheck")
+        $0.contentMode = .scaleAspectFit
+        $0.isHidden = true
+    }
     
     let passwordErrorButton = UIImageView().then {
         $0.image = UIImage(named: "CircleX")
@@ -201,6 +201,8 @@ class SignUpViewController: UIViewController {
     }
     
     private var disposeBag = DisposeBag()
+    private let signRepository = SignRepository()
+    
     
     private func isEmailValid(_ email: String) -> Bool {
         // 간단한 이메일 유효성 검사를 수행하는 함수
@@ -208,12 +210,12 @@ class SignUpViewController: UIViewController {
         let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegex)
         return emailPredicate.evaluate(with: email)
     }
-
+    
     private func isPasswordValid(_ password: String) -> Bool {
         // 비밀번호가 8자 이상인지 검사하는 함수
         return password.count >= 8
     }
-
+    
     private func isNicknameValid(_ nickname: String) -> Bool {
         // 닉네임이 2~8자인지 검사하는 함수
         return nickname.count >= 2 && nickname.count <= 8
@@ -227,23 +229,23 @@ class SignUpViewController: UIViewController {
             return false
         }
     }
-
+    
     
     @objc func TFdidChanged(_ sender: UITextField) {
         print("텍스트 변경 감지")
         if let text = sender.text {
             print("text :", text)
         }
-
+        
         // 이메일 유효성 검사
         if sender == emailTextField {
             emailValidityCheckButton.isHidden = !isEmailValid(sender.text ?? "")
         }
-
+        
         // 비밀번호 유효성 검사
         if sender == passwordTextField {
             passwordCheckButton.isHidden = isPasswordValid(sender.text ?? "")
-
+            
             // 비밀번호 길이 검사
             if passwordTextField.text?.count ?? 0 < 8 {
                 passwordCheckButton.isHidden = true
@@ -261,7 +263,7 @@ class SignUpViewController: UIViewController {
                 passwordCheckButton.isHidden = false // 비밀번호가 8자 이상인 경우에만 활성화
             }
         }
-
+        
         if sender == confirmPasswordTextField {
             if confirmPasswordTextField.text?.isEmpty ?? true {
                 confirmPasswordErrorButton.isHidden = true
@@ -281,7 +283,7 @@ class SignUpViewController: UIViewController {
                 }
             }
         }
-
+        
         // 닉네임 유효성 검사
         if sender == nicknameTextField {
             nicknameCheckButton.isHidden = isNicknameValid(sender.text ?? "")
@@ -296,20 +298,20 @@ class SignUpViewController: UIViewController {
                 nicknameLabel.isHidden = false
             }
         }
-
+        
         // 모든 조건을 만족할 경우에만 버튼 활성화
         updateNextButton()
     }
-
+    
     //'Create Account' 버튼 활성화/비활성화
     private func updateNextButton() {
-            // 각 필드의 유효성 검사 결과를 가져와서 버튼 활성화 여부 결정
+        // 각 필드의 유효성 검사 결과를 가져와서 버튼 활성화 여부 결정
         let isEmailFormatValid = isEmailValid(emailTextField.text ?? "")
         let isPasswordFormatValid = isPasswordValid(passwordTextField.text ?? "")
         let isPasswordsMatch = isSameBothTextField(passwordTextField, confirmPasswordTextField)
         let isNicknameFormatValid = isNicknameValid(nicknameTextField.text ?? "")
-            
-            // 모든 조건을 만족할 경우에만 버튼 활성화
+        
+        // 모든 조건을 만족할 경우에만 버튼 활성화
         createAccountButton.isEnabled = isEmailFormatValid && isPasswordFormatValid && isPasswordsMatch && isNicknameFormatValid
         createAccountButton.setTitleColor(createAccountButton.isEnabled ? UIColor.white : UIColor.gray, for: .normal)
     }
@@ -478,7 +480,7 @@ class SignUpViewController: UIViewController {
         
         createAccountButton.layer.cornerRadius = 13
         createAccountButton.layer.masksToBounds = true
- 
+        
         signUpLabel.snp.makeConstraints { make in
             make.top.equalTo(signUpContainerView.snp.top).offset(23)
             make.leading.equalTo(signUpContainerView.snp.leading).offset(31)
@@ -552,7 +554,7 @@ class SignUpViewController: UIViewController {
             $0.top.equalTo(nicknameTextField.snp.bottom).offset(4)
             $0.leading.equalTo(emailTextField.snp.leading).offset(9)
         }
-
+        
         
         stackView.snp.makeConstraints { make in
             make.top.equalTo(signUpLabel.snp.bottom).offset(23)
@@ -642,9 +644,44 @@ class SignUpViewController: UIViewController {
     }
     
     private func touchCreatAccountButton() {
-        // TODO: ValidCheck(유효성 검사) 후
-        let signUpCompleteVC = SignUpCompleteViewController()
-        navigationController?.pushViewController(signUpCompleteVC, animated: true)
+        guard
+            let email = emailTextField.text,
+            let password = passwordTextField.text,
+            let checkPassword = confirmPasswordTextField.text,
+            let nickName = nicknameTextField.text
+        else {
+            Alert.erroAlert(viewController: self, errorMessage: "채워주세요.")
+            return
+        }
+        
+        signRepository.request(
+            signUp: .signUp(
+                signUpData: SignUpData(
+                    email: email,
+                    password: password,
+                    checkPassword: checkPassword,
+                    nickName: nickName
+                )
+            )
+        )
+        .subscribe(onNext: { [weak self] (response, backupCode) in
+            guard let self else { return }
+            guard response.code == "201" else {
+                Alert.erroAlert(viewController: self, errorMessage: response.message)
+                return
+            }
+            
+            // TODO: 백업코드 보여주는 화면으로 이동 및 코드 할당
+            
+            let signUpCompleteVC = SignUpCompleteViewController()
+            self.navigationController?.pushViewController(signUpCompleteVC, animated: true)
+        }, onError: { error in
+            Alert.erroAlert(
+                viewController: self,
+                errorMessage: error.localizedDescription
+            )
+        })
+        .disposed(by: disposeBag)
     }
 }
 

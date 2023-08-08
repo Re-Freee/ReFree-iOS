@@ -365,4 +365,12 @@ final class IngredientInfoView: UIView {
         currentCountLabel.text = "\(newCount)"
         countSubject.onNext("\(newCount)")
     }
+    
+    func setDefault() {
+        selectIngredientKind.selectedSegmentIndex = 0
+        nameTextField.text = ""
+        expireDatePicker.date = Date()
+        currentCountLabel.text = "1"
+        memoTextView.text = ""
+    }
 }

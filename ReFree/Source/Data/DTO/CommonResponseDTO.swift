@@ -8,10 +8,10 @@
 import Foundation
 
 struct CommonResponseDTO: Decodable {
-    let code: String
+    let code: Int
     let message: String
     
     func toDomain() -> CommonResponse {
-        return CommonResponse(code: self.code, message: self.message)
+        return CommonResponse(code: "\(self.code)", message: self.message)
     }
 }
