@@ -49,6 +49,7 @@ struct Ingredient {
         default: return nil
         }
     }
+    
     func setImage(image: UIImage?) -> Ingredient {
         return Ingredient(
             image: image,

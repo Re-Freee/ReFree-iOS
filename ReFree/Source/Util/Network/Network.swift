@@ -108,27 +108,29 @@ struct Network {
                         if
                             let str = value as? String,
                             let data = str.data(using: .utf8)
-                        { multipart.append(data , withName: key) }
+                        { multipart.append(data , withName: key, mimeType: "text/plain") }
                         else if
                             let int = value as? Int,
                             let data = String(int).data(using: .utf8)
-                        { multipart.append(data , withName: key) }
+                        { multipart.append(data , withName: key, mimeType: "text/plain") }
                     }
                     
                     target.imageData.forEach { data in
                         guard
                             let imageData = data
-                            .image
-                            .jpegData(compressionQuality: 1)
+                                .image
+                                .jpegData(compressionQuality: 0.5)
                         else { return }
                         
                         multipart.append(
                             imageData,
                             withName: data.withName,
-                            fileName: data.fileName,
+                            fileName: "\(data.fileName).jpg",
                             mimeType: data.mimeType
                         )
                     }
+                    
+                    print(multipart)
                 },
                 to: target.url,
                 method: target.method,
