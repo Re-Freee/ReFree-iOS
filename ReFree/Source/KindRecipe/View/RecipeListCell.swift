@@ -59,7 +59,6 @@ final class RecipeListCell: UICollectionViewCell, Identifiable {
             $0.trailing.equalToSuperview().inset(24)
             $0.width.height.equalTo(titleLabel.snp.height)
             $0.bottom.equalToSuperview().inset(24)
-            
         }
     }
     

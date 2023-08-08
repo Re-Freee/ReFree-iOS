@@ -41,6 +41,7 @@ class LogInViewController: UIViewController {
         $0.titleLabel?.font = .pretendard.bold15
     }
     
+    private let signRepository = SignRepository()
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -117,11 +118,48 @@ class LogInViewController: UIViewController {
     }
     
     @objc func logInButtonTapped() {
-        let tabBarController = HomeTabViewController()
-        navigationController?.pushViewController(
-            tabBarController,
-            animated: true
-        )
+        guard
+            let id = logInEmailText.textField.text,
+            let password = logInPasswordText.textField.text
+        else {
+            Alert.checkAlert(
+                viewController: self,
+                title: "확인해주세요!",
+                message: "이메일과 비밀번호를 채워주세요!"
+            )
+            return
+        }
+        
+        signRepository.request(signIn: .signIn(id: id, password: password))
+            .subscribe(onNext: { [weak self] (response, token) in
+                guard let self else { return }
+                guard response.code == "200" else {
+                    Alert.erroAlert(viewController: self, errorMessage: response.message)
+                    return
+                }
+                
+                do {
+                    try KeyChain.shared.deleteToken(kind: .accessToken)
+                    try KeyChain.shared.addToken(kind: .accessToken, token: token)
+                } catch {
+                    Alert.erroAlert(
+                        viewController: self,
+                        errorMessage: error.localizedDescription
+                    )
+                }
+                
+                let tabBarController = HomeTabViewController()
+                self.navigationController?.pushViewController(
+                    tabBarController,
+                    animated: true
+                )
+            }, onError: { error in
+                Alert.erroAlert(
+                    viewController: self,
+                    errorMessage: error.localizedDescription
+                )
+            })
+            .disposed(by: disposeBag)
     }
     
     @objc func passwordFindButtonTapped() {

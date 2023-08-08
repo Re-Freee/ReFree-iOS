@@ -58,6 +58,47 @@ struct Network {
         }
     }
     
+    static func requestJSONHeader<T: Decodable>(target: Target) -> Observable<(response: T, headerString: String)> {
+        return Observable.create { emitter in
+            guard var request = try? URLRequest(
+                url: target.url,
+                method: target.method,
+                headers: target.header
+            ) else {
+                emitter.onError(NetworkError.makeRequestError)
+                return Disposables.create()
+            }
+            
+            request.httpBody = target.parameters
+            
+            let task = AF.request(request)
+                .validate(statusCode: 200..<300)
+                .responseDecodable(of: T.self) { response in
+                    
+                    if let token = response.response?.headers["Authorization"] {
+                        switch response.result {
+                        case let .success(data):
+                            emitter.onNext((data, token))
+                        case let .failure(error):
+                            emitter.onError(error)
+                        }
+                    } else if let backupCode = response.response?.headers["Certification"] {
+                        switch response.result {
+                        case let .success(data):
+                            emitter.onNext((data, backupCode))
+                        case let .failure(error):
+                            emitter.onError(error)
+                        }
+                    }
+                }
+            
+            return Disposables.create {
+                task.cancel()
+            }
+        }
+    }
+
+    
     static func imageUpload<T: Decodable>(target: ImageTarget) -> Observable<T> {
         return Observable.create { emitter in
 
@@ -88,7 +129,6 @@ struct Network {
                             mimeType: data.mimeType
                         )
                     }
-                    
                 },
                 to: target.url,
                 method: target.method,
