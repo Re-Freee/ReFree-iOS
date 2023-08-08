@@ -97,7 +97,7 @@ final class AppInitViewController: UIViewController {
         
         buttonStack.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(logoTitleLabel.snp.bottom).offset(40)
+            $0.top.equalTo(logoTitleLabel.snp.bottom).offset(50)
             $0.width.equalTo(250)
         }
     }

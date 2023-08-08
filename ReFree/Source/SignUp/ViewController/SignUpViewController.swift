@@ -671,10 +671,9 @@ class SignUpViewController: UIViewController {
                 return
             }
             
-            // TODO: 백업코드 보여주는 화면으로 이동 및 코드 할당
-            
-            let signUpCompleteVC = SignUpCompleteViewController()
-            self.navigationController?.pushViewController(signUpCompleteVC, animated: true)
+            let AuthenticationCodeVC = AuthenticationCodeViewController()
+            AuthenticationCodeVC.codeLabel.text = backupCode
+            self.navigationController?.pushViewController(AuthenticationCodeVC, animated: true)
         }, onError: { error in
             Alert.erroAlert(
                 viewController: self,
