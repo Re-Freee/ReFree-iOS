@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
 
 final class KindRecipeViewController: UIViewController {
     enum TitleKind: String {
@@ -34,17 +35,21 @@ final class KindRecipeViewController: UIViewController {
         )
     }
     
+    private let kind: TitleKind
+    private var recipes: [Recipe] = Mockup.savedRecipe // TODO: Mockup 제거 필요
+    private var disposeBag = DisposeBag()
+    private var pageCount = 0
+    
     init(kind: KindRecipeViewController.TitleKind) {
+        self.kind = kind
         super.init(nibName: nil, bundle: Bundle.main)
         titleLabel.text = kind.rawValue
-        dataLoading(kind: kind)
+        dataLoading(page: pageCount)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private var recipes: [Recipe] = Mockup.savedRecipe // TODO: Mockup 제거 필요
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +65,7 @@ final class KindRecipeViewController: UIViewController {
         view.gradientBackground(type: .mainAxial)
         configCollectionView()
         layout()
+        bind()
     }
     
     private func configCollectionView() {
@@ -99,7 +105,7 @@ final class KindRecipeViewController: UIViewController {
                     heightDimension: .absolute((Constant.screenSize.width)/2)
                 )
             )
-
+            
             item.contentInsets = NSDirectionalEdgeInsets(
                 top: 8,
                 leading: 8,
@@ -114,15 +120,26 @@ final class KindRecipeViewController: UIViewController {
                 ),
                 subitems: [item]
             )
-
+            
             let section = NSCollectionLayoutSection(group: group)
             
             return section
         }
     }
     
-    private func dataLoading(kind: TitleKind) {
+    private func dataLoading(page: Int) {
         // TODO: 형식에 따른 레시피 Networking 후 reload
+    }
+    
+    private func bind() {
+        collectionView.rx.prefetchItems
+            .compactMap(\.last?.row)
+            .withUnretained(self)
+            .bind { vc, row in
+                guard row == vc.recipes.count - 1 else { return }
+                // TODO: prefetch method
+            }
+            .disposed(by: self.disposeBag)
     }
 }
 
@@ -148,7 +165,7 @@ extension KindRecipeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
-    ) {        
+    ) {
         let modalVC = RFModalParentViewController(
             type: .recipe(recipes[indexPath.row])
         )
@@ -158,3 +175,13 @@ extension KindRecipeViewController: UICollectionViewDelegateFlowLayout {
         )
     }
 }
+
+//extension KindRecipeViewController: UICollectionViewDataSourcePrefetching {
+//    func collectionView(
+//        _ collectionView: UICollectionView,
+//        prefetchItemsAt indexPaths: [IndexPath]
+//    ) {
+//        print("프리패치")
+//        print(indexPaths)
+//    }
+//}
