@@ -108,11 +108,13 @@ struct Network {
                         if
                             let str = value as? String,
                             let data = str.data(using: .utf8)
-                        { multipart.append(data , withName: key, mimeType: "text/plain") }
+                        {
+                            multipart.append(data , withName: key, mimeType: "text/plain") }
                         else if
                             let int = value as? Int,
                             let data = String(int).data(using: .utf8)
-                        { multipart.append(data , withName: key, mimeType: "text/plain") }
+                        {
+                            multipart.append(data , withName: key, mimeType: "text/plain") }
                     }
                     
                     target.imageData.forEach { data in
@@ -129,8 +131,6 @@ struct Network {
                             mimeType: data.mimeType
                         )
                     }
-                    
-//                    print(multipart["image"])
                 },
                 to: target.url,
                 method: target.method,
