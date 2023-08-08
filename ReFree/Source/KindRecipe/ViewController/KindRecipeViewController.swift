@@ -175,13 +175,3 @@ extension KindRecipeViewController: UICollectionViewDelegateFlowLayout {
         )
     }
 }
-
-//extension KindRecipeViewController: UICollectionViewDataSourcePrefetching {
-//    func collectionView(
-//        _ collectionView: UICollectionView,
-//        prefetchItemsAt indexPaths: [IndexPath]
-//    ) {
-//        print("프리패치")
-//        print(indexPaths)
-//    }
-//}

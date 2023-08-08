@@ -9,7 +9,7 @@ import Foundation
 
 enum NetworkRecipe {
     case recommendRecipe(ingredients: [String])
-    case searchRecipe(query: [RequestQuery]) // type=밥&title=샐러드
+    case searchRecipe(query: [RequestQuery]) // type=밥&title=샐러드,offset=0
     case bookMark(recipeID: String) // String은 레시피 ID
     case detailRecipe(recipeID: String) // String은 레시피 ID
     case savedRecipe
@@ -52,7 +52,13 @@ extension NetworkRecipe: Target {
     var header: HTTPHeaders {
         switch self {
         case .recommendRecipe, .searchRecipe, .bookMark, .detailRecipe, .savedRecipe:
-            return [ "Content-Type": "application/json" ] // TODO: Bearer Token 적용 필요   
+            guard let token = try? KeyChain.shared.searchToken(kind: .accessToken)
+            else { return [] }
+            
+            return [
+                "Content-Type": "application/json",
+                "Authorization" : token
+            ]
         }
     }
     

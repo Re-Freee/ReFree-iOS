@@ -9,4 +9,5 @@ import Foundation
 
 struct FindPasswordRequestDTO: Encodable {
     let email: String
+    let certification: String
 }

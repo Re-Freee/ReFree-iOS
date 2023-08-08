@@ -16,8 +16,8 @@ struct RecipeResponseDTO: Decodable {
     struct RecipeDTO: Decodable {
         let id: Int
         let name: String
-        let calorie: Double
-        let ingredient: String
+        let calorie: Double?
+        let ingredient: String?
         let imageURL: String
         let manual: [ManualDTO]?
         
@@ -56,7 +56,7 @@ extension RecipeResponseDTO {
             Recipe(
                 id: "\(recipeDTO.id)",
                 title: recipeDTO.name,
-                ingredients: recipeDTO.ingredient,
+                ingredients: recipeDTO.ingredient ?? "",
                 imageURL: recipeDTO.imageURL,
                 isHeart: false,
                 manual: recipeDTO.manual?.map{

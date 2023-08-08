@@ -8,6 +8,7 @@
 import UIKit
 
 struct Ingredient {
+    let ingredientId: String?
     let image: UIImage?
     let imageURL: String?
     let saveMethod: String?
@@ -18,6 +19,7 @@ struct Ingredient {
     let memo: String
     
     init(
+        ingredientId: String? = nil,
         image: UIImage? = UIImage(named: "ReFree_non"),
         imageURL: String? = nil,
         saveMethod: String? = nil,
@@ -27,6 +29,7 @@ struct Ingredient {
         count: Int? = nil,
         memo: String = ""
     ){
+        self.ingredientId = ingredientId
         self.image = image
         self.imageURL = imageURL
         self.saveMethod = saveMethod
@@ -37,6 +40,15 @@ struct Ingredient {
         self.memo = memo
     }
     
+    var option: Int? {
+        switch self.saveMethod {
+        case "실온": return 0
+        case "냉장": return 1
+        case "냉동": return 2
+        case "기타": return 3
+        default: return nil
+        }
+    }
     func setImage(image: UIImage?) -> Ingredient {
         return Ingredient(
             image: image,
@@ -165,3 +177,4 @@ struct Ingredient {
         return nil
     }
 }
+

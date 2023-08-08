@@ -12,11 +12,10 @@ struct IngredientResponseDTO: Decodable {
     let code: Int
     let message: String
     let count: Int?
-    let data: [IngredientDTO]
+    let data: [IngredientDTO]?
     
     struct IngredientDTO: Decodable {
-        let userId: Int
-        let ingredientID: Int
+        let ingredientId: Int
         let savedMethod: Int
         let name: String
         let period: String
@@ -25,27 +24,37 @@ struct IngredientResponseDTO: Decodable {
         let imageURL: String
         
         enum CodingKeys: String, CodingKey {
-            case userId = "member_id"
-            case ingredientID = "ingredient_id"
-            case savedMethod = "options"
+            case ingredientId = "id"
             case name = "name"
             case period = "period"
             case count = "quantity"
             case memo = "content"
+            case savedMethod = "options"
             case imageURL = "image"
         }
     }
     
     func toDomain() -> [Ingredient] {
-        return data.map {
+        return data?.map {
+            var savedMethod: String = ""
+            switch $0.savedMethod {
+            case 0: savedMethod = "실온"
+            case 1: savedMethod = "냉장"
+            case 2: savedMethod = "냉동"
+            case 3: savedMethod = "기타"
+            default: savedMethod = "기타"
+            }
+            
             return Ingredient(
-                saveMethod: "냉장", // TODO: API명세 누락으로 추후 변경
+                ingredientId: "\($0.ingredientId)",
+                imageURL: $0.imageURL,
+                saveMethod: savedMethod,
                 title: $0.name,
-                category: "\($0.ingredientID)", // TODO: ingredientID가 카테고리인지 모름
+                category: "\($0.ingredientId)", // TODO: 카테고리인가?
                 expireDate: $0.period,
                 count: $0.count,
                 memo: $0.memo
             )
-        }
+        } as! [Ingredient]
     }
 }

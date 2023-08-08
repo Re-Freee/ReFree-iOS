@@ -58,27 +58,8 @@ struct Network {
         }
     }
     
-    static func requestCompletion<T: Decodable>(
-        type: T.Type,
-        target: Target,
-        completion: @escaping (DataResponse<T, AFError>
-        ) -> ()
-    ) {
-        guard var request = try? URLRequest(
-            url: target.url,
-            method: target.method,
-            headers: target.header
-        ) else { return }
-        
-        request.httpBody = target.parameters
-        
-        AF.request(request)
-            .validate(statusCode: 200..<300)
-            .responseDecodable(of: T.self, completionHandler: completion)
-    }
-    
-    static func imageUpload<T: Decodable>(target: ImageTarget) -> Single<T> {
-        return Single.create { single in
+    static func imageUpload<T: Decodable>(target: ImageTarget) -> Observable<T> {
+        return Observable.create { emitter in
 
             let task = AF.upload(
                 multipartFormData: { multipart in
@@ -117,13 +98,32 @@ struct Network {
                 .responseDecodable(of: T.self) { response in
                     switch response.result {
                     case let .success(data):
-                        single(.success(data))
+                        emitter.onNext(data)
                     case let .failure(error):
-                        single(.failure(error))
+                        emitter.onError(error)
                     }
                 }
             
             return Disposables.create { task.cancel() }
         }
     }
+    
+//    static func requestCompletion<T: Decodable>(
+//           type: T.Type,
+//           target: Target,
+//           completion: @escaping (DataResponse<T, AFError>
+//           ) -> ()
+//       ) {
+//           guard var request = try? URLRequest(
+//               url: target.url,
+//               method: target.method,
+//               headers: target.header
+//           ) else { return }
+//
+//           request.httpBody = target.parameters
+//
+//           AF.request(request)
+//               .validate(statusCode: 200..<300)
+//               .responseDecodable(of: T.self, completionHandler: completion)
+//       }
 }
