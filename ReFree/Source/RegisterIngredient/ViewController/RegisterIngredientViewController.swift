@@ -42,6 +42,36 @@ final class RegisterIngredientViewController: UIViewController {
         config()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardUp),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardDown),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(
+            self,
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.removeObserver(
+            self,
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+    }
+    
     private func config() {
         layout()
         bind()
@@ -82,6 +112,11 @@ final class RegisterIngredientViewController: UIViewController {
     private func bind() {
         bindIngredientView()
         bindCameraView()
+        bindKeyboard()
+    }
+    
+    private func bindKeyboard() {
+        
     }
     
     private func bindIngredientView() {
@@ -330,6 +365,26 @@ final class RegisterIngredientViewController: UIViewController {
     
     private func registerIngredientHandling() {
         //
+    }
+    
+    @objc private func keyboardUp(notification: NSNotification) {
+        guard
+            let keyboardFrame = notification
+                .userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+            let tabBarHeight = self.tabBarController?.tabBar.frame.height,
+            ingredientInfoView.memoTextView.isFirstResponder
+        else { return }
+        
+        let keyboardHeight = keyboardFrame.cgRectValue.height
+        UIView.animate(withDuration: 0.5) {
+            self.scrollVIew.transform = CGAffineTransform(
+                translationX: 0, y: -keyboardHeight-12 + tabBarHeight
+            )
+        }
+    }
+    
+    @objc func keyboardDown() {
+        self.scrollVIew.transform = .identity
     }
 }
 
