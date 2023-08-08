@@ -8,6 +8,7 @@
 import Foundation
 
 struct ModifyPasswordRequestDTO: Encodable {
+    let email: String
     let password: String
     let checkPassword: String
 }

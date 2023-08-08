@@ -10,10 +10,15 @@ import Foundation
 enum NetworkIngredient {
     case closerIngredients
     case endIngredients
-    case searchIngredients(searchKey: String)
-    case detailIngredientt(ingredientID: String)
-    case saveIngredient(ingredient: Ingredient)
-    case modifyIngredient(ingredient: Ingredient) // TODO: 변경 가능성 있음
+    case searchIngredients(options: SearchIngredientOption? = nil, searchKey: String)
+    case detailIngredient(ingredientId: String)
+    case deleteIngredient(ingredientId: String)
+    
+    enum SearchIngredientOption: String {
+        case outdoor = "0"
+        case refrigerd = "1"
+        case frozen = "2"
+    }
 }
 
 extension NetworkIngredient: Target {
@@ -23,59 +28,66 @@ extension NetworkIngredient: Target {
     
     var url: URLConvertible {
         switch self {
-        case .closerIngredients, .endIngredients, .saveIngredient:
+        case .closerIngredients, .endIngredients:
             return "\(baseURL)\(path)"
-        case .searchIngredients(let searchKey):
+        case .searchIngredients(let options, let searchKey):
+            if let options {
+                return setQuery(
+                    url: "\(baseURL)\(path)",
+                    query: [
+                        RequestQuery("options", options),
+                        RequestQuery("searchKey", searchKey)
+                    ]
+                ).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+            }
             return setQuery(
                 url: "\(baseURL)\(path)",
                 query: [RequestQuery("searchKey", searchKey)]
             ).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        case .detailIngredientt(let ingredientID):
+        case .detailIngredient(let ingredientId), .deleteIngredient(let ingredientId):
             return setQuery(
                 url: "\(baseURL)\(path)",
-                query: [RequestQuery("ingredId", ingredientID)]
+                query: [RequestQuery("ingredientId", ingredientId)]
             ).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        case .modifyIngredient:
-            return ""  // TODO: 보류
         }
     }
-    
     var method: HTTPMethod {
         switch self {
         case .closerIngredients, .endIngredients,
-                .searchIngredients, .detailIngredientt,
-                .saveIngredient:
+                .searchIngredients, .detailIngredient:
             return .get
-        case .modifyIngredient:
-            return .put
+        case .deleteIngredient:
+            return .delete
         }
     }
     
     var header: HTTPHeaders {
         switch self {
         case .closerIngredients, .endIngredients,
-                .searchIngredients, .detailIngredientt,
-                .saveIngredient:
-            return [ "Content-Type": "application/json" ] // TODO: Bearer Token 적용 필요
-        case .modifyIngredient:
-            return [] // TODO: 보류
+                .searchIngredients, .detailIngredient,
+                .deleteIngredient:
+            guard let token = try? KeyChain.shared.searchToken(kind: .accessToken)
+            else { return [] }
+            
+            return [
+                "Content-Type": "application/json",
+                "Authorization" : token
+            ]
         }
     }
     
     var path: String {
         switch self {
         case .closerIngredients:
-            return "/ingredient/closer"
+            return "/ingredient/imminent"
         case .endIngredients:
             return "/ingredient/end"
         case .searchIngredients:
             return "/ingredient/search"
-        case .detailIngredientt:
+        case .detailIngredient:
             return "/ingredient/view"
-        case .saveIngredient:
-            return "/ingredient/create"
-        case .modifyIngredient:
-            return ""  // TODO: 보류
+        case .deleteIngredient:
+            return "/ingredient/delete"
         }
     }
     

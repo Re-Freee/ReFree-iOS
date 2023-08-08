@@ -10,8 +10,9 @@ import Foundation
 enum NetworkSign {
     case signIn(id: String, password: String)
     case signUp(signUpData: SignUpData)
-    case findPassword(email: String)
-    case modifyPassword(password: String, checkPassword: String)
+    case findPassword(email: String, certification: String)
+    case modifyPassword(email: String, password: String, checkPassword: String)
+    case withDraw
 }
 
 struct SignUpData {
@@ -34,6 +35,8 @@ extension NetworkSign: Target {
         switch self {
         case .signIn, .signUp, .findPassword, .modifyPassword:
             return .post
+        case .withDraw:
+            return .delete
         }
     }
     
@@ -51,6 +54,8 @@ extension NetworkSign: Target {
             return "/login/search"
         case .modifyPassword:
             return "/login/search/modify"
+        case .withDraw:
+            return "/member/delete"
         }
     }
     
@@ -66,15 +71,20 @@ extension NetworkSign: Target {
                 nickname: signUpData.nickName
             )
             return try? JSONEncoder().encode(signUpDTO)
-        case .findPassword(let email):
-            return try? JSONEncoder().encode(FindPasswordRequestDTO(email: email))
-        case .modifyPassword(let password, let checkPassword):
+        case .findPassword(let email, let certification):
+            return try? JSONEncoder().encode(
+                FindPasswordRequestDTO(email: email, certification: certification)
+            )
+        case .modifyPassword(let email,let password, let checkPassword):
             return try? JSONEncoder().encode(
                 ModifyPasswordRequestDTO(
+                    email: email,
                     password: password,
                     checkPassword: checkPassword
                 )
             )
+        case .withDraw:
+            return nil
         }
     }
     
