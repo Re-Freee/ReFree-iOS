@@ -16,6 +16,7 @@ struct IngredientResponseDTO: Decodable {
     
     struct IngredientDTO: Decodable {
         let ingredientId: Int
+        let category: String
         let savedMethod: Int
         let name: String
         let period: String
@@ -25,6 +26,7 @@ struct IngredientResponseDTO: Decodable {
         
         enum CodingKeys: String, CodingKey {
             case ingredientId = "id"
+            case category = "category"
             case name = "name"
             case period = "period"
             case count = "quantity"
@@ -45,16 +47,17 @@ struct IngredientResponseDTO: Decodable {
             default: savedMethod = "기타"
             }
             
-            return Ingredient(
+            let extractedExpr = Ingredient(
                 ingredientId: "\($0.ingredientId)",
                 imageURL: $0.imageURL,
                 saveMethod: savedMethod,
                 title: $0.name,
-                category: "\($0.ingredientId)", // TODO: 카테고리인가?
+                category: $0.category,
                 expireDate: $0.period,
                 count: $0.count,
                 memo: $0.memo
             )
+            return extractedExpr
         } as! [Ingredient]
     }
 }
