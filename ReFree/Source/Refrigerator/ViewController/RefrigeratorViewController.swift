@@ -12,6 +12,22 @@ import RxSwift
 
 
 class RefrigeratorViewController: UIViewController {
+    private enum SaveKind {
+        case whole
+        case refrigerd
+        case frozen
+        case outdoor
+        
+        var currentImageString: String {
+            switch self {
+            case .whole: return "CookingBowl"
+            case .refrigerd: return "Cheese"
+            case .frozen: return "Icecream"
+            case .outdoor: return "Muffin"
+            }
+        }
+    }
+    
     private let header = RefrigeratorTabHeader(frame: .zero)
     
     let categoryStackView = UIStackView().then {
@@ -119,7 +135,10 @@ class RefrigeratorViewController: UIViewController {
         )
     }
 
-//    private var ingredients: [Ingredient] = Mockup.ingredients
+    // 서버
+    let ingredientRepo = IngredientRepository()
+    var ingredients: [Ingredient] = []
+    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -162,22 +181,6 @@ class RefrigeratorViewController: UIViewController {
             dropDownMenuButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
             dropDownMenuButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
         }
-    }
-    
-    // 서버
-    let ingredientRepo = IngredientRepository()
-    var ingredients: [Ingredient] = []
-    let disposeBag = DisposeBag()
-    
-    private func bind() {
-        ingredientRepo.request(searchIngredients: .searchIngredients(searchKey: ""))
-            .subscribe(onNext: { [weak self] ingredients in
-                self?.ingredients = ingredients
-                self?.collectionView.reloadData()
-            }, onError: { error in
-                Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
-            })
-            .disposed(by:disposeBag)
     }
     
     private func layout() {
@@ -239,6 +242,23 @@ class RefrigeratorViewController: UIViewController {
         }
     }
     
+    private func bind() {
+        bindDefaultData()
+    }
+    
+    private func bindDefaultData() {
+        changeSelectedButtonLayout(saveKind: .whole)
+        ingredientRepo.request(searchIngredients: .searchIngredients(searchKey: ""))
+            .subscribe(onNext: { [weak self] ingredients in
+                self?.ingredients = ingredients
+                self?.collectionView.reloadData()
+            }, onError: { error in
+                Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
+            })
+            .disposed(by:disposeBag)
+    }
+    
+    
     private func collectionViewLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { _, _ in
             let item = NSCollectionLayoutItem(
@@ -271,88 +291,41 @@ class RefrigeratorViewController: UIViewController {
     }
     
     @objc private func foodCategoryButtonTapped() {
-        collectionView.isHidden = false // collectionView를 화면에 보이도록 설정
-        foodCategoryButton.backgroundColor = UIColor.refreeColor.button1
-        foodCategoryButton.setTitleColor(.white, for: .normal)
-        let originalImage = UIImage(named: "CookingBowl")?.withRenderingMode(.alwaysOriginal) // Set rendering mode here
-        let whiteImage = originalImage?.withTintColor(.white) // Set color to white here
-        foodCategoryButton.setImage(whiteImage, for: .normal)
-        
-        refrigeratedFoodCategoryButton.backgroundColor = .white
-        refrigeratedFoodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
-        refrigeratedFoodCategoryButton.setImage(UIImage(named: "Cheese")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        
-        frozenFoodCategoryButton.backgroundColor = .white
-        frozenFoodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
-        frozenFoodCategoryButton.setImage(UIImage(named: "Icecream")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        
-        outdoorFoodCategoryButton.backgroundColor = .white
-        outdoorFoodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
-        outdoorFoodCategoryButton.setImage(UIImage(named: "Muffin")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        changeSelectedButtonLayout(saveKind: .whole)
     }
     
     @objc private func refrigeratedFoodCategoryButtonTapped() {
-        collectionView.isHidden = false // collectionView를 화면에 보이도록 설정
-        refrigeratedFoodCategoryButton.backgroundColor = UIColor.refreeColor.button1
-        refrigeratedFoodCategoryButton.setTitleColor(.white, for: .normal)
-        let originalImage = UIImage(named: "Cheese")?.withRenderingMode(.alwaysOriginal) // Set rendering mode here
-        let whiteImage = originalImage?.withTintColor(.white) // Set color to white here
-        refrigeratedFoodCategoryButton.setImage(whiteImage, for: .normal)
-        
-        foodCategoryButton.backgroundColor = .white
-        foodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
-        foodCategoryButton.setImage(UIImage(named: "CookingBowl")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        
-        frozenFoodCategoryButton.backgroundColor = .white
-        frozenFoodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
-        frozenFoodCategoryButton.setImage(UIImage(named: "Icecream")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        
-        outdoorFoodCategoryButton.backgroundColor = .white
-        outdoorFoodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
-        outdoorFoodCategoryButton.setImage(UIImage(named: "Muffin")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        changeSelectedButtonLayout(saveKind: .refrigerd)
     }
     
     @objc private func frozenFoodCategoryButtonTapped() {
-        collectionView.isHidden = false // collectionView를 화면에 보이도록 설정
-        frozenFoodCategoryButton.backgroundColor = UIColor.refreeColor.button1
-        frozenFoodCategoryButton.setTitleColor(.white, for: .normal)
-        
-        let originalImage = UIImage(named: "Icecream")?.withRenderingMode(.alwaysOriginal) // Set rendering mode here
-        let whiteImage = originalImage?.withTintColor(.white) // Set color to white here
-        frozenFoodCategoryButton.setImage(whiteImage, for: .normal)
-        
-        refrigeratedFoodCategoryButton.backgroundColor = .white
-        refrigeratedFoodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
-        refrigeratedFoodCategoryButton.setImage(UIImage(named: "Cheese")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        
-        foodCategoryButton.backgroundColor = .white
-        foodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
-        foodCategoryButton.setImage(UIImage(named: "CookingBowl")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        
-        outdoorFoodCategoryButton.backgroundColor = .white
-        outdoorFoodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
-        outdoorFoodCategoryButton.setImage(UIImage(named: "Muffin")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        changeSelectedButtonLayout(saveKind: .frozen)
     }
     
     @objc private func outdoorFoodCategoryButtonTapped() {
+        changeSelectedButtonLayout(saveKind: .outdoor)
+    }
+    
+    private func changeSelectedButtonLayout(saveKind: SaveKind) {
         collectionView.isHidden = false // collectionView를 화면에 보이도록 설정
-        outdoorFoodCategoryButton.backgroundColor = UIColor.refreeColor.button1
-        outdoorFoodCategoryButton.setTitleColor(.white, for: .normal)
-        let originalImage = UIImage(named: "Muffin")?.withRenderingMode(.alwaysOriginal) // Set rendering mode here
-        let whiteImage = originalImage?.withTintColor(.white) // Set color to white here
-        outdoorFoodCategoryButton.setImage(whiteImage, for: .normal)
-        
-        refrigeratedFoodCategoryButton.backgroundColor = .white
-        refrigeratedFoodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
-        refrigeratedFoodCategoryButton.setImage(UIImage(named: "Cheese")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        
-        frozenFoodCategoryButton.backgroundColor = .white
-        frozenFoodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
-        frozenFoodCategoryButton.setImage(UIImage(named: "Icecream")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        
-        foodCategoryButton.backgroundColor = .white
-        foodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
-        foodCategoryButton.setImage(UIImage(named: "CookingBowl")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        [
+            (foodCategoryButton, "CookingBowl"),
+            (refrigeratedFoodCategoryButton, "Cheese"),
+            (frozenFoodCategoryButton, "Icecream"),
+            (outdoorFoodCategoryButton, "Muffin")
+        ].forEach { (button, imageName) in
+            if saveKind.currentImageString == imageName {
+                button.backgroundColor = UIColor.refreeColor.button1
+                button.setTitleColor(.white, for: .normal)
+                let originalImage = UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal) // Set rendering mode here
+                let whiteImage = originalImage?.withTintColor(.white) // Set color to white here
+                button.setImage(whiteImage, for: .normal)
+            } else {
+                button.backgroundColor = .white
+                button.setTitleColor(UIColor.refreeColor.main, for: .normal)
+                button.setImage(UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal), for: .normal)
+            }
+        }
     }
 }
 
