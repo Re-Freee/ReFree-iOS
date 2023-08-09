@@ -17,6 +17,16 @@ final class KindRecipeViewController: UIViewController {
         case soup = "국&찌개 레시피"
         case dessert = "디저트 레시피"
         case sideMenu = "반찬 레시피"
+        
+        var searchQueryValue: String {
+            switch self {
+            case .saved: return "저장"
+            case .bowl: return "밥"
+            case .soup: return "국"
+            case .dessert: return "후식"
+            case .sideMenu: return "반찬"
+            }
+        }
     }
     
     private let titleLabel = UILabel().then {
@@ -36,15 +46,15 @@ final class KindRecipeViewController: UIViewController {
     }
     
     private let kind: TitleKind
-    private var recipes: [Recipe] = Mockup.savedRecipe // TODO: Mockup 제거 필요
+    private var recipes: [Recipe] = []
     private var disposeBag = DisposeBag()
+    private let recipeRepository = RecipeRepository()
     private var pageCount = 0
     
     init(kind: KindRecipeViewController.TitleKind) {
         self.kind = kind
         super.init(nibName: nil, bundle: Bundle.main)
         titleLabel.text = kind.rawValue
-        dataLoading(page: pageCount)
     }
     
     required init?(coder: NSCoder) {
@@ -66,6 +76,7 @@ final class KindRecipeViewController: UIViewController {
         configCollectionView()
         layout()
         bind()
+        dataLoading(page: pageCount)
     }
     
     private func configCollectionView() {
@@ -127,19 +138,44 @@ final class KindRecipeViewController: UIViewController {
         }
     }
     
-    private func dataLoading(page: Int) {
-        // TODO: 형식에 따른 레시피 Networking 후 reload
-    }
-    
     private func bind() {
         collectionView.rx.prefetchItems
             .compactMap(\.last?.row)
             .withUnretained(self)
             .bind { vc, row in
                 guard row == vc.recipes.count - 1 else { return }
-                // TODO: prefetch method
+                vc.pageCount += 10
+                vc.dataLoading(page: vc.pageCount)
             }
             .disposed(by: self.disposeBag)
+    }
+    
+    private func dataLoading(page: Int) {
+        if kind == TitleKind.saved {
+            recipeRepository.request(savedRecipe: .savedRecipe)
+                .subscribe(onNext: { [weak self] recipes in
+                    guard let self else { return }
+                    self.recipes += recipes
+                    self.collectionView.reloadData()
+                }, onError: { error in
+                    Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
+                })
+                .disposed(by: disposeBag)
+        } else {
+            recipeRepository.request(
+                searchRecipe: .searchRecipe(
+                    query: [.init("type", kind.searchQueryValue), .init("offset", page)]
+                )
+            )
+            .subscribe(onNext: { [weak self] recipes in
+                guard let self else { return }
+                self.recipes += recipes
+                self.collectionView.reloadData()
+            }, onError: { error in
+                Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
+            })
+            .disposed(by: disposeBag)
+        }
     }
 }
 

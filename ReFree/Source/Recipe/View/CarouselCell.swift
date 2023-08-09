@@ -86,12 +86,11 @@ final class CarouselCell: UICollectionViewCell, Identifiable {
         }
     }
     
-    // Struct로 데이터를 받아올 예정
     func configCell(recipe: Recipe) {
-        let url = URL(string: recipe.imageURL)
-        imageView.kf.setImage(with: url)
         titleLabel.text = recipe.title
         materialLists.text = recipe.ingredients
+        guard let url = URL(string: recipe.imageURL) else { return }
+        imageView.kf.setImage(with: url)
     }
     
     override func prepareForReuse() {
