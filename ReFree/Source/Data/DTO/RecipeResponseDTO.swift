@@ -58,7 +58,7 @@ extension RecipeResponseDTO {
                 title: recipeDTO.name,
                 ingredients: recipeDTO.ingredient ?? "",
                 imageURL: recipeDTO.imageURL,
-                isHeart: false,
+                isHeart: true,
                 manual: recipeDTO.manual?.map{
                     $0.toDomain()
                 }

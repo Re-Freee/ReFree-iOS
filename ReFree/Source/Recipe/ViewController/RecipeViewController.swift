@@ -79,7 +79,7 @@ final class RecipeViewController: UIViewController {
     private var previousIndex: Int?
     private var disposeBag = DisposeBag()
     
-    private var recipes: [Recipe] = Mockup.recommendReciple // TODO: Mockup 제거 필요
+    private var recipes: [Recipe] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -235,6 +235,7 @@ final class RecipeViewController: UIViewController {
     }
     
     private func bindRecipe() {
+        // TODO: 현재 재료 불러와서 레시피 추천?
         recipeRepository.request(
             recommendRecipe: NetworkRecipe.recommendRecipe(
                 ingredients: ["토마토", "연어", "오이"]

@@ -258,7 +258,6 @@ class RefrigeratorViewController: UIViewController {
             .disposed(by:disposeBag)
     }
     
-    
     private func collectionViewLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { _, _ in
             let item = NSCollectionLayoutItem(
@@ -317,8 +316,7 @@ class RefrigeratorViewController: UIViewController {
             if saveKind.currentImageString == imageName {
                 button.backgroundColor = UIColor.refreeColor.button1
                 button.setTitleColor(.white, for: .normal)
-                let originalImage = UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal) // Set rendering mode here
-                let whiteImage = originalImage?.withTintColor(.white) // Set color to white here
+                let whiteImage = UIImage(named: imageName)?.withTintColor(.white, renderingMode: .alwaysOriginal) // Set rendering mode here
                 button.setImage(whiteImage, for: .normal)
             } else {
                 button.backgroundColor = .white
