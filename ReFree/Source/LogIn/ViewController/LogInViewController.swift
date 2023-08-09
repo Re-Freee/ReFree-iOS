@@ -10,7 +10,10 @@ import RxSwift
 import SnapKit
 import Then
 
-class LogInViewController: UIViewController {
+class LogInViewController: UIViewController, UITextFieldDelegate {
+    private var isEmailValidate = false
+    private var isPasswordValidate = false
+    
     private let mainLogoImage = UIImageView().then {
         $0.image = UIImage(named: "RefreeLogo")
         $0.contentMode = .scaleToFill
@@ -42,6 +45,12 @@ class LogInViewController: UIViewController {
     }
     
     private let signRepository = SignRepository()
+    private let joinMembershipButton = UIButton().then {
+        $0.setTitle("회원가입", for: .normal)
+        $0.setTitleColor(UIColor.refreeColor.text1, for: .normal)
+        $0.titleLabel?.font = .pretendard.bold15
+    }
+    
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -58,8 +67,14 @@ class LogInViewController: UIViewController {
         view.gradientBackground(type: .mainConic)
         configNavigation()
         layout()
+        logInEmailText.textField.delegate = self
+        logInPasswordText.textField.delegate = self
+        
         logInButton.button.addTarget(self, action: #selector(logInButtonTapped), for: .touchUpInside)
         passwordFindButton.addTarget(self, action: #selector(passwordFindButtonTapped), for: .touchUpInside)
+        joinMembershipButton.addTarget(self, action: #selector(joinMembershipButtonTapped), for: .touchUpInside)
+        logInEmailText.textField.addTarget(self, action: #selector(logInEmailTextFieldDidChange(_:)), for: .editingChanged)
+        logInPasswordText.textField.addTarget(self, action: #selector(logInPasswordTextFieldDidChange(_:)), for: .editingChanged)
     }
     
     private func configNavigation() {
@@ -82,7 +97,8 @@ class LogInViewController: UIViewController {
                 mainLogoImage,
                 stackViewBackground,
                 logInStackView,
-                passwordFindButton
+                passwordFindButton,
+                joinMembershipButton
             ]
         )
         
@@ -115,6 +131,33 @@ class LogInViewController: UIViewController {
             $0.top.equalTo(stackViewBackground.snp.bottom).offset(Constant.spacing8)
             $0.leading.equalTo(logInStackView.snp.leading)
         }
+        
+        joinMembershipButton.snp.makeConstraints {
+            $0.top.equalTo(stackViewBackground.snp.bottom).offset(Constant.spacing8)
+            $0.trailing.equalTo(logInStackView.snp.trailing)
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        logInEmailText.textField.resignFirstResponder()
+        logInPasswordText.textField.resignFirstResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case logInEmailText.textField:
+            logInEmailText.textField.resignFirstResponder()
+            logInPasswordText.textField.becomeFirstResponder()
+        case logInPasswordText.textField:
+            logInPasswordText.textField.resignFirstResponder()
+            logInButtonTapped()
+        default:
+            view.endEditing(true)
+        }
+        
+        textField.resignFirstResponder()
+        
+        return true
     }
     
     @objc func logInButtonTapped() {
@@ -162,6 +205,50 @@ class LogInViewController: UIViewController {
     }
     
     @objc func passwordFindButtonTapped() {
+        let tabBarController = EmailSearchViewController()
+        navigationController?.pushViewController(
+            tabBarController,
+            animated: true
+        )
+    }
+    
+    @objc func joinMembershipButtonTapped() {
+        let tabBarController = SignUpViewController()
+        navigationController?.pushViewController(
+            tabBarController,
+            animated: true
+        )
+    }
+    
+    @objc func logInEmailTextFieldDidChange(_ textField: UITextField) {
+        guard textField.text != nil && textField.text!.validateEmail() else {
+            logInButton.button.setTitleColor(.refreeColor.text1, for: .normal)
+            logInButton.button.isEnabled = false
+            isEmailValidate = false
+            return
+        }
         
+        isEmailValidate = true
+        
+        if isEmailValidate && isPasswordValidate {
+            logInButton.button.setTitleColor(.refreeColor.text3, for: .normal)
+            logInButton.button.isEnabled = true
+        }
+    }
+    
+    @objc func logInPasswordTextFieldDidChange(_ textField: UITextField) {
+        guard textField.text != nil else {
+            logInButton.button.setTitleColor(.refreeColor.text1, for: .normal)
+            logInButton.button.isEnabled = false
+            isPasswordValidate = false
+            return
+        }
+        
+        isPasswordValidate = true
+        
+        if isEmailValidate && isPasswordValidate {
+            logInButton.button.setTitleColor(.refreeColor.text3, for: .normal)
+            logInButton.button.isEnabled = true
+        }
     }
 }

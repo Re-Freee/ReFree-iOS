@@ -19,9 +19,9 @@ final class RFSearchBar: UIView {
         $0.font = .pretendard.extraLight20
     }
     
-    private let searchStart = UIImageView(
-        image: UIImage(named: "Search")
-    )
+    let searchStart = UIButton().then {
+        $0.setImage(UIImage(named: "Search"), for: .normal)
+    }
     
     private let shadow: Bool
     
