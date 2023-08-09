@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
 
 class HomeViewController: UIViewController, UITableViewDelegate {
     private let header = HomeTabHeader(frame: .zero)
@@ -40,9 +41,10 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         )
     }
 
-    private var ingredients: [Ingredient] = Mockup.ingredients
-    
+    private var ingredients: [Ingredient] = []
     private var isImminentFoodButtonSelected: Bool = true
+    private let ingredientRepository = IngredientRepository()
+    private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +58,7 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         foodTableView.dataSource = self
         header.imminentFoodButton.addTarget(self, action: #selector(imminentFoodButtonTapped), for: .touchUpInside)
         header.expiredFoodButton.addTarget(self, action: #selector(expiredFoodButtonTapped), for: .touchUpInside)
+        bind()
     }
     
     private func layout() {
@@ -92,8 +95,46 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         }
     }
     
+    private func bind() {
+        imminentFoodButtonTapped()
+    }
+    
     @objc private func imminentFoodButtonTapped() {
-        if !isImminentFoodButtonSelected {
+        isImminentFoodButtonSelected = true
+        foodButtonSelected()
+        
+        ingredientRepository.request(closerIngredients: .closerIngredients)
+            .subscribe(onNext: { [weak self] ingredients in
+                guard let self else { return }
+                self.ingredients = ingredients
+                self.foodTableView.reloadData()
+                if !ingredients.isEmpty { self.ingredientExists() }
+                else { self.ingredientNotExists() }
+            }, onError: { error in
+                Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    @objc private func expiredFoodButtonTapped() {
+        isImminentFoodButtonSelected = false
+        foodButtonSelected()
+        
+        ingredientRepository.request(endIngredients: .endIngredients)
+            .subscribe(onNext: { [weak self] ingredients in
+                guard let self else { return }
+                self.ingredients = ingredients
+                self.foodTableView.reloadData()
+                if !ingredients.isEmpty { self.ingredientExists() }
+                else { self.ingredientNotExists() }
+            }, onError: { error in
+                Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func foodButtonSelected() {
+        if isImminentFoodButtonSelected {
             header.setGradientButtonLayer(button: header.expiredFoodButton, isApplied: true)
             header.setGradientButtonLayer(button: header.imminentFoodButton)
             header.imminentFoodButton.backgroundColor = UIColor.refreeColor.button2
@@ -103,25 +144,7 @@ class HomeViewController: UIViewController, UITableViewDelegate {
             header.setButtonShadow(button: header.expiredFoodButton, isSelected: true)
             
             isImminentFoodButtonSelected = true
-        }
-        
-        foodEmptyLabel.text = "소비기한 임박한 음식이 없습니다"
-        
-        if ingredients.count == 0 {
-            foodTableView.isHidden = true
-            foodEmptyImage.isHidden = false
-            foodEmptyLabel.isHidden = false
         } else {
-            foodTableView.isHidden = false
-            foodEmptyImage.isHidden = true
-            foodEmptyLabel.isHidden = true
-            ingredients = Mockup.testIngredients1
-            foodTableView.reloadData()
-        }
-    }
-    
-    @objc private func expiredFoodButtonTapped() {
-        if isImminentFoodButtonSelected {
             header.setGradientButtonLayer(button: header.imminentFoodButton, isApplied: true)
             header.setGradientButtonLayer(button: header.expiredFoodButton)
             header.expiredFoodButton.backgroundColor = UIColor.refreeColor.button2
@@ -132,19 +155,19 @@ class HomeViewController: UIViewController, UITableViewDelegate {
             
             isImminentFoodButtonSelected = false
         }
-        
-        foodEmptyLabel.text = "소비기한 만료된 음식이 없습니다"
-        
-        if ingredients.count == 0 {
-            foodTableView.isHidden = true
-            foodEmptyImage.isHidden = false
-            foodEmptyLabel.isHidden = false
+    }
+    
+    private func ingredientExists() {
+        foodTableView.isHidden = false
+        foodEmptyImage.isHidden = true
+        foodEmptyLabel.isHidden = true
+    }
+    
+    private func ingredientNotExists() {
+        if isImminentFoodButtonSelected {
+            foodEmptyLabel.text = "소비기한이 임박한 음식이 없습니다."
         } else {
-            foodTableView.isHidden = false
-            foodEmptyImage.isHidden = true
-            foodEmptyLabel.isHidden = true
-            ingredients = Mockup.testIngredients2
-            foodTableView.reloadData()
+            foodEmptyLabel.text = "소비기한이 만료된 음식이 없습니다."
         }
         
         foodTableView.isHidden = true
