@@ -10,7 +10,7 @@ import SnapKit
 import Then
 import RxSwift
 
-class HomeViewController: UIViewController, UITableViewDelegate {
+class HomeViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate {
     private let header = HomeTabHeader(frame: .zero)
     
     private let foodEmptyImage = UIImageView().then {
@@ -54,10 +54,13 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     private func config() {
         view.gradientBackground(type: .mainAxial)
         layout()
+        header.searchBar.textField.delegate = self
         foodTableView.delegate = self
         foodTableView.dataSource = self
+        
         header.imminentFoodButton.addTarget(self, action: #selector(imminentFoodButtonTapped), for: .touchUpInside)
         header.expiredFoodButton.addTarget(self, action: #selector(expiredFoodButtonTapped), for: .touchUpInside)
+        header.searchBar.searchStart.addTarget(self, action: #selector(searchStartButtonTapped), for: .touchUpInside)
         bind()
     }
     
@@ -142,8 +145,6 @@ class HomeViewController: UIViewController, UITableViewDelegate {
             
             header.setButtonShadow(button: header.imminentFoodButton)
             header.setButtonShadow(button: header.expiredFoodButton, isSelected: true)
-            
-            isImminentFoodButtonSelected = true
         } else {
             header.setGradientButtonLayer(button: header.imminentFoodButton, isApplied: true)
             header.setGradientButtonLayer(button: header.expiredFoodButton)
@@ -152,9 +153,29 @@ class HomeViewController: UIViewController, UITableViewDelegate {
             
             header.setButtonShadow(button: header.expiredFoodButton)
             header.setButtonShadow(button: header.imminentFoodButton, isSelected: true)
-            
-            isImminentFoodButtonSelected = false
         }
+    }
+    
+    @objc private func searchStartButtonTapped() {
+        // TODO: 검색(돋보기) 버튼을 눌렀을 때 기능 추가, 아래 코드는 돋보기 버튼을 눌렀을 때 textField의 "searchText" 변수에 저장하고 textField를 비워주는 임시 코드
+        let searchText = header.searchBar.textField.text
+        header.searchBar.textField.text = ""
+        
+        header.searchBar.textField.resignFirstResponder()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        header.searchBar.textField.resignFirstResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // TODO: reurn을 눌렀을 때 기능 추가, 아래 코드는 return을 눌렀을 때 textField의 "searchText" 변수에 저장하고 textField를 비워주는 임시 코드
+        let searchText = textField.text
+        textField.text = ""
+        
+        textField.resignFirstResponder()
+        
+        return true
     }
     
     private func ingredientExists() {

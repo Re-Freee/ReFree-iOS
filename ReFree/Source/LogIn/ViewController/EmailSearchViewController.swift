@@ -9,30 +9,57 @@ import UIKit
 import SnapKit
 import Then
 
-class EmailSearchViewController: UIViewController {
+class EmailSearchViewController: UIViewController, UITextFieldDelegate {
     private let header = PasswordFindTabHeader(frame: .zero)
     
-    private let stackViewBackground = LogInStackViewBackground(height: 280)
+    private let stackViewBackground = LogInStackViewBackground(height: 340)
     
     private let passwordFindStackView = UIStackView().then {
-        $0.spacing = 40
+        $0.spacing = 35
         $0.axis = .vertical
     }
     
     private let wrongEmailLabel = UILabel().then {
-        $0.text = "존재하지 않는 계정입니다"
+        $0.text = "존재하지 않는 계정입니다."
         $0.font = .pretendard.extraLight12
         $0.textColor = .refreeColor.red
         $0.isHidden = true
     }
     
-    private let wrongEmailImage = UIImageView().then {
+    private let wrongVerificationCodeLabel = UILabel().then {
+        $0.text = "인증코드가 일치하지 않습니다."
+        $0.font = .pretendard.extraLight12
+        $0.textColor = .refreeColor.red
+        $0.isHidden = true
+    }
+    
+    private let wrongEmailXImage = UIImageView().then {
         $0.image = UIImage(named: "CircleX")
         $0.contentMode = .scaleToFill
         $0.isHidden = true
     }
     
+    private let wrongEmailCheckImage = UIImageView().then {
+        $0.image = UIImage(named: "CircleCheck")
+        $0.contentMode = .scaleToFill
+        $0.isHidden = true
+    }
+    
+    private let wrongVerificationCodeXImage = UIImageView().then {
+        $0.image = UIImage(named: "CircleX")
+        $0.contentMode = .scaleToFill
+        $0.isHidden = true
+    }
+    
+    private let wrongVerificationCodeCheckImage = UIImageView().then {
+        $0.image = UIImage(named: "CircleCheck")
+        $0.contentMode = .scaleToFill
+        $0.isHidden = true
+    }
+    
     private let passwordFindEmailText = LogInTextField(message: "이메일", height: 40)
+    
+    private let verificationCodeText = LogInTextField(message: "인증코드", isVerificationCode: true)
     
     private let passwordFindButton = LogInButton(message: "Submit", height: 40)
     
@@ -50,7 +77,12 @@ class EmailSearchViewController: UIViewController {
     private func config() {
         view.gradientBackground(type: .mainConic)
         layout()
+        passwordFindEmailText.textField.delegate = self
+        verificationCodeText.textField.delegate = self
+        
         passwordFindButton.button.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
+        passwordFindEmailText.textField.addTarget(self, action: #selector(passwordFindEmailTextFieldDidChange(_:)), for: .editingChanged)
+        verificationCodeText.textField.addTarget(self, action: #selector(verificationCodeTextFieldDidChange(_:)), for: .editingChanged)
     }
     
     private func layout() {
@@ -59,8 +91,12 @@ class EmailSearchViewController: UIViewController {
                 header,
                 stackViewBackground,
                 passwordFindStackView,
-                wrongEmailImage,
-                wrongEmailLabel
+                wrongEmailXImage,
+                wrongEmailCheckImage,
+                wrongVerificationCodeXImage,
+                wrongVerificationCodeCheckImage,
+                wrongEmailLabel,
+                wrongVerificationCodeLabel
             ]
         )
         
@@ -68,6 +104,7 @@ class EmailSearchViewController: UIViewController {
             [
                 passwordFindLabel,
                 passwordFindEmailText,
+                verificationCodeText,
                 passwordFindButton
             ]
         )
@@ -82,8 +119,13 @@ class EmailSearchViewController: UIViewController {
         }
         
         wrongEmailLabel.snp.makeConstraints {
-            $0.top.equalTo(passwordFindEmailText.snp.bottom).offset(12)
-            $0.leading.equalTo(stackViewBackground.snp.leading).offset(32)
+            $0.top.equalTo(passwordFindEmailText.snp.bottom).offset(8)
+            $0.leading.equalTo(stackViewBackground.snp.leading).offset(40)
+        }
+        
+        wrongVerificationCodeLabel.snp.makeConstraints {
+            $0.top.equalTo(verificationCodeText.snp.bottom).offset(8)
+            $0.leading.equalTo(stackViewBackground.snp.leading).offset(40)
         }
         
         passwordFindStackView.snp.makeConstraints {
@@ -92,14 +134,75 @@ class EmailSearchViewController: UIViewController {
             $0.trailing.equalTo(stackViewBackground.snp.trailing).offset(-32)
         }
         
-        wrongEmailImage.snp.makeConstraints {
-            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(50)
+        wrongEmailXImage.snp.makeConstraints {
+            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(44)
             $0.leading.equalTo(passwordFindEmailText.snp.trailing).offset(5)
+        }
+        
+        wrongEmailCheckImage.snp.makeConstraints {
+            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(44)
+            $0.leading.equalTo(passwordFindEmailText.snp.trailing).offset(5)
+        }
+        
+        wrongVerificationCodeXImage.snp.makeConstraints {
+            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(124)
+            $0.leading.equalTo(verificationCodeText.snp.trailing).offset(5)
+        }
+        
+        wrongVerificationCodeCheckImage.snp.makeConstraints {
+            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(124)
+            $0.leading.equalTo(verificationCodeText.snp.trailing).offset(5)
         }
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        passwordFindEmailText.textField.resignFirstResponder()
+        verificationCodeText.textField.resignFirstResponder()
+    }
+    
     @objc private func submitButtonTapped() {
-        wrongEmailLabel.isHidden = false
-        wrongEmailImage.isHidden = false
+        let tabBarController = PasswordChangeViewController()
+        navigationController?.pushViewController(
+            tabBarController,
+            animated: true
+        )
+    }
+    
+    @objc private func passwordFindEmailTextFieldDidChange(_ textField: UITextField) {
+        guard textField.text != nil && textField.text!.validateEmail() else {
+            wrongEmailXImage.isHidden = false
+            wrongEmailCheckImage.isHidden = true
+            
+            passwordFindButton.button.setTitleColor(.refreeColor.text1, for: .normal)
+            passwordFindButton.button.isEnabled = false
+            return
+        }
+        
+        wrongEmailXImage.isHidden = true
+        wrongEmailCheckImage.isHidden = false
+        
+        if !wrongEmailCheckImage.isHidden && !wrongVerificationCodeCheckImage.isHidden {
+            passwordFindButton.button.setTitleColor(.refreeColor.text3, for: .normal)
+            passwordFindButton.button.isEnabled = true
+        }
+    }
+    
+    @objc private func verificationCodeTextFieldDidChange(_ textField: UITextField) {
+        guard textField.text != nil && textField.text!.validateVerificationCode() else {
+            wrongVerificationCodeXImage.isHidden = false
+            wrongVerificationCodeCheckImage.isHidden = true
+            
+            passwordFindButton.button.setTitleColor(.refreeColor.text1, for: .normal)
+            passwordFindButton.button.isEnabled = false
+            return
+        }
+        
+        wrongVerificationCodeXImage.isHidden = true
+        wrongVerificationCodeCheckImage.isHidden = false
+        
+        if !wrongEmailCheckImage.isHidden && !wrongVerificationCodeCheckImage.isHidden {
+            passwordFindButton.button.setTitleColor(.refreeColor.text3, for: .normal)
+            passwordFindButton.button.isEnabled = true
+        }
     }
 }

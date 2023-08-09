@@ -17,7 +17,7 @@ class HomeTabHeader: UIView {
     
     private let gradientLayer = CAGradientLayer()
     
-    private let searchBar = RFSearchBar()
+    public let searchBar = RFSearchBar()
     
     public let imminentFoodButton = UIButton().then {
         $0.setTitle("소비기한 임박 음식", for: .normal)

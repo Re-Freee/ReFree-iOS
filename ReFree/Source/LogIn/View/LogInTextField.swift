@@ -13,18 +13,18 @@ final class LogInTextField: UIView {
     public let textField = UITextField().then {
         $0.textColor = .refreeColor.text2
         $0.font = .pretendard.extraLight12
-        $0.autocapitalizationType = .none
     }
     
     init(message: String,
          isPassword: Bool = false,
-         height: CGFloat = .zero
+         height: CGFloat = .zero,
+         isVerificationCode: Bool = false
     ) {
         super.init(frame: .zero)
         if height == .zero {
-            layout(message: message, isPassword: isPassword, height: 50)
+            layout(message: message, isPassword: isPassword, height: 50, isVerificationCode: isVerificationCode)
         } else {
-            layout(message: message, isPassword: isPassword, height: height)
+            layout(message: message, isPassword: isPassword, height: height, isVerificationCode: isVerificationCode)
         }
     }
     
@@ -35,8 +35,15 @@ final class LogInTextField: UIView {
     private func layout(
         message: String,
         isPassword: Bool,
-        height: CGFloat
+        height: CGFloat,
+        isVerificationCode: Bool
     ) {
+        if isVerificationCode {
+            textField.autocapitalizationType = .allCharacters
+        } else {
+            textField.autocapitalizationType = .none
+        }
+        
         let cornerRadius = height / 2
         
         textField.isSecureTextEntry = isPassword

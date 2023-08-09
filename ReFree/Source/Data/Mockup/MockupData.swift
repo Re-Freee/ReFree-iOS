@@ -46,7 +46,7 @@ struct Mockup {
                 saveMethod: "냉동",
                 title: "소고기",
                 category: "소고기",
-                expireDate: "2023-08-031",
+                expireDate: "2023-08-31",
                 count: 4,
                 memo: "메모메모"
             )
