@@ -10,7 +10,7 @@ import SnapKit
 import Then
 import RxSwift
 
-class SignUpViewController: UIViewController, UITextFieldDelegate {
+class SignUpViewController: UIViewController {
     let signUpImageView1 = UIImageView().then {
         $0.image = UIImage(named: "FourCircle")
         $0.contentMode = .scaleAspectFit
@@ -314,6 +314,42 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         createAccountButton.setTitleColor(createAccountButton.isEnabled ? UIColor.white : UIColor.gray, for: .normal)
     }
     
+    private func addKeyboardNotification() {
+        NotificationCenter.default.addObserver(
+          self,
+          selector: #selector(keyboardWillShow),
+          name: UIResponder.keyboardWillShowNotification,
+          object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+          self,
+          selector: #selector(keyboardWillHide),
+          name: UIResponder.keyboardWillHideNotification,
+          object: nil
+        )
+      }
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            
+            // 이메일 텍스트 필드에 포커스가 있는 경우에만 뷰를 올림
+            if emailTextField.isFirstResponder {
+                self.view.window?.frame.origin.y -= (keyboardHeight / 2)
+            }
+        }
+    }
+
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            self.view.window?.frame.origin.y = 0
+        }
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -322,6 +358,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         bind()
         
         signUpValidation()
+        addKeyboardNotification()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -609,4 +646,19 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         let signUpCompleteVC = SignUpCompleteViewController()
         navigationController?.pushViewController(signUpCompleteVC, animated: true)
     }
+}
+
+extension SignUpViewController: UITextFieldDelegate {
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    if textField == emailTextField {
+      passwordTextField.becomeFirstResponder()
+    } else if textField == passwordTextField {
+        confirmPasswordTextField.becomeFirstResponder()
+    } else if textField == confirmPasswordTextField {
+        nicknameTextField.becomeFirstResponder()
+    } else {
+      nicknameTextField.resignFirstResponder()
+    }
+    return true
+  }
 }
