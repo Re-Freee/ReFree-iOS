@@ -12,7 +12,7 @@ protocol IngredientRepositoryProtocol {
     func request(closerIngredients: NetworkIngredient) -> Observable<[Ingredient]>
     func request(endIngredients: NetworkIngredient) -> Observable<[Ingredient]>
     func request(searchIngredients: NetworkIngredient) -> Observable<[Ingredient]>
-    func request(detailIngredientt: NetworkIngredient) -> Observable<[Ingredient]>
+    func request(detailIngredient: NetworkIngredient) -> Observable<[Ingredient]>
     func request(saveIngredient: NetworkImage) -> Observable<CommonResponse>
     func request(modifyIngredient: NetworkImage) -> Observable<CommonResponse>
 }
@@ -33,8 +33,8 @@ struct IngredientRepository: IngredientRepositoryProtocol {
         return observable.map { $0.toDomain() }
     }
     
-    func request(detailIngredientt: NetworkIngredient) -> Observable<[Ingredient]> {
-        let observable: Observable<IngredientResponseDTO> = Network.requestJSON(target: detailIngredientt)
+    func request(detailIngredient: NetworkIngredient) -> Observable<[Ingredient]> {
+        let observable: Observable<IngredientResponseDTO> = Network.requestJSON(target: detailIngredient)
         return observable.map { $0.toDomain() }
     }
     

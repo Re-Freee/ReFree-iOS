@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Then
+import Kingfisher
 
 final class RefrigeratorListCell: UICollectionViewCell, Identifiable {
     static let identifier = "RefrigeratorListCellIdentifier"
@@ -100,12 +101,12 @@ final class RefrigeratorListCell: UICollectionViewCell, Identifiable {
     
     func configCell(ingredient: Ingredient) {
         guard
-            let image = ingredient.image,
+            let urlString = ingredient.imageURL,
+            let url = URL(string: urlString),
             let title = ingredient.title,
             let expireDate = ingredient.expireDate
         else { return }
-        
-        imageView.image = image
+        imageView.kf.setImage(with: url)
         titleLabel.text = title
         expirationDateLabel.text = "\(expireDate)까지"
     }

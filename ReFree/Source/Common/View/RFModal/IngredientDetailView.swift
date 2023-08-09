@@ -72,6 +72,10 @@ final class IngredientDetailView: UIView {
         $0.axis = .horizontal
     }
     
+    private let ingredientRepository = IngredientRepository()
+    private var disposeBag = DisposeBag()
+    let errorSubject = PublishSubject<String>()
+    
     init(ingredient: Ingredient) {
         super.init(frame: .zero)
         config(ingredient: ingredient)
@@ -123,6 +127,25 @@ final class IngredientDetailView: UIView {
         expireDate.text = ingredient.expireDate ?? ""
         productCount.text = "\(ingredient.count ?? 0)"
         memoTextView.text = ingredient.memo
+        
+        guard let id = ingredient.ingredientId else { return }
+        ingredientRepository.request(detailIngredient: .detailIngredient(ingredientId: id))
+            .subscribe(onNext: { [weak self] ingredients in
+                guard
+                    let self,
+                    let ingredient = ingredients.first,
+                    let imageURL = ingredient.imageURL
+                else { return }
+                self.titleLabel.text = ingredient.title ?? ""
+                self.category.text = ingredient.category ?? ""
+                self.expireDate.text = ingredient.expireDate ?? ""
+                self.productCount.text = "\(ingredient.count ?? 0)"
+                self.memoTextView.text = ingredient.memo
+            }, onError: { error in
+                self.errorSubject.onNext(error.localizedDescription)
+            })
+            .disposed(by: disposeBag)
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

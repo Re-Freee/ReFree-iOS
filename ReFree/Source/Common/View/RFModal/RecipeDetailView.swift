@@ -8,6 +8,7 @@
 import UIKit
 import Then
 import SnapKit
+import RxSwift
 
 final class RecipeDetailView: UIView {
     
@@ -41,7 +42,11 @@ final class RecipeDetailView: UIView {
     }
     
     private var recipe: Recipe?
-    private var manual: [Manual] = Mockup.detailRecipe
+    private var manual: [Manual] = []
+    private let recipeRepository = RecipeRepository()
+    private var disposeBag = DisposeBag()
+    let errorSubject = PublishSubject<String>()
+    
     
     init(recipe: Recipe) {
         super.init(frame: .zero)
@@ -101,8 +106,17 @@ final class RecipeDetailView: UIView {
     
     func configView(recipe: Recipe) {
         self.recipe = recipe
-        // TODO: 네트워킹 + 끝나면 reload
-        // TODO: 목업데이터 제거
+        recipeRepository
+            .request(detailRecipe: .detailRecipe(recipeID: recipe.id))
+            .subscribe(onNext: { [weak self] manual in
+                guard let self else { return }
+                self.manual = manual
+                self.recipeCollection.reloadData()
+            }, onError: { error in
+                self.errorSubject.onNext(error.localizedDescription)
+            })
+            .disposed(by: disposeBag)
+        
         recipeCollection.reloadData()
     }
 }

@@ -18,6 +18,8 @@ final class RFModalViewController: UIViewController {
     
     private var contentView: UIView?
     let endsubject = PublishSubject<Void>()
+    let errorSubject = PublishSubject<String>()
+    private var disposeBag = DisposeBag()
     
     init(modalHeight: CGFloat, type: ContentType) {
         super.init(nibName: nil, bundle: Bundle.main)
@@ -41,9 +43,19 @@ final class RFModalViewController: UIViewController {
     private func config(height: CGFloat, type: ContentType) {
         switch type {
         case .detail(let ingredient):
-            contentView = IngredientDetailView(ingredient: ingredient)
+            let view = IngredientDetailView(ingredient: ingredient)
+            view.errorSubject.subscribe(onNext: { [weak self] errorDiscription in
+                self?.errorSubject.onNext(errorDiscription)
+            })
+            .disposed(by: disposeBag)
+            contentView = view
         case .recipe(let recipe):
-            contentView = RecipeDetailView(recipe: recipe)
+            let view = RecipeDetailView(recipe: recipe)
+            view.errorSubject.subscribe(onNext: { [weak self] errorDiscription in
+                self?.errorSubject.onNext(errorDiscription)
+            })
+            .disposed(by: disposeBag)
+            contentView = view
         }
         
         guard let sheet = sheetPresentationController else { return }
@@ -64,19 +76,6 @@ final class RFModalViewController: UIViewController {
                 $0.edges.equalToSuperview()
             }
         }
+        
     }
 }
-
-//사용하는 곳에서 쓸 코드
-//override func viewDidAppear(_ animated: Bool) {
-//    super.viewDidAppear(animated)
-//    let ratio = 0.7
-//    guard
-//        let height = view.window?.windowScene?.screen.bounds.height
-//    else { return }
-//    let halfModal = RFModalViewController(
-//        modalHeight: height * ratio,
-//        type: .
-//    )
-//    present(halfModal, animated: true)
-//}
