@@ -99,7 +99,8 @@ class PasswordChangeViewController: UIViewController, UITextFieldDelegate {
                 newPasswordXImage,
                 confirmNewPasswordCheckImage,
                 confirmNewPasswordXImage,
-                notSamePasswordLabel
+                notSamePasswordLabel,
+                notValidPasswordLabel
             ]
         )
         
@@ -141,12 +142,12 @@ class PasswordChangeViewController: UIViewController, UITextFieldDelegate {
         }
         
         confirmNewPasswordCheckImage.snp.makeConstraints {
-            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(102)
+            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(117)
             $0.leading.equalTo(confirmNewPasswordText.snp.trailing).offset(5)
         }
         
         confirmNewPasswordXImage.snp.makeConstraints {
-            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(102)
+            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(117)
             $0.leading.equalTo(confirmNewPasswordText.snp.trailing).offset(5)
         }
         
@@ -195,18 +196,18 @@ class PasswordChangeViewController: UIViewController, UITextFieldDelegate {
     
     @objc func confirmNewPasswordTextFieldDidChange(_ textField: UITextField) {
         guard newPasswordText.textField.text == confirmNewPasswordText.textField.text else {
-            confirmNewPasswordCheckImage.isHidden = false
-            confirmNewPasswordXImage.isHidden = true
-            notSamePasswordLabel.isHidden = true
+            confirmNewPasswordCheckImage.isHidden = true
+            confirmNewPasswordXImage.isHidden = false
+            notSamePasswordLabel.isHidden = false
             
             newPasswordSettingButton.button.setTitleColor(.refreeColor.text1, for: .normal)
             newPasswordSettingButton.button.isEnabled = false
             return
         }
         
-        confirmNewPasswordXImage.isHidden = false
-        confirmNewPasswordCheckImage.isHidden = true
-        notSamePasswordLabel.isHidden = false
+        confirmNewPasswordXImage.isHidden = true
+        confirmNewPasswordCheckImage.isHidden = false
+        notSamePasswordLabel.isHidden = true
         
         if !newPasswordCheckImage.isHidden && !confirmNewPasswordCheckImage.isHidden {
             newPasswordSettingButton.button.setTitleColor(.refreeColor.text3, for: .normal)
@@ -215,6 +216,11 @@ class PasswordChangeViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func newPasswordSettingButtonTapped() {
-    
+        // TODO: 서버에 새롭게 설정한 비밀번호 전달
+        let tabBarController = LogInViewController()
+        navigationController?.pushViewController(
+            tabBarController,
+            animated: true
+        )
     }
 }
