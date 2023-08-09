@@ -9,11 +9,10 @@ import UIKit
 import SnapKit
 import Then
 import RxSwift
+import Kingfisher
 
 final class RFModalParentViewController: UIViewController {
-    private let backgroundImageView = UIImageView(
-        image: UIImage(named: "ReFree_non")
-    ).then {
+    private let backgroundImageView = UIImageView().then {
         $0.clipsToBounds = true
         $0.contentMode = .scaleToFill
     }
@@ -46,11 +45,11 @@ final class RFModalParentViewController: UIViewController {
     private func configImage() {
         switch type {
         case .detail(let ingredient):
-            guard let _ = ingredient.imageURL else { return }
-            // TODO: 이미지 설정
+            guard let imageURL = ingredient.imageURL else { return }
+            backgroundImageView.kf.setImage(with: URL(string: imageURL))
         case .recipe(let recipe):
-            let _ = recipe.imageURL
-            // TODO: 이미지 설정
+            let imageURL = recipe.imageURL
+            backgroundImageView.kf.setImage(with: URL(string: imageURL))
         }
     }
     
@@ -60,7 +59,7 @@ final class RFModalParentViewController: UIViewController {
         view.addSubview(backgroundImageView)
         backgroundImageView.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(Constant.screenSize.height * 0.3)
+            $0.height.equalTo(Constant.screenSize.height * 0.4)
         }
     }
     
@@ -80,6 +79,13 @@ final class RFModalParentViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        present(halfModal, animated: true)
+        halfModal.errorSubject.subscribe(onNext: { errorDiscription in
+            Alert.erroAlert(viewController: self, errorMessage: errorDiscription)
+        })
+            .disposed(by: disposeBag)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .microseconds(10)) { [weak self] in
+            self?.present(halfModal, animated: true)
+        }
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 enum NetworkIngredient {
     case closerIngredients
     case endIngredients
-    case searchIngredients(options: SearchIngredientOption? = nil, searchKey: String)
+    case searchIngredients(options: SearchIngredientOption? = nil, searchKey: String? = nil)
     case detailIngredient(ingredientId: String)
     case deleteIngredient(ingredientId: String)
     
@@ -31,7 +31,7 @@ extension NetworkIngredient: Target {
         case .closerIngredients, .endIngredients:
             return "\(baseURL)\(path)"
         case .searchIngredients(let options, let searchKey):
-            if let options {
+            if let options, let searchKey {
                 return setQuery(
                     url: "\(baseURL)\(path)",
                     query: [
@@ -42,7 +42,7 @@ extension NetworkIngredient: Target {
             }
             return setQuery(
                 url: "\(baseURL)\(path)",
-                query: [RequestQuery("searchKey", searchKey)]
+                query: []
             ).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         case .detailIngredient(let ingredientId), .deleteIngredient(let ingredientId):
             return setQuery(

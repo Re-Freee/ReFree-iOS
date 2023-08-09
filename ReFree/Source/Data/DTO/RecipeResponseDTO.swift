@@ -36,7 +36,7 @@ struct RecipeResponseDTO: Decodable {
         let manuelImageURL: String
         
         enum CodingKeys: String, CodingKey {
-            case describe
+            case describe = "describe"
             case manuelImageURL = "manuelImage"
         }
         
