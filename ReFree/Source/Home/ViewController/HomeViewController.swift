@@ -164,12 +164,9 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     }
     
     private func ingredientNotExists() {
-        if isImminentFoodButtonSelected {
-            foodEmptyLabel.text = "소비기한이 임박한 음식이 없습니다."
-        } else {
-            foodEmptyLabel.text = "소비기한이 만료된 음식이 없습니다."
-        }
-        
+        foodEmptyLabel.text = isImminentFoodButtonSelected ?
+        "소비기한이 임박한 음식이 없습니다." : "소비기한이 만료된 음식이 없습니다."
+    
         foodTableView.isHidden = true
         foodEmptyImage.isHidden = false
         foodEmptyLabel.isHidden = false
