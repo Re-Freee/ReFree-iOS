@@ -17,6 +17,7 @@ struct RecipeResponseDTO: Decodable {
         let id: Int
         let name: String
         let calorie: Double?
+        let isHeart: Int?
         let ingredient: String?
         let imageURL: String
         let manual: [ManualDTO]?
@@ -25,6 +26,7 @@ struct RecipeResponseDTO: Decodable {
             case id
             case name
             case calorie
+            case isHeart
             case ingredient
             case imageURL = "image"
             case manual
@@ -33,17 +35,17 @@ struct RecipeResponseDTO: Decodable {
     
     struct ManualDTO: Decodable {
         let describe: String
-        let manuelImageURL: String
+        let manualImageURL: String
         
         enum CodingKeys: String, CodingKey {
             case describe = "describe"
-            case manuelImageURL = "manuelImage"
+            case manualImageURL = "manualImage"
         }
         
         func toDomain() -> Manual {
             return Manual(
                 describe: self.describe,
-                imageURL: self.manuelImageURL
+                imageURL: self.manualImageURL
             )
         }
     }
@@ -58,7 +60,7 @@ extension RecipeResponseDTO {
                 title: recipeDTO.name,
                 ingredients: recipeDTO.ingredient ?? "",
                 imageURL: recipeDTO.imageURL,
-                isHeart: true,
+                isHeart: recipeDTO.isHeart == 1 ? true : false,
                 manual: recipeDTO.manual?.map{
                     $0.toDomain()
                 }
@@ -71,7 +73,7 @@ extension RecipeResponseDTO {
         return manualData.map{ manualDTO in
             Manual(
                 describe: manualDTO.describe,
-                imageURL: manualDTO.manuelImageURL
+                imageURL: manualDTO.manualImageURL
             )
         }
     }
