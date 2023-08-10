@@ -31,18 +31,12 @@ extension NetworkIngredient: Target {
         case .closerIngredients, .endIngredients:
             return "\(baseURL)\(path)"
         case .searchIngredients(let options, let searchKey):
-            if let options, let searchKey {
-                return setQuery(
-                    url: "\(baseURL)\(path)",
-                    query: [
-                        RequestQuery("options", options),
-                        RequestQuery("searchKey", searchKey)
-                    ]
-                ).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-            }
+            var query: [RequestQuery] = []
+            if let options { query.append(RequestQuery("options", options.rawValue)) }
+            if let searchKey { query.append(RequestQuery("searchKey", searchKey)) }
             return setQuery(
                 url: "\(baseURL)\(path)",
-                query: []
+                query: query
             ).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         case .detailIngredient(let ingredientId), .deleteIngredient(let ingredientId):
             return setQuery(

@@ -55,6 +55,7 @@ final class KindRecipeViewController: UIViewController {
         self.kind = kind
         super.init(nibName: nil, bundle: Bundle.main)
         titleLabel.text = kind.rawValue
+        if kind == .saved { searchBar.isHidden = true }
     }
     
     required init?(coder: NSCoder) {
