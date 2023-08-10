@@ -85,8 +85,6 @@ final class RecipeDetailView: UIView {
                 ),
                 subitems: [item]
             )
-//            let groupInset = NSDirectionalEdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0)
-//            group.contentInsets = groupInset
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = 8
             section.contentInsets = .init(top: 4, leading: 24, bottom: 4, trailing: 24)
@@ -155,9 +153,31 @@ extension RecipeDetailView: UICollectionViewDataSource {
             ) as? RecipeDetailHeaderView
         else { return UICollectionReusableView() }
         
+        disposeBag = DisposeBag()
+        header.bookmarkButton.rx.tap
+            .bind(onNext: { [weak self] in
+                self?.toggleBookMarkButton()
+                guard let isHeart =  self?.recipe?.isHeart else { return }
+                self?.recipe?.isHeart = !isHeart
+                print("음 \(!isHeart)")
+                header.isBookmarked = !isHeart
+            })
+            .disposed(by: disposeBag)
+        
         guard let recipe = recipe else { return header }
         header.configHeader(recipe: recipe)
         
         return header
+    }
+    
+    private func toggleBookMarkButton() {
+        guard let id = recipe?.id else { return }
+        recipeRepository.request(bookMark: .bookMark(recipeID: id))
+            .subscribe(onNext: { response in
+                print(response.message)
+            }, onError: { error in
+                print(error.localizedDescription)
+            })
+            .disposed(by: self.disposeBag)
     }
 }

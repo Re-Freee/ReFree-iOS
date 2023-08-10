@@ -20,7 +20,7 @@ final class RecipeDetailHeaderView: UICollectionReusableView, Identifiable {
         $0.text = "음식 이름"
     }
     
-    private let bookmarkButton = UIButton().then {
+    let bookmarkButton = UIButton().then {
         var config = UIButton.Configuration.plain()
         config.baseForegroundColor = .refreeColor.main
         config.image = UIImage(systemName: "heart")?
@@ -38,7 +38,6 @@ final class RecipeDetailHeaderView: UICollectionReusableView, Identifiable {
         $0.numberOfLines = 0
         $0.textColor = .refreeColor.text1
         $0.font = .pretendard.extraLight12
-        // TODO: 테스트 용 긴 문자열로 실제 정보 받을땐 제거 예정
         $0.text = "재료 목록"
     }
     
@@ -48,7 +47,7 @@ final class RecipeDetailHeaderView: UICollectionReusableView, Identifiable {
         $0.text = "조리순서"
     }
     
-    private var isBookmarked: Bool = false {
+    var isBookmarked: Bool = false {
         didSet {
             bookmarkButton.updateConfiguration()
         }
@@ -66,9 +65,10 @@ final class RecipeDetailHeaderView: UICollectionReusableView, Identifiable {
     private func config() {
         bookmarkButton.configurationUpdateHandler = {
             var config = UIButton.Configuration.plain()
-            config.image = self.isBookmarked
+            print("\(self.isBookmarked) 북마크드")
+            let image = self.isBookmarked
             ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
-            
+            config.image = image?.withTintColor(.refreeColor.main, renderingMode: .alwaysOriginal)
             $0.configuration = config
         }
         
@@ -125,6 +125,16 @@ final class RecipeDetailHeaderView: UICollectionReusableView, Identifiable {
         config.image = bookmarkImage?
             .withTintColor(.refreeColor.main, renderingMode: .alwaysOriginal)
         bookmarkButton.configuration = config
-        
+    }
+    
+    func toggleBookmark(isHeart: Bool) {
+        let currentIsHeart = !isHeart
+        let bookmarkImage = currentIsHeart ?
+        UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+        var config = UIButton.Configuration.plain()
+        config.baseForegroundColor = .refreeColor.main
+        config.image = bookmarkImage?
+            .withTintColor(.refreeColor.main, renderingMode: .alwaysOriginal)
+        bookmarkButton.configuration = config
     }
 }
