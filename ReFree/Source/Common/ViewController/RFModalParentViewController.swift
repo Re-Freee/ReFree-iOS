@@ -35,7 +35,10 @@ final class RFModalParentViewController: UIViewController {
         super.viewDidLoad()
         config()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
     private func config() {
         configImage()
         layout()
