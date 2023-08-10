@@ -53,10 +53,11 @@ struct ImageData {
 }
 
 extension Target {
-    func setQuery(url: String, query: [RequestQuery]?) -> String{
+    func setQuery(url: String, query: [RequestQuery]?) -> String {
         guard let query else { return url }
         var url = "\(url)?"
         query.forEach {
+            if "\($0.value)".isEmpty { return }
             url.append("\($0.key)=\($0.value)&")
         }
         if let last = url.last,
