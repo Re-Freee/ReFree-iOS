@@ -79,9 +79,8 @@ class SignUpCompleteViewController: UIViewController {
         
         rocketImageView.snp.makeConstraints {
             $0.top.equalTo(self.view.safeAreaLayoutGuide).offset(30)
-            $0.leading.equalToSuperview().offset(50)
-            $0.trailing.equalToSuperview().offset(-50)
             $0.size.equalTo(Constant.someViewSize)
+            $0.centerX.equalToSuperview()
         }
         
         registerCompleteLabel.snp.makeConstraints{
