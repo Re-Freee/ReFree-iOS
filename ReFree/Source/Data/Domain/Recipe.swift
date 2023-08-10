@@ -12,7 +12,7 @@ struct Recipe {
     let title: String
     let ingredients: String
     let imageURL: String
-    let isHeart: Bool
+    var isHeart: Bool
     let manual: [Manual]?
 }
 
