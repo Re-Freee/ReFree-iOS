@@ -391,6 +391,8 @@ final class RegisterIngredientViewController: UIViewController {
         cameraView.setDefault()
         ingredientInfoView.setDefault()
         info = Ingredient()
+            .setSaveMethod(method: "냉장")
+            .setCount(count: 1)
     }
     
     @objc private func keyboardUp(notification: NSNotification) {

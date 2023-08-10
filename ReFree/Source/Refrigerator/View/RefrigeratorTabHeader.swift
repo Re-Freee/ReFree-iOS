@@ -17,7 +17,7 @@ final class RefrigeratorTabHeader: UIView {
         $0.text = "000님의 냉장고"
     }
     
-    private let searchBar = RFSearchBar(height: 40)
+    let searchBar = RFSearchBar(height: 40)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
