@@ -45,6 +45,7 @@ final class RecipeDetailView: UIView {
     private var manual: [Manual] = []
     private let recipeRepository = RecipeRepository()
     private var disposeBag = DisposeBag()
+    private var headerDisposeBag = DisposeBag()
     let errorSubject = PublishSubject<String>()
     
     
@@ -153,16 +154,15 @@ extension RecipeDetailView: UICollectionViewDataSource {
             ) as? RecipeDetailHeaderView
         else { return UICollectionReusableView() }
         
-        disposeBag = DisposeBag()
+        headerDisposeBag = DisposeBag()
         header.bookmarkButton.rx.tap
             .bind(onNext: { [weak self] in
                 self?.toggleBookMarkButton()
                 guard let isHeart =  self?.recipe?.isHeart else { return }
                 self?.recipe?.isHeart = !isHeart
-                print("음 \(!isHeart)")
                 header.isBookmarked = !isHeart
             })
-            .disposed(by: disposeBag)
+            .disposed(by: headerDisposeBag)
         
         guard let recipe = recipe else { return header }
         header.configHeader(recipe: recipe)

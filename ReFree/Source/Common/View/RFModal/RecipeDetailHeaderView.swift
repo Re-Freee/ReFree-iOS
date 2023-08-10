@@ -65,7 +65,6 @@ final class RecipeDetailHeaderView: UICollectionReusableView, Identifiable {
     private func config() {
         bookmarkButton.configurationUpdateHandler = {
             var config = UIButton.Configuration.plain()
-            print("\(self.isBookmarked) 북마크드")
             let image = self.isBookmarked
             ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
             config.image = image?.withTintColor(.refreeColor.main, renderingMode: .alwaysOriginal)
@@ -125,16 +124,15 @@ final class RecipeDetailHeaderView: UICollectionReusableView, Identifiable {
         config.image = bookmarkImage?
             .withTintColor(.refreeColor.main, renderingMode: .alwaysOriginal)
         bookmarkButton.configuration = config
-    }
-    
-    func toggleBookmark(isHeart: Bool) {
-        let currentIsHeart = !isHeart
-        let bookmarkImage = currentIsHeart ?
-        UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
-        var config = UIButton.Configuration.plain()
-        config.baseForegroundColor = .refreeColor.main
-        config.image = bookmarkImage?
-            .withTintColor(.refreeColor.main, renderingMode: .alwaysOriginal)
-        bookmarkButton.configuration = config
-    }
+    }  
+//    func toggleBookmark(isHeart: Bool) {
+//        let currentIsHeart = !isHeart
+//        let bookmarkImage = currentIsHeart ?
+//        UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+//        var config = UIButton.Configuration.plain()
+//        config.baseForegroundColor = .refreeColor.main
+//        config.image = bookmarkImage?
+//            .withTintColor(.refreeColor.main, renderingMode: .alwaysOriginal)
+//        bookmarkButton.configuration = config
+//    }
 }
