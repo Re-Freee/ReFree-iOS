@@ -45,10 +45,9 @@ final class CameraView: UIView {
     }
     
     func setDefault() {
-        currentImage.onNext(UIImage(named: "ReFree_non"))
+        currentImage.onNext(UIImage(named: "Camera1"))
         imageView.image = UIImage(named: "Camera1")
         imageView.backgroundColor = .refreeColor.text1
         imageView.contentMode = .center
     }
-
 }

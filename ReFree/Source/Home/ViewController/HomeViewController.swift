@@ -157,10 +157,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITextFieldDele
     }
     
     @objc private func searchStartButtonTapped() {
-        // TODO: 검색(돋보기) 버튼을 눌렀을 때 기능 추가, 아래 코드는 돋보기 버튼을 눌렀을 때 textField의 "searchText" 변수에 저장하고 textField를 비워주는 임시 코드
-        let searchText = header.searchBar.textField.text
-        header.searchBar.textField.text = ""
-        
+        guard
+            let searchKey = header.searchBar.textField.text,
+            !searchKey.isEmpty
+        else {
+            isImminentFoodButtonSelected ?
+            imminentFoodButtonTapped() : expiredFoodButtonTapped()
+            return
+        }
+        let filterdIngredients = ingredients.filter {
+            guard let title = $0.title else { return false }
+            return  title.contains(searchKey)
+        }
+        ingredients = filterdIngredients
+        self.foodTableView.reloadData()
         header.searchBar.textField.resignFirstResponder()
     }
     
