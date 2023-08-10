@@ -352,6 +352,18 @@ class SignUpViewController: UIViewController {
         }
     }
 
+    // 키보드 바깥을 클릭할 경우
+    private var tapGestureRecognizer: UITapGestureRecognizer!
+    
+    @objc private func handleTapOutsideKeyboard() {
+        view.endEditing(true)
+    }
+    
+    private func ifTapOutside() {
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapOutsideKeyboard))
+        tapGestureRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGestureRecognizer)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -361,6 +373,7 @@ class SignUpViewController: UIViewController {
         
         signUpValidation()
         addKeyboardNotification()
+        ifTapOutside()
     }
     
     override func viewWillAppear(_ animated: Bool) {
