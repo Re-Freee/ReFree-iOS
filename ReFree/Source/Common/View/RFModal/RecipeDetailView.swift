@@ -85,6 +85,8 @@ final class RecipeDetailView: UIView {
                 ),
                 subitems: [item]
             )
+//            let groupInset = NSDirectionalEdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0)
+//            group.contentInsets = groupInset
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = 8
             section.contentInsets = .init(top: 4, leading: 24, bottom: 4, trailing: 24)
