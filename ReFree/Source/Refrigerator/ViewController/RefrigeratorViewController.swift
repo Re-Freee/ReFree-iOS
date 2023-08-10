@@ -379,23 +379,6 @@ class RefrigeratorViewController: UIViewController {
     
     private func changeSelectedButtonLayout(saveKind: SaveKind) {
         collectionView.isHidden = false // collectionView를 화면에 보이도록 설정
-        outdoorFoodCategoryButton.backgroundColor = UIColor.refreeColor.button1
-        outdoorFoodCategoryButton.setTitleColor(.white, for: .normal)
-        let originalImage = UIImage(named: "Muffin")?.withRenderingMode(.alwaysOriginal) // Set rendering mode here
-        let whiteImage = originalImage?.withTintColor(.white) // Set color to white here
-        outdoorFoodCategoryButton.setImage(whiteImage, for: .normal)
-        
-        refrigeratedFoodCategoryButton.backgroundColor = .white
-        refrigeratedFoodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
-        refrigeratedFoodCategoryButton.setImage(UIImage(named: "Cheese")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        
-        frozenFoodCategoryButton.backgroundColor = .white
-        frozenFoodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
-        frozenFoodCategoryButton.setImage(UIImage(named: "Icecream")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        
-        foodCategoryButton.backgroundColor = .white
-        foodCategoryButton.setTitleColor(UIColor.refreeColor.main, for: .normal)
-        foodCategoryButton.setImage(UIImage(named: "CookingBowl")?.withRenderingMode(.alwaysOriginal), for: .normal)
         [
             (foodCategoryButton, "CookingBowl"),
             (refrigeratedFoodCategoryButton, "Cheese"),
