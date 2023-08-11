@@ -50,7 +50,7 @@ struct IngredientRepository: IngredientRepositoryProtocol {
     }
     
     func request(deleteIngredient: NetworkIngredient) -> Observable<CommonResponse> {
-        let observable: Observable<IngredientResponseDTO> = Network.requestJSON(target: deleteIngredient)
+        let observable: Observable<CommonResponseDTO> = Network.requestJSON(target: deleteIngredient)
         return observable.map { $0.toDomain() }
     }
 }

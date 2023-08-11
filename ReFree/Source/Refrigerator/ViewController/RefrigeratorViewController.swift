@@ -397,6 +397,15 @@ class RefrigeratorViewController: UIViewController {
             }
         }
     }
+    
+    private func reloadData() {
+        switch currentKind {
+        case .whole: foodCategoryButtonTapped()
+        case .refrigerd: refrigeratedFoodCategoryButtonTapped()
+        case .frozen: frozenFoodCategoryButtonTapped()
+        case .outdoor: outdoorFoodCategoryButtonTapped()
+        }
+    }
 }
 
 extension RefrigeratorViewController: UICollectionViewDataSource {
@@ -423,6 +432,13 @@ extension RefrigeratorViewController: UICollectionViewDelegateFlowLayout {
         let modalVC = RFModalParentViewController(
             type: .detail(ingredients[indexPath.row])
         )
+        
+        modalVC.endSubject
+            .subscribe(onNext: { [weak self] in
+                self?.reloadData()
+            })
+            .disposed(by: disposeBag)
+        
         tabBarController?
             .navigationController?
             .pushViewController(

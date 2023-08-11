@@ -18,7 +18,6 @@ final class RFModalViewController: UIViewController {
     
     private var contentView: UIView?
     let endsubject = PublishSubject<Void>()
-    let errorSubject = PublishSubject<String>()
     private var disposeBag = DisposeBag()
     
     init(modalHeight: CGFloat, type: ContentType) {
@@ -35,8 +34,8 @@ final class RFModalViewController: UIViewController {
         view.backgroundColor = .white
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         endsubject.onNext(())
     }
     
@@ -45,14 +44,31 @@ final class RFModalViewController: UIViewController {
         case .detail(let ingredient):
             let view = IngredientDetailView(ingredient: ingredient)
             view.errorSubject.subscribe(onNext: { [weak self] errorDiscription in
-                self?.errorSubject.onNext(errorDiscription)
+                guard let self else { return }
+                Alert.erroAlert(viewController: self, errorMessage: errorDiscription)
             })
             .disposed(by: disposeBag)
+            view.alertSubject.subscribe(onNext: { [weak self] alertMessage in
+                guard let self else { return }
+                let alert = AlertView(
+                    title: "확인",
+                    description: alertMessage,
+                    alertType: .check
+                )
+                alert.successButton.rx.tap
+                    .bind(onNext: { [weak self] in
+                        self?.dismiss(animated: true)
+                    })
+                    .disposed(by: disposeBag)
+                self.view.addSubview(alert)
+            })
+                .disposed(by: disposeBag)
             contentView = view
         case .recipe(let recipe):
             let view = RecipeDetailView(recipe: recipe)
             view.errorSubject.subscribe(onNext: { [weak self] errorDiscription in
-                self?.errorSubject.onNext(errorDiscription)
+                guard let self else { return }
+                Alert.erroAlert(viewController: self, errorMessage: errorDiscription)
             })
             .disposed(by: disposeBag)
             contentView = view
@@ -74,12 +90,5 @@ final class RFModalViewController: UIViewController {
                 $0.edges.equalToSuperview()
             }
         }
-        
-//        view.rx.touchDownGesture()
-//            .when(.changed)
-//            .bind(onNext: { [weak self] _ in
-//                
-//            })
-//            .disposed(by: disposeBag)
     }
 }

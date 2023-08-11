@@ -76,6 +76,7 @@ final class IngredientDetailView: UIView {
     private var disposeBag = DisposeBag()
     private var ingredient: Ingredient
     let errorSubject = PublishSubject<String>()
+    let alertSubject = PublishSubject<String>()
     
     init(ingredient: Ingredient) {
         self.ingredient = ingredient
@@ -165,10 +166,11 @@ final class IngredientDetailView: UIView {
         ingredientRepository
             .request(deleteIngredient: .deleteIngredient(ingredientId: id))
             .subscribe(onNext: { [weak self] response in
-                self?.checkResponse(response: response)
-                // TODO: 삭제 완료 안내 + dismiss
+                guard let self else { return }
+                self.checkResponse(response: response)
+                alertSubject.onNext("삭제가 완료되었습니다.")
             }, onError: { error in
-                // TODO: Erro Handling
+                self.errorSubject.onNext(error.localizedDescription)
             })
             .disposed(by: disposeBag)
     }
