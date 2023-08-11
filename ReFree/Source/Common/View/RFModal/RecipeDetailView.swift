@@ -156,10 +156,13 @@ extension RecipeDetailView: UICollectionViewDataSource {
         headerDisposeBag = DisposeBag()
         header.bookmarkButton.rx.tap
             .bind(onNext: { [weak self] in
-                self?.toggleBookMarkButton()
+                self?.toggleBookMarkButton {
+                    header.bookmarkButton.isEnabled = true
+                }
                 guard let isHeart =  self?.recipe?.isHeart else { return }
                 self?.recipe?.isHeart = !isHeart
                 header.isBookmarked = !isHeart
+                header.bookmarkButton.isEnabled = false
             })
             .disposed(by: headerDisposeBag)
         
@@ -169,13 +172,13 @@ extension RecipeDetailView: UICollectionViewDataSource {
         return header
     }
     
-    private func toggleBookMarkButton() {
+    private func toggleBookMarkButton(complete: @escaping () -> ()) {
         guard let id = recipe?.id else { return }
         recipeRepository.request(bookMark: .bookMark(recipeID: id))
             .subscribe(onNext: { response in
-                print(response.message)
+                complete()
             }, onError: { error in
-                print(error.localizedDescription)
+                //
             })
             .disposed(by: self.disposeBag)
     }

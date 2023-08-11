@@ -44,6 +44,7 @@ final class RecipeDetailCell: UICollectionViewCell, Identifiable {
         descriptionLabel.snp.makeConstraints {
             $0.top.trailing.bottom.equalToSuperview()
             $0.height.greaterThanOrEqualTo(80)
+            $0.height.lessThanOrEqualTo(150)
             $0.leading.equalTo(imageView.snp.trailing).offset(12)
         }
     }
