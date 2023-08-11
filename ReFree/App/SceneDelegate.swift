@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         let navigation = UINavigationController(rootViewController: AppInitViewController())
-        if let token = try? KeyChain.shared.searchToken(kind: .accessToken) {
+        if let _ = try? KeyChain.shared.searchToken(kind: .accessToken) {
             navigation.pushViewController(HomeTabViewController(), animated: false)
         }
         window.rootViewController = navigation

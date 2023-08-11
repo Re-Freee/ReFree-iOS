@@ -10,6 +10,7 @@ import SnapKit
 import Then
 
 final class RecipeListCell: UICollectionViewCell, Identifiable {
+    private let overlayView = UIView()
     private let imageView = UIImageView(image: UIImage(named: "ReFree_non")).then {
         $0.contentMode = .scaleAspectFill
         $0.layer.opacity = 0.8
@@ -45,6 +46,8 @@ final class RecipeListCell: UICollectionViewCell, Identifiable {
             heartImageView
         ])
         
+        imageView.addSubviews([overlayView])
+        
         imageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
@@ -60,6 +63,13 @@ final class RecipeListCell: UICollectionViewCell, Identifiable {
             $0.width.height.equalTo(titleLabel.snp.height)
             $0.bottom.equalToSuperview().inset(24)
         }
+        
+        overlayView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        overlayView.backgroundColor = .black
+        overlayView.layer.opacity = 0.3
+//        overlayView.gradientBackground(type: .halfBlackAxial)
     }
     
     override func prepareForReuse() {

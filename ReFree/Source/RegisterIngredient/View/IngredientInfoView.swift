@@ -363,7 +363,7 @@ final class IngredientInfoView: UIView {
         else { return }
         let newCount = countNumber - 1
         currentCountLabel.text = "\(newCount)"
-        countSubject.onNext("\(newCount)")
+        categoryRecommand(categories: [])
     }
     
     func setDefault() {

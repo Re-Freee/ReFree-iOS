@@ -42,7 +42,7 @@ struct Ingredient {
     
     var option: Int? {
         switch self.saveMethod {
-        case "실온": return 0
+        case "상온": return 0
         case "냉장": return 1
         case "냉동": return 2
         case "기타": return 3
