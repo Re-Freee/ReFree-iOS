@@ -61,8 +61,7 @@ final class RFModalParentViewController: UIViewController {
         view.backgroundColor = .clear
         view.addSubview(backgroundImageView)
         backgroundImageView.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(Constant.screenSize.height)
+            $0.edges.equalToSuperview()
         }
     }
     

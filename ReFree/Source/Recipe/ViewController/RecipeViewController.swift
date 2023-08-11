@@ -361,7 +361,9 @@ extension RecipeViewController: UICollectionViewDelegateFlowLayout {
         didSelectItemAt indexPath: IndexPath
     ) {
         let modalVC = RFModalParentViewController(type: .recipe(recipes[indexPath.row]))
-        navigationController?.pushViewController(
+        tabBarController?
+            .navigationController?
+            .pushViewController(
             modalVC,
             animated: false
         )
