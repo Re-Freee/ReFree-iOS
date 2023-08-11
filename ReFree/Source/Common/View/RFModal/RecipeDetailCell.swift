@@ -11,15 +11,15 @@ import Then
 import Kingfisher
 
 final class RecipeDetailCell: UICollectionViewCell, Identifiable {
-    let imageView = UIImageView().then {
+    private let imageView = UIImageView().then {
+        $0.clipsToBounds = true
         $0.layer.cornerRadius = 15
         $0.backgroundColor = .refreeColor.lightGray
     }
-    let descriptionLabel = UILabel().then {
+    private let descriptionLabel = UILabel().then {
         $0.textAlignment = .left
         $0.numberOfLines = 0
-        // TODO: Remove
-        $0.text = "레시피"
+        $0.text = ""
     }
     
     override init(frame: CGRect) {

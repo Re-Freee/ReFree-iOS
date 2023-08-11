@@ -393,6 +393,7 @@ final class RegisterIngredientViewController: UIViewController {
         info = Ingredient()
             .setSaveMethod(method: "냉장")
             .setCount(count: 1)
+            .setExpireDate(date: Date().toString())
     }
     
     @objc private func keyboardUp(notification: NSNotification) {
