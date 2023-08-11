@@ -58,11 +58,11 @@ final class RFModalParentViewController: UIViewController {
     
     private func layout() {
         view.gradientBackground(type: .mainAxial)
-        view.backgroundColor = .white
+        view.backgroundColor = .clear
         view.addSubview(backgroundImageView)
         backgroundImageView.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(Constant.screenSize.height * 0.4)
+            $0.height.equalTo(Constant.screenSize.height)
         }
     }
     
