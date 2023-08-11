@@ -74,9 +74,11 @@ final class IngredientDetailView: UIView {
     
     private let ingredientRepository = IngredientRepository()
     private var disposeBag = DisposeBag()
+    private var ingredient: Ingredient
     let errorSubject = PublishSubject<String>()
     
     init(ingredient: Ingredient) {
+        self.ingredient = ingredient
         super.init(frame: .zero)
         config(ingredient: ingredient)
     }
@@ -133,8 +135,7 @@ final class IngredientDetailView: UIView {
             .subscribe(onNext: { [weak self] ingredients in
                 guard
                     let self,
-                    let ingredient = ingredients.first,
-                    let imageURL = ingredient.imageURL
+                    let ingredient = ingredients.first
                 else { return }
                 self.titleLabel.text = ingredient.title ?? ""
                 self.category.text = ingredient.category ?? ""
@@ -146,9 +147,29 @@ final class IngredientDetailView: UIView {
             })
             .disposed(by: disposeBag)
         
+        deleteButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.touchDeleteButton()
+            }, onError: { error in
+                //
+            })
+            .disposed(by: disposeBag)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         endEditing(true)
+    }
+    
+    private func touchDeleteButton() {
+        guard let id = ingredient.ingredientId else { return }
+        ingredientRepository
+            .request(deleteIngredient: .deleteIngredient(ingredientId: id))
+            .subscribe(onNext: { [weak self] response in
+                self?.checkResponse(response: response)
+                // TODO: 삭제 완료 안내 + dismiss
+            }, onError: { error in
+                // TODO: Erro Handling
+            })
+            .disposed(by: disposeBag)
     }
 }
