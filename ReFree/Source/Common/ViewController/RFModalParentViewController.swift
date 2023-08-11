@@ -19,6 +19,7 @@ final class RFModalParentViewController: UIViewController {
     
     private let type: RFModalViewController.ContentType
     private let disposeBag = DisposeBag()
+    let endSubject = PublishSubject<Void>()
     
     init(
         type: RFModalViewController.ContentType
@@ -73,17 +74,14 @@ final class RFModalParentViewController: UIViewController {
             modalHeight: height * ratio,
             type: type
         )
+        
         halfModal.endsubject
             .subscribe { [weak self] _ in
                 self?.navigationController?.popViewController(
                     animated: false
                 )
+                self?.endSubject.onNext(())
             }
-            .disposed(by: disposeBag)
-        
-        halfModal.errorSubject.subscribe(onNext: { errorDiscription in
-            Alert.erroAlert(viewController: self, errorMessage: errorDiscription)
-        })
             .disposed(by: disposeBag)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .microseconds(10)) { [weak self] in
