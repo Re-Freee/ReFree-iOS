@@ -51,6 +51,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITextFieldDele
         config()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        isImminentFoodButtonSelected ? imminentFoodButtonTapped() : expiredFoodButtonTapped()
+    }
+    
     private func config() {
         view.gradientBackground(type: .mainAxial)
         layout()
@@ -99,7 +104,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITextFieldDele
     }
     
     private func bind() {
-        imminentFoodButtonTapped()
+//        imminentFoodButtonTapped()
     }
     
     @objc private func imminentFoodButtonTapped() {
@@ -241,7 +246,7 @@ extension HomeViewController: UITableViewDataSource {
             for: indexPath
         ) as? FoodTableViewCell else { return UITableViewCell() }
         
-        cell.setData(ingredient: ingredients[indexPath.row])
+        cell.setData(ingredient: ingredients[indexPath.section])
         cell.selectionStyle = .none
         
         return cell
