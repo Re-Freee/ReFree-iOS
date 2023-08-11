@@ -15,6 +15,7 @@ protocol IngredientRepositoryProtocol {
     func request(detailIngredient: NetworkIngredient) -> Observable<[Ingredient]>
     func request(saveIngredient: NetworkImage) -> Observable<CommonResponse>
     func request(modifyIngredient: NetworkImage) -> Observable<CommonResponse>
+    func request(deleteIngredient: NetworkIngredient) -> Observable<CommonResponse>
 }
 
 struct IngredientRepository: IngredientRepositoryProtocol {
@@ -45,6 +46,11 @@ struct IngredientRepository: IngredientRepositoryProtocol {
     
     func request(modifyIngredient: NetworkImage) -> Observable<CommonResponse> {
         let observable: Observable<CommonResponseDTO> = Network.imageUpload(target: modifyIngredient)
+        return observable.map { $0.toDomain() }
+    }
+    
+    func request(deleteIngredient: NetworkIngredient) -> Observable<CommonResponse> {
+        let observable: Observable<IngredientResponseDTO> = Network.requestJSON(target: deleteIngredient)
         return observable.map { $0.toDomain() }
     }
 }
