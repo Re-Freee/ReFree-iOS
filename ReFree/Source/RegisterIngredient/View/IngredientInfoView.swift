@@ -363,7 +363,6 @@ final class IngredientInfoView: UIView {
         else { return }
         let newCount = countNumber - 1
         currentCountLabel.text = "\(newCount)"
-        categoryRecommand(categories: [])
     }
     
     func setDefault() {
@@ -372,5 +371,6 @@ final class IngredientInfoView: UIView {
         expireDatePicker.date = Date()
         currentCountLabel.text = "1"
         memoTextView.text = ""
+        categoryRecommand(categories: [])
     }
 }

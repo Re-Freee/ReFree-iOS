@@ -144,7 +144,6 @@ class RefrigeratorViewController: UIViewController {
         )
     }
 
-    // 서버
     private let ingredientRepo = IngredientRepository()
     private var ingredients: [Ingredient] = []
     private let disposeBag = DisposeBag()
@@ -160,6 +159,7 @@ class RefrigeratorViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+        reloadData()
     }
     
     private func config() {
@@ -253,7 +253,7 @@ class RefrigeratorViewController: UIViewController {
     }
     
     private func bind() {
-        bindDefaultData()
+//        bindDefaultData()
         bindSearchBar()
     }
     
