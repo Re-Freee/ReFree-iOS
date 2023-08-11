@@ -251,7 +251,9 @@ extension HomeViewController: UITableViewDataSource {
         let modalVC = RFModalParentViewController(
             type: .detail(ingredients[indexPath.row])
         )
-        navigationController?.pushViewController(
+        tabBarController?
+            .navigationController?
+            .pushViewController(
             modalVC,
             animated: false
         )
