@@ -97,15 +97,23 @@ final class KindRecipeViewController: UIViewController {
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(24)
         }
         
-        searchBar.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(24)
-        }
-        
-        collectionView.snp.makeConstraints {
-            $0.top.equalTo(searchBar.snp.bottom).offset(24)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        if kind == .saved {
+            collectionView.snp.makeConstraints {
+                $0.top.equalTo(titleLabel.snp.bottom).offset(12)
+                $0.leading.trailing.equalToSuperview()
+                $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            }
+        } else {
+            searchBar.snp.makeConstraints {
+                $0.top.equalTo(titleLabel.snp.bottom).offset(12)
+                $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(24)
+            }
+            
+            collectionView.snp.makeConstraints {
+                $0.top.equalTo(searchBar.snp.bottom).offset(24)
+                $0.leading.trailing.equalToSuperview()
+                $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            }
         }
     }
     
