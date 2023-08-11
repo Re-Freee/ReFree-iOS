@@ -20,9 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         let navigation = UINavigationController(rootViewController: AppInitViewController())
-        // TODO: 로그인 확인
-        // Login Success - Push TabBarContrller & navigationBar Hidden
-        // Login Failed - Pass
+        if let token = try? KeyChain.shared.searchToken(kind: .accessToken) {
+            navigation.pushViewController(HomeTabViewController(), animated: false)
+        }
         window.rootViewController = navigation
         window.makeKeyAndVisible()
         

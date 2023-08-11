@@ -60,9 +60,7 @@ final class RFModalViewController: UIViewController {
         
         guard let sheet = sheetPresentationController else { return }
         sheet.detents = [
-            .custom(
-                resolver: { _ in return height}
-            ),
+            .custom( resolver: { _ in return height}),
             .large()
         ]
         sheet.prefersGrabberVisible = true
@@ -77,5 +75,11 @@ final class RFModalViewController: UIViewController {
             }
         }
         
+//        view.rx.touchDownGesture()
+//            .when(.changed)
+//            .bind(onNext: { [weak self] _ in
+//                
+//            })
+//            .disposed(by: disposeBag)
     }
 }
