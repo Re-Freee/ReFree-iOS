@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        let navigation = UINavigationController(rootViewController: RefrigeratorViewController())
+        let navigation = UINavigationController(rootViewController: AppInitViewController())
         // TODO: 로그인 확인
         // Login Success - Push TabBarContrller & navigationBar Hidden
         // Login Failed - Pass

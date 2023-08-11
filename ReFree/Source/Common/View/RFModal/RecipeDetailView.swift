@@ -11,7 +11,6 @@ import SnapKit
 import RxSwift
 
 final class RecipeDetailView: UIView {
-    
     private enum CollectionSize {
         static var headerWidth: CGFloat {
             return Constant.screenSize.width - 48
