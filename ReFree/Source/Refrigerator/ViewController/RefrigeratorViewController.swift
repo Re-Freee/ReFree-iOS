@@ -260,7 +260,7 @@ class RefrigeratorViewController: UIViewController {
     private func bindDefaultData() {
         changeSelectedButtonLayout(saveKind: .whole)
         ingredientRepo.request(searchIngredients: .searchIngredients())
-            .subscribe(onNext: { [weak self] ingredients in
+            .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
                 self?.ingredients = ingredients
                 self?.collectionView.reloadData()
             }, onError: { error in
@@ -283,7 +283,7 @@ class RefrigeratorViewController: UIViewController {
                             searchKey: searchKey
                         )
                     )
-                    .subscribe(onNext: { [weak self] ingredients in
+                    .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
                         self?.ingredients = ingredients
                         self?.collectionView.reloadData()
                     }, onError: { error in
@@ -329,7 +329,7 @@ class RefrigeratorViewController: UIViewController {
         changeSelectedButtonLayout(saveKind: .whole)
         currentKind = .whole
         ingredientRepo.request(searchIngredients: .searchIngredients())
-            .subscribe(onNext: { [weak self] ingredients in
+            .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
                 self?.ingredients = ingredients
                 self?.collectionView.reloadData()
             }, onError: { error in
@@ -342,7 +342,7 @@ class RefrigeratorViewController: UIViewController {
         changeSelectedButtonLayout(saveKind: .refrigerd)
         currentKind = .refrigerd
         ingredientRepo.request(searchIngredients: .searchIngredients(options: .refrigerd))
-            .subscribe(onNext: { [weak self] ingredients in
+            .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
                 self?.ingredients = ingredients
                 self?.collectionView.reloadData()
             }, onError: { error in
@@ -355,7 +355,7 @@ class RefrigeratorViewController: UIViewController {
         changeSelectedButtonLayout(saveKind: .frozen)
         currentKind = .frozen
         ingredientRepo.request(searchIngredients: .searchIngredients(options: .frozen))
-            .subscribe(onNext: { [weak self] ingredients in
+            .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
                 self?.ingredients = ingredients
                 self?.collectionView.reloadData()
             }, onError: { error in
@@ -368,7 +368,7 @@ class RefrigeratorViewController: UIViewController {
         changeSelectedButtonLayout(saveKind: .outdoor)
         currentKind = .outdoor
         ingredientRepo.request(searchIngredients: .searchIngredients(options: .outdoor))
-            .subscribe(onNext: { [weak self] ingredients in
+            .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
                 self?.ingredients = ingredients
                 self?.collectionView.reloadData()
             }, onError: { error in

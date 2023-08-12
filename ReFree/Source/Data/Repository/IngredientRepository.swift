@@ -9,32 +9,49 @@ import Foundation
 import RxSwift
 
 protocol IngredientRepositoryProtocol {
-    func request(closerIngredients: NetworkIngredient) -> Observable<[Ingredient]>
-    func request(endIngredients: NetworkIngredient) -> Observable<[Ingredient]>
-    func request(searchIngredients: NetworkIngredient) -> Observable<[Ingredient]>
-    func request(detailIngredient: NetworkIngredient) -> Observable<[Ingredient]>
-    func request(saveIngredient: NetworkImage) -> Observable<CommonResponse>
-    func request(modifyIngredient: NetworkImage) -> Observable<CommonResponse>
-    func request(deleteIngredient: NetworkIngredient) -> Observable<CommonResponse>
+    func request(closerIngredients: NetworkIngredient)
+    -> Observable<(commonResponse: CommonResponse, ingredients: [Ingredient])>
+    
+    func request(endIngredients: NetworkIngredient)
+    -> Observable<(commonResponse: CommonResponse, ingredients: [Ingredient])>
+    
+    func request(searchIngredients: NetworkIngredient)
+    -> Observable<(commonResponse: CommonResponse, ingredients: [Ingredient])>
+    
+    func request(detailIngredient: NetworkIngredient)
+    -> Observable<(commonResponse: CommonResponse, ingredients: [Ingredient])>
+    
+    func request(saveIngredient: NetworkImage)
+    -> Observable<CommonResponse>
+    
+    func request(modifyIngredient: NetworkImage)
+    -> Observable<CommonResponse>
+    
+    func request(deleteIngredient: NetworkIngredient)
+    -> Observable<CommonResponse>
 }
 
 struct IngredientRepository: IngredientRepositoryProtocol {
-    func request(closerIngredients: NetworkIngredient) -> Observable<[Ingredient]> {
+    func request(closerIngredients: NetworkIngredient)
+    -> Observable<(commonResponse: CommonResponse, ingredients: [Ingredient])> {
         let observable: Observable<IngredientResponseDTO> = Network.requestJSON(target: closerIngredients)
         return observable.map { $0.toDomain() }
     }
     
-    func request(endIngredients: NetworkIngredient) -> Observable<[Ingredient]> {
+    func request(endIngredients: NetworkIngredient)
+    -> Observable<(commonResponse: CommonResponse, ingredients: [Ingredient])> {
         let observable: Observable<IngredientResponseDTO> = Network.requestJSON(target: endIngredients)
         return observable.map { $0.toDomain() }
     }
     
-    func request(searchIngredients: NetworkIngredient) -> Observable<[Ingredient]> {
+    func request(searchIngredients: NetworkIngredient)
+    -> Observable<(commonResponse: CommonResponse, ingredients: [Ingredient])> {
         let observable: Observable<IngredientResponseDTO> = Network.requestJSON(target: searchIngredients)
         return observable.map { $0.toDomain() }
     }
     
-    func request(detailIngredient: NetworkIngredient) -> Observable<[Ingredient]> {
+    func request(detailIngredient: NetworkIngredient)
+    -> Observable<(commonResponse: CommonResponse, ingredients: [Ingredient])> {
         let observable: Observable<IngredientResponseDTO> = Network.requestJSON(target: detailIngredient)
         return observable.map { $0.toDomain() }
     }
