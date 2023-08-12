@@ -242,10 +242,13 @@ final class RecipeViewController: UIViewController {
             )
         )
         .subscribe(onNext: { [weak self] (commonResponse, recipes) in
-            self?.responseCheck(response: commonResponse)
-            self?.recipes = recipes
-            self?.carouselCollectionView.reloadData()
-            self?.loadingCompletion()
+            guard
+                let self,
+                self.responseCheck(response: commonResponse)
+            else { return }
+            self.recipes = recipes
+            self.carouselCollectionView.reloadData()
+            self.loadingCompletion()
         }, onError: { error in
             Alert.checkAlert(
                 viewController: self,

@@ -109,8 +109,11 @@ final class RecipeDetailView: UIView {
         recipeRepository
             .request(detailRecipe: .detailRecipe(recipeID: recipe.id))
             .subscribe(onNext: { [weak self] (commonResponse, manual) in
-                self?.responseCheck(response: commonResponse)
-                guard let self else { return }
+                guard
+                    let self,
+                    self.responseCheck(response: commonResponse)
+                else { return }
+                
                 self.manual = manual
                 self.recipeCollection.reloadData()
             }, onError: { error in

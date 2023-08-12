@@ -199,10 +199,13 @@ class EmailSearchViewController: UIViewController, UITextFieldDelegate {
             )
         )
         .subscribe(onNext: { [weak self] commonResponse in
-            self?.responseCheck(response: commonResponse)
+            guard
+                let self,
+                self.responseCheck(response: commonResponse)
+            else { return }
             
             let passwordChangeVC = PasswordChangeViewController(email: email)
-            self?.navigationController?.pushViewController(
+            self.navigationController?.pushViewController(
                 passwordChangeVC,
                 animated: true
             )

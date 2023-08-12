@@ -173,8 +173,11 @@ final class KindRecipeViewController: UIViewController {
         if kind == TitleKind.saved {
             recipeRepository.request(savedRecipe: .savedRecipe)
                 .subscribe(onNext: { [weak self] (commonResponse, recipes) in
-                    self?.responseCheck(response: commonResponse)
-                    guard let self else { return }
+                    guard
+                        let self,
+                        self.responseCheck(response: commonResponse)
+                    else { return }
+                    
                     self.recipes += recipes
                     self.collectionView.reloadData()
                 }, onError: { error in
@@ -193,8 +196,10 @@ final class KindRecipeViewController: UIViewController {
                     )
                 )
                 .subscribe(onNext: { [weak self] (commonResponse, recipes) in
-                    self?.responseCheck(response: commonResponse)
-                    guard let self else { return }
+                    guard
+                        let self,
+                        self.responseCheck(response: commonResponse)
+                    else { return }
                     self.recipes += recipes
                     self.collectionView.reloadData()
                 }, onError: { error in
@@ -208,8 +213,10 @@ final class KindRecipeViewController: UIViewController {
                     )
                 )
                 .subscribe(onNext: { [weak self] (commonResponse, recipes) in
-                    self?.responseCheck(response: commonResponse)
-                    guard let self else { return }
+                    guard
+                        let self,
+                        self.responseCheck(response: commonResponse)
+                    else { return }
                     self.recipes += recipes
                     self.collectionView.reloadData()
                 }, onError: { error in

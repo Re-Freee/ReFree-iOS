@@ -113,8 +113,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITextFieldDele
         
         ingredientRepository.request(closerIngredients: .closerIngredients)
             .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
-                self?.responseCheck(response: commonResponse)
-                guard let self else { return }
+                guard
+                    let self,
+                    self.responseCheck(response: commonResponse)
+                else { return }
                 self.ingredients = ingredients
                 self.foodTableView.reloadData()
                 if !ingredients.isEmpty { self.ingredientExists() }
@@ -131,8 +133,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITextFieldDele
         
         ingredientRepository.request(endIngredients: .endIngredients)
             .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
-                self?.responseCheck(response: commonResponse)
-                guard let self else { return }
+                guard
+                    let self,
+                    self.responseCheck(response: commonResponse)
+                else { return }
                 self.ingredients = ingredients
                 self.foodTableView.reloadData()
                 if !ingredients.isEmpty { self.ingredientExists() }
@@ -187,7 +191,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITextFieldDele
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // TODO: reurn을 눌렀을 때 기능 추가, 아래 코드는 return을 눌렀을 때 textField의 "searchText" 변수에 저장하고 textField를 비워주는 임시 코드
-        let searchText = textField.text
+//        let searchText = textField.text
         textField.text = ""
         
         textField.resignFirstResponder()

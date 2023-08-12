@@ -247,10 +247,13 @@ class PasswordChangeViewController: UIViewController, UITextFieldDelegate {
             )
         )
         .subscribe(onNext: { [weak self] commonResponse in
-            self?.responseCheck(response: commonResponse)
+            guard
+                let self,
+                self.responseCheck(response: commonResponse)
+            else { return }
             
             let completedVC = SignUpCompleteViewController()
-            self?.navigationController?.pushViewController(
+            self.navigationController?.pushViewController(
                 completedVC,
                 animated: true
             )

@@ -134,9 +134,9 @@ final class IngredientDetailView: UIView {
         guard let id = ingredient.ingredientId else { return }
         ingredientRepository.request(detailIngredient: .detailIngredient(ingredientId: id))
             .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
-                self?.responseCheck(response: commonResponse)
                 guard
                     let self,
+                    self.responseCheck(response: commonResponse),
                     let ingredient = ingredients.first
                 else { return }
                 self.titleLabel.text = ingredient.title ?? ""
