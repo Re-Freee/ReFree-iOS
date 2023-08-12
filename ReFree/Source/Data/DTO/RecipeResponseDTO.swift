@@ -56,6 +56,7 @@ extension RecipeResponseDTO {
         guard let data else {
             return (CommonResponse(code: "\(code)", message: message), [])
         }
+        
         return (
             CommonResponse(code: "\(code)", message: message),
             data.map { recipeDTO in

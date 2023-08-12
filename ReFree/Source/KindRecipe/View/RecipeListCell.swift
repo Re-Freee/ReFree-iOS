@@ -69,7 +69,6 @@ final class RecipeListCell: UICollectionViewCell, Identifiable {
         }
         overlayView.backgroundColor = .black
         overlayView.layer.opacity = 0.3
-//        overlayView.gradientBackground(type: .halfBlackAxial)
     }
     
     override func prepareForReuse() {

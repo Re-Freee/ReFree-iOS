@@ -124,15 +124,5 @@ final class RecipeDetailHeaderView: UICollectionReusableView, Identifiable {
         config.image = bookmarkImage?
             .withTintColor(.refreeColor.main, renderingMode: .alwaysOriginal)
         bookmarkButton.configuration = config
-    }  
-//    func toggleBookmark(isHeart: Bool) {
-//        let currentIsHeart = !isHeart
-//        let bookmarkImage = currentIsHeart ?
-//        UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
-//        var config = UIButton.Configuration.plain()
-//        config.baseForegroundColor = .refreeColor.main
-//        config.image = bookmarkImage?
-//            .withTintColor(.refreeColor.main, renderingMode: .alwaysOriginal)
-//        bookmarkButton.configuration = config
-//    }
+    }
 }
