@@ -13,6 +13,7 @@ enum NetworkSign {
     case findPassword(email: String, certification: String)
     case modifyPassword(email: String, password: String, checkPassword: String)
     case withDraw
+    case userNickName
 }
 
 struct SignUpData {
@@ -33,6 +34,8 @@ extension NetworkSign: Target {
     
     var method: HTTPMethod {
         switch self {
+        case .userNickName:
+            return .get
         case .signIn, .signUp, .findPassword, .modifyPassword:
             return .post
         case .withDraw:
@@ -46,6 +49,8 @@ extension NetworkSign: Target {
     
     var path: String {
         switch self {
+        case .userNickName:
+            return "/member/nickname"
         case .signIn:
             return "/login"
         case .signUp:
@@ -83,7 +88,7 @@ extension NetworkSign: Target {
                     checkPassword: checkPassword
                 )
             )
-        case .withDraw:
+        case .userNickName, .withDraw:
             return nil
         }
     }
