@@ -116,6 +116,7 @@ class RefrigeratorViewController: UIViewController {
                     image: UIImage(systemName: ""),
                     handler: { _ in
                         self.dropDownMenuButton.setTitle("소비기한 빠른 순", for: .normal)
+                        self.ascending = true
                         self.sortIngredientsByExpireDate(ascending: true)
                     }),
                 UIAction(
@@ -123,6 +124,7 @@ class RefrigeratorViewController: UIViewController {
                     image: UIImage(systemName: ""),
                     handler: { _ in
                         self.dropDownMenuButton.setTitle("소비기한 느린 순", for: .normal)
+                        self.ascending = false
                         self.sortIngredientsByExpireDate(ascending: false)
                     })
             ]
@@ -148,6 +150,7 @@ class RefrigeratorViewController: UIViewController {
     private var ingredients: [Ingredient] = []
     private let disposeBag = DisposeBag()
     private var currentKind: SaveKind = .whole
+    private var ascending: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -267,24 +270,7 @@ class RefrigeratorViewController: UIViewController {
     }
     
     private func bind() {
-//        bindDefaultData()
         bindSearchBar()
-    }
-    
-    private func bindDefaultData() {
-        changeSelectedButtonLayout(saveKind: .whole)
-        ingredientRepo.request(searchIngredients: .searchIngredients())
-            .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
-                guard
-                    let self,
-                    self.responseCheck(response: commonResponse)
-                else { return }
-                self.ingredients = ingredients
-                self.collectionView.reloadData()
-            }, onError: { error in
-                Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
-            })
-            .disposed(by:disposeBag)
     }
     
     private func bindSearchBar() {
@@ -348,66 +334,34 @@ class RefrigeratorViewController: UIViewController {
     }
     
     @objc private func foodCategoryButtonTapped() {
-        changeSelectedButtonLayout(saveKind: .whole)
-        currentKind = .whole
-        ingredientRepo.request(searchIngredients: .searchIngredients())
-            .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
-                guard
-                    let self,
-                    self.responseCheck(response: commonResponse)
-                else { return }
-                self.ingredients = ingredients
-                self.collectionView.reloadData()
-            }, onError: { error in
-                Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
-            })
-            .disposed(by:disposeBag)
+        ingredientRequest(saveKind: .whole)
     }
     
     @objc private func refrigeratedFoodCategoryButtonTapped() {
-        changeSelectedButtonLayout(saveKind: .refrigerd)
-        currentKind = .refrigerd
-        ingredientRepo.request(searchIngredients: .searchIngredients(options: .refrigerd))
-            .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
-                guard
-                    let self,
-                    self.responseCheck(response: commonResponse)
-                else { return }
-                self.ingredients = ingredients
-                self.collectionView.reloadData()
-            }, onError: { error in
-                Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
-            })
-            .disposed(by:disposeBag)
+        ingredientRequest(saveKind: .refrigerd)
     }
     
     @objc private func frozenFoodCategoryButtonTapped() {
-        changeSelectedButtonLayout(saveKind: .frozen)
-        currentKind = .frozen
-        ingredientRepo.request(searchIngredients: .searchIngredients(options: .frozen))
-            .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
-                guard
-                    let self,
-                    self.responseCheck(response: commonResponse)
-                else { return }
-                self.ingredients = ingredients
-                self.collectionView.reloadData()
-            }, onError: { error in
-                Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
-            })
-            .disposed(by:disposeBag)
+        ingredientRequest(saveKind: .frozen)
     }
     
     @objc private func outdoorFoodCategoryButtonTapped() {
-        changeSelectedButtonLayout(saveKind: .outdoor)
-        currentKind = .outdoor
-        ingredientRepo.request(searchIngredients: .searchIngredients(options: .outdoor))
+        ingredientRequest(saveKind: .outdoor)
+    }
+    
+    private func ingredientRequest(saveKind: SaveKind) {
+        changeSelectedButtonLayout(saveKind: saveKind)
+        currentKind = saveKind
+        ingredientRepo.request(
+            searchIngredients: .searchIngredients(options: saveKind.networkKind)
+        )
             .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
                 guard
                     let self,
                     self.responseCheck(response: commonResponse)
                 else { return }
                 self.ingredients = ingredients
+                self.sortIngredientsByExpireDate(ascending: ascending)
                 self.collectionView.reloadData()
             }, onError: { error in
                 Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
@@ -437,12 +391,7 @@ class RefrigeratorViewController: UIViewController {
     }
     
     private func reloadData() {
-        switch currentKind {
-        case .whole: foodCategoryButtonTapped()
-        case .refrigerd: refrigeratedFoodCategoryButtonTapped()
-        case .frozen: frozenFoodCategoryButtonTapped()
-        case .outdoor: outdoorFoodCategoryButtonTapped()
-        }
+        ingredientRequest(saveKind: currentKind)
     }
 }
 
