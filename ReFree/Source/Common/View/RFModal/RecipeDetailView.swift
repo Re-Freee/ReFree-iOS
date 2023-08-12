@@ -108,7 +108,7 @@ final class RecipeDetailView: UIView {
         self.recipe = recipe
         recipeRepository
             .request(detailRecipe: .detailRecipe(recipeID: recipe.id))
-            .subscribe(onNext: { [weak self] manual in
+            .subscribe(onNext: { [weak self] (commonResponse, manual) in
                 guard let self else { return }
                 self.manual = manual
                 self.recipeCollection.reloadData()

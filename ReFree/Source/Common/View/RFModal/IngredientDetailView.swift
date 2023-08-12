@@ -167,7 +167,6 @@ final class IngredientDetailView: UIView {
             .request(deleteIngredient: .deleteIngredient(ingredientId: id))
             .subscribe(onNext: { [weak self] response in
                 guard let self else { return }
-                self.checkResponse(response: response)
                 alertSubject.onNext("삭제가 완료되었습니다.")
             }, onError: { error in
                 self.errorSubject.onNext(error.localizedDescription)
