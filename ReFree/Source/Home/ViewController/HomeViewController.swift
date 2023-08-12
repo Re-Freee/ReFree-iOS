@@ -113,6 +113,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITextFieldDele
         
         ingredientRepository.request(closerIngredients: .closerIngredients)
             .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
+                self?.responseCheck(response: commonResponse)
                 guard let self else { return }
                 self.ingredients = ingredients
                 self.foodTableView.reloadData()
@@ -130,6 +131,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITextFieldDele
         
         ingredientRepository.request(endIngredients: .endIngredients)
             .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
+                self?.responseCheck(response: commonResponse)
                 guard let self else { return }
                 self.ingredients = ingredients
                 self.foodTableView.reloadData()
