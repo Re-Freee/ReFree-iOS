@@ -147,6 +147,8 @@ class RefrigeratorViewController: UIViewController {
     }
 
     private let ingredientRepo = IngredientRepository()
+    private let userRepository = UserRepository()
+    private let signRepository = SignRepository()
     private var ingredients: [Ingredient] = []
     private let disposeBag = DisposeBag()
     private var currentKind: SaveKind = .whole
@@ -270,7 +272,31 @@ class RefrigeratorViewController: UIViewController {
     }
     
     private func bind() {
+        bindUser()
         bindSearchBar()
+    }
+    
+    private func bindUser() {
+        if let nickName = userRepository.getUserNickName() {
+            header.setTitle(name: nickName)
+        } else {
+            signRepository.request(userNickName: .userNickName)
+                .subscribe(onNext: { [weak self] commonResponse in
+                    guard
+                        let self,
+                        self.responseCheck(response: commonResponse)
+                    else { return }
+                    let nickName = commonResponse.message
+                    self.userRepository.setUserNickName(nickName: nickName)
+                    self.header.setTitle(name: nickName)
+                }, onError: { error in
+                    Alert.erroAlert(
+                        viewController: self,
+                        errorMessage: error.localizedDescription
+                    )
+                })
+                .disposed(by: disposeBag)
+        }
     }
     
     private func bindSearchBar() {

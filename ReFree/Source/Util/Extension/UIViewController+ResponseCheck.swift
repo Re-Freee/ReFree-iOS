@@ -24,6 +24,8 @@ extension UIViewController {
             let sceneDelegate = view.window?.windowScene?.delegate as? SceneDelegate
         else { return }
         sceneDelegate.popToRootViewController()
+        let userRepository = UserRepository()
+        userRepository.deleteUserNickName()
     }
 }
 

@@ -44,4 +44,8 @@ final class RefrigeratorTabHeader: UIView {
             $0.bottom.equalToSuperview()
         }
     }
+    
+    func setTitle(name: String) {
+        titleLabel.text = "\(name)님의 냉장고"
+    }
 }

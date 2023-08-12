@@ -75,6 +75,8 @@ final class RecipeViewController: UIViewController {
     }
     
     let recipeRepository = RecipeRepository()
+    let userRepository = UserRepository()
+    let signRepository = SignRepository()
     private let sidebar = RecipeSidebarView()
     private var previousIndex: Int?
     private var disposeBag = DisposeBag()
@@ -176,9 +178,33 @@ final class RecipeViewController: UIViewController {
     }
     
     private func bind() {
+        bindUser()
         bindHeader()
         bindSidebar()
         bindRecipe()
+    }
+    
+    private func bindUser() {
+        if let nickName = userRepository.getUserNickName() {
+            nameTitle.text = "\(nickName)님을 위한 추천 레시피"
+        } else {
+            signRepository.request(userNickName: .userNickName)
+                .subscribe(onNext: { [weak self] commonResponse in
+                    guard
+                        let self,
+                        self.responseCheck(response: commonResponse)
+                    else { return }
+                    let nickName = commonResponse.message
+                    self.userRepository.setUserNickName(nickName: nickName)
+                    self.nameTitle.text = "\(nickName)님을 위한 추천 레시피"
+                }, onError: { error in
+                    Alert.erroAlert(
+                        viewController: self,
+                        errorMessage: error.localizedDescription
+                    )
+                })
+                .disposed(by: disposeBag)
+        }
     }
     
     private func bindHeader() {
@@ -235,7 +261,6 @@ final class RecipeViewController: UIViewController {
     }
     
     private func bindRecipe() {
-        // TODO: 현재 재료 불러와서 레시피 추천?
         recipeRepository.request(
             recommendRecipe: NetworkRecipe.recommendRecipe(
                 ingredients: ["토마토", "연어", "오이"]
