@@ -24,6 +24,9 @@ protocol SignRepositoryProtocol {
     
     func request(withdrawUser: NetworkSign)
     -> Observable<CommonResponse>
+    
+    func request(userNickName: NetworkSign)
+    -> Observable<CommonResponse>
 }
 
 struct SignRepository: SignRepositoryProtocol {
@@ -49,6 +52,11 @@ struct SignRepository: SignRepositoryProtocol {
     
     func request(withdrawUser: NetworkSign) -> Observable<CommonResponse> {
         let observable: Observable<CommonResponseDTO> = Network.requestJSON(target: withdrawUser)
+        return observable.map { $0.toDomain() }
+    }
+    
+    func request(userNickName: NetworkSign) -> Observable<CommonResponse> {
+        let observable: Observable<CommonResponseDTO> = Network.requestJSON(target: userNickName)
         return observable.map { $0.toDomain() }
     }
 }
