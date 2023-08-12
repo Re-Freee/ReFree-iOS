@@ -44,7 +44,22 @@ extension NetworkSign: Target {
     }
     
     var header: HTTPHeaders {
-        return [ "Content-Type": "application/json" ]
+        switch self {
+        case .userNickName:
+            guard
+                let token = try? KeyChain.shared.searchToken(kind: .accessToken)
+            else { return [] }
+            return [
+                "Content-Type": "application/json",
+                "Authorization" : token
+            ]
+        case .signIn(_, _), .signUp(_),
+                .findPassword(_, _), .modifyPassword(_, _, _),
+                .withDraw:
+            return [ "Content-Type": "application/json" ]
+        }
+        
+        
     }
     
     var path: String {
