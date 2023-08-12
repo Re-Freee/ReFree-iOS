@@ -118,16 +118,16 @@ extension UIView {
     
     private func halfWhiteAxialBackground() {
         let colors: [CGColor] = [
-            UIColor.clear.cgColor,
+            UIColor(white: 1.0, alpha: 0.0).cgColor,
             UIColor.white.cgColor
         ]
         
         setGradientLayer(
             type: .axial,
             colors: colors,
-            startPoint: CGPoint(x: 0.5, y: 0.0),
-            endPoint: CGPoint(x: 0.5, y: 1),
-            locations:  [0.4]
+            startPoint: CGPoint(x: 0.0, y: 0.0),
+            endPoint: CGPoint(x: 0.0, y: 1),
+            locations:  [0.0]
         )
     }
     
