@@ -117,6 +117,7 @@ class RefrigeratorViewController: UIViewController {
                     handler: { _ in
                         print("소비기한 빠른 순")
                         self.dropDownMenuButton.setTitle("소비기한 빠른 순", for: .normal)
+                        self.sortIngredientsByExpireDate(ascending: true)
                     }),
                 UIAction(
                     title: "소비기한 느린 순",
@@ -124,6 +125,7 @@ class RefrigeratorViewController: UIViewController {
                     handler: { _ in
                         print("소비기한 느린 순")
                         self.dropDownMenuButton.setTitle("소비기한 느린 순", for: .normal)
+                        self.sortIngredientsByExpireDate(ascending: false)
                     })
             ]
         }()
@@ -178,6 +180,20 @@ class RefrigeratorViewController: UIViewController {
     private func addDropDownMenu() {
         dropDownMenuButton.menu = menu
         dropDownMenuButton.showsMenuAsPrimaryAction = true
+    }
+    
+    private func sortIngredientsByExpireDate(ascending: Bool) {
+        ingredients.sort { (ingredient1, ingredient2) in
+            if let date1 = ingredient1.expireDate, let date2 = ingredient2.expireDate {
+                if ascending {
+                    return date1 < date2
+                } else {
+                    return date1 > date2
+                }
+            }
+            return true
+        }
+        collectionView.reloadData()
     }
 
     private func addPaddingToButton() {
