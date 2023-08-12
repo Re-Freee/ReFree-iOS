@@ -231,12 +231,7 @@ class SignUpViewController: UIViewController {
     }
     
     
-    @objc func TFdidChanged(_ sender: UITextField) {
-        print("텍스트 변경 감지")
-        if let text = sender.text {
-            print("text :", text)
-        }
-        
+    @objc func TFdidChanged(_ sender: UITextField) {    
         // 이메일 유효성 검사
         if sender == emailTextField {
             emailValidityCheckButton.isHidden = !isEmailValid(sender.text ?? "")

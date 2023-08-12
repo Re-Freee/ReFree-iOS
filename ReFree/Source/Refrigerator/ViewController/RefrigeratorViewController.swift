@@ -115,7 +115,6 @@ class RefrigeratorViewController: UIViewController {
                     title: "소비기한 빠른 순",
                     image: UIImage(systemName: ""),
                     handler: { _ in
-                        print("소비기한 빠른 순")
                         self.dropDownMenuButton.setTitle("소비기한 빠른 순", for: .normal)
                         self.sortIngredientsByExpireDate(ascending: true)
                     }),
@@ -123,7 +122,6 @@ class RefrigeratorViewController: UIViewController {
                     title: "소비기한 느린 순",
                     image: UIImage(systemName: ""),
                     handler: { _ in
-                        print("소비기한 느린 순")
                         self.dropDownMenuButton.setTitle("소비기한 느린 순", for: .normal)
                         self.sortIngredientsByExpireDate(ascending: false)
                     })
