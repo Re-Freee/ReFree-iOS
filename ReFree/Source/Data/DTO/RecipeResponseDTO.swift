@@ -52,20 +52,25 @@ struct RecipeResponseDTO: Decodable {
 }
 
 extension RecipeResponseDTO {
-    func toDomain() -> [Recipe] {
-        guard let data else { return [] }
-        return data.map { recipeDTO in
-            Recipe(
-                id: "\(recipeDTO.id)",
-                title: recipeDTO.name,
-                ingredients: recipeDTO.ingredient ?? "",
-                imageURL: recipeDTO.imageURL,
-                isHeart: recipeDTO.isHeart == 1 ? true : false,
-                manual: recipeDTO.manual?.map{
-                    $0.toDomain()
-                }
-            )
+    func toDomain() -> (commonResponse: CommonResponse, recipes: [Recipe]) {
+        guard let data else {
+            return (CommonResponse(code: "\(code)", message: message), [])
         }
+        return (
+            CommonResponse(code: "\(code)", message: message),
+            data.map { recipeDTO in
+                Recipe(
+                    id: "\(recipeDTO.id)",
+                    title: recipeDTO.name,
+                    ingredients: recipeDTO.ingredient ?? "",
+                    imageURL: recipeDTO.imageURL,
+                    isHeart: recipeDTO.isHeart == 1 ? true : false,
+                    manual: recipeDTO.manual?.map{
+                        $0.toDomain()
+                    }
+                )
+            }
+        )
     }
     
     func toDomainManual() -> [Manual] {

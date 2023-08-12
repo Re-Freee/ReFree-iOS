@@ -241,7 +241,8 @@ final class RecipeViewController: UIViewController {
                 ingredients: ["토마토", "연어", "오이"]
             )
         )
-        .subscribe(onNext: { [weak self] recipes in
+        .subscribe(onNext: { [weak self] (commonResponse, recipes) in
+            
             self?.recipes = recipes
             self?.carouselCollectionView.reloadData()
             self?.loadingCompletion()
@@ -252,7 +253,7 @@ final class RecipeViewController: UIViewController {
                 message: "\(error.localizedDescription)"
             )
         })
-        .disposed(by: disposeBag)
+        .disposed(by: disposeBag)  
     }
     
     private func openSidebar() {

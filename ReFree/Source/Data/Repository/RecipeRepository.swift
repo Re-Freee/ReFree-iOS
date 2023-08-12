@@ -9,20 +9,25 @@ import Foundation
 import RxSwift
 
 protocol RecipeRepositoryProtocol {
-    func request(recommendRecipe: NetworkRecipe) -> Observable<[Recipe]>
-    func request(searchRecipe: NetworkRecipe) -> Observable<[Recipe]>
+    func request(recommendRecipe: NetworkRecipe)
+    -> Observable<(commonResponse: CommonResponse, recipes: [Recipe])>
+    func request(searchRecipe: NetworkRecipe)
+    -> Observable<(commonResponse: CommonResponse, recipes: [Recipe])>
     func request(bookMark: NetworkRecipe) -> Observable<CommonResponse>
     func request(detailRecipe: NetworkRecipe) -> Observable<[Manual]>
-    func request(savedRecipe: NetworkRecipe) -> Observable<[Recipe]>
+    func request(savedRecipe: NetworkRecipe)
+    -> Observable<(commonResponse: CommonResponse, recipes: [Recipe])>
 }
 
 struct RecipeRepository: RecipeRepositoryProtocol {
-    func request(recommendRecipe: NetworkRecipe) -> Observable<[Recipe]> {
+    func request(recommendRecipe: NetworkRecipe)
+    -> Observable<(commonResponse: CommonResponse, recipes: [Recipe])> {
         let observable: Observable<RecipeResponseDTO> = Network.requestJSON(target: recommendRecipe)
         return observable.map { $0.toDomain() }
     }
     
-    func request(searchRecipe: NetworkRecipe) -> Observable<[Recipe]> {
+    func request(searchRecipe: NetworkRecipe)
+    -> Observable<(commonResponse: CommonResponse, recipes: [Recipe])> {
         let observable: Observable<RecipeResponseDTO> = Network.requestJSON(target: searchRecipe)
         return observable.map { $0.toDomain() }
     }
@@ -37,7 +42,8 @@ struct RecipeRepository: RecipeRepositoryProtocol {
         return observable.map { $0.toDomainManual() }
     }
     
-    func request(savedRecipe: NetworkRecipe) -> Observable<[Recipe]> {
+    func request(savedRecipe: NetworkRecipe)
+    -> Observable<(commonResponse: CommonResponse, recipes: [Recipe])> {
         let observable: Observable<RecipeResponseDTO> = Network.requestJSON(target: savedRecipe)
         return observable.map { $0.toDomain() }
     }

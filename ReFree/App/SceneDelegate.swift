@@ -10,6 +10,7 @@ import SnapKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+    var globalNavigation: UINavigationController?
     
     func scene(
         _ scene: UIScene,
@@ -20,6 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         let navigation = UINavigationController(rootViewController: AppInitViewController())
+        globalNavigation = navigation
         if let _ = try? KeyChain.shared.searchToken(kind: .accessToken) {
             navigation.pushViewController(HomeTabViewController(), animated: false)
         }
@@ -72,6 +74,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+    }
+    
+    func popToRootViewController() {
+        guard let globalNavigation else { return }
+        globalNavigation.popToRootViewController(animated: true)
+        guard let initViewController = globalNavigation.topViewController else { return }
+        Alert.checkAlert(
+            viewController: initViewController,
+            title: "알림",
+            message: "로그인이 만료되었습니다.\n다시 로그인해 주세요."
+        )
     }
 }
 
