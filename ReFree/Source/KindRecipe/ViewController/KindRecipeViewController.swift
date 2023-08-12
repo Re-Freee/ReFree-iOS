@@ -172,7 +172,7 @@ final class KindRecipeViewController: UIViewController {
         let isSearch = !(searchBar.textField.text ?? "").isEmpty
         if kind == TitleKind.saved {
             recipeRepository.request(savedRecipe: .savedRecipe)
-                .subscribe(onNext: { [weak self] recipes in
+                .subscribe(onNext: { [weak self] (commonResponse, recipes) in
                     guard let self else { return }
                     self.recipes += recipes
                     self.collectionView.reloadData()
@@ -191,7 +191,7 @@ final class KindRecipeViewController: UIViewController {
                         ]
                     )
                 )
-                .subscribe(onNext: { [weak self] recipes in
+                .subscribe(onNext: { [weak self] (commonResponse, recipes) in
                     guard let self else { return }
                     self.recipes += recipes
                     self.collectionView.reloadData()
@@ -205,7 +205,7 @@ final class KindRecipeViewController: UIViewController {
                         query: [.init("type", kind.searchQueryValue), .init("offset", page)]
                     )
                 )
-                .subscribe(onNext: { [weak self] recipes in
+                .subscribe(onNext: { [weak self] (commonResponse, recipes) in
                     guard let self else { return }
                     self.recipes += recipes
                     self.collectionView.reloadData()

@@ -1,14 +1,13 @@
 //
-//  UIView+ResponseCheck.swift
+//  UIViewController+ResponseCheck.swift
 //  ReFree
 //
-//  Created by 이주훈 on 2023/08/11.
+//  Created by 이주훈 on 2023/08/12.
 //
 
 import UIKit
 
-// UIView의 로직을 UIVIewController로 리팩토링 시 삭제 예정
-extension UIView {
+extension UIViewController {
     func responseCheck(response: CommonResponse) {
         switch response.code {
         case "200": break
@@ -19,8 +18,9 @@ extension UIView {
     
     private func loginExpired() {
         guard
-            let sceneDelegate = self.window?.windowScene?.delegate as? SceneDelegate
+            let sceneDelegate = view.window?.windowScene?.delegate as? SceneDelegate
         else { return }
         sceneDelegate.popToRootViewController()
     }
 }
+
