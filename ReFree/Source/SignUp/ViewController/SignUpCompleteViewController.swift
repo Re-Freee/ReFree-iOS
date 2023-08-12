@@ -106,8 +106,7 @@ class SignUpCompleteViewController: UIViewController {
     private func bind() {
         continueButton.rx.tap
             .bind { [weak self] in
-                let signInVC = LogInViewController()
-                self?.navigationController?.pushViewController(signInVC, animated: true)
+                self?.navigationController?.popToRootAndPushLoginViewController()
             }
             .disposed(by: disposeBag)
     }

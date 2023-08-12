@@ -205,17 +205,17 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func passwordFindButtonTapped() {
-        let tabBarController = EmailSearchViewController()
+        let emailSearchVC = EmailSearchViewController()
         navigationController?.pushViewController(
-            tabBarController,
+            emailSearchVC,
             animated: true
         )
     }
     
     @objc func joinMembershipButtonTapped() {
-        let tabBarController = SignUpViewController()
+        let signUpVC = SignUpViewController()
         navigationController?.pushViewController(
-            tabBarController,
+            signUpVC,
             animated: true
         )
     }

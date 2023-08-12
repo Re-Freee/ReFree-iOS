@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
 
 class EmailSearchViewController: UIViewController, UITextFieldDelegate {
     private let header = PasswordFindTabHeader(frame: .zero)
@@ -59,7 +60,10 @@ class EmailSearchViewController: UIViewController, UITextFieldDelegate {
     
     private let passwordFindEmailText = LogInTextField(message: "이메일", height: 40)
     
-    private let verificationCodeText = LogInTextField(message: "인증코드", isVerificationCode: true)
+    private let verificationCodeText = LogInTextField(
+        message: "인증코드",
+        isVerificationCode: true
+    )
     
     private let passwordFindButton = LogInButton(message: "Submit", height: 40)
     
@@ -69,6 +73,9 @@ class EmailSearchViewController: UIViewController, UITextFieldDelegate {
         $0.textColor = .refreeColor.main
     }
 
+    private let signRepository = SignRepository()
+    private var disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         config()
@@ -80,9 +87,21 @@ class EmailSearchViewController: UIViewController, UITextFieldDelegate {
         passwordFindEmailText.textField.delegate = self
         verificationCodeText.textField.delegate = self
         
-        passwordFindButton.button.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
-        passwordFindEmailText.textField.addTarget(self, action: #selector(passwordFindEmailTextFieldDidChange(_:)), for: .editingChanged)
-        verificationCodeText.textField.addTarget(self, action: #selector(verificationCodeTextFieldDidChange(_:)), for: .editingChanged)
+        passwordFindButton.button.addTarget(
+            self,
+            action: #selector(submitButtonTapped),
+            for: .touchUpInside
+        )
+        passwordFindEmailText.textField.addTarget(
+            self,
+            action: #selector(passwordFindEmailTextFieldDidChange(_:)),
+            for: .editingChanged
+        )
+        verificationCodeText.textField.addTarget(
+            self,
+            action: #selector(verificationCodeTextFieldDidChange(_:)),
+            for: .editingChanged
+        )
     }
     
     private func layout() {
@@ -161,11 +180,36 @@ class EmailSearchViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func submitButtonTapped() {
-        let tabBarController = PasswordChangeViewController()
-        navigationController?.pushViewController(
-            tabBarController,
-            animated: true
+        guard
+            let email = passwordFindEmailText.textField.text,
+            let certification = verificationCodeText.textField.text
+        else {
+            Alert.checkAlert(
+                viewController: self,
+                title: "알림!",
+                message: "Email과 인증코드를 입력해주세요!"
+            )
+            return
+        }
+        
+        signRepository.request(
+            findPassword: .findPassword(
+                email: email,
+                certification: certification
+            )
         )
+        .subscribe(onNext: { [weak self] commonResponse in
+            self?.responseCheck(response: commonResponse)
+            
+            let passwordChangeVC = PasswordChangeViewController(email: email)
+            self?.navigationController?.pushViewController(
+                passwordChangeVC,
+                animated: true
+            )
+        }, onError: { error in
+            Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
+        })
+        .disposed(by: disposeBag)
     }
     
     @objc private func passwordFindEmailTextFieldDidChange(_ textField: UITextField) {

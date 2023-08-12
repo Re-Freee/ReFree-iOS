@@ -12,9 +12,7 @@ import RxSwift
 
 class PasswordChangeViewController: UIViewController, UITextFieldDelegate {
     private let header = PasswordFindTabHeader(frame: .zero)
-    
     private let stackViewBackground = LogInStackViewBackground(height: 340)
-    
     private let newPasswordStackView = UIStackView().then {
         $0.spacing = 30
         $0.axis = .vertical
@@ -58,17 +56,42 @@ class PasswordChangeViewController: UIViewController, UITextFieldDelegate {
         $0.isHidden = true
     }
     
-    private let newPasswordText = LogInTextField(message: "새로운 비밀번호 (8자 이상)", isPassword: true, height: 40)
+    private let newPasswordText = LogInTextField(
+        message: "새로운 비밀번호 (8자 이상)",
+        isPassword: true,
+        height: 40
+    )
     
-    private let confirmNewPasswordText = LogInTextField(message: "비밀번호 확인", isPassword: true, height: 40)
+    private let confirmNewPasswordText = LogInTextField(
+        message: "비밀번호 확인",
+        isPassword: true,
+        height: 40
+    )
     
-    private let newPasswordSettingButton = LogInButton(message: "Continue", height: 40)
+    private let newPasswordSettingButton = LogInButton(
+        message: "Continue",
+        height: 40
+    )
     
     private let passwordFindLabel = UILabel().then {
         $0.text = "새로운 비밀번호"
         $0.font = .pretendard.extraBold30
         $0.textColor = .refreeColor.main
     }
+    
+    private let email: String
+    
+    init(email: String) {
+        self.email = email
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private let signRepository = SignRepository()
+    private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -216,11 +239,24 @@ class PasswordChangeViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func newPasswordSettingButtonTapped() {
-        // TODO: 서버에 새롭게 설정한 비밀번호 전달
-        let tabBarController = LogInViewController()
-        navigationController?.pushViewController(
-            tabBarController,
-            animated: true
+        signRepository.request(
+            modifyPassword: .modifyPassword(
+                email: self.email,
+                password: newPasswordText.text,
+                checkPassword: confirmNewPasswordText.text
+            )
         )
+        .subscribe(onNext: { [weak self] commonResponse in
+            self?.responseCheck(response: commonResponse)
+            
+            let completedVC = SignUpCompleteViewController()
+            self?.navigationController?.pushViewController(
+                completedVC,
+                animated: true
+            )
+        }, onError: { error in
+            Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
+        })
+        .disposed(by: disposeBag)
     }
 }

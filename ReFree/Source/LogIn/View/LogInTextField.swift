@@ -10,6 +10,10 @@ import SnapKit
 import Then
 
 final class LogInTextField: UIView {
+    var text: String {
+        textField.text ?? ""
+    }
+    
     public let textField = UITextField().then {
         $0.textColor = .refreeColor.text2
         $0.font = .pretendard.extraLight12
