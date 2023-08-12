@@ -52,6 +52,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
     private let disposeBag = DisposeBag()
+    private let userRepotiroy = UserRepository()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -175,11 +176,12 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         signRepository.request(signIn: .signIn(id: id, password: password))
             .subscribe(onNext: { [weak self] (response, token) in
-                guard let self else { return }
-                guard response.code == "200" else {
-                    Alert.erroAlert(viewController: self, errorMessage: response.message)
-                    return
-                }
+                guard
+                    let self,
+                    self.responseCheck(response: response)
+                else { return }
+                
+                self.userRepotiroy.deleteUserNickName()
                 do {
                     try KeyChain.shared.deleteToken(kind: .accessToken)
                     try KeyChain.shared.addToken(kind: .accessToken, token: token)
