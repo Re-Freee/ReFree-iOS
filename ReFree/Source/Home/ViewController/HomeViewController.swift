@@ -112,7 +112,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITextFieldDele
         foodButtonSelected()
         
         ingredientRepository.request(closerIngredients: .closerIngredients)
-            .subscribe(onNext: { [weak self] ingredients in
+            .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
                 guard let self else { return }
                 self.ingredients = ingredients
                 self.foodTableView.reloadData()
@@ -129,7 +129,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITextFieldDele
         foodButtonSelected()
         
         ingredientRepository.request(endIngredients: .endIngredients)
-            .subscribe(onNext: { [weak self] ingredients in
+            .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
                 guard let self else { return }
                 self.ingredients = ingredients
                 self.foodTableView.reloadData()

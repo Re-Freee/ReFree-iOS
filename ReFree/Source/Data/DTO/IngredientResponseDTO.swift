@@ -37,28 +37,35 @@ struct IngredientResponseDTO: Decodable {
         }
     }
     
-    func toDomain() -> [Ingredient] {
-        return data?.map {
-            var savedMethod: String = ""
-            switch $0.savedMethod {
-            case 0: savedMethod = "실온"
-            case 1: savedMethod = "냉장"
-            case 2: savedMethod = "냉동"
-            case 3: savedMethod = "기타"
-            default: savedMethod = "기타"
+    func toDomain() -> (commonResponse: CommonResponse, ingredients: [Ingredient]) {
+        guard let data else {
+            return (CommonResponse(code: "\(code)", message: message), [])
+        }
+        
+        return (
+            CommonResponse(code: "\(code)", message: message),
+            data.map {
+                var savedMethod: String = ""
+                switch $0.savedMethod {
+                case 0: savedMethod = "실온"
+                case 1: savedMethod = "냉장"
+                case 2: savedMethod = "냉동"
+                case 3: savedMethod = "기타"
+                default: savedMethod = "기타"
+                }
+                
+                let extractedExpr = Ingredient(
+                    ingredientId: "\($0.ingredientId)",
+                    imageURL: $0.imageURL,
+                    saveMethod: savedMethod,
+                    title: $0.name,
+                    category: $0.category,
+                    expireDate: $0.period,
+                    count: $0.count,
+                    memo: $0.memo ?? ""
+                )
+                return extractedExpr
             }
-            
-            let extractedExpr = Ingredient(
-                ingredientId: "\($0.ingredientId)",
-                imageURL: $0.imageURL,
-                saveMethod: savedMethod,
-                title: $0.name,
-                category: $0.category,
-                expireDate: $0.period,
-                count: $0.count,
-                memo: $0.memo ?? ""
-            )
-            return extractedExpr
-        } as! [Ingredient]
+        )
     }
 }

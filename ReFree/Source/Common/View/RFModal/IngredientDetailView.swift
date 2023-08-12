@@ -133,7 +133,7 @@ final class IngredientDetailView: UIView {
         
         guard let id = ingredient.ingredientId else { return }
         ingredientRepository.request(detailIngredient: .detailIngredient(ingredientId: id))
-            .subscribe(onNext: { [weak self] ingredients in
+            .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
                 guard
                     let self,
                     let ingredient = ingredients.first
