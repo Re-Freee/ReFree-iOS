@@ -41,14 +41,22 @@ final class RefrigeratorListCell: UICollectionViewCell, Identifiable {
         $0.font = .pretendard.extraLight12
     }
     
+    private let gradientView = UIView().then {
+        $0.backgroundColor = .clear
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        gradientBackground(type: .halfWhiteAxial)
         layout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        gradientView.gradientBackground(type: .halfWhiteAxial)
     }
     
     private func layout() {
@@ -58,7 +66,8 @@ final class RefrigeratorListCell: UICollectionViewCell, Identifiable {
         addSubviews([
             stackView,
             titleLabel,
-            expirationDateLabel
+            expirationDateLabel,
+            gradientView
         ])
         
         stackView.addArrangedSubviews([
@@ -91,12 +100,11 @@ final class RefrigeratorListCell: UICollectionViewCell, Identifiable {
             $0.leading.equalToSuperview().inset(14)
         }
         
-        //        let gradientLayer = CAGradientLayer()
-        //            gradientLayer.colors = [UIColor.white.cgColor, UIColor.clear.cgColor]
-        //            gradientLayer.locations = [0.0, 1.0]
-        //            gradientLayer.frame = gradientWhiteView.bounds
-        //
-        //        gradientWhiteView.layer.addSublayer(gradientLayer)
+        gradientView.snp.makeConstraints {
+            $0.top.equalTo(gradientWhiteView.snp.top).offset(-40)
+            $0.leading.trailing.equalTo(gradientWhiteView)
+            $0.bottom.equalTo(titleLabel.snp.top)
+        }
     }
     
     func configCell(ingredient: Ingredient) {
