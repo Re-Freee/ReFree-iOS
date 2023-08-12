@@ -73,13 +73,19 @@ extension RecipeResponseDTO {
         )
     }
     
-    func toDomainManual() -> [Manual] {
-        guard let manualData = data?.first?.manual else { return [] }
-        return manualData.map{ manualDTO in
-            Manual(
-                describe: manualDTO.describe,
-                imageURL: manualDTO.manualImageURL
-            )
-        }
+    func toDomainManual() -> (commonResponse: CommonResponse, manuals: [Manual]) {
+        guard
+            let manualData = data?.first?.manual
+        else { return (CommonResponse(code: "\(code)", message: message), []) }
+        
+        return (
+            CommonResponse(code: "\(code)", message: message),
+            manualData.map{ manualDTO in
+               Manual(
+                   describe: manualDTO.describe,
+                   imageURL: manualDTO.manualImageURL
+               )
+           }
+        )
     }
 }

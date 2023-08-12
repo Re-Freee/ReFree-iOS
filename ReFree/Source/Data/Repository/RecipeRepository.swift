@@ -11,10 +11,16 @@ import RxSwift
 protocol RecipeRepositoryProtocol {
     func request(recommendRecipe: NetworkRecipe)
     -> Observable<(commonResponse: CommonResponse, recipes: [Recipe])>
+    
     func request(searchRecipe: NetworkRecipe)
     -> Observable<(commonResponse: CommonResponse, recipes: [Recipe])>
-    func request(bookMark: NetworkRecipe) -> Observable<CommonResponse>
-    func request(detailRecipe: NetworkRecipe) -> Observable<[Manual]>
+    
+    func request(bookMark: NetworkRecipe)
+    -> Observable<CommonResponse>
+    
+    func request(detailRecipe: NetworkRecipe)
+    -> Observable<(commonResponse: CommonResponse, manuals: [Manual])>
+    
     func request(savedRecipe: NetworkRecipe)
     -> Observable<(commonResponse: CommonResponse, recipes: [Recipe])>
 }
@@ -37,7 +43,8 @@ struct RecipeRepository: RecipeRepositoryProtocol {
         return observable.map { $0.toDomain() }
     }
     
-    func request(detailRecipe: NetworkRecipe) -> Observable<[Manual]> {
+    func request(detailRecipe: NetworkRecipe)
+    -> Observable<(commonResponse: CommonResponse, manuals: [Manual])> {
         let observable: Observable<RecipeResponseDTO> = Network.requestJSON(target: detailRecipe)
         return observable.map { $0.toDomainManual() }
     }
