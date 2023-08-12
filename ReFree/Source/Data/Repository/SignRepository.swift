@@ -10,11 +10,20 @@ import RxSwift
 
 
 protocol SignRepositoryProtocol {
-    func request(signIn: NetworkSign) -> Observable<(response: CommonResponse, token: String)>
-    func request(signUp: NetworkSign) -> Observable<(response: CommonResponse, backupCode: String)>
-    func request(findPassword: NetworkSign) -> Observable<CommonResponse>
-    func request(modifyPassword: NetworkSign) -> Observable<CommonResponse>
-    func request(withdrawUser: NetworkSign) -> Observable<CommonResponse>
+    func request(signIn: NetworkSign)
+    -> Observable<(response: CommonResponse, token: String)>
+    
+    func request(signUp: NetworkSign)
+    -> Observable<(response: CommonResponse, backupCode: String)>
+    
+    func request(findPassword: NetworkSign)
+    -> Observable<CommonResponse>
+    
+    func request(modifyPassword: NetworkSign)
+    -> Observable<CommonResponse>
+    
+    func request(withdrawUser: NetworkSign)
+    -> Observable<CommonResponse>
 }
 
 struct SignRepository: SignRepositoryProtocol {
