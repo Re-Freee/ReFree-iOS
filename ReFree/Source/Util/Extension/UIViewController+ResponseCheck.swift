@@ -8,11 +8,11 @@
 import UIKit
 
 extension UIViewController {
-    func responseCheck(response: CommonResponse) {
+    func responseCheck(response: CommonResponse) -> Bool {
         switch response.code {
-        case "200": break
-        case "401": loginExpired()
-        default: break // TODO: 나머지 핸들링
+        case "200": return true
+        case "401": loginExpired(); return false
+        default: return false // TODO: 나머지 핸들링 + Error Alert
         }
     }
     

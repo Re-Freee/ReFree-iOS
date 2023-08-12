@@ -275,9 +275,12 @@ class RefrigeratorViewController: UIViewController {
         changeSelectedButtonLayout(saveKind: .whole)
         ingredientRepo.request(searchIngredients: .searchIngredients())
             .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
-                self?.responseCheck(response: commonResponse)
-                self?.ingredients = ingredients
-                self?.collectionView.reloadData()
+                guard
+                    let self,
+                    self.responseCheck(response: commonResponse)
+                else { return }
+                self.ingredients = ingredients
+                self.collectionView.reloadData()
             }, onError: { error in
                 Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
             })
@@ -299,9 +302,12 @@ class RefrigeratorViewController: UIViewController {
                         )
                     )
                     .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
-                        self?.responseCheck(response: commonResponse)
-                        self?.ingredients = ingredients
-                        self?.collectionView.reloadData()
+                        guard
+                            let self,
+                            self.responseCheck(response: commonResponse)
+                        else { return }
+                        self.ingredients = ingredients
+                        self.collectionView.reloadData()
                     }, onError: { error in
                         Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
                     })
@@ -346,9 +352,12 @@ class RefrigeratorViewController: UIViewController {
         currentKind = .whole
         ingredientRepo.request(searchIngredients: .searchIngredients())
             .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
-                self?.responseCheck(response: commonResponse)
-                self?.ingredients = ingredients
-                self?.collectionView.reloadData()
+                guard
+                    let self,
+                    self.responseCheck(response: commonResponse)
+                else { return }
+                self.ingredients = ingredients
+                self.collectionView.reloadData()
             }, onError: { error in
                 Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
             })
@@ -360,9 +369,12 @@ class RefrigeratorViewController: UIViewController {
         currentKind = .refrigerd
         ingredientRepo.request(searchIngredients: .searchIngredients(options: .refrigerd))
             .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
-                self?.responseCheck(response: commonResponse)
-                self?.ingredients = ingredients
-                self?.collectionView.reloadData()
+                guard
+                    let self,
+                    self.responseCheck(response: commonResponse)
+                else { return }
+                self.ingredients = ingredients
+                self.collectionView.reloadData()
             }, onError: { error in
                 Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
             })
@@ -374,9 +386,12 @@ class RefrigeratorViewController: UIViewController {
         currentKind = .frozen
         ingredientRepo.request(searchIngredients: .searchIngredients(options: .frozen))
             .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
-                self?.responseCheck(response: commonResponse)
-                self?.ingredients = ingredients
-                self?.collectionView.reloadData()
+                guard
+                    let self,
+                    self.responseCheck(response: commonResponse)
+                else { return }
+                self.ingredients = ingredients
+                self.collectionView.reloadData()
             }, onError: { error in
                 Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
             })
@@ -388,9 +403,12 @@ class RefrigeratorViewController: UIViewController {
         currentKind = .outdoor
         ingredientRepo.request(searchIngredients: .searchIngredients(options: .outdoor))
             .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
-                self?.responseCheck(response: commonResponse)
-                self?.ingredients = ingredients
-                self?.collectionView.reloadData()
+                guard
+                    let self,
+                    self.responseCheck(response: commonResponse)
+                else { return }
+                self.ingredients = ingredients
+                self.collectionView.reloadData()
             }, onError: { error in
                 Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
             })
