@@ -91,6 +91,7 @@
 		6AC1A0472A88E8F9004652B0 /* ExtendInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC1A0462A88E8F9004652B0 /* ExtendInfoView.swift */; };
 		6AC1A0492A88FB51004652B0 /* UIViewController+addsubViewToWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC1A0482A88FB51004652B0 /* UIViewController+addsubViewToWindow.swift */; };
 		6AC1A04B2A88FC75004652B0 /* UIView+addSubviewToWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC1A04A2A88FC75004652B0 /* UIView+addSubviewToWindow.swift */; };
+		6AC1A04D2A8922F3004652B0 /* UIView+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC1A04C2A8922F3004652B0 /* UIView+Image.swift */; };
 		6AC48A8E2A73C902009F647B /* RecipeResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC48A8D2A73C902009F647B /* RecipeResponseDTO.swift */; };
 		6AC48A922A73CB5C009F647B /* NetworkRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC48A912A73CB5C009F647B /* NetworkRecipe.swift */; };
 		6AC48A942A73D07B009F647B /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC48A932A73D07B009F647B /* NetworkError.swift */; };
@@ -201,6 +202,7 @@
 		6AC1A0462A88E8F9004652B0 /* ExtendInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendInfoView.swift; sourceTree = "<group>"; };
 		6AC1A0482A88FB51004652B0 /* UIViewController+addsubViewToWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+addsubViewToWindow.swift"; sourceTree = "<group>"; };
 		6AC1A04A2A88FC75004652B0 /* UIView+addSubviewToWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+addSubviewToWindow.swift"; sourceTree = "<group>"; };
+		6AC1A04C2A8922F3004652B0 /* UIView+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Image.swift"; sourceTree = "<group>"; };
 		6AC48A8D2A73C902009F647B /* RecipeResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeResponseDTO.swift; sourceTree = "<group>"; };
 		6AC48A912A73CB5C009F647B /* NetworkRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRecipe.swift; sourceTree = "<group>"; };
 		6AC48A932A73D07B009F647B /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -403,6 +405,7 @@
 				6AE5A9A12A87D02E005FBC47 /* UINavigationController+Init.swift */,
 				6AC1A0482A88FB51004652B0 /* UIViewController+addsubViewToWindow.swift */,
 				6AC1A04A2A88FC75004652B0 /* UIView+addSubviewToWindow.swift */,
+				6AC1A04C2A8922F3004652B0 /* UIView+Image.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -830,6 +833,7 @@
 				6AE16DC12A7114C3008D0C3C /* Recipe.swift in Sources */,
 				2E35BAE82A6C0F3700D3C74C /* RefrigeratorTabHeader.swift in Sources */,
 				6AD7E3972A506C08007338DB /* AppDelegate.swift in Sources */,
+				6AC1A04D2A8922F3004652B0 /* UIView+Image.swift in Sources */,
 				6A4ED1D82A5D237C00299B61 /* RFSearchBar.swift in Sources */,
 				6AE5A9A82A880984005FBC47 /* UserRepository.swift in Sources */,
 				6AFE1B652A7A3BAB0049D523 /* AppInitViewController.swift in Sources */,
