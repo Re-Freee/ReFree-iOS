@@ -75,7 +75,7 @@ class AuthenticationCodeViewController: UIViewController {
     
     private let captureButton = UIButton().then {
         $0.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
-        $0.setTitle("Capture", for: .normal)
+        $0.setTitle("Save Image", for: .normal)
         $0.backgroundColor = UIColor.refreeColor.main
         $0.titleLabel?.font = .pretendard.bold15
         $0.layer.cornerRadius = 13
@@ -225,7 +225,7 @@ class AuthenticationCodeViewController: UIViewController {
                 UIPasteboard.general.string = backupCode
                 Alert.checkAlert(
                     viewController: self,
-                    title: "알림!",
+                    title: "복사완료",
                     message: "인증코드를 클립보드에 복사했습니다."
                 )
             })
@@ -233,7 +233,23 @@ class AuthenticationCodeViewController: UIViewController {
         
         captureButton.rx.tap
             .bind(onNext: { [weak self] in
-                //
+                guard let self else { return}
+                guard
+                    let image = self.authenticationContainerView.transfromToImage()
+                else {
+                    Alert.errorAlert(
+                        viewController: self,
+                        errorMessage: "이미지 저장에 실패했습니다."
+                    )
+                    return
+                }
+                
+                let activityVC = UIActivityViewController(
+                    activityItems: [image],
+                    applicationActivities: nil
+                )
+                activityVC.excludedActivityTypes = [.saveToCameraRoll]
+                self.present(activityVC, animated: true)
             })
             .disposed(by: disposeBag)
         
