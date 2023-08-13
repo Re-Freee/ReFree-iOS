@@ -18,7 +18,7 @@ final class ExtendManualInfoView: UIView {
     }
     
     private let infoBox = UIView().then {
-        $0.backgroundColor = .refreeColor.background4
+        $0.backgroundColor = .refreeColor.background3
         $0.layer.cornerRadius = 15
     }
     

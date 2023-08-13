@@ -14,7 +14,7 @@ extension UIViewController {
         case "200": return true
         case "401": loginExpired(); return false
         default:
-            Alert.erroAlert(viewController: self, errorMessage: response.message)
+            Alert.errorAlert(viewController: self, errorMessage: response.message)
             return false
         }
     }

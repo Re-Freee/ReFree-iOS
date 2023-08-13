@@ -210,7 +210,7 @@ class EmailSearchViewController: UIViewController, UITextFieldDelegate {
                 animated: true
             )
         }, onError: { error in
-            Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
+            Alert.errorAlert(viewController: self, errorMessage: error.localizedDescription)
         })
         .disposed(by: disposeBag)
     }

@@ -658,7 +658,7 @@ class SignUpViewController: UIViewController {
             let checkPassword = confirmPasswordTextField.text,
             let nickName = nicknameTextField.text
         else {
-            Alert.erroAlert(viewController: self, errorMessage: "채워주세요.")
+            Alert.errorAlert(viewController: self, errorMessage: "채워주세요.")
             return
         }
         
@@ -675,7 +675,7 @@ class SignUpViewController: UIViewController {
         .subscribe(onNext: { [weak self] (response, backupCode) in
             guard let self else { return }
             guard response.code == "201" else {
-                Alert.erroAlert(viewController: self, errorMessage: response.message)
+                Alert.errorAlert(viewController: self, errorMessage: response.message)
                 return
             }
             
@@ -683,7 +683,7 @@ class SignUpViewController: UIViewController {
             AuthenticationCodeVC.codeLabel.text = backupCode
             self.navigationController?.pushViewController(AuthenticationCodeVC, animated: true)
         }, onError: { error in
-            Alert.erroAlert(
+            Alert.errorAlert(
                 viewController: self,
                 errorMessage: error.localizedDescription
             )

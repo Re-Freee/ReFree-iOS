@@ -18,10 +18,10 @@ enum Alert {
             description: message,
             alertType: .check
         )
-        viewController.view.addSubview(alert)
+        viewController.addsubViewToWindow(view: alert)
     }
     
-    static func erroAlert(
+    static func errorAlert(
         viewController: UIViewController,
         errorMessage: String
     ) {
@@ -30,6 +30,31 @@ enum Alert {
             description: errorMessage,
             alertType: .check
         )
-        viewController.view.addSubview(alert)
+        viewController.addsubViewToWindow(view: alert)
+    }
+    
+    static func checkAlert(
+        targetView: UIView,
+        title: String,
+        message: String
+    ) {
+        let alert = AlertView(
+            title: title,
+            description: message,
+            alertType: .check
+        )
+        targetView.addsubViewToWindow(view: alert)
+    }
+    
+    static func errorAlert(
+        targetView: UIView,
+        errorMessage: String
+    ) {
+        let alert = AlertView(
+            title: "오류!",
+            description: errorMessage,
+            alertType: .check
+        )
+        targetView.addsubViewToWindow(view: alert)
     }
 }

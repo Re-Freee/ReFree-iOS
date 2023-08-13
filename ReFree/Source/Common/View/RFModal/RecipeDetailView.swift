@@ -182,8 +182,9 @@ extension RecipeDetailView: UICollectionViewDataSource {
         recipeRepository.request(bookMark: .bookMark(recipeID: id))
             .subscribe(onNext: { response in
                 complete()
-            }, onError: { error in
-                //
+            }, onError: { [weak self] error in
+                guard let self else { return }
+                Alert.errorAlert(targetView: self, errorMessage: error.localizedDescription)
             })
             .disposed(by: self.disposeBag)
     }
@@ -194,16 +195,7 @@ extension RecipeDetailView: UICollectionViewDelegateFlowLayout {
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
-        guard
-            let sceneDelegate = window?.windowScene?.delegate as? SceneDelegate,
-            let window = sceneDelegate.window
-        else {
-            return
-        }
         let extendView = ExtendManualInfoView(manual: manual[indexPath.row])
-        let windowFrame = window.frame
-        extendView.frame = windowFrame
-        extendView.layer.zPosition = 1
-        window.addSubview(extendView)
+        self.addsubViewToWindow(view: extendView)
     }
 }

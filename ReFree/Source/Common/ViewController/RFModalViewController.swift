@@ -49,7 +49,7 @@ final class RFModalViewController: UIViewController {
             let view = IngredientDetailView(ingredient: ingredient)
             view.errorSubject.subscribe(onNext: { [weak self] errorDiscription in
                 guard let self else { return }
-                Alert.erroAlert(viewController: self, errorMessage: errorDiscription)
+                Alert.errorAlert(viewController: self, errorMessage: errorDiscription)
             })
             .disposed(by: disposeBag)
             view.alertSubject.subscribe(onNext: { [weak self] alertMessage in
@@ -72,7 +72,7 @@ final class RFModalViewController: UIViewController {
             let view = RecipeDetailView(recipe: recipe)
             view.errorSubject.subscribe(onNext: { [weak self] errorDiscription in
                 guard let self else { return }
-                Alert.erroAlert(viewController: self, errorMessage: errorDiscription)
+                Alert.errorAlert(viewController: self, errorMessage: errorDiscription)
             })
             .disposed(by: disposeBag)
             contentView = view

@@ -122,7 +122,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITextFieldDele
                 if !ingredients.isEmpty { self.ingredientExists() }
                 else { self.ingredientNotExists() }
             }, onError: { error in
-                Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
+                Alert.errorAlert(viewController: self, errorMessage: error.localizedDescription)
             })
             .disposed(by: disposeBag)
     }
@@ -142,7 +142,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITextFieldDele
                 if !ingredients.isEmpty { self.ingredientExists() }
                 else { self.ingredientNotExists() }
             }, onError: { error in
-                Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
+                Alert.errorAlert(viewController: self, errorMessage: error.localizedDescription)
             })
             .disposed(by: disposeBag)
     }
