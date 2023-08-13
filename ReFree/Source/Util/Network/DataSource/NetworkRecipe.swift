@@ -8,7 +8,7 @@
 import Foundation
 
 enum NetworkRecipe {
-    case recommendRecipe(ingredients: [String])
+    case recommendRecipe
     case searchRecipe(query: [RequestQuery]) // type=밥&title=샐러드,offset=0
     case bookMark(recipeID: String) // String은 레시피 ID
     case detailRecipe(recipeID: String) // String은 레시피 ID
@@ -22,12 +22,6 @@ extension NetworkRecipe: Target {
     
     var url: URLConvertible {
         switch self {
-        case .recommendRecipe(let ingredients):
-            let ingredientString = ingredients.joined(separator: ",")
-            return setQuery(
-                url: "\(baseURL)\(path)",
-                query: [RequestQuery("ingredients", ingredientString)]
-            ).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         case .searchRecipe(let query):
             return setQuery(
                 url: "\(baseURL)\(path)",
@@ -35,7 +29,7 @@ extension NetworkRecipe: Target {
             ).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         case .bookMark(let recipeID), .detailRecipe(let recipeID):
             return "\(baseURL)\(path)/\(recipeID)"
-        case .savedRecipe:
+        case .recommendRecipe, .savedRecipe:
             return "\(baseURL)\(path)"
         }
     }
