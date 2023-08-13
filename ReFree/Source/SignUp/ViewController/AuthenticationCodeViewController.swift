@@ -210,6 +210,33 @@ class AuthenticationCodeViewController: UIViewController {
     }
     
     private func bind() {
+        copyButton.rx.tap
+            .bind(onNext: { [weak self] in
+                guard let self else { return }
+                guard
+                    let backupCode = self.codeLabel.text
+                else {
+                    Alert.errorAlert(
+                        viewController: self,
+                        errorMessage: "복사에 실패했습니다."
+                    )
+                    return
+                }
+                UIPasteboard.general.string = backupCode
+                Alert.checkAlert(
+                    viewController: self,
+                    title: "알림!",
+                    message: "인증코드를 클립보드에 복사했습니다."
+                )
+            })
+            .disposed(by: disposeBag)
+        
+        captureButton.rx.tap
+            .bind(onNext: { [weak self] in
+                //
+            })
+            .disposed(by: disposeBag)
+        
         continueButton.rx.tap
             .bind(onNext: { [weak self] _ in
                 let signUpCompleteVC = SignUpCompleteViewController()
