@@ -100,9 +100,9 @@ final class ExtendManualInfoView: UIView {
         }
         
         infoBox.snp.makeConstraints {
-            $0.width.equalToSuperview().multipliedBy(0.8)
+            $0.width.equalToSuperview().multipliedBy(0.9)
             $0.center.equalToSuperview()
-            $0.width.height.lessThanOrEqualToSuperview().multipliedBy(0.8)
+            $0.width.height.lessThanOrEqualToSuperview().multipliedBy(0.9)
         }
         
         infoBox.addSubviews([imageView, stack])

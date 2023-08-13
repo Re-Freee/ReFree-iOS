@@ -31,12 +31,13 @@ final class CarouselCell: UICollectionViewCell, Identifiable {
     
     private let materialLists = UILabel().then {
         $0.numberOfLines = 2
-        $0.text = "연어, 오이, 당근, 양상추, 발사믹 소스"
+        $0.text = ""
         $0.textColor = .refreeColor.text1
         $0.font = .pretendard.extraLight12
     }
     
     private let imageView = UIImageView(image: UIImage(named: "Rocket")).then {
+        $0.contentMode = .scaleAspectFit
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 15
     }
