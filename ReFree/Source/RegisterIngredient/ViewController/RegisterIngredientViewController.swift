@@ -137,9 +137,9 @@ final class RegisterIngredientViewController: UIViewController {
             .disposed(by: disposeBag)
         
         ingredientInfoView.nameTextField.rx.text.orEmpty
-            .skip(1)
             .distinctUntilChanged()
-            .debounce(.seconds(1), scheduler: MainScheduler.instance)
+            .skip(1)
+            .debounce(.milliseconds(500), scheduler: MainScheduler.instance)
             .map { $0 as String }
             .bind { [weak self] text in
                 guard let self else { return }

@@ -98,7 +98,7 @@ final class RecipeViewController: UIViewController {
         configNavigation()
         configCollectionView()
         layout()
-        configLoadingAnimation()
+        loadingStart()
         bind()
     }
     
@@ -169,7 +169,7 @@ final class RecipeViewController: UIViewController {
         carouselCollectionView.delegate = self
     }
     
-    private func configLoadingAnimation() {
+    private func loadingStart() {
         loadingView.isHidden = false
         searchBar.isHidden = true
         nameTitle.isHidden = true
@@ -177,11 +177,19 @@ final class RecipeViewController: UIViewController {
         pageControl.isHidden = true
     }
     
+    private func loadingCompletion() {
+        loadingView.isHidden = true
+        searchBar.isHidden = false
+        nameTitle.isHidden = false
+        carouselCollectionView.isHidden = false
+        pageControl.isHidden = false
+    }
+    
     private func bind() {
         bindUser()
         bindHeader()
         bindSidebar()
-        bindRecipe()
+        bindRecommendRecipe()
     }
     
     private func bindUser() {
@@ -260,7 +268,7 @@ final class RecipeViewController: UIViewController {
         }
     }
     
-    private func bindRecipe() {
+    private func bindRecommendRecipe() {
         recipeRepository.request(
             recommendRecipe: .recommendRecipe
         )
@@ -273,13 +281,19 @@ final class RecipeViewController: UIViewController {
             self.carouselCollectionView.reloadData()
             self.loadingCompletion()
         }, onError: { error in
-            Alert.checkAlert(
-                viewController: self,
-                title: "에러!",
-                message: "\(error.localizedDescription)"
-            )
+            Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
+            self.loadingCompletion()
         })
         .disposed(by: disposeBag)  
+    }
+    
+    private func bindSearch() {
+        searchBar.searchStart.rx.tap
+            .bind(onNext: { [weak self] in
+                guard let self else { return }
+                self.searchRecipe(text: self.searchBar.textField.text ?? "")
+            })
+            .disposed(by: disposeBag)
     }
     
     private func openSidebar() {
@@ -306,12 +320,33 @@ final class RecipeViewController: UIViewController {
         }
     }
     
-    private func loadingCompletion() {
-        loadingView.isHidden = true
-        searchBar.isHidden = false
-        nameTitle.isHidden = false
-        carouselCollectionView.isHidden = false
-        pageControl.isHidden = false
+    private func searchRecipe(text: String) {
+        loadingStart()
+        if text.isEmpty {
+            bindRecommendRecipe()
+        } else {
+            recipeRepository.request(
+                searchRecipe: .searchRecipe(
+                    query: [
+                        .init("title", text),
+                        .init("offset", 0)
+                    ]
+                )
+            )
+            .subscribe(onNext: { [weak self] (commonResponse, recipes) in
+                guard
+                    let self,
+                    self.responseCheck(response: commonResponse)
+                else { return }
+                self.recipes = recipes
+                self.carouselCollectionView.reloadData()
+                self.loadingCompletion()
+            }, onError: { error in
+                Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
+                self.loadingCompletion()
+            })
+            .disposed(by: disposeBag)
+        }
     }
 }
 
