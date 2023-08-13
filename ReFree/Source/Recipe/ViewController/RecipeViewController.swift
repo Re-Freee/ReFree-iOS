@@ -158,8 +158,17 @@ final class RecipeViewController: UIViewController {
             $0.leading.equalToSuperview().offset(-280)
             $0.width.equalTo(250)
         }
-        
-        if Constant.screenSize.width < 400 {
+        pageControlIsHiddenByScreenWidth(isHidden: true)
+    }
+    
+    private func pageControlIsHiddenByScreenWidth(isHidden: Bool) {
+        if isHidden {
+            if Constant.screenSize.width < 400 {
+                pageControl.layer.opacity = 0
+            } else {
+                pageControl.layer.opacity = 1
+            }
+        } else {
             pageControl.layer.opacity = 0
         }
     }
@@ -191,6 +200,7 @@ final class RecipeViewController: UIViewController {
         bindHeader()
         bindSidebar()
         bindRecommendRecipe()
+        bindSearch()
     }
     
     private func bindUser() {
@@ -345,8 +355,10 @@ final class RecipeViewController: UIViewController {
     private func searchRecipe(text: String) {
         loadingStart()
         if text.isEmpty {
+            pageControlIsHiddenByScreenWidth(isHidden: true)
             bindRecommendRecipe()
         } else {
+            pageControlIsHiddenByScreenWidth(isHidden: false)
             recipeRepository.request(
                 searchRecipe: .searchRecipe(
                     query: [
