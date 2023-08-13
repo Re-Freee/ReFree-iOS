@@ -60,6 +60,7 @@ final class RecipeDetailView: UIView {
     
     private func config() {
         recipeCollection.dataSource = self
+        recipeCollection.delegate = self
         layout()
     }
     
@@ -185,5 +186,24 @@ extension RecipeDetailView: UICollectionViewDataSource {
                 //
             })
             .disposed(by: self.disposeBag)
+    }
+}
+
+extension RecipeDetailView: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        guard
+            let sceneDelegate = window?.windowScene?.delegate as? SceneDelegate,
+            let window = sceneDelegate.window
+        else {
+            return
+        }
+        let extendView = ExtendManualInfoView(manual: manual[indexPath.row])
+        let windowFrame = window.frame
+        extendView.frame = windowFrame
+        extendView.layer.zPosition = 1
+        window.addSubview(extendView)
     }
 }
