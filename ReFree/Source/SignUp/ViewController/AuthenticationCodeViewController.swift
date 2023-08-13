@@ -22,6 +22,14 @@ class AuthenticationCodeViewController: UIViewController {
         $0.contentMode = .scaleAspectFit
     }
     
+    private lazy var authImageStack = UIStackView(
+        arrangedSubviews: [authenticationImageView1, authenticationImageView2]
+    ).then {
+        $0.distribution = .equalSpacing
+        $0.alignment = .center
+        $0.axis = .horizontal
+    }
+    
     let authenticationContainerView = UIView().then {
         $0.backgroundColor = .white
     }
@@ -49,13 +57,41 @@ class AuthenticationCodeViewController: UIViewController {
     }
     
     let codeLabel = UILabel().then {
-        $0.font = .pretendard.extraBold30
+        $0.numberOfLines = 2
+        $0.font = .pretendard.bold18
         $0.textColor = UIColor.refreeColor.main
-        $0.text = ""
+        $0.text = "abcdefgh-1234-1234-1234-1ejdk4kfje93" // ex) abcdefgh-1234-1234-1234-1ejdk4kfje93
         $0.textAlignment = .center
     }
     
-    let continueButton = UIButton().then {
+    private let copyButton = UIButton().then {
+        $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+        $0.setTitle("Copy", for: .normal)
+        $0.backgroundColor = UIColor.refreeColor.main
+        $0.titleLabel?.font = .pretendard.bold15
+        $0.layer.cornerRadius = 13
+        $0.layer.masksToBounds = true
+    }
+    
+    private let captureButton = UIButton().then {
+        $0.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+        $0.setTitle("Capture", for: .normal)
+        $0.backgroundColor = UIColor.refreeColor.main
+        $0.titleLabel?.font = .pretendard.bold15
+        $0.layer.cornerRadius = 13
+        $0.layer.masksToBounds = true
+    }
+    
+    private lazy var buttonStack = UIStackView(
+        arrangedSubviews: [copyButton, captureButton]
+    ).then {
+        $0.alignment = .fill
+        $0.distribution = .fillEqually
+        $0.spacing = 2
+        $0.axis = .horizontal
+    }
+    
+    private let continueButton = UIButton().then {
         $0.setTitle("Continue", for: .normal)
         $0.backgroundColor = UIColor.refreeColor.main
         $0.titleLabel?.font = .pretendard.bold15
@@ -87,37 +123,39 @@ class AuthenticationCodeViewController: UIViewController {
 
     private func layout(){
         view.addSubviews([
-            authenticationImageView1,
-            authenticationImageView2,
-            authenticationContainerView,
+            authImageStack,
+            authenticationContainerView
+            ])
+        
+        authenticationContainerView.addSubviews([
             authenticaitionLabel,
             authenticationLongLabel,
             codeLabelContainerView,
-            continueButton,
-            imageView
-            ])
+            buttonStack,
+            continueButton
+        ])
         
         codeLabelContainerView.addSubview(codeLabel)
+        continueButton.addSubview(imageView)
+        
+        authImageStack.snp.makeConstraints {
+            $0.bottom.equalTo(authenticationContainerView.snp.top).offset(-24)
+            $0.leading.trailing.equalToSuperview().inset(35)
+        }
         
         authenticationImageView1.snp.makeConstraints{
             $0.width.equalTo(144)
             $0.height.equalTo(140)
-            $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(40)
-            $0.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(24)
         }
         
         authenticationImageView2.snp.makeConstraints{
             $0.width.equalTo(144)
             $0.height.equalTo(140)
-            $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(40)
-            $0.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-24)
         }
         
         authenticationContainerView.snp.makeConstraints {
-            $0.height.equalToSuperview().dividedBy(2.5)
-            $0.top.equalTo(authenticationImageView1.snp.bottom).offset(7)
-            $0.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(35)
-            $0.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-35)
+            $0.centerY.equalToSuperview().multipliedBy(1.1)
+            $0.leading.trailing.equalToSuperview().inset(35)
         }
         
         authenticationContainerView.layer.cornerRadius = 26
@@ -136,26 +174,32 @@ class AuthenticationCodeViewController: UIViewController {
         
         authenticationLongLabel.snp.makeConstraints {
             $0.top.equalTo(authenticaitionLabel.snp.bottom).offset(10)
-            $0.leading.equalTo(authenticaitionLabel)
+            $0.leading.equalTo(authenticaitionLabel.snp.leading)
             $0.trailing.equalTo(authenticationContainerView.snp.trailing).offset(-20)
         }
 
         codeLabelContainerView.snp.makeConstraints {
-            $0.height.equalTo(authenticationContainerView).dividedBy(4.5)
+            $0.height.equalTo(100)
             $0.top.equalTo(authenticationLongLabel.snp.bottom).offset(20)
             $0.leading.trailing.equalTo(authenticationContainerView).inset(20)
         }
 
         codeLabel.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(20)
-            $0.leading.trailing.equalToSuperview().inset(40)
+            $0.leading.trailing.equalToSuperview().inset(20)
+        }
+        
+        buttonStack.snp.makeConstraints {
+            $0.top.equalTo(codeLabelContainerView.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview().inset(24)
+            $0.height.equalTo(35)
         }
         
         continueButton.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(authenticationContainerView.snp.bottom).offset(-40)
-            $0.leading.trailing.equalTo(authenticationContainerView).inset(40)
-            $0.height.equalTo(30)
+            $0.top.equalTo(buttonStack.snp.bottom).offset(12)
+            $0.height.equalTo(35)
+            $0.leading.trailing.equalToSuperview().inset(24)
+            $0.bottom.equalToSuperview().inset(24)
         }
 
         imageView.snp.makeConstraints {
