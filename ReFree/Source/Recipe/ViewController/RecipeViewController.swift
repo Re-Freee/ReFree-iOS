@@ -205,7 +205,8 @@ final class RecipeViewController: UIViewController {
                     let nickName = commonResponse.message
                     self.userRepository.setUserNickName(nickName: nickName)
                     self.nameTitle.text = "\(nickName)님을 위한 추천 레시피"
-                }, onError: { error in
+                }, onError: { [weak self] error in
+                    guard let self else { return }
                     Alert.errorAlert(
                         viewController: self,
                         errorMessage: error.localizedDescription
@@ -276,12 +277,16 @@ final class RecipeViewController: UIViewController {
             guard
                 let self,
                 self.responseCheck(response: commonResponse)
-            else { return }
+            else { self?.loadingCompletion(); return }
             self.recipes = recipes
             self.carouselCollectionView.reloadData()
             self.loadingCompletion()
-        }, onError: { error in
-            Alert.errorAlert(viewController: self, errorMessage: error.localizedDescription)
+        }, onError: { [weak self] error in
+            guard let self else { return }
+            Alert.errorAlert(
+                viewController: self,
+                errorMessage: error.localizedDescription
+            )
             self.loadingCompletion()
         })
         .disposed(by: disposeBag)  
@@ -341,8 +346,12 @@ final class RecipeViewController: UIViewController {
                 self.recipes = recipes
                 self.carouselCollectionView.reloadData()
                 self.loadingCompletion()
-            }, onError: { error in
-                Alert.errorAlert(viewController: self, errorMessage: error.localizedDescription)
+            }, onError: { [weak self] error in
+                guard let self else { return }
+                Alert.errorAlert(
+                    viewController: self,
+                    errorMessage: error.localizedDescription
+                )
                 self.loadingCompletion()
             })
             .disposed(by: disposeBag)

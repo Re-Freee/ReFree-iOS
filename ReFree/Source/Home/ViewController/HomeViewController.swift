@@ -121,8 +121,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITextFieldDele
                 self.foodTableView.reloadData()
                 if !ingredients.isEmpty { self.ingredientExists() }
                 else { self.ingredientNotExists() }
-            }, onError: { error in
-                Alert.errorAlert(viewController: self, errorMessage: error.localizedDescription)
+            }, onError: { [weak self] error in
+                guard let self else { return }
+                Alert.errorAlert(
+                    viewController: self,
+                    errorMessage: error.localizedDescription
+                )
             })
             .disposed(by: disposeBag)
     }
@@ -141,8 +145,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITextFieldDele
                 self.foodTableView.reloadData()
                 if !ingredients.isEmpty { self.ingredientExists() }
                 else { self.ingredientNotExists() }
-            }, onError: { error in
-                Alert.errorAlert(viewController: self, errorMessage: error.localizedDescription)
+            }, onError: { [weak self] error in
+                guard let self else { return }
+                Alert.errorAlert(
+                    viewController: self,
+                    errorMessage: error.localizedDescription
+                )
             })
             .disposed(by: disposeBag)
     }
