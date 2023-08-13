@@ -367,18 +367,19 @@ final class RegisterIngredientViewController: UIViewController {
     private func registerIngredientHandling() {
         ingredientRepository.request(saveIngredient: .saveIngredient(ingredient: info))
             .subscribe(onNext: { [weak self] response in
-                guard let self else { return }
-                guard response.code == "200" else {
-                    Alert.errorAlert(viewController: self, errorMessage: response.message)
-                    return
-                }
+                guard
+                    let self,
+                    self.responseCheck(response: response)
+                else { return }
+                
                 Alert.checkAlert(
                     viewController: self,
                     title: "등록 완료!",
                     message: "재료가 정상적으로 등록되었습니다!"
                 )
                 self.clearTextField()
-            }, onError: { error in
+            }, onError: { [weak self] error in
+                guard let self else { return }
                 Alert.errorAlert(
                     viewController: self,
                     errorMessage: error.localizedDescription

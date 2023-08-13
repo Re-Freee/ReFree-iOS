@@ -184,7 +184,7 @@ extension RecipeDetailView: UICollectionViewDataSource {
                 complete()
             }, onError: { [weak self] error in
                 guard let self else { return }
-                Alert.errorAlert(targetView: self, errorMessage: error.localizedDescription)
+                self.errorSubject.onNext(error.localizedDescription)
             })
             .disposed(by: self.disposeBag)
     }

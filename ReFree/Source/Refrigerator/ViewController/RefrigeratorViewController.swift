@@ -289,7 +289,8 @@ class RefrigeratorViewController: UIViewController {
                     let nickName = commonResponse.message
                     self.userRepository.setUserNickName(nickName: nickName)
                     self.header.setTitle(name: nickName)
-                }, onError: { error in
+                }, onError: { [weak self] error in
+                    guard let self else { return }
                     Alert.errorAlert(
                         viewController: self,
                         errorMessage: error.localizedDescription
@@ -320,8 +321,12 @@ class RefrigeratorViewController: UIViewController {
                         else { return }
                         self.ingredients = ingredients
                         self.collectionView.reloadData()
-                    }, onError: { error in
-                        Alert.errorAlert(viewController: self, errorMessage: error.localizedDescription)
+                    }, onError: { [weak self] error in
+                        guard let self else { return }
+                        Alert.errorAlert(
+                            viewController: self,
+                            errorMessage: error.localizedDescription
+                        )
                     })
                     .disposed(by:disposeBag)
             })
@@ -389,8 +394,12 @@ class RefrigeratorViewController: UIViewController {
                 self.ingredients = ingredients
                 self.sortIngredientsByExpireDate(ascending: ascending)
                 self.collectionView.reloadData()
-            }, onError: { error in
-                Alert.errorAlert(viewController: self, errorMessage: error.localizedDescription)
+            }, onError: { [weak self] error in
+                guard let self else { return }
+                Alert.errorAlert(
+                    viewController: self,
+                    errorMessage: error.localizedDescription
+                )
             })
             .disposed(by:disposeBag)
     }

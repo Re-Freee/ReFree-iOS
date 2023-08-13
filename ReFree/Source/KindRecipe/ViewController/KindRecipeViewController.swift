@@ -180,8 +180,12 @@ final class KindRecipeViewController: UIViewController {
                     
                     self.recipes += recipes
                     self.collectionView.reloadData()
-                }, onError: { error in
-                    Alert.errorAlert(viewController: self, errorMessage: error.localizedDescription)
+                }, onError: { [weak self] error in
+                    guard let self else { return }
+                    Alert.errorAlert(
+                        viewController: self,
+                        errorMessage: error.localizedDescription
+                    )
                 })
                 .disposed(by: disposeBag)
         } else {
@@ -202,8 +206,12 @@ final class KindRecipeViewController: UIViewController {
                     else { return }
                     self.recipes += recipes
                     self.collectionView.reloadData()
-                }, onError: { error in
-                    Alert.errorAlert(viewController: self, errorMessage: error.localizedDescription)
+                }, onError: { [weak self] error in
+                    guard let self else { return }
+                    Alert.errorAlert(
+                        viewController: self,
+                        errorMessage: error.localizedDescription
+                    )
                 })
                 .disposed(by: disposeBag)
             } else {
@@ -219,8 +227,12 @@ final class KindRecipeViewController: UIViewController {
                     else { return }
                     self.recipes += recipes
                     self.collectionView.reloadData()
-                }, onError: { error in
-                    Alert.errorAlert(viewController: self, errorMessage: error.localizedDescription)
+                }, onError: { [weak self] error in
+                    guard let self else { return }
+                    Alert.errorAlert(
+                        viewController: self,
+                        errorMessage: error.localizedDescription
+                    )
                 })
                 .disposed(by: disposeBag)
             }

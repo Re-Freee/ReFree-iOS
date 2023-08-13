@@ -209,7 +209,8 @@ class EmailSearchViewController: UIViewController, UITextFieldDelegate {
                 passwordChangeVC,
                 animated: true
             )
-        }, onError: { error in
+        }, onError: { [weak self] error in
+            guard let self else { return }
             Alert.errorAlert(viewController: self, errorMessage: error.localizedDescription)
         })
         .disposed(by: disposeBag)
