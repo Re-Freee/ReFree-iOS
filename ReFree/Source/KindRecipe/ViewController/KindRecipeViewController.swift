@@ -181,7 +181,7 @@ final class KindRecipeViewController: UIViewController {
                     self.recipes += recipes
                     self.collectionView.reloadData()
                 }, onError: { error in
-                    Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
+                    Alert.errorAlert(viewController: self, errorMessage: error.localizedDescription)
                 })
                 .disposed(by: disposeBag)
         } else {
@@ -203,7 +203,7 @@ final class KindRecipeViewController: UIViewController {
                     self.recipes += recipes
                     self.collectionView.reloadData()
                 }, onError: { error in
-                    Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
+                    Alert.errorAlert(viewController: self, errorMessage: error.localizedDescription)
                 })
                 .disposed(by: disposeBag)
             } else {
@@ -220,7 +220,7 @@ final class KindRecipeViewController: UIViewController {
                     self.recipes += recipes
                     self.collectionView.reloadData()
                 }, onError: { error in
-                    Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
+                    Alert.errorAlert(viewController: self, errorMessage: error.localizedDescription)
                 })
                 .disposed(by: disposeBag)
             }

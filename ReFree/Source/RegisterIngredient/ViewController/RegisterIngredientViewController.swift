@@ -369,7 +369,7 @@ final class RegisterIngredientViewController: UIViewController {
             .subscribe(onNext: { [weak self] response in
                 guard let self else { return }
                 guard response.code == "200" else {
-                    Alert.erroAlert(viewController: self, errorMessage: response.message)
+                    Alert.errorAlert(viewController: self, errorMessage: response.message)
                     return
                 }
                 Alert.checkAlert(
@@ -379,7 +379,7 @@ final class RegisterIngredientViewController: UIViewController {
                 )
                 self.clearTextField()
             }, onError: { error in
-                Alert.erroAlert(
+                Alert.errorAlert(
                     viewController: self,
                     errorMessage: error.localizedDescription
                 )

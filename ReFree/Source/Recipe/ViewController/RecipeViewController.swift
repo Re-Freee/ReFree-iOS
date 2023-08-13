@@ -206,7 +206,7 @@ final class RecipeViewController: UIViewController {
                     self.userRepository.setUserNickName(nickName: nickName)
                     self.nameTitle.text = "\(nickName)님을 위한 추천 레시피"
                 }, onError: { error in
-                    Alert.erroAlert(
+                    Alert.errorAlert(
                         viewController: self,
                         errorMessage: error.localizedDescription
                     )
@@ -281,7 +281,7 @@ final class RecipeViewController: UIViewController {
             self.carouselCollectionView.reloadData()
             self.loadingCompletion()
         }, onError: { error in
-            Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
+            Alert.errorAlert(viewController: self, errorMessage: error.localizedDescription)
             self.loadingCompletion()
         })
         .disposed(by: disposeBag)  
@@ -342,7 +342,7 @@ final class RecipeViewController: UIViewController {
                 self.carouselCollectionView.reloadData()
                 self.loadingCompletion()
             }, onError: { error in
-                Alert.erroAlert(viewController: self, errorMessage: error.localizedDescription)
+                Alert.errorAlert(viewController: self, errorMessage: error.localizedDescription)
                 self.loadingCompletion()
             })
             .disposed(by: disposeBag)

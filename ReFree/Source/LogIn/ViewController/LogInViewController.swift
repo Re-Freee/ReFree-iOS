@@ -186,7 +186,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     try KeyChain.shared.deleteToken(kind: .accessToken)
                     try KeyChain.shared.addToken(kind: .accessToken, token: token)
                 } catch {
-                    Alert.erroAlert(
+                    Alert.errorAlert(
                         viewController: self,
                         errorMessage: error.localizedDescription
                     )
@@ -198,7 +198,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     animated: true
                 )
             }, onError: { error in
-                Alert.erroAlert(
+                Alert.errorAlert(
                     viewController: self,
                     errorMessage: error.localizedDescription
                 )
