@@ -91,6 +91,7 @@ final class RecipeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+        bind()
     }
     
     private func config() {
@@ -99,7 +100,6 @@ final class RecipeViewController: UIViewController {
         configCollectionView()
         layout()
         loadingStart()
-        bind()
     }
     
     private func configNavigation() {
@@ -186,6 +186,7 @@ final class RecipeViewController: UIViewController {
     }
     
     private func bind() {
+        disposeBag = DisposeBag()
         bindUser()
         bindHeader()
         bindSidebar()
@@ -223,6 +224,22 @@ final class RecipeViewController: UIViewController {
                 let vc = KindRecipeViewController(kind: .saved)
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
+            .disposed(by: disposeBag)
+        
+        recipeRepository.request(savedRecipe: .savedRecipe)
+            .subscribe(onNext: { [weak self] (commonResponse, recipes) in
+                guard
+                    let self,
+                    self.responseCheck(response: commonResponse)
+                else { return }
+                self.header.bookmarkButton.setCount(count: recipes.count)
+            }, onError: { [weak self] error in
+                guard let self else { return }
+                Alert.errorAlert(
+                    viewController: self,
+                    errorMessage: error.localizedDescription
+                )
+            })
             .disposed(by: disposeBag)
     }
     

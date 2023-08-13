@@ -46,7 +46,7 @@ final class RecipeDetailView: UIView {
     private var disposeBag = DisposeBag()
     private var headerDisposeBag = DisposeBag()
     let errorSubject = PublishSubject<String>()
-    
+    let isHeartChangedSubject = PublishSubject<Bool>()
     
     init(recipe: Recipe) {
         super.init(frame: .zero)
@@ -163,6 +163,8 @@ extension RecipeDetailView: UICollectionViewDataSource {
             .bind(onNext: { [weak self] in
                 self?.toggleBookMarkButton {
                     header.bookmarkButton.isEnabled = true
+                    guard let isHeart = self?.recipe?.isHeart else { return }
+                    self?.isHeartChangedSubject.onNext(isHeart) // 로직 통과 후 completion
                 }
                 guard let isHeart =  self?.recipe?.isHeart else { return }
                 self?.recipe?.isHeart = !isHeart

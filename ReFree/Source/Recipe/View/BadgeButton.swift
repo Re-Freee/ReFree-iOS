@@ -58,7 +58,7 @@ final class BadgeButton: UIView {
     }
     
     func setCount(count: Int) {
-        guard count < 10 else { badgeCount.text = "+"; return}
+        guard count < 10 else { badgeCount.text = "9+"; return}
         badgeCount.text = "\(count)"
     }
 }

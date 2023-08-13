@@ -20,6 +20,7 @@ final class RFModalParentViewController: UIViewController {
     private let type: RFModalViewController.ContentType
     private let disposeBag = DisposeBag()
     let endSubject = PublishSubject<Void>()
+    let isHeartChangedSubject = PublishSubject<Bool>()
     
     init(
         type: RFModalViewController.ContentType
@@ -82,6 +83,10 @@ final class RFModalParentViewController: UIViewController {
                 )
                 self?.endSubject.onNext(())
             }
+            .disposed(by: disposeBag)
+        
+        halfModal.isHeartChangedSubject
+            .bind(to: isHeartChangedSubject)
             .disposed(by: disposeBag)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .microseconds(10)) { [weak self] in
