@@ -262,9 +262,7 @@ final class RecipeViewController: UIViewController {
     
     private func bindRecipe() {
         recipeRepository.request(
-            recommendRecipe: NetworkRecipe.recommendRecipe(
-                ingredients: ["토마토", "연어", "오이"]
-            )
+            recommendRecipe: .recommendRecipe
         )
         .subscribe(onNext: { [weak self] (commonResponse, recipes) in
             guard
