@@ -18,6 +18,7 @@ final class RFModalViewController: UIViewController {
     
     private var contentView: UIView?
     let endsubject = PublishSubject<Void>()
+    let isHeartChangedSubject = PublishSubject<Bool>()
     private var disposeBag = DisposeBag()
     
     init(modalHeight: CGFloat, type: ContentType) {
@@ -75,6 +76,9 @@ final class RFModalViewController: UIViewController {
                 Alert.errorAlert(viewController: self, errorMessage: errorDiscription)
             })
             .disposed(by: disposeBag)
+            view.isHeartChangedSubject
+                .bind(to: isHeartChangedSubject)
+                .disposed(by: disposeBag)
             contentView = view
         }
         

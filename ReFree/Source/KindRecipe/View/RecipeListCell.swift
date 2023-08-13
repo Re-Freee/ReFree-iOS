@@ -86,4 +86,9 @@ final class RecipeListCell: UICollectionViewCell, Identifiable {
         let isHeartImage = recipe.isHeart ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
         heartImageView.image = isHeartImage?.withTintColor(.white, renderingMode: .alwaysOriginal)
     }
+    
+    func isHeartChange(isHeart: Bool) {
+        let isHeartImage = isHeart ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+        heartImageView.image = isHeartImage?.withTintColor(.white, renderingMode: .alwaysOriginal)
+    }
 }

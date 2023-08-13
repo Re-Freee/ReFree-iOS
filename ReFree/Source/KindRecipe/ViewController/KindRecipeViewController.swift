@@ -156,7 +156,7 @@ final class KindRecipeViewController: UIViewController {
                 vc.pageCount += 10
                 vc.dataLoading(page: vc.pageCount)
             }
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
         
         searchBar.searchStart.rx.tap
             .bind(onNext: { [weak self] in
@@ -178,7 +178,7 @@ final class KindRecipeViewController: UIViewController {
                         self.responseCheck(response: commonResponse)
                     else { return }
                     
-                    self.recipes += recipes
+                    self.recipes += recipes.map { $0.setIsHeart(true) }
                     self.collectionView.reloadData()
                 }, onError: { [weak self] error in
                     guard let self else { return }
@@ -263,9 +263,22 @@ extension KindRecipeViewController: UICollectionViewDelegateFlowLayout {
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
+        guard
+            let cell = collectionView.cellForItem(at: indexPath) as? RecipeListCell
+        else { return }
+        
         let modalVC = RFModalParentViewController(
             type: .recipe(recipes[indexPath.row])
         )
+        
+        modalVC.isHeartChangedSubject
+            .subscribe(onNext: { [weak self] isHeart in
+                guard let self else { return }
+                self.recipes[indexPath.row] = self.recipes[indexPath.row].setIsHeart(isHeart)
+                cell.isHeartChange(isHeart: isHeart)
+            })
+            .disposed(by: disposeBag)
+        
         tabBarController?
             .navigationController?
             .pushViewController(

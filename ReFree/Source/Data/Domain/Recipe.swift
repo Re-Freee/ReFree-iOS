@@ -14,6 +14,17 @@ struct Recipe {
     let imageURL: String
     var isHeart: Bool
     let manual: [Manual]?
+    
+    func setIsHeart(_ isHeart: Bool) -> Recipe {
+        return Recipe(
+            id: id,
+            title: title,
+            ingredients: ingredients,
+            imageURL: imageURL,
+            isHeart: isHeart,
+            manual: manual
+        )
+    }
 }
 
 struct Manual {
