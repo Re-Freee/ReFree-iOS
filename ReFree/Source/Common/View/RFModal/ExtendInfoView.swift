@@ -18,7 +18,7 @@ final class ExtendManualInfoView: UIView {
     }
     
     private let infoBox = UIView().then {
-        $0.backgroundColor = .refreeColor.background3
+        $0.backgroundColor = .refreeColor.background4
         $0.layer.cornerRadius = 15
     }
     
@@ -42,7 +42,7 @@ final class ExtendManualInfoView: UIView {
             attributes: [.font: UIFont.pretendard.bold16 ?? UIFont.systemFont(ofSize: 16)]
         )
         $0.setAttributedTitle(attrString, for: .normal)
-        $0.backgroundColor = .refreeColor.background4
+        $0.backgroundColor = .refreeColor.background3
         $0.setTitleColor(.refreeColor.main, for: .normal)
         $0.layer.borderWidth = 2
         $0.layer.borderColor = UIColor.refreeColor.main.cgColor
@@ -57,7 +57,7 @@ final class ExtendManualInfoView: UIView {
         ]
     ).then {
         $0.alignment = .fill
-        $0.distribution = .fillProportionally
+        $0.distribution = .equalSpacing
         $0.spacing = 12
         $0.axis = .vertical
     }
@@ -105,10 +105,16 @@ final class ExtendManualInfoView: UIView {
             $0.width.height.lessThanOrEqualToSuperview().multipliedBy(0.8)
         }
         
-        infoBox.addSubview(stack)
+        infoBox.addSubviews([imageView, stack])
+        
+        imageView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview().inset(8)
+            $0.height.equalTo(200)
+        }
         
         stack.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(8)
+            $0.top.equalTo(imageView.snp.bottom).offset(12)
+            $0.leading.trailing.bottom.equalToSuperview().inset(8)
         }
         
         descriptionLabel.snp.makeConstraints {
