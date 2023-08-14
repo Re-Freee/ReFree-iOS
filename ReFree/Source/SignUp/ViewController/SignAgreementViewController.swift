@@ -230,25 +230,29 @@ final class SignAgreementViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        showServicePolicyButton.rx.tap
-            .bind(onNext: { [weak self] in
-                guard let self else { return }
-                guard
-                    let url = URL(string: Network.servicePolicy),
-                    UIApplication.shared.canOpenURL(url)
-                else {
-                    Alert.errorAlert(
-                        viewController: self,
-                        errorMessage: "약관을 확인할 수 없습니다.\n Instargram @refree._.official에 문의해주세요!"
-                    )
-                    return
-                }
-                self.navigationController?.pushViewController(
-                    RFWebViewController(url: url),
-                    animated: true
+        Observable.merge(
+            [
+                showServicePolicyButton.rx.tap.map { _ in return Void() },
+                serviceAgreementLabel.rx.tapGesture().when(.recognized).map { _ in return Void() }
+            ]
+        ).bind(onNext: { [weak self] _ in
+            guard let self else { return }
+            guard
+                let url = URL(string: Network.servicePolicy),
+                UIApplication.shared.canOpenURL(url)
+            else {
+                Alert.errorAlert(
+                    viewController: self,
+                    errorMessage: "약관을 확인할 수 없습니다.\n Instargram @refree._.official에 문의해주세요!"
                 )
-            })
-            .disposed(by: disposeBag)
+                return
+            }
+            self.navigationController?.pushViewController(
+                RFWebViewController(url: url),
+                animated: true
+            )
+        })
+        .disposed(by: disposeBag)
     }
     
     private func bindPrivacyAgreement() {
@@ -263,25 +267,30 @@ final class SignAgreementViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        showPrivacyPolicyBuuton.rx.tap
-            .bind(onNext: { [weak self] in
-                guard let self else { return }
-                guard
-                    let url = URL(string: Network.privacyPolicy),
-                    UIApplication.shared.canOpenURL(url)
-                else {
-                    Alert.errorAlert(
-                        viewController: self,
-                        errorMessage: "약관을 확인할 수 없습니다.\n Instargram @refree._.official에 문의해주세요!"
-                    )
-                    return
-                }
-                self.navigationController?.pushViewController(
-                    RFWebViewController(url: url),
-                    animated: true
+        Observable.merge(
+            [
+                showPrivacyPolicyBuuton.rx.tap.map { _ in return Void() },
+                privacyAgreementLabel.rx.tapGesture().when(.recognized).map { _ in return Void() }
+            ]
+        )
+        .bind(onNext: { [weak self] in
+            guard let self else { return }
+            guard
+                let url = URL(string: Network.privacyPolicy),
+                UIApplication.shared.canOpenURL(url)
+            else {
+                Alert.errorAlert(
+                    viewController: self,
+                    errorMessage: "약관을 확인할 수 없습니다.\n Instargram @refree._.official에 문의해주세요!"
                 )
-            })
-            .disposed(by: disposeBag)
+                return
+            }
+            self.navigationController?.pushViewController(
+                RFWebViewController(url: url),
+                animated: true
+            )
+        })
+        .disposed(by: disposeBag)
     }
     
     private func bindContinueButton() {
@@ -318,10 +327,6 @@ final class SignAgreementViewController: UIViewController {
         totalAgreementButton.configuration = checkButtonConfiguration(isChecked: isChecked)
         serviceAgreementButton.configuration = checkButtonConfiguration(isChecked: isChecked)
         privacyAgreementButton.configuration = checkButtonConfiguration(isChecked: isChecked)
-    }
-    
-    private func signUp() {
-        
     }
 }
 

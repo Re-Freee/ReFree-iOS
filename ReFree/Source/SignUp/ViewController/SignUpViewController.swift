@@ -390,10 +390,26 @@ class SignUpViewController: UIViewController {
         confirmPasswordTextField.delegate = self
         nicknameTextField.delegate = self
         
-        emailTextField.addTarget(self, action: #selector(self.TFdidChanged(_:)), for: .editingChanged)
-        passwordTextField.addTarget(self, action: #selector(self.TFdidChanged(_:)), for: .editingChanged)
-        confirmPasswordTextField.addTarget(self, action: #selector(self.TFdidChanged(_:)), for: .editingChanged)
-        nicknameTextField.addTarget(self, action: #selector(self.TFdidChanged(_:)), for: .editingChanged)
+        emailTextField.addTarget(
+            self,
+            action: #selector(self.TFdidChanged(_:)),
+            for: .editingChanged
+        )
+        passwordTextField.addTarget(
+            self,
+            action: #selector(self.TFdidChanged(_:)),
+            for: .editingChanged
+        )
+        confirmPasswordTextField.addTarget(
+            self,
+            action: #selector(self.TFdidChanged(_:)),
+            for: .editingChanged
+        )
+        nicknameTextField.addTarget(
+            self,
+            action: #selector(self.TFdidChanged(_:)),
+            for: .editingChanged
+        )
     }
     
     private func layout(){

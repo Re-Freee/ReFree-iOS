@@ -158,22 +158,22 @@ class EmailSearchViewController: UIViewController, UITextFieldDelegate {
         }
         
         wrongEmailXImage.snp.makeConstraints {
-            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(44)
+            $0.centerY.equalTo(passwordFindEmailText.snp.centerY)
             $0.leading.equalTo(passwordFindEmailText.snp.trailing).offset(5)
         }
         
         wrongEmailCheckImage.snp.makeConstraints {
-            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(44)
+            $0.centerY.equalTo(passwordFindEmailText.snp.centerY)
             $0.leading.equalTo(passwordFindEmailText.snp.trailing).offset(5)
         }
         
         wrongVerificationCodeXImage.snp.makeConstraints {
-            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(124)
+            $0.centerY.equalTo(verificationCodeText.snp.centerY)
             $0.leading.equalTo(verificationCodeText.snp.trailing).offset(5)
         }
         
         wrongVerificationCodeCheckImage.snp.makeConstraints {
-            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(124)
+            $0.centerY.equalTo(verificationCodeText.snp.centerY)
             $0.leading.equalTo(verificationCodeText.snp.trailing).offset(5)
         }
     }
@@ -241,11 +241,11 @@ class EmailSearchViewController: UIViewController, UITextFieldDelegate {
     @objc private func verificationCodeTextFieldDidChange(_ textField: UITextField) {
         guard let text = textField.text else { return }
         if text.count == 36 {
-            wrongEmailXImage.isHidden = true
-            wrongEmailCheckImage.isHidden = false
+            wrongVerificationCodeXImage.isHidden = true
+            wrongVerificationCodeCheckImage.isHidden = false
         } else {
-            wrongEmailXImage.isHidden = false
-            wrongEmailCheckImage.isHidden = true
+            wrongVerificationCodeXImage.isHidden = false
+            wrongVerificationCodeCheckImage.isHidden = true
             
             passwordFindButton.button.setTitleColor(.refreeColor.text1, for: .normal)
             passwordFindButton.button.isEnabled = false
