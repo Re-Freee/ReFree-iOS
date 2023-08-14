@@ -690,9 +690,8 @@ class SignUpViewController: UIViewController {
         )
         .subscribe(onNext: { [weak self] (response, backupCode) in
             guard let self else { return }
-            // 다 200이 정상인데 얘만 201이 정상.. 주의하기
             guard response.code == "201" else {
-                Alert.errorAlert(viewController: self, errorMessage: response.message)
+                Alert.checkAlert(viewController: self, title: response.message, message: "")
                 return
             }
             
