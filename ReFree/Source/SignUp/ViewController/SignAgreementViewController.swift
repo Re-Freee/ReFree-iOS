@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import Then
 import RxSwift
+import WebKit
 
 final class SignAgreementViewController: UIViewController {
     private let titleLabel = UILabel().then {
@@ -93,6 +94,7 @@ final class SignAgreementViewController: UIViewController {
     }
     
     private func layout() {
+        navigationItem.backButtonTitle = "Sign"
         layoutBackground()
         layoutWhiteBackground()
         layoutContinueButton()
@@ -197,6 +199,128 @@ final class SignAgreementViewController: UIViewController {
     }
     
     private func bind() {
+        bindTotalAgreement()
+        bindServiceAgreement()
+        bindPrivacyAgreement()
+        bindContinueButton()
+    }
+    
+    private func bindTotalAgreement() {
+        totalAgreementButton.rx.tap
+            .bind(onNext: { [weak self] in
+                guard let self else { return }
+                if self.isServicePolicyChecked && self.isPrivacyPolicyChecked {
+                    self.totalPolicyIsChecked(isChecked: false)
+                } else {
+                    self.totalPolicyIsChecked(isChecked: true)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindServiceAgreement() {
+        serviceAgreementButton.rx.tap
+            .bind(onNext: { [weak self] in
+                guard let self else { return }
+                self.isServicePolicyChecked = !self.isServicePolicyChecked
+                self.serviceAgreementButton.configuration = checkButtonConfiguration(
+                    isChecked: self.isServicePolicyChecked
+                )
+                checkTotalButtonConfiguration()
+            })
+            .disposed(by: disposeBag)
+        
+        showServicePolicyButton.rx.tap
+            .bind(onNext: { [weak self] in
+                guard let self else { return }
+                guard
+                    let url = URL(string: Network.servicePolicy),
+                    UIApplication.shared.canOpenURL(url)
+                else {
+                    Alert.errorAlert(
+                        viewController: self,
+                        errorMessage: "약관을 확인할 수 없습니다.\n Instargram @refree._.official에 문의해주세요!"
+                    )
+                    return
+                }
+                self.navigationController?.pushViewController(
+                    RFWebViewController(url: url),
+                    animated: true
+                )
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindPrivacyAgreement() {
+        privacyAgreementButton.rx.tap
+            .bind(onNext: { [weak self] in
+                guard let self else { return }
+                self.isPrivacyPolicyChecked = !self.isPrivacyPolicyChecked
+                self.privacyAgreementButton.configuration = checkButtonConfiguration(
+                    isChecked: self.isPrivacyPolicyChecked
+                )
+                checkTotalButtonConfiguration()
+            })
+            .disposed(by: disposeBag)
+        
+        showPrivacyPolicyBuuton.rx.tap
+            .bind(onNext: { [weak self] in
+                guard let self else { return }
+                guard
+                    let url = URL(string: Network.privacyPolicy),
+                    UIApplication.shared.canOpenURL(url)
+                else {
+                    Alert.errorAlert(
+                        viewController: self,
+                        errorMessage: "약관을 확인할 수 없습니다.\n Instargram @refree._.official에 문의해주세요!"
+                    )
+                    return
+                }
+                self.navigationController?.pushViewController(
+                    RFWebViewController(url: url),
+                    animated: true
+                )
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindContinueButton() {
+        continueButton.rx.tap
+            .bind(onNext: { [weak self] in
+                guard let self else { return }
+                if self.isServicePolicyChecked && self.isPrivacyPolicyChecked {
+                    self.navigationController?.pushViewController(
+                        SignUpViewController(),
+                        animated: true
+                    )
+                } else {
+                    Alert.checkAlert(
+                        viewController: self,
+                        title: "약관을 읽고 모두 동의해주세요.",
+                        message: ""
+                    )
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func checkTotalButtonConfiguration() {
+        if self.isServicePolicyChecked && self.isPrivacyPolicyChecked {
+            totalAgreementButton.configuration = checkButtonConfiguration(isChecked: true)
+        } else {
+            totalAgreementButton.configuration = checkButtonConfiguration(isChecked: false)
+        }
+    }
+    
+    private func totalPolicyIsChecked(isChecked: Bool) {
+        isServicePolicyChecked = isChecked
+        isPrivacyPolicyChecked = isChecked
+        totalAgreementButton.configuration = checkButtonConfiguration(isChecked: isChecked)
+        serviceAgreementButton.configuration = checkButtonConfiguration(isChecked: isChecked)
+        privacyAgreementButton.configuration = checkButtonConfiguration(isChecked: isChecked)
+    }
+    
+    private func signUp() {
         
     }
 }

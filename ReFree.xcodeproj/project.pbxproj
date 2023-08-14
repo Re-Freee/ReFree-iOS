@@ -66,6 +66,7 @@
 		6A5F07292A740E9800526B18 /* NetworkIngredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5F07282A740E9800526B18 /* NetworkIngredient.swift */; };
 		6A63A0782A66CAC1008EA0DC /* RecipeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A63A0772A66CAC1008EA0DC /* RecipeListCell.swift */; };
 		6A63C1E32A66B3E000E69D06 /* KindRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A63C1E22A66B3E000E69D06 /* KindRecipeViewController.swift */; };
+		6A770C7D2A8A30C300668794 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A770C7C2A8A30C300668794 /* WebViewController.swift */; };
 		6A7F8B9F2A6C2E1200DB38BD /* LoadingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 6A7F8B9E2A6C2E1200DB38BD /* LoadingAnimation.json */; };
 		6A7F8BA12A6C301500DB38BD /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F8BA02A6C301500DB38BD /* LoadingView.swift */; };
 		6A894D0D2A5F310200B053A5 /* RFModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A894D0C2A5F310200B053A5 /* RFModalViewController.swift */; };
@@ -182,6 +183,7 @@
 		6A5F07282A740E9800526B18 /* NetworkIngredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkIngredient.swift; sourceTree = "<group>"; };
 		6A63A0772A66CAC1008EA0DC /* RecipeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeListCell.swift; sourceTree = "<group>"; };
 		6A63C1E22A66B3E000E69D06 /* KindRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindRecipeViewController.swift; sourceTree = "<group>"; };
+		6A770C7C2A8A30C300668794 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		6A7F8B9E2A6C2E1200DB38BD /* LoadingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingAnimation.json; sourceTree = "<group>"; };
 		6A7F8BA02A6C301500DB38BD /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		6A894D0C2A5F310200B053A5 /* RFModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFModalViewController.swift; sourceTree = "<group>"; };
@@ -341,10 +343,10 @@
 		2E35BAEA2A6C0FB500D3C74C /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				2E35BAEB2A6C0FB500D3C74C /* SignUpViewController.swift */,
-				2E35BAEC2A6C0FB500D3C74C /* SignUpCompleteViewController.swift */,
-				2E2916032A825C76006D2C1F /* AuthenticationCodeViewController.swift */,
 				6AC1A04E2A8A08F4004652B0 /* SignAgreementViewController.swift */,
+				2E35BAEB2A6C0FB500D3C74C /* SignUpViewController.swift */,
+				2E2916032A825C76006D2C1F /* AuthenticationCodeViewController.swift */,
+				2E35BAEC2A6C0FB500D3C74C /* SignUpCompleteViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -589,6 +591,7 @@
 				6A894D0C2A5F310200B053A5 /* RFModalViewController.swift */,
 				6A3ADA5A2A63E99200D6D49A /* HomeTabViewController.swift */,
 				6AFE1B642A7A3BAB0049D523 /* AppInitViewController.swift */,
+				6A770C7C2A8A30C300668794 /* WebViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -847,6 +850,7 @@
 				6A5F07212A73E0AC00526B18 /* SaveIngredientRequestDTO.swift in Sources */,
 				6AE16DC12A7114C3008D0C3C /* Recipe.swift in Sources */,
 				2E35BAE82A6C0F3700D3C74C /* RefrigeratorTabHeader.swift in Sources */,
+				6A770C7D2A8A30C300668794 /* WebViewController.swift in Sources */,
 				6AD7E3972A506C08007338DB /* AppDelegate.swift in Sources */,
 				6AC1A04D2A8922F3004652B0 /* UIView+Image.swift in Sources */,
 				6A4ED1D82A5D237C00299B61 /* RFSearchBar.swift in Sources */,

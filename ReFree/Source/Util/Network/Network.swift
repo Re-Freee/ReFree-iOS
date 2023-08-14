@@ -12,6 +12,8 @@ import Alamofire
 struct Network {
     private enum InfoKey {
         static let server = "REFREE_SERVER_DOMAIN"
+        static let servicePolicy = "REFREE_SERVICE_POLICY"
+        static let privacyPolicy = "REFREE_PRIVACY_POLICY"
     }
     
     private static let infoDictionary: [String: Any] = {
@@ -24,7 +26,18 @@ struct Network {
     static let server: String = {
         guard let domain =  infoDictionary[InfoKey.server] as? String
         else { fatalError("Error: Info.plist 또는 xcconfig 서버 도메인 설정 확인 필요")}
-        
+        return domain
+    }()
+    
+    static let servicePolicy: String = {
+        guard let domain =  infoDictionary[InfoKey.servicePolicy] as? String
+        else { fatalError("Error: Info.plist 또는 xcconfig 서버 도메인 설정 확인 필요")}
+        return domain
+    }()
+    
+    static let privacyPolicy: String = {
+        guard let domain =  infoDictionary[InfoKey.privacyPolicy] as? String
+        else { fatalError("Error: Info.plist 또는 xcconfig 서버 도메인 설정 확인 필요")}
         return domain
     }()
     

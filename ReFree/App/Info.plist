@@ -11,6 +11,10 @@
 	</dict>
 	<key>REFREE_SERVER_DOMAIN</key>
 	<string>$(REFREE_SERVER_DOMAIN)</string>
+	<key>REFREE_SERVICE_POLICY</key>
+	<string>$(REFREE_SERVICE_POLICY)</string>
+	<key>REFREE_PRIVACY_POLICY</key>
+	<string>$(REFREE_PRIVACY_POLICY)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>PRETENDARD-BLACK.TTF</string>

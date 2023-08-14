@@ -215,9 +215,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func joinMembershipButtonTapped() {
-        let signUpVC = SignUpViewController()
+        let signAgreementVC = SignAgreementViewController()
         navigationController?.pushViewController(
-            signUpVC,
+            signAgreementVC,
             animated: true
         )
     }
