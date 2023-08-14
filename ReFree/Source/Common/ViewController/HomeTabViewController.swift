@@ -55,7 +55,7 @@ final class HomeTabViewController: UITabBarController {
         )
         
         let addFoodViewController = UINavigationController(
-            rootViewController: RegisterIngredientViewController()
+            rootViewController: RegisterIngredientViewController(type: .register)
         )
         
         let recipeViewController = UINavigationController(

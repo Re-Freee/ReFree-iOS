@@ -14,6 +14,11 @@ import RxSwift
 import RxGesture
 
 final class RegisterIngredientViewController: UIViewController {
+    enum RegisterType {
+        case register
+        case edit
+    }
+    
     final class CustomScrollView: UIScrollView {
         override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
             super.touchesBegan(touches, with: event)
@@ -28,14 +33,24 @@ final class RegisterIngredientViewController: UIViewController {
         $0.font = .pretendard.extraBold30
         $0.text = "음식 추가"
     }
+    
     private let cameraView = CameraView()
     private let ingredientInfoView = IngredientInfoView()
     private var disposeBag = DisposeBag()
     private let ingredientRepository = IngredientRepository()
     
     private var category: [String] = []
-    
     private var info = Ingredient()
+    private let type: RegisterType
+    
+    init(type: RegisterType) {
+        self.type = type
+        super.init(nibName: nil, bundle: Bundle.main)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,18 +60,10 @@ final class RegisterIngredientViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardUp),
-            name: UIResponder.keyboardWillShowNotification,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardDown),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil
-        )
+        switch type {
+        case .register: self.navigationController?.isNavigationBarHidden = true
+        case .edit: self.navigationController?.isNavigationBarHidden = false
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -108,6 +115,15 @@ final class RegisterIngredientViewController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview()
         }
+        
+        switch type {
+        case .register:
+            titleLabel.text = "음식 추가"
+            ingredientInfoView.configSaveButtonTitle(title: "save")
+        case .edit:
+            titleLabel.text = "음식 수정"
+            ingredientInfoView.configSaveButtonTitle(title: "Edit")
+        }
     }
     
     private func bind() {
@@ -117,7 +133,18 @@ final class RegisterIngredientViewController: UIViewController {
     }
     
     private func bindKeyboard() {
-        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardUp),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardDown),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
     }
     
     private func bindIngredientView() {
@@ -237,15 +264,11 @@ final class RegisterIngredientViewController: UIViewController {
                     self.validCheck()
                 else { return }
                 
-                let alert = AlertView(
-                    title: "잠깐!",
-                    description: "그대로 저장하시겠습니까?",
-                    alertType: .question
-                )
-                alert.addAction(kind: .success) {
-                    self.registerIngredientHandling()
+                switch type {
+                case .register: self.registerIngredientHandling()
+                case .edit: self.editIngredientHandling()
                 }
-                self.view.addSubview(alert)
+                
             }.disposed(by: disposeBag)
         
         ingredientInfoView.memoTextView.rx.text
@@ -365,6 +388,18 @@ final class RegisterIngredientViewController: UIViewController {
     }
     
     private func registerIngredientHandling() {
+        let alert = AlertView(
+            title: "잠깐!",
+            description: "그대로 저장하시겠습니까?",
+            alertType: .question
+        )
+        alert.addAction(kind: .success) { [weak self] in
+            self?.registerIngredient()
+        }
+        self.view.addSubview(alert)
+    }
+    
+    private func registerIngredient() {
         ingredientRepository.request(saveIngredient: .saveIngredient(ingredient: info))
             .subscribe(onNext: { [weak self] response in
                 guard
@@ -377,7 +412,7 @@ final class RegisterIngredientViewController: UIViewController {
                     title: "등록 완료!",
                     message: "재료가 정상적으로 등록되었습니다!"
                 )
-                self.clearTextField()
+                self.clear()
             }, onError: { [weak self] error in
                 guard let self else { return }
                 Alert.errorAlert(
@@ -388,7 +423,49 @@ final class RegisterIngredientViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func clearTextField() {
+    private func editIngredientHandling() {
+        let alert = AlertView(
+            title: "잠깐!",
+            description: "그대로 수정하시겠습니까?",
+            alertType: .question
+        )
+        alert.addAction(kind: .success) { [weak self] in
+            self?.editIngredient()
+        }
+        self.view.addSubview(alert)
+    }
+    
+    private func editIngredient() {
+        ingredientRepository.request(
+            modifyIngredient: .modifyIngredient(ingredient: info)
+        )
+        .subscribe(onNext: { [weak self] response in
+            guard
+                let self,
+                self.responseCheck(response: response)
+            else { return }
+            
+            let alert = AlertView(
+                title: "수정 완료!",
+                description: "",
+                alertType: .check
+            )
+            alert.successButton.rx.tap
+                .bind(onNext: { [weak self] in
+                    self?.dismiss(animated: true)
+                })
+                .disposed(by: disposeBag)
+        }, onError: { [weak self] error in
+            guard let self else { return }
+            Alert.errorAlert(
+                viewController: self,
+                errorMessage: error.localizedDescription
+            )
+        })
+        .disposed(by: disposeBag)
+    }
+    
+    private func clear() {
         cameraView.setDefault()
         ingredientInfoView.setDefault()
         info = Ingredient()
@@ -415,6 +492,12 @@ final class RegisterIngredientViewController: UIViewController {
     
     @objc func keyboardDown() {
         self.scrollVIew.transform = .identity
+    }
+    
+    func setIngredient(ingredient: Ingredient) {
+        self.info = ingredient
+        cameraView.setIngredient(ingredient: ingredient)
+        ingredientInfoView.setIngredient(ingredient: ingredient)
     }
 }
 

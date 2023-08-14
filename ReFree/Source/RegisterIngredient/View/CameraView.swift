@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import Then
+import Kingfisher
 
 final class CameraView: UIView {
     private let imageView = UIImageView(image: UIImage(named: "Camera1")).then {
@@ -49,5 +50,25 @@ final class CameraView: UIView {
         imageView.image = UIImage(named: "Camera1")
         imageView.backgroundColor = .refreeColor.text1
         imageView.contentMode = .center
+    }
+    
+    func setIngredient(ingredient: Ingredient) {
+        guard
+            let urlString = ingredient.imageURL,
+            let url = URL(string: urlString)
+        else { return }
+        
+        KingfisherManager.shared.retrieveImage(with: url) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let value):
+                setImage(image: value.image)
+            case .failure(_):
+                Alert.errorAlert(
+                    targetView: self,
+                    errorMessage: "이미지를 불러오지 못했습니다."
+                )
+            }
+        }
     }
 }

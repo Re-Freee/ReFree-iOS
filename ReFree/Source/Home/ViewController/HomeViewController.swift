@@ -58,6 +58,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITextFieldDele
     
     private func config() {
         view.gradientBackground(type: .mainAxial)
+        navigationItem.backButtonTitle = "홈"
         layout()
         header.searchBar.textField.delegate = self
         foodTableView.delegate = self
@@ -270,6 +271,22 @@ extension HomeViewController: UITableViewDataSource {
         let modalVC = RFModalParentViewController(
             type: .detail(ingredients[indexPath.row])
         )
+        
+        modalVC.editSubject
+            .subscribe(onNext: { [weak self] ingredient in
+                let editVC =  RegisterIngredientViewController(type: .edit)
+                editVC.setIngredient(ingredient: ingredient)
+                self?.navigationController?
+                    .pushViewController(
+                        editVC,
+                        animated: false
+                    )
+                self?.tabBarController?
+                    .navigationController?
+                    .popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
         tabBarController?
             .navigationController?
             .pushViewController(

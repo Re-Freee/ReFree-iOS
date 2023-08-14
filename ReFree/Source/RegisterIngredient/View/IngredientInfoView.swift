@@ -158,17 +158,9 @@ final class IngredientInfoView: UIView {
         $0.layer.cornerRadius = 10
     }
     
-    let saveButton = UIButton().then {
+    lazy var saveButton = UIButton().then {
         $0.layer.cornerRadius = 15
         $0.backgroundColor = .refreeColor.button1
-        let text = "save"
-        let range = (text as NSString).range(of: text)
-        let font = UIFont.pretendard.bold24 ?? UIFont.systemFont(ofSize: 30)
-        let color = UIColor.refreeColor.text3
-        let attrString = NSMutableAttributedString(string: text)
-        attrString.addAttribute(.font, value: font, range: range)
-        attrString.addAttribute(.foregroundColor, value: color, range: range)
-        $0.setAttributedTitle(attrString, for: .normal)
     }
     
     let categorySubject = PublishSubject<String?>()
@@ -189,6 +181,7 @@ final class IngredientInfoView: UIView {
     }
     
     private func layout() {
+        configSaveButtonTitle(title: "save")
         backgroundColor = .white
         layer.cornerRadius = 15
         layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
@@ -372,5 +365,39 @@ final class IngredientInfoView: UIView {
         currentCountLabel.text = "1"
         memoTextView.text = ""
         categoryRecommand(categories: [])
+    }
+    
+    func setIngredient(ingredient: Ingredient) {
+        guard
+            let kindIndex = ingredient.option,
+            let category = ingredient.category,
+            let expireDate = ingredient.expireDate,
+            let count = ingredient.count
+        else { return }
+        
+        switch kindIndex {
+        case 0: selectIngredientKind.selectedSegmentIndex = 2
+        case 1: selectIngredientKind.selectedSegmentIndex = 0
+        case 2: selectIngredientKind.selectedSegmentIndex = 1
+        case 3: selectIngredientKind.selectedSegmentIndex = 3
+        default: selectIngredientKind.selectedSegmentIndex = 3
+        }
+        
+        nameTextField.text = ingredient.title
+        expireDatePicker.date = expireDate.toDate()
+        currentCountLabel.text = "\(count)"
+        memoTextView.text = ingredient.memo
+        categoryRecommand(categories: [category])
+    }
+    
+    func configSaveButtonTitle(title: String) {
+        let text = title
+        let range = (text as NSString).range(of: text)
+        let font = UIFont.pretendard.bold24 ?? UIFont.systemFont(ofSize: 30)
+        let color = UIColor.refreeColor.text3
+        let attrString = NSMutableAttributedString(string: text)
+        attrString.addAttribute(.font, value: font, range: range)
+        attrString.addAttribute(.foregroundColor, value: color, range: range)
+        saveButton.setAttributedTitle(attrString, for: .normal)
     }
 }
