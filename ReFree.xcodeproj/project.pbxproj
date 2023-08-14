@@ -92,7 +92,7 @@
 		6AC1A0492A88FB51004652B0 /* UIViewController+addsubViewToWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC1A0482A88FB51004652B0 /* UIViewController+addsubViewToWindow.swift */; };
 		6AC1A04B2A88FC75004652B0 /* UIView+addSubviewToWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC1A04A2A88FC75004652B0 /* UIView+addSubviewToWindow.swift */; };
 		6AC1A04D2A8922F3004652B0 /* UIView+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC1A04C2A8922F3004652B0 /* UIView+Image.swift */; };
-		6AC1A04F2A8A08F4004652B0 /* SignAgreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC1A04E2A8A08F4004652B0 /* SignAgreeViewController.swift */; };
+		6AC1A04F2A8A08F4004652B0 /* SignAgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC1A04E2A8A08F4004652B0 /* SignAgreementViewController.swift */; };
 		6AC1A0522A8A092E004652B0 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC1A0512A8A092E004652B0 /* SettingViewController.swift */; };
 		6AC48A8E2A73C902009F647B /* RecipeResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC48A8D2A73C902009F647B /* RecipeResponseDTO.swift */; };
 		6AC48A922A73CB5C009F647B /* NetworkRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC48A912A73CB5C009F647B /* NetworkRecipe.swift */; };
@@ -205,7 +205,7 @@
 		6AC1A0482A88FB51004652B0 /* UIViewController+addsubViewToWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+addsubViewToWindow.swift"; sourceTree = "<group>"; };
 		6AC1A04A2A88FC75004652B0 /* UIView+addSubviewToWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+addSubviewToWindow.swift"; sourceTree = "<group>"; };
 		6AC1A04C2A8922F3004652B0 /* UIView+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Image.swift"; sourceTree = "<group>"; };
-		6AC1A04E2A8A08F4004652B0 /* SignAgreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignAgreeViewController.swift; sourceTree = "<group>"; };
+		6AC1A04E2A8A08F4004652B0 /* SignAgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignAgreementViewController.swift; sourceTree = "<group>"; };
 		6AC1A0512A8A092E004652B0 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		6AC48A8D2A73C902009F647B /* RecipeResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeResponseDTO.swift; sourceTree = "<group>"; };
 		6AC48A912A73CB5C009F647B /* NetworkRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRecipe.swift; sourceTree = "<group>"; };
@@ -344,7 +344,7 @@
 				2E35BAEB2A6C0FB500D3C74C /* SignUpViewController.swift */,
 				2E35BAEC2A6C0FB500D3C74C /* SignUpCompleteViewController.swift */,
 				2E2916032A825C76006D2C1F /* AuthenticationCodeViewController.swift */,
-				6AC1A04E2A8A08F4004652B0 /* SignAgreeViewController.swift */,
+				6AC1A04E2A8A08F4004652B0 /* SignAgreementViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -840,7 +840,7 @@
 				6AC48A942A73D07B009F647B /* NetworkError.swift in Sources */,
 				6A63A0782A66CAC1008EA0DC /* RecipeListCell.swift in Sources */,
 				6A9CDCE32A6557950003F618 /* NetworkTest.swift in Sources */,
-				6AC1A04F2A8A08F4004652B0 /* SignAgreeViewController.swift in Sources */,
+				6AC1A04F2A8A08F4004652B0 /* SignAgreementViewController.swift in Sources */,
 				6AC1A0492A88FB51004652B0 /* UIViewController+addsubViewToWindow.swift in Sources */,
 				6A4ED1E52A5D4B4600299B61 /* CarouselCell.swift in Sources */,
 				6AC1A04B2A88FC75004652B0 /* UIView+addSubviewToWindow.swift in Sources */,
