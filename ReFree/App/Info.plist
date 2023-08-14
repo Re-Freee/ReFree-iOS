@@ -2,19 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSCameraUsageDescription</key>
-	<string>사진을 등록하기 위해 허용해주세요!</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>REFREE_PRIVACY_POLICY</key>
+	<string>$(REFREE_PRIVACY_POLICY)</string>
 	<key>REFREE_SERVER_DOMAIN</key>
 	<string>$(REFREE_SERVER_DOMAIN)</string>
 	<key>REFREE_SERVICE_POLICY</key>
 	<string>$(REFREE_SERVICE_POLICY)</string>
-	<key>REFREE_PRIVACY_POLICY</key>
-	<string>$(REFREE_PRIVACY_POLICY)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>PRETENDARD-BLACK.TTF</string>
