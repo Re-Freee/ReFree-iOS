@@ -57,7 +57,7 @@ class AuthenticationCodeViewController: UIViewController {
     }
     
     let codeLabel = UILabel().then {
-        $0.numberOfLines = 2
+        $0.numberOfLines = 3
         $0.font = .pretendard.bold18
         $0.textColor = UIColor.refreeColor.main
         $0.text = "" // ex) abcdefgh-1234-1234-1234-1ejdk4kfje93

@@ -155,22 +155,22 @@ class PasswordChangeViewController: UIViewController, UITextFieldDelegate {
         }
         
         newPasswordCheckImage.snp.makeConstraints {
-            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(50)
+            $0.centerY.equalTo(newPasswordText.snp.centerY)
             $0.leading.equalTo(newPasswordText.snp.trailing).offset(5)
         }
         
         newPasswordXImage.snp.makeConstraints {
-            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(50)
+            $0.centerY.equalTo(newPasswordText.snp.centerY)
             $0.leading.equalTo(newPasswordText.snp.trailing).offset(5)
         }
         
         confirmNewPasswordCheckImage.snp.makeConstraints {
-            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(117)
+            $0.centerY.equalTo(confirmNewPasswordText.snp.centerY)
             $0.leading.equalTo(confirmNewPasswordText.snp.trailing).offset(5)
         }
         
         confirmNewPasswordXImage.snp.makeConstraints {
-            $0.top.equalTo(passwordFindLabel.snp.bottom).offset(117)
+            $0.centerY.equalTo(confirmNewPasswordText.snp.centerY)
             $0.leading.equalTo(confirmNewPasswordText.snp.trailing).offset(5)
         }
         
@@ -197,19 +197,27 @@ class PasswordChangeViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func newPasswordTextFieldDidChange(_ textField: UITextField) {
-        guard textField.text != nil && textField.text!.validatePassword() else {
+        guard
+            let text = textField.text,
+            text.validatePassword()
+        else {
             newPasswordCheckImage.isHidden = true
             newPasswordXImage.isHidden = false
-            notValidPasswordLabel.isHidden = false
-            
             newPasswordSettingButton.button.setTitleColor(.refreeColor.text1, for: .normal)
             newPasswordSettingButton.button.isEnabled = false
             return
         }
         
-        newPasswordXImage.isHidden = true
-        newPasswordCheckImage.isHidden = false
-        notValidPasswordLabel.isHidden = true
+        let confitionA = confirmNewPasswordText.text.isEmpty
+        let conditionB = newPasswordText.textField.text == confirmNewPasswordText.textField.text
+        
+        if confitionA || (!confitionA && conditionB) {
+            newPasswordXImage.isHidden = true
+            newPasswordCheckImage.isHidden = false
+        } else {
+            newPasswordXImage.isHidden = false
+            newPasswordCheckImage.isHidden = true
+        }
         
         if !newPasswordCheckImage.isHidden && !confirmNewPasswordCheckImage.isHidden {
             newPasswordSettingButton.button.setTitleColor(.refreeColor.text3, for: .normal)
@@ -221,8 +229,6 @@ class PasswordChangeViewController: UIViewController, UITextFieldDelegate {
         guard newPasswordText.textField.text == confirmNewPasswordText.textField.text else {
             confirmNewPasswordCheckImage.isHidden = true
             confirmNewPasswordXImage.isHidden = false
-            notSamePasswordLabel.isHidden = false
-            
             newPasswordSettingButton.button.setTitleColor(.refreeColor.text1, for: .normal)
             newPasswordSettingButton.button.isEnabled = false
             return
@@ -230,7 +236,6 @@ class PasswordChangeViewController: UIViewController, UITextFieldDelegate {
         
         confirmNewPasswordXImage.isHidden = true
         confirmNewPasswordCheckImage.isHidden = false
-        notSamePasswordLabel.isHidden = true
         
         if !newPasswordCheckImage.isHidden && !confirmNewPasswordCheckImage.isHidden {
             newPasswordSettingButton.button.setTitleColor(.refreeColor.text3, for: .normal)
