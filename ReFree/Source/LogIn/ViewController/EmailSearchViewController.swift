@@ -16,7 +16,7 @@ class EmailSearchViewController: UIViewController, UITextFieldDelegate {
     private let stackViewBackground = LogInStackViewBackground(height: 340)
     
     private let passwordFindStackView = UIStackView().then {
-        $0.spacing = 35
+        $0.spacing = 20
         $0.axis = .vertical
     }
     
@@ -58,10 +58,14 @@ class EmailSearchViewController: UIViewController, UITextFieldDelegate {
         $0.isHidden = true
     }
     
-    private let passwordFindEmailText = LogInTextField(message: "이메일", height: 40)
+    private let passwordFindEmailText = LogInTextField(
+        message: "이메일",
+        height: 40
+    )
     
     private let verificationCodeText = LogInTextField(
         message: "인증코드",
+        height: 40,
         isVerificationCode: true
     )
     
@@ -191,7 +195,6 @@ class EmailSearchViewController: UIViewController, UITextFieldDelegate {
             )
             return
         }
-        
         signRepository.request(
             findPassword: .findPassword(
                 email: email,
@@ -236,18 +239,17 @@ class EmailSearchViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func verificationCodeTextFieldDidChange(_ textField: UITextField) {
-        guard textField.text != nil && textField.text!.validateVerificationCode() else {
-            wrongVerificationCodeXImage.isHidden = false
-            wrongVerificationCodeCheckImage.isHidden = true
+        guard let text = textField.text else { return }
+        if text.count == 36 {
+            wrongEmailXImage.isHidden = true
+            wrongEmailCheckImage.isHidden = false
+        } else {
+            wrongEmailXImage.isHidden = false
+            wrongEmailCheckImage.isHidden = true
             
             passwordFindButton.button.setTitleColor(.refreeColor.text1, for: .normal)
             passwordFindButton.button.isEnabled = false
-            return
         }
-        
-        wrongVerificationCodeXImage.isHidden = true
-        wrongVerificationCodeCheckImage.isHidden = false
-        
         if !wrongEmailCheckImage.isHidden && !wrongVerificationCodeCheckImage.isHidden {
             passwordFindButton.button.setTitleColor(.refreeColor.text3, for: .normal)
             passwordFindButton.button.isEnabled = true

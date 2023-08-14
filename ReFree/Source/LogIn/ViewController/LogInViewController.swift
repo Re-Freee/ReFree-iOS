@@ -33,10 +33,16 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
     private let logInEmailText = LogInTextField(message: "이메일", height: 40)
+    private let logInPasswordText = LogInTextField(
+        message: "비밀번호",
+        isPassword: true,
+        height: 40
+    )
     
-    private let logInPasswordText = LogInTextField(message: "비밀번호", isPassword: true, height: 40)
-    
-    private let logInButton = LogInButton(message: "Get started!", height: 40)
+    private let logInButton = LogInButton(
+        message: "Get started!",
+        height: 40
+    )
     
     private let passwordFindButton = UIButton().then {
         $0.setTitle("비밀번호를 잊으셨나요?", for: .normal)
@@ -71,11 +77,30 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         logInEmailText.textField.delegate = self
         logInPasswordText.textField.delegate = self
         
-        logInButton.button.addTarget(self, action: #selector(logInButtonTapped), for: .touchUpInside)
-        passwordFindButton.addTarget(self, action: #selector(passwordFindButtonTapped), for: .touchUpInside)
-        joinMembershipButton.addTarget(self, action: #selector(joinMembershipButtonTapped), for: .touchUpInside)
-        logInEmailText.textField.addTarget(self, action: #selector(logInEmailTextFieldDidChange(_:)), for: .editingChanged)
-        logInPasswordText.textField.addTarget(self, action: #selector(logInPasswordTextFieldDidChange(_:)), for: .editingChanged)
+        logInButton.button.addTarget(
+            self,
+            action: #selector(logInButtonTapped), for: .touchUpInside
+        )
+        passwordFindButton.addTarget(
+            self,
+            action: #selector(passwordFindButtonTapped),
+            for: .touchUpInside
+        )
+        joinMembershipButton.addTarget(
+            self,
+            action: #selector(joinMembershipButtonTapped),
+            for: .touchUpInside
+        )
+        logInEmailText.textField.addTarget(
+            self,
+            action: #selector(logInEmailTextFieldDidChange(_:)),
+            for: .editingChanged
+        )
+        logInPasswordText.textField.addTarget(
+            self,
+            action: #selector(logInPasswordTextFieldDidChange(_:)),
+            for: .editingChanged
+        )
     }
     
     private func configNavigation() {
@@ -180,7 +205,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     let self,
                     self.responseCheck(response: response)
                 else { return }
-                
                 self.userRepotiroy.deleteUserNickName()
                 do {
                     try KeyChain.shared.deleteToken(kind: .accessToken)
@@ -197,7 +221,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     tabBarController,
                     animated: true
                 )
-            }, onError: { error in
+            }, onError: { [weak self] error in
+                guard let self else { return }
                 Alert.errorAlert(
                     viewController: self,
                     errorMessage: error.localizedDescription
@@ -223,34 +248,37 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func logInEmailTextFieldDidChange(_ textField: UITextField) {
-        guard textField.text != nil && textField.text!.validateEmail() else {
-            logInButton.button.setTitleColor(.refreeColor.text1, for: .normal)
-            logInButton.button.isEnabled = false
-            isEmailValidate = false
-            return
-        }
-        
-        isEmailValidate = true
-        
-        if isEmailValidate && isPasswordValidate {
-            logInButton.button.setTitleColor(.refreeColor.text3, for: .normal)
-            logInButton.button.isEnabled = true
-        }
+//        guard textField.text != nil && textField.text!.validateEmail() else {
+//            logInButton.button.setTitleColor(.refreeColor.text1, for: .normal)
+//            logInButton.button.isEnabled = false
+//            isEmailValidate = false
+//            return
+//        }
+//
+//        isEmailValidate = true
+//
+//        if isEmailValidate && isPasswordValidate {
+//            logInButton.button.setTitleColor(.refreeColor.text3, for: .normal)
+//            logInButton.button.isEnabled = true
+//        }
     }
     
     @objc func logInPasswordTextFieldDidChange(_ textField: UITextField) {
-        guard textField.text != nil else {
-            logInButton.button.setTitleColor(.refreeColor.text1, for: .normal)
-            logInButton.button.isEnabled = false
-            isPasswordValidate = false
-            return
-        }
-        
-        isPasswordValidate = true
-        
-        if isEmailValidate && isPasswordValidate {
-            logInButton.button.setTitleColor(.refreeColor.text3, for: .normal)
-            logInButton.button.isEnabled = true
-        }
+//        guard textField.text != nil else {
+//            logInButton.button.setTitleColor(.refreeColor.text1, for: .normal)
+//            logInButton.button.isEnabled = false
+//            isPasswordValidate = false
+//            return
+//        }
+//
+//        isPasswordValidate = true
+//
+//        if isEmailValidate && isPasswordValidate {
+//            logInButton.button.setTitleColor(.refreeColor.text3, for: .normal)
+//            logInButton.button.isEnabled = true
+//        } else {
+//            logInButton.button.setTitleColor(.refreeColor.text1, for: .normal)
+//            logInButton.button.isEnabled = false
+//        }
     }
 }
