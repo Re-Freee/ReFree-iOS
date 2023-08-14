@@ -473,6 +473,7 @@ extension RefrigeratorViewController: UICollectionViewDelegateFlowLayout {
                 self?.tabBarController?
                     .navigationController?
                     .popViewController(animated: true)
+                self?.reloadData()
             })
             .disposed(by: disposeBag)
         

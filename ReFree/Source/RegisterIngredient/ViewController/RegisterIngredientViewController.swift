@@ -257,7 +257,7 @@ final class RegisterIngredientViewController: UIViewController {
             .disposed(by: disposeBag)
         
         ingredientInfoView.saveButton.rx.tapGesture()
-            .when(.recognized)
+            .when(.ended)
             .bind { [weak self] _ in
                 guard
                     let self,
@@ -452,9 +452,10 @@ final class RegisterIngredientViewController: UIViewController {
             )
             alert.successButton.rx.tap
                 .bind(onNext: { [weak self] in
-                    self?.dismiss(animated: true)
+                    self?.navigationController?.popViewController(animated: true)
                 })
                 .disposed(by: disposeBag)
+            self.addsubViewToWindow(view: alert)
         }, onError: { [weak self] error in
             guard let self else { return }
             Alert.errorAlert(
