@@ -10,10 +10,13 @@ import UIKit
 // UIView의 로직을 UIVIewController로 리팩토링 시 삭제 예정
 extension UIView {
     func responseCheck(response: CommonResponse) -> Bool {
+        // TODO: 나머지 핸들링 + Error Alert
         switch response.code {
         case "200": return true
         case "401": loginExpired(); return false
-        default: return false // TODO: 나머지 핸들링 + Error Alert
+        default:
+            Alert.checkAlert(targetView: self, title: response.message, message: "")
+            return false
         }
     }
     

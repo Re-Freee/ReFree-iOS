@@ -34,7 +34,7 @@ final class AlertView: UIView {
     }
     
     private let titleLabel = UILabel().then {
-        $0.numberOfLines = 3
+        $0.numberOfLines = 5
         $0.textAlignment = .center
         $0.font = .pretendard.bold20
         $0.textColor = .black

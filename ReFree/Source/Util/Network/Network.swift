@@ -55,7 +55,7 @@ struct Network {
             request.httpBody = target.parameters
             
             let task = AF.request(request)
-                .validate(statusCode: 200..<300)
+                .validate(statusCode: 200..<500)
                 .responseDecodable(of: T.self) { response in
                     switch response.result {
                     case let .success(data):
@@ -85,7 +85,7 @@ struct Network {
             request.httpBody = target.parameters
             
             let task = AF.request(request)
-                .validate(statusCode: 200..<300)
+                .validate(statusCode: 200..<500)
                 .responseDecodable(of: T.self) { response in
                     
                     if let token = response.response?.headers["Authorization"] {
@@ -99,6 +99,13 @@ struct Network {
                         switch response.result {
                         case let .success(data):
                             emitter.onNext((data, backupCode))
+                        case let .failure(error):
+                            emitter.onError(error)
+                        }
+                    } else {
+                        switch response.result {
+                        case let .success(data):
+                            emitter.onNext((data, ""))
                         case let .failure(error):
                             emitter.onError(error)
                         }
@@ -149,7 +156,7 @@ struct Network {
                 method: target.method,
                 headers: target.header
             )
-                .validate(statusCode: 200..<300)
+                .validate(statusCode: 200..<500)
                 .responseDecodable(of: T.self) { response in
                     switch response.result {
                     case let .success(data):
