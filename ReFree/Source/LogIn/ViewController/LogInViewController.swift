@@ -198,7 +198,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             )
             return
         }
-        
         signRepository.request(signIn: .signIn(id: id, password: password))
             .subscribe(onNext: { [weak self] (response, token) in
                 guard
@@ -247,38 +246,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         )
     }
     
-    @objc func logInEmailTextFieldDidChange(_ textField: UITextField) {
-//        guard textField.text != nil && textField.text!.validateEmail() else {
-//            logInButton.button.setTitleColor(.refreeColor.text1, for: .normal)
-//            logInButton.button.isEnabled = false
-//            isEmailValidate = false
-//            return
-//        }
-//
-//        isEmailValidate = true
-//
-//        if isEmailValidate && isPasswordValidate {
-//            logInButton.button.setTitleColor(.refreeColor.text3, for: .normal)
-//            logInButton.button.isEnabled = true
-//        }
-    }
+    @objc func logInEmailTextFieldDidChange(_ textField: UITextField) {}
     
-    @objc func logInPasswordTextFieldDidChange(_ textField: UITextField) {
-//        guard textField.text != nil else {
-//            logInButton.button.setTitleColor(.refreeColor.text1, for: .normal)
-//            logInButton.button.isEnabled = false
-//            isPasswordValidate = false
-//            return
-//        }
-//
-//        isPasswordValidate = true
-//
-//        if isEmailValidate && isPasswordValidate {
-//            logInButton.button.setTitleColor(.refreeColor.text3, for: .normal)
-//            logInButton.button.isEnabled = true
-//        } else {
-//            logInButton.button.setTitleColor(.refreeColor.text1, for: .normal)
-//            logInButton.button.isEnabled = false
-//        }
-    }
+    @objc func logInPasswordTextFieldDidChange(_ textField: UITextField) {}
 }
