@@ -20,12 +20,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        let navigation = UINavigationController(rootViewController: AppInitViewController())
+        let navigation = UINavigationController(rootViewController: SignAgreementViewController())
         globalNavigation = navigation
         
-        if let _ = try? KeyChain.shared.searchToken(kind: .accessToken) {
-            navigation.pushViewController(HomeTabViewController(), animated: false)
-        }
+//        if let _ = try? KeyChain.shared.searchToken(kind: .accessToken) {
+//            navigation.pushViewController(HomeTabViewController(), animated: false)
+//        }
         window.rootViewController = navigation
         window.makeKeyAndVisible()
         
@@ -80,7 +80,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func popToRootViewController() {
         guard let globalNavigation else { return }
         globalNavigation.popToRootViewController(animated: true)
-        guard let initViewController = globalNavigation.topViewController else { return }
+//        guard let initViewController = globalNavigation.topViewController else { return }
     }
 }
 
