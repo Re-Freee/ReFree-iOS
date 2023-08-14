@@ -45,7 +45,7 @@ extension NetworkSign: Target {
     
     var header: HTTPHeaders {
         switch self {
-        case .userNickName:
+        case .userNickName, .withDraw:
             guard
                 let token = try? KeyChain.shared.searchToken(kind: .accessToken)
             else { return [] }
@@ -54,8 +54,7 @@ extension NetworkSign: Target {
                 "Authorization" : token
             ]
         case .signIn(_, _), .signUp(_),
-                .findPassword(_, _), .modifyPassword(_, _, _),
-                .withDraw:
+                .findPassword(_, _), .modifyPassword(_, _, _):
             return [ "Content-Type": "application/json" ]
         }
         

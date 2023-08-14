@@ -18,6 +18,11 @@ extension UIView {
     }
     
     private func loginExpired() {
+        Alert.checkAlert(
+            targetView: self,
+            title: "로그인이 만료되었습니다.",
+            message: "다시 로그인해 주세요."
+        )
         guard
             let sceneDelegate = self.window?.windowScene?.delegate as? SceneDelegate
         else { return }
