@@ -60,7 +60,7 @@ class AuthenticationCodeViewController: UIViewController {
         $0.numberOfLines = 2
         $0.font = .pretendard.bold18
         $0.textColor = UIColor.refreeColor.main
-        $0.text = "abcdefgh-1234-1234-1234-1ejdk4kfje93" // ex) abcdefgh-1234-1234-1234-1ejdk4kfje93
+        $0.text = "" // ex) abcdefgh-1234-1234-1234-1ejdk4kfje93
         $0.textAlignment = .center
     }
     
