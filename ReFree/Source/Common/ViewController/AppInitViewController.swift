@@ -112,8 +112,8 @@ final class AppInitViewController: UIViewController {
         
         registerButton.rx.tap
             .subscribe { [weak self] _ in
-                let signIpVC = SignUpViewController()
-                self?.navigationController?.pushViewController(signIpVC, animated: true)
+                let signAgreementVC = SignAgreementViewController()
+                self?.navigationController?.pushViewController(signAgreementVC, animated: true)
             }
             .disposed(by: disposeBag)
     }
