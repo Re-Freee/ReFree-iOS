@@ -107,11 +107,6 @@ final class SettingViewController: UIViewController {
                 else { return }
                 self.userRepository.deleteUserNickName()
                 try? KeyChain.shared.deleteToken(kind: .accessToken)
-                Alert.checkAlert(
-                    viewController: self,
-                    title: "로그아웃 완료!",
-                    message: ""
-                )
                 sceneDelegate.popToRootViewController()
             })
             .disposed(by: disposeBag)

@@ -14,7 +14,7 @@ class PasswordChangeViewController: UIViewController, UITextFieldDelegate {
     private let header = PasswordFindTabHeader(frame: .zero)
     private let stackViewBackground = LogInStackViewBackground(height: 340)
     private let newPasswordStackView = UIStackView().then {
-        $0.spacing = 30
+        $0.spacing = 20
         $0.axis = .vertical
     }
     
@@ -34,25 +34,25 @@ class PasswordChangeViewController: UIViewController, UITextFieldDelegate {
     
     private let newPasswordCheckImage = UIImageView().then {
         $0.image = UIImage(named: "CircleCheck")
-        $0.contentMode = .scaleToFill
+        $0.contentMode = .scaleAspectFill
         $0.isHidden = true
     }
     
     private let newPasswordXImage = UIImageView().then {
         $0.image = UIImage(named: "CircleX")
-        $0.contentMode = .scaleToFill
+        $0.contentMode = .scaleAspectFill
         $0.isHidden = true
     }
     
     private let confirmNewPasswordCheckImage = UIImageView().then {
         $0.image = UIImage(named: "CircleCheck")
-        $0.contentMode = .scaleToFill
+        $0.contentMode = .scaleAspectFill
         $0.isHidden = true
     }
     
     private let confirmNewPasswordXImage = UIImageView().then {
         $0.image = UIImage(named: "CircleX")
-        $0.contentMode = .scaleToFill
+        $0.contentMode = .scaleAspectFill
         $0.isHidden = true
     }
     
@@ -83,7 +83,7 @@ class PasswordChangeViewController: UIViewController, UITextFieldDelegate {
     
     init(email: String) {
         self.email = email
-        super.init()
+        super.init(nibName: nil, bundle: Bundle.main)
     }
     
     required init?(coder: NSCoder) {

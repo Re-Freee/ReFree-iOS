@@ -11,15 +11,16 @@ import Then
 
 final class LogInButton: UIView {
     public let button = UIButton().then {
-        $0.isEnabled = false
-        $0.setTitleColor(UIColor.refreeColor.text1, for: .normal)
+        $0.isEnabled = true
+        $0.setTitleColor(UIColor.refreeColor.text3, for: .normal)
         $0.titleLabel?.font = .pretendard.bold15
         $0.contentHorizontalAlignment = .center
         $0.backgroundColor = .refreeColor.main
     }
     
-    init(message: String,
-         height: CGFloat = .zero
+    init(
+        message: String,
+        height: CGFloat = .zero
     ) {
         super.init(frame: .zero)
         if height == .zero {
