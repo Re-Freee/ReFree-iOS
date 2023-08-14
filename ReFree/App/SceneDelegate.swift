@@ -22,6 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         let navigation = UINavigationController(rootViewController: AppInitViewController())
         globalNavigation = navigation
+        
         if let _ = try? KeyChain.shared.searchToken(kind: .accessToken) {
             navigation.pushViewController(HomeTabViewController(), animated: false)
         }
@@ -80,11 +81,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let globalNavigation else { return }
         globalNavigation.popToRootViewController(animated: true)
         guard let initViewController = globalNavigation.topViewController else { return }
-        Alert.checkAlert(
-            viewController: initViewController,
-            title: "알림",
-            message: "로그인이 만료되었습니다.\n다시 로그인해 주세요."
-        )
     }
 }
 

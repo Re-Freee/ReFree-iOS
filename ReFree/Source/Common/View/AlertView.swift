@@ -125,7 +125,7 @@ final class AlertView: UIView {
         if alertType == .check {
             buttonStack.removeArrangedSubview(cancelButton)
             let attrString = NSAttributedString(
-                string: "확인했습니다!",
+                string: "닫기",
                 attributes: [.font: UIFont.pretendard.bold16 ?? UIFont.systemFont(ofSize: 16)]
             )
             successButton.setAttributedTitle(attrString, for: .normal)
