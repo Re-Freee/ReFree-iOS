@@ -62,6 +62,10 @@ final class HomeTabViewController: UITabBarController {
             rootViewController: RecipeViewController()
         )
         
+        let settingViewController = UINavigationController(
+            rootViewController: SettingViewController()
+        )
+        
         homeViewController.tabBarItem = UITabBarItem(
             title: "홈",
             image: UIImage(systemName: "house.fill")?
@@ -94,11 +98,20 @@ final class HomeTabViewController: UITabBarController {
             selectedImage: UIImage(systemName: "list.clipboard.fill")
         )
         
+        settingViewController.tabBarItem = UITabBarItem(
+            title: "설정",
+            image: UIImage(systemName: "gearshape.fill")?
+                .withRenderingMode(.alwaysOriginal)
+                .withTintColor(.refreeColor.lightGray),
+            selectedImage: UIImage(systemName: "gearshape.fill")
+        )
+        
         let tabItems = [
             homeViewController,
             refrigeratorViewController,
             addFoodViewController,
-            recipeViewController
+            recipeViewController,
+            settingViewController
         ]
         
         tabItems.forEach {
