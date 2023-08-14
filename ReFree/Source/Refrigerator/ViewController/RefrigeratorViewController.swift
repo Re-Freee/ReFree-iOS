@@ -461,6 +461,21 @@ extension RefrigeratorViewController: UICollectionViewDelegateFlowLayout {
             })
             .disposed(by: disposeBag)
         
+        modalVC.editSubject
+            .subscribe(onNext: { [weak self] ingredient in
+                let editVC =  RegisterIngredientViewController(type: .edit)
+                editVC.setIngredient(ingredient: ingredient)
+                self?.navigationController?
+                    .pushViewController(
+                        editVC,
+                        animated: false
+                    )
+                self?.tabBarController?
+                    .navigationController?
+                    .popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
         tabBarController?
             .navigationController?
             .pushViewController(

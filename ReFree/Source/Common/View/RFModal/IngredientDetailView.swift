@@ -45,7 +45,7 @@ final class IngredientDetailView: UIView {
     private let memoTextView = UITextView().then {
         $0.textColor = .refreeColor.text1
         $0.font = .pretendard.extraLight16
-        $0.isUserInteractionEnabled = true
+        $0.isUserInteractionEnabled = false
     }
     
     let deleteButton = UIButton().then {
@@ -77,6 +77,7 @@ final class IngredientDetailView: UIView {
     private var ingredient: Ingredient
     let errorSubject = PublishSubject<String>()
     let alertSubject = PublishSubject<String>()
+    let editSubject = PublishSubject<Ingredient>()
     
     init(ingredient: Ingredient) {
         self.ingredient = ingredient
@@ -144,6 +145,7 @@ final class IngredientDetailView: UIView {
                 self.expireDate.text = ingredient.expireDate ?? ""
                 self.productCount.text = "\(ingredient.count ?? 0)"
                 self.memoTextView.text = ingredient.memo
+                self.ingredient = ingredient
             }, onError: { error in
                 self.errorSubject.onNext(error.localizedDescription)
             })
@@ -152,8 +154,18 @@ final class IngredientDetailView: UIView {
         deleteButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.touchDeleteButton()
-            }, onError: { error in
-                //
+            }, onError: { [weak self] error in
+                guard let self else { return }
+                Alert.errorAlert(
+                    targetView: self,
+                    errorMessage: error.localizedDescription
+                )
+            })
+            .disposed(by: disposeBag)
+        
+        editButton.rx.tap
+            .bind(onNext: { [weak self] in
+                self?.touchEditButton()
             })
             .disposed(by: disposeBag)
     }
@@ -173,5 +185,10 @@ final class IngredientDetailView: UIView {
                 self.errorSubject.onNext(error.localizedDescription)
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func touchEditButton() {
+        editSubject.onNext(ingredient)
+        
     }
 }

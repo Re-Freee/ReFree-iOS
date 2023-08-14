@@ -19,6 +19,7 @@ final class RFModalViewController: UIViewController {
     private var contentView: UIView?
     let endsubject = PublishSubject<Void>()
     let isHeartChangedSubject = PublishSubject<Bool>()
+    let editSubject = PublishSubject<Ingredient>()
     private var disposeBag = DisposeBag()
     
     init(modalHeight: CGFloat, type: ContentType) {
@@ -67,6 +68,12 @@ final class RFModalViewController: UIViewController {
                     .disposed(by: disposeBag)
                 self.view.addSubview(alert)
             })
+                .disposed(by: disposeBag)
+            view.editSubject
+                .subscribe(onNext: { [weak self] ingredient in
+                    self?.dismiss(animated: true)
+                    self?.editSubject.onNext(ingredient)
+                })
                 .disposed(by: disposeBag)
             contentView = view
         case .recipe(let recipe):
