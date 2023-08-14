@@ -52,6 +52,7 @@ struct Ingredient {
     
     func setImage(image: UIImage?) -> Ingredient {
         return Ingredient(
+            ingredientId: ingredientId,
             image: image,
             imageURL: self.imageURL,
             saveMethod: self.saveMethod,
@@ -65,6 +66,7 @@ struct Ingredient {
     
     func setImageURL(imageURL: String?) -> Ingredient {
         return Ingredient(
+            ingredientId: ingredientId,
             image: self.image,
             imageURL: imageURL,
             saveMethod: self.saveMethod,
@@ -78,6 +80,7 @@ struct Ingredient {
     
     func setSaveMethod(method: String?) -> Ingredient {
         return Ingredient(
+            ingredientId: ingredientId,
             image: self.image,
             imageURL: self.imageURL,
             saveMethod: method,
@@ -91,6 +94,7 @@ struct Ingredient {
     
     func setTitle(title: String?) -> Ingredient {
         return Ingredient(
+            ingredientId: ingredientId,
             image: self.image,
             imageURL: self.imageURL,
             saveMethod: self.saveMethod,
@@ -104,6 +108,7 @@ struct Ingredient {
     
     func setCategory(category: String?) -> Ingredient {
         return Ingredient(
+            ingredientId: ingredientId,
             image: self.image,
             imageURL: self.imageURL,
             saveMethod: self.saveMethod,
@@ -117,6 +122,7 @@ struct Ingredient {
     
     func setExpireDate(date: String?) -> Ingredient {
         return Ingredient(
+            ingredientId: ingredientId,
             image: self.image,
             imageURL: self.imageURL,
             saveMethod: self.saveMethod,
@@ -130,6 +136,7 @@ struct Ingredient {
     
     func setCount(count: Int?) -> Ingredient {
         return Ingredient(
+            ingredientId: ingredientId,
             image: self.image,
             imageURL: self.imageURL,
             saveMethod: self.saveMethod,
@@ -143,6 +150,7 @@ struct Ingredient {
     
     func setMemo(memo: String) -> Ingredient {
         return Ingredient(
+            ingredientId: ingredientId,
             image: self.image,
             imageURL: self.imageURL,
             saveMethod: self.saveMethod,

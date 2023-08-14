@@ -383,6 +383,9 @@ final class IngredientInfoView: UIView {
         default: selectIngredientKind.selectedSegmentIndex = 3
         }
         
+        print(kindIndex)
+        print(selectIngredientKind.selectedSegmentIndex)
+        
         nameTextField.text = ingredient.title
         expireDatePicker.date = expireDate.toDate()
         currentCountLabel.text = "\(count)"

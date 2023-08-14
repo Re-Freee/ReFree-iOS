@@ -140,12 +140,12 @@ final class IngredientDetailView: UIView {
                     self.responseCheck(response: commonResponse),
                     let ingredient = ingredients.first
                 else { return }
+                self.ingredient = ingredient
                 self.titleLabel.text = ingredient.title ?? ""
                 self.category.text = ingredient.category ?? ""
                 self.expireDate.text = ingredient.expireDate ?? ""
                 self.productCount.text = "\(ingredient.count ?? 0)"
                 self.memoTextView.text = ingredient.memo
-                self.ingredient = ingredient
             }, onError: { error in
                 self.errorSubject.onNext(error.localizedDescription)
             })
@@ -189,6 +189,5 @@ final class IngredientDetailView: UIView {
     
     private func touchEditButton() {
         editSubject.onNext(ingredient)
-        
     }
 }
