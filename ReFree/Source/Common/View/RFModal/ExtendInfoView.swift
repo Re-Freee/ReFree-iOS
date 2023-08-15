@@ -30,7 +30,7 @@ final class ExtendManualInfoView: UIView {
     }
     
     private let descriptionLabel = UILabel().then {
-        $0.numberOfLines = 5
+        $0.numberOfLines = 0
         $0.textAlignment = .natural
         $0.font = .pretendard.bold18
         $0.textColor = .black
