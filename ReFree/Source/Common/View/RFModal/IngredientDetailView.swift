@@ -21,6 +21,8 @@ final class IngredientDetailView: UIView {
     private let expireDate = DetailStackView(kind: .expire)
     private let productCount = DetailStackView(kind: .count)
     private let memoLabel = UILabel().then {
+        $0.textColor = .refreeColor.text1
+        $0.font = .pretendard.bold18
         $0.text = "메모"
     }
     
@@ -43,6 +45,7 @@ final class IngredientDetailView: UIView {
     }
     
     private let memoTextView = UITextView().then {
+        $0.backgroundColor = .refreeColor.background4
         $0.textColor = .refreeColor.text1
         $0.font = .pretendard.extraLight16
         $0.isUserInteractionEnabled = false

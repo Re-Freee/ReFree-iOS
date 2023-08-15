@@ -10,6 +10,7 @@ import UIKit
 final class CategorySelectLabel: PaddingLabel {
     init() {
         super.init()
+        textColor = .refreeColor.text2
         clipsToBounds = true
         backgroundColor = .refreeColor.textFrame
         layer.cornerRadius = 10
