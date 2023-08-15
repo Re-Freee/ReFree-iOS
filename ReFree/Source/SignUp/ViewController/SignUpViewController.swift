@@ -37,6 +37,7 @@ class SignUpViewController: UIViewController {
     }
     
     let emailTextField = UITextField().then {
+        $0.autocapitalizationType = .none
         $0.borderStyle = .roundedRect
         $0.textColor = .black
         $0.returnKeyType = .done
@@ -332,22 +333,18 @@ class SignUpViewController: UIViewController {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
             
-            // 이메일 텍스트 필드에 포커스가 있는 경우에만 뷰를 올림
-            if emailTextField.isFirstResponder {
-                self.view.window?.frame.origin.y -= (keyboardHeight / 2)
+            UIView.animate(withDuration: 0.5) { [weak self] in
+                self?.view.transform = CGAffineTransform(
+                    translationX: 0, y: -keyboardHeight / 2
+                )
             }
         }
     }
 
     @objc private func keyboardWillHide(_ notification: Notification) {
-        if let _: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-//            let keyboardRectangle = keyboardFrame.cgRectValue
-//            let keyboardHeight = keyboardRectangle.height
-            self.view.window?.frame.origin.y = 0
-        }
+        view.transform = .identity
     }
 
-    // 키보드 바깥을 클릭할 경우
     private var tapGestureRecognizer: UITapGestureRecognizer!
     
     @objc private func handleTapOutsideKeyboard() {
