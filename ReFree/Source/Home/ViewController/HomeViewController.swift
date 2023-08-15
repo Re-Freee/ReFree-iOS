@@ -199,12 +199,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITextFieldDele
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // TODO: reurn을 눌렀을 때 기능 추가, 아래 코드는 return을 눌렀을 때 textField의 "searchText" 변수에 저장하고 textField를 비워주는 임시 코드
-//        let searchText = textField.text
         textField.text = ""
-        
         textField.resignFirstResponder()
-        
+        searchStartButtonTapped()
         return true
     }
     

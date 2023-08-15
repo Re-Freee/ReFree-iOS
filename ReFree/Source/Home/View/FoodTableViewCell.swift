@@ -8,9 +8,14 @@
 import UIKit
 import SnapKit
 import Then
+import Kingfisher
 
 final class FoodTableViewCell: UITableViewCell, Identifiable {
-    private let foodImage = UIImageView()
+    private let foodImage = UIImageView().then {
+        $0.clipsToBounds = true
+        $0.contentMode = .scaleAspectFill
+        $0.layer.cornerRadius = 5
+    }
     
     private let foodTitleLabel = UILabel().then {
         $0.textColor = .refreeColor.main
@@ -67,16 +72,6 @@ final class FoodTableViewCell: UITableViewCell, Identifiable {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        layer.masksToBounds = false
-//        layer.shadowOffset = CGSize(width: 0, height: 2
-//        )
-//        layer.shadowOpacity = 1
-//        layer.shadowRadius = 4
-//        layer.shadowColor = UIColor.gray.cgColor
-//    }
-    
     private func layout() {
         self.backgroundColor = .white
         layer.cornerRadius = 15
@@ -122,15 +117,23 @@ final class FoodTableViewCell: UITableViewCell, Identifiable {
     
     public func setData(ingredient: Ingredient) {
         guard
-            let image = ingredient.image,
+            let imageURLString = ingredient.imageURL,
+            let imageURL = URL(string: imageURLString),
             let title = ingredient.title,
             let expireDate = ingredient.expireDate
         else { return }
         
-        
-        foodImage.image = image
+        foodImage.kf.setImage(with: imageURL)
         foodTitleLabel.text = title
         foodUsedByDateLabel.text = "소비기한 " + expireDate
-        foodRemainDateLabel.text = "N일 남았습니다!" // TODO: expireDate와 현재 시간을 계산해서 적용
+        foodRemainDateLabel.text = remainDateString(expireDate: expireDate)
+    }
+    
+    private func remainDateString(expireDate: String) -> String {
+        let expireDate = expireDate.toDate()
+        let remainTimeInterval = expireDate.timeIntervalSince(.now)
+        let remainDay = Int(ceil(remainTimeInterval / 60 / 60 / 24))
+        
+        return "\(remainDay)일 남았습니다."
     }
 }

@@ -476,7 +476,6 @@ final class RegisterIngredientViewController: UIViewController {
     }
     
     @objc private func keyboardUp(notification: NSNotification) {
-        print(ingredientInfoView.memoTextView.isFirstResponder)
         guard
             let keyboardFrame = notification
                 .userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
