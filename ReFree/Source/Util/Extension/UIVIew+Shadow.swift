@@ -20,6 +20,9 @@ extension UIView {
         layer.shadowOpacity = opacity
         layer.shadowRadius = radius
         layer.shadowColor = color.cgColor
+    }
+    
+    func cofingShadowPath() {
         layer.shadowPath = UIBezierPath(rect: bounds).cgPath
     }
     
