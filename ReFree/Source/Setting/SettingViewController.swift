@@ -66,7 +66,7 @@ final class SettingViewController: UIViewController {
         }
         
         logoutButton.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(24)
+            $0.centerY.equalTo(view.snp.centerY)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(24)
             $0.height.equalTo(50)
         }
