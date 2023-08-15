@@ -17,6 +17,7 @@ final class RecipeDetailCell: UICollectionViewCell, Identifiable {
         $0.backgroundColor = .refreeColor.lightGray
     }
     private let descriptionLabel = UILabel().then {
+        $0.font = .pretendard.extraLight15
         $0.textAlignment = .left
         $0.numberOfLines = 0
         $0.text = ""
@@ -31,6 +32,10 @@ final class RecipeDetailCell: UICollectionViewCell, Identifiable {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+    
     private func layout() {
         addSubviews([imageView, descriptionLabel])
         
@@ -43,9 +48,7 @@ final class RecipeDetailCell: UICollectionViewCell, Identifiable {
         
         descriptionLabel.snp.makeConstraints {
             $0.top.trailing.bottom.equalToSuperview()
-            $0.height.greaterThanOrEqualTo(80)
-            $0.height.lessThanOrEqualTo(150)
-            $0.leading.equalTo(imageView.snp.trailing).offset(12)
+            $0.leading.equalTo(imageView.snp.trailing).offset(8)
         }
     }
     
