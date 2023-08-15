@@ -19,7 +19,7 @@ final class CameraView: UIView {
         $0.contentMode = .center
     }
     
-    let currentImage = BehaviorSubject(value: UIImage(named: "ReFree_non"))
+    let currentImage = BehaviorSubject(value: Constant.reFreeLogo)
     
     init() {
         super.init(frame: .zero)
@@ -46,7 +46,7 @@ final class CameraView: UIView {
     }
     
     func setDefault() {
-        currentImage.onNext(UIImage(named: "ReFree_non"))
+        currentImage.onNext(Constant.reFreeLogo)
         imageView.image = UIImage(named: "Camera1")
         imageView.backgroundColor = .refreeColor.text1
         imageView.contentMode = .center

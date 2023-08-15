@@ -125,8 +125,8 @@ extension UIView {
         setGradientLayer(
             type: .axial,
             colors: colors,
-            startPoint: CGPoint(x: 0.0, y: 0.0),
-            endPoint: CGPoint(x: 0.0, y: 1),
+            startPoint: CGPoint(x: 0.5, y: 0.0),
+            endPoint: CGPoint(x: 0.5, y: 1),
             locations:  [0.0]
         )
     }

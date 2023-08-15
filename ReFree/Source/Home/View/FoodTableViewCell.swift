@@ -134,6 +134,10 @@ final class FoodTableViewCell: UITableViewCell, Identifiable {
         let remainTimeInterval = expireDate.timeIntervalSince(.now)
         let remainDay = Int(ceil(remainTimeInterval / 60 / 60 / 24))
         
+        if remainDay == 0 {
+            return "소비기한이 오늘입니다."
+        }
+        
         return "\(remainDay)일 남았습니다."
     }
 }
