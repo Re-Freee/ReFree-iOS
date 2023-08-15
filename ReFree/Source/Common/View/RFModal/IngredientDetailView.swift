@@ -45,25 +45,33 @@ final class IngredientDetailView: UIView {
     }
     
     private let memoTextView = UITextView().then {
-        $0.backgroundColor = .refreeColor.background4
+        $0.backgroundColor = .white
         $0.textColor = .refreeColor.text1
         $0.font = .pretendard.extraLight16
         $0.isUserInteractionEnabled = false
     }
     
     let deleteButton = UIButton().then {
-        $0.layer.borderColor = UIColor.refreeColor.background3.cgColor
-        $0.layer.borderWidth = 0.5
+        $0.layer.borderColor = UIColor.refreeColor.main.cgColor
+        $0.layer.borderWidth = 1
         $0.layer.cornerRadius = 25
-        $0.setTitleColor(.black, for: .normal)
-        $0.setTitle("삭제", for: .normal)
+        $0.setTitleColor(.refreeColor.main, for: .normal)
+        let attrString = NSAttributedString(
+            string: "삭제",
+            attributes: [.font: UIFont.pretendard.bold18 ?? UIFont.systemFont(ofSize: 20)]
+        )
+        $0.setAttributedTitle(attrString, for: .normal)
     }
     
     let editButton = UIButton().then {
-        $0.backgroundColor = .refreeColor.background3
+        $0.backgroundColor = .refreeColor.main
         $0.layer.cornerRadius = 25
-        $0.setTitle("수정", for: .normal)
         $0.setTitleColor(.white, for: .normal)
+        let attrString = NSAttributedString(
+            string: "수정",
+            attributes: [.font: UIFont.pretendard.bold18 ?? UIFont.systemFont(ofSize: 20)]
+        )
+        $0.setAttributedTitle(attrString, for: .normal)
     }
     
     private lazy var buttonStack = UIStackView(
@@ -122,7 +130,7 @@ final class IngredientDetailView: UIView {
         }
         
         buttonStack.snp.makeConstraints {
-            $0.top.equalTo(memoTextView.snp.bottom)
+            $0.top.equalTo(memoTextView.snp.bottom).offset(8)
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview().inset(48)
         }
