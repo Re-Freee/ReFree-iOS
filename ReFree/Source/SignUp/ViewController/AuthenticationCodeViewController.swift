@@ -9,9 +9,10 @@ import UIKit
 import SnapKit
 import Then
 import RxSwift
+import Photos
 
 class AuthenticationCodeViewController: UIViewController {
-
+    
     let authenticationImageView1 = UIImageView().then {
         $0.image = UIImage(named: "FourCircle")
         $0.contentMode = .scaleAspectFit
@@ -120,12 +121,12 @@ class AuthenticationCodeViewController: UIViewController {
         layout()
         bind()
     }
-
+    
     private func layout(){
         view.addSubviews([
             authImageStack,
             authenticationContainerView
-            ])
+        ])
         
         authenticationContainerView.addSubviews([
             authenticaitionLabel,
@@ -177,13 +178,13 @@ class AuthenticationCodeViewController: UIViewController {
             $0.leading.equalTo(authenticaitionLabel.snp.leading)
             $0.trailing.equalTo(authenticationContainerView.snp.trailing).offset(-20)
         }
-
+        
         codeLabelContainerView.snp.makeConstraints {
             $0.height.equalTo(100)
             $0.top.equalTo(authenticationLongLabel.snp.bottom).offset(20)
             $0.leading.trailing.equalTo(authenticationContainerView).inset(20)
         }
-
+        
         codeLabel.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(20)
             $0.leading.trailing.equalToSuperview().inset(20)
@@ -201,7 +202,7 @@ class AuthenticationCodeViewController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(24)
             $0.bottom.equalToSuperview().inset(24)
         }
-
+        
         imageView.snp.makeConstraints {
             $0.width.height.equalTo(20)
             $0.centerY.equalTo(continueButton.snp.centerY)
@@ -243,13 +244,7 @@ class AuthenticationCodeViewController: UIViewController {
                     )
                     return
                 }
-                
-                let activityVC = UIActivityViewController(
-                    activityItems: [image],
-                    applicationActivities: nil
-                )
-                activityVC.excludedActivityTypes = [.saveToCameraRoll]
-                self.present(activityVC, animated: true)
+                self.imageHandler(image: image)
             })
             .disposed(by: disposeBag)
         
@@ -259,5 +254,80 @@ class AuthenticationCodeViewController: UIViewController {
                 self?.navigationController?.pushViewController(signUpCompleteVC, animated: true)
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func imageHandler(image: UIImage) {
+        let sheet = UIAlertController(
+            title: "사진으로 저장",
+            message: "",
+            preferredStyle: .actionSheet
+        )
+        
+        let shareAction = UIAlertAction(
+            title: "공유하기",
+            style: .default
+        ) { [weak self] _ in
+            let activityVC = UIActivityViewController(
+                activityItems: [image],
+                applicationActivities: nil
+            )
+            activityVC.excludedActivityTypes = [.saveToCameraRoll]
+            self?.present(activityVC, animated: true)
+        }
+        
+        let saveAction = UIAlertAction(
+            title: "앨범에 저장",
+            style: .default
+        ) { [weak self] _ in
+            PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] status in
+                switch status {
+                case .authorized: self?.saveImage(image: image)
+                default:
+                    DispatchQueue.main.async { [weak self] in
+                        let alert = AlertView(
+                            title: "앨범 권한이 필요합니다.",
+                            description: "앱 설정으로 이동합니다.",
+                            alertType: .question
+                        )
+                        alert.addAction(kind: .success) {
+                            guard
+                                let settingURL = URL(string: UIApplication.openSettingsURLString)
+                            else { return }
+                            UIApplication.shared.open(settingURL)
+                        }
+                        self?.view.addSubview(alert)
+                    }
+                }
+            }
+        }
+        
+        let cancel = UIAlertAction(title: "취소", style: .destructive)
+        
+        sheet.addAction(shareAction)
+        sheet.addAction(saveAction)
+        sheet.addAction(cancel)
+        present(sheet, animated: true)
+    }
+
+    private func saveImage(image: UIImage) {
+        PHPhotoLibrary.shared().performChanges {
+            PHAssetChangeRequest.creationRequestForAsset(from: image)
+        } completionHandler: { success, _ in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                if success {
+                    Alert.checkAlert(
+                        viewController: self,
+                        title: "저장되었습니다.",
+                        message: ""
+                    )
+                } else {
+                    Alert.errorAlert(
+                        viewController: self,
+                        errorMessage: "저장에 실패했습니다."
+                    )
+                }
+            }
+        }
     }
 }
