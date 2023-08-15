@@ -33,54 +33,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let height = window.windowScene?.screen.bounds {
             Constant.screenSize = height
         }
-        
-        UINavigationBar.appearance().tintColor = .refreeColor.main
+        appearance()
     }
     
-    func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
-    }
+    func sceneDidDisconnect(_ scene: UIScene) {}
     
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-    }
+    func sceneDidBecomeActive(_ scene: UIScene) {}
     
-    func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
-    }
+    func sceneWillResignActive(_ scene: UIScene) {}
     
     func sceneWillEnterForeground(_ scene: UIScene) {
-        guard
-            let windowScene = (scene as? UIWindowScene),
-            let navigation = windowScene.windows.first?.rootViewController as? UINavigationController,
-            let currentView = navigation.topViewController?.view
-        else { return }
-        
+        guard let windowFrame = window?.frame else { return }
         let launchScreenView = LaunchScreenView()
-        currentView.addSubview(launchScreenView)
-        launchScreenView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
-        // Called as the scene transitions from the background to the foreground.
-        // Use this method to undo the changes made on entering the background.
+        launchScreenView.frame = windowFrame
+        launchScreenView.layer.zPosition = 1
+        window?.addSubview(launchScreenView)
     }
     
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
-    }
+    func sceneDidEnterBackground(_ scene: UIScene) {}
     
     func popToRootViewController() {
         guard let globalNavigation else { return }
         globalNavigation.popToRootViewController(animated: true)
-//        guard let initViewController = globalNavigation.topViewController else { return }
+    }
+    
+    func appearance() {
+        UINavigationBar.appearance().tintColor = .refreeColor.main
+        self.window?.overrideUserInterfaceStyle = .light
     }
 }
 

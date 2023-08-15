@@ -52,6 +52,7 @@ final class IngredientInfoView: UIView {
     }
     
     let nameTextField = UITextField().then {
+        $0.textColor = .refreeColor.text2
         $0.addLeftPadding(padding: 10)
         $0.clipsToBounds = true
         $0.backgroundColor = .refreeColor.textFrame
@@ -152,6 +153,7 @@ final class IngredientInfoView: UIView {
     }
     
     let memoTextView = UITextView().then {
+        $0.textColor = .refreeColor.text2
         $0.font = .pretendard.extraLight20
         $0.clipsToBounds = true
         $0.backgroundColor = .refreeColor.textFrame
@@ -369,17 +371,17 @@ final class IngredientInfoView: UIView {
     
     func setIngredient(ingredient: Ingredient) {
         guard
-            let kindIndex = ingredient.option,
+            let savedMethod = ingredient.saveMethod,
             let category = ingredient.category,
             let expireDate = ingredient.expireDate,
             let count = ingredient.count
         else { return }
         
-        switch kindIndex {
-        case 0: selectIngredientKind.selectedSegmentIndex = 2
-        case 1: selectIngredientKind.selectedSegmentIndex = 0
-        case 2: selectIngredientKind.selectedSegmentIndex = 1
-        case 3: selectIngredientKind.selectedSegmentIndex = 3
+        switch savedMethod {
+        case "냉장": selectIngredientKind.selectedSegmentIndex = 0
+        case "냉동": selectIngredientKind.selectedSegmentIndex = 1
+        case "실온": selectIngredientKind.selectedSegmentIndex = 2
+        case "기타": selectIngredientKind.selectedSegmentIndex = 3
         default: selectIngredientKind.selectedSegmentIndex = 3
         }
         
