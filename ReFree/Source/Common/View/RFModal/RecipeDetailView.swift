@@ -76,19 +76,19 @@ final class RecipeDetailView: UIView {
             let item = NSCollectionLayoutItem(
                 layoutSize: .init(
                     widthDimension: .fractionalWidth(1),
-                    heightDimension: .estimated(100)
+                    heightDimension: .absolute(100)
                 )
             )
             let group = NSCollectionLayoutGroup.vertical(
                 layoutSize: .init(
                     widthDimension: .fractionalWidth(1),
-                    heightDimension: .estimated(100)
+                    heightDimension: .absolute(100)
                 ),
                 subitems: [item]
             )
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = 8
-            section.contentInsets = .init(top: 4, leading: 24, bottom: 4, trailing: 24)
+            section.contentInsets = .init(top: 0, leading: 12, bottom: 0, trailing: 12)
             
             section.boundarySupplementaryItems = [
                 NSCollectionLayoutBoundarySupplementaryItem(
