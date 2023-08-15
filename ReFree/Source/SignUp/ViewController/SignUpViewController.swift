@@ -626,8 +626,8 @@ class SignUpViewController: UIViewController {
         
         createAccountButton.snp.makeConstraints { make in
             make.height.equalTo(30)
-            make.width.equalTo(signUpContainerView).multipliedBy(274.0 / 323.0)
             make.leading.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-28)
         }
         
         borderView.snp.makeConstraints { make in

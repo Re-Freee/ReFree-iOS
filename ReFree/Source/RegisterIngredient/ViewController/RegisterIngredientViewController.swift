@@ -324,7 +324,8 @@ final class RegisterIngredientViewController: UIViewController {
         
         alert.addAction(takePhto)
         alert.addAction(selectPhoto)
-        if (try? cameraView.currentImage.value()) != UIImage(named: "Camera1") {
+        
+        if (try? cameraView.currentImage.value()) != Constant.reFreeLogo {
             alert.addAction(deleteImage)
         }
         alert.addAction(cancel)
