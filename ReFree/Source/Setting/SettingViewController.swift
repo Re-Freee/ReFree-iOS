@@ -11,6 +11,19 @@ import Then
 import RxSwift
 
 final class SettingViewController: UIViewController {
+    private let handsImageView = UIImageView(
+        image: UIImage(named: "Hands")
+    ).then {
+        $0.contentMode = .scaleAspectFill
+    }
+    
+    private let whiteBoxView = UIView().then {
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 15
+        $0.addShadow()
+        $0.backgroundColor = .white
+    }
+    
     private let titleLabel = UILabel().then {
         $0.textColor = .refreeColor.main
         $0.font = .pretendard.extraBold30
@@ -47,6 +60,11 @@ final class SettingViewController: UIViewController {
         navigationController?.isNavigationBarHidden = true
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        whiteBoxView.layer.shadowPath = UIBezierPath(rect: whiteBoxView.bounds).cgPath
+    }
+    
     private func config() {
         layout()
         bind()
@@ -54,27 +72,46 @@ final class SettingViewController: UIViewController {
     
     private func layout() {
         view.gradientBackground(type: .mainAxial)
+        
         view.addSubviews([
+            handsImageView,
+            whiteBoxView
+        ])
+        
+        whiteBoxView.addSubviews([
             titleLabel,
             logoutButton,
             withdrawButton
         ])
         
+        
+        whiteBoxView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.equalToSuperview().multipliedBy(0.8)
+        }
+        
+        handsImageView.snp.makeConstraints {
+            $0.bottom.equalTo(whiteBoxView.snp.top)
+            $0.centerX.equalToSuperview()
+            $0.width.height.equalTo(view.snp.width).multipliedBy(0.6)
+        }
+        
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.leading.equalTo(view.safeAreaLayoutGuide).inset(24)
+            $0.top.equalToSuperview().inset(24)
+            $0.leading.equalToSuperview().inset(24)
         }
         
         logoutButton.snp.makeConstraints {
-            $0.centerY.equalTo(view.snp.centerY)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(24)
-            $0.height.equalTo(50)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(48)
+            $0.leading.trailing.equalToSuperview().inset(24)
+            $0.height.equalTo(40)
         }
         
         withdrawButton.snp.makeConstraints {
             $0.top.equalTo(logoutButton.snp.bottom).offset(8)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(24)
-            $0.height.equalTo(50)
+            $0.leading.trailing.equalToSuperview().inset(24)
+            $0.height.equalTo(40)
+            $0.bottom.equalToSuperview().inset(48)
         }
     }
     
