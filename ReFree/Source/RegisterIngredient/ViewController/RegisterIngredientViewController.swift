@@ -19,14 +19,7 @@ final class RegisterIngredientViewController: UIViewController {
         case edit
     }
     
-    final class CustomScrollView: UIScrollView {
-        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            super.touchesBegan(touches, with: event)
-            endEditing(true)
-        }
-    }
-    
-    private let scrollVIew = CustomScrollView()
+    private let scrollVIew = RFScrollView()
     private let scrollContentView = UIView()
     private let titleLabel = UILabel().then {
         $0.textColor = .refreeColor.main

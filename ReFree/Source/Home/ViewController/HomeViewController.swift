@@ -10,7 +10,7 @@ import SnapKit
 import Then
 import RxSwift
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate {
+class HomeViewController: UIViewController, UITextFieldDelegate {
     private let header = HomeTabHeader(frame: .zero)
     
     private let foodEmptyImage = UIImageView().then {
@@ -218,6 +218,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITextFieldDele
         foodTableView.isHidden = true
         foodEmptyImage.isHidden = false
         foodEmptyLabel.isHidden = false
+    }
+}
+
+extension HomeViewController: UITableViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.view.endEditing(true)
     }
 }
 

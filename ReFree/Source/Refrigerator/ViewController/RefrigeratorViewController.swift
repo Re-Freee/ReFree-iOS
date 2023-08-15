@@ -134,7 +134,7 @@ class RefrigeratorViewController: UIViewController {
         let options: UIMenu.Options = [.displayInline]
             return UIMenu(title: "", options: [], children: menuItems)
     }()
-
+    
     private lazy var collectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: collectionViewLayout()
@@ -166,6 +166,12 @@ class RefrigeratorViewController: UIViewController {
         navigationController?.isNavigationBarHidden = true
         reloadData()
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
+    }
+    
     
     private func config() {
         view.gradientBackground(type: .mainAxial)
@@ -358,10 +364,26 @@ class RefrigeratorViewController: UIViewController {
     }
 
     private func setupActions() {
-        foodCategoryButton.addTarget(self, action: #selector(foodCategoryButtonTapped), for: .touchUpInside)
-        refrigeratedFoodCategoryButton.addTarget(self, action: #selector(refrigeratedFoodCategoryButtonTapped), for: .touchUpInside)
-        frozenFoodCategoryButton.addTarget(self, action: #selector(frozenFoodCategoryButtonTapped), for: .touchUpInside)
-        outdoorFoodCategoryButton.addTarget(self, action: #selector(outdoorFoodCategoryButtonTapped), for: .touchUpInside)
+        foodCategoryButton.addTarget(
+            self,
+            action: #selector(foodCategoryButtonTapped),
+            for: .touchUpInside
+        )
+        refrigeratedFoodCategoryButton.addTarget(
+            self,
+            action: #selector(refrigeratedFoodCategoryButtonTapped),
+            for: .touchUpInside
+        )
+        frozenFoodCategoryButton.addTarget(
+            self,
+            action: #selector(frozenFoodCategoryButtonTapped),
+            for: .touchUpInside
+        )
+        outdoorFoodCategoryButton.addTarget(
+            self,
+            action: #selector(outdoorFoodCategoryButtonTapped),
+            for: .touchUpInside
+        )
     }
     
     @objc private func foodCategoryButtonTapped() {
@@ -381,6 +403,7 @@ class RefrigeratorViewController: UIViewController {
     }
     
     private func ingredientRequest(saveKind: SaveKind) {
+        view.endEditing(true)
         changeSelectedButtonLayout(saveKind: saveKind)
         currentKind = saveKind
         ingredientRepo.request(
@@ -483,5 +506,11 @@ extension RefrigeratorViewController: UICollectionViewDelegateFlowLayout {
             modalVC,
             animated: false
         )
+    }
+}
+
+extension RefrigeratorViewController: UICollectionViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.view.endEditing(true)
     }
 }
