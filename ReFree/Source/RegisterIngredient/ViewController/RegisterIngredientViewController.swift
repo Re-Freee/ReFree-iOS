@@ -64,6 +64,7 @@ final class RegisterIngredientViewController: UIViewController {
         case .register: self.navigationController?.isNavigationBarHidden = true
         case .edit: self.navigationController?.isNavigationBarHidden = false
         }
+        bindKeyboard()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -129,7 +130,6 @@ final class RegisterIngredientViewController: UIViewController {
     private func bind() {
         bindIngredientView()
         bindCameraView()
-        bindKeyboard()
     }
     
     private func bindKeyboard() {
@@ -476,6 +476,7 @@ final class RegisterIngredientViewController: UIViewController {
     }
     
     @objc private func keyboardUp(notification: NSNotification) {
+        print(ingredientInfoView.memoTextView.isFirstResponder)
         guard
             let keyboardFrame = notification
                 .userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
