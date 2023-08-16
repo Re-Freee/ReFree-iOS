@@ -272,7 +272,7 @@ extension HomeViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let modalVC = RFModalParentViewController(
-            type: .detail(ingredients[indexPath.row])
+            type: .detail(ingredients[indexPath.section])
         )
         
         modalVC.editSubject
