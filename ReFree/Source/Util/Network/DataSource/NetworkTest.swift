@@ -44,7 +44,6 @@ extension NetTest: Target {
     }
     
     var header: HTTPHeaders {
-        // TODO: 실제는 토큰 추가
         switch self {
         case .get, .post:
             return [ "Content-Type": "application/json" ]
@@ -100,7 +99,6 @@ extension NetImageTest: ImageTarget {
     }
     
     var header: HTTPHeaders {
-        // TODO: 실제는 토큰 추가
         switch self {
         case .upload:
             return [ "Content-Type": "multipart/form-data" ]

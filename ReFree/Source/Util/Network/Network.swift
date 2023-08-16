@@ -141,7 +141,7 @@ struct Network {
                         guard
                             let imageData = data
                                 .image
-                                .jpegData(compressionQuality: 0.5)
+                                .jpegData(compressionQuality: 0.3)
                         else { return }
                         
                         multipart.append(

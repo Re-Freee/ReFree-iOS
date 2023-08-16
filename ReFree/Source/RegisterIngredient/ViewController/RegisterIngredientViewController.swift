@@ -514,7 +514,10 @@ extension RegisterIngredientViewController: UINavigationControllerDelegate, UIIm
 }
 
 extension RegisterIngredientViewController: PHPickerViewControllerDelegate {
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+    func picker(
+        _ picker: PHPickerViewController,
+        didFinishPicking results: [PHPickerResult]
+    ) {
         picker.dismiss(animated: true)
         
         if let provider = results.first?.itemProvider,
