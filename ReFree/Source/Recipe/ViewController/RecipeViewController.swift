@@ -78,7 +78,7 @@ final class RecipeViewController: UIViewController {
     let userRepository = UserRepository()
     let signRepository = SignRepository()
     private let sidebar = RecipeSidebarView()
-    private var previousIndex: Int?
+    private var previousIndex: Int = 0
     private var disposeBag = DisposeBag()
     
     private var recipes: [Recipe] = []
@@ -320,6 +320,7 @@ final class RecipeViewController: UIViewController {
     }
     
     private func bindSearch() {
+        searchBar.textField.delegate = self
         searchBar.searchStart.rx.tap
             .bind(onNext: { [weak self] in
                 guard let self else { return }
@@ -405,17 +406,20 @@ extension RecipeViewController: UICollectionViewDataSource {
             for: indexPath
         ) as? CarouselCell else { return UICollectionViewCell() }
         
-        if previousIndex == nil {
+        if previousIndex == indexPath.row {
             UIView.animate(withDuration: 1) {
                 cell.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
             }
-            previousIndex = 0
         }
         
         cell.prepareForReuse()
         cell.configCell(recipe: recipes[indexPath.row])
         
         return cell
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
 }
 
@@ -440,12 +444,13 @@ extension RecipeViewController: UICollectionViewDelegateFlowLayout {
         let index = Int(round(scrolledOffset / cellWidth))
         
         guard
-            let previousIndex,
             previousIndex != index
         else { return }
         
-        let prevCell = carouselCollectionView.cellForItem(at: IndexPath(row: previousIndex, section: 0))
-        let currentCell = carouselCollectionView.cellForItem(at: IndexPath(row: index, section: 0))
+        let prevCell = carouselCollectionView
+            .cellForItem(at: IndexPath(row: previousIndex, section: 0))
+        let currentCell = carouselCollectionView
+            .cellForItem(at: IndexPath(row: index, section: 0))
         
         UIView.animate(withDuration: 0.5) {
             prevCell?.transform = CGAffineTransform(scaleX: 1, y: 1)
@@ -454,6 +459,10 @@ extension RecipeViewController: UICollectionViewDelegateFlowLayout {
         
         self.previousIndex = index
         pageControl.currentPage = index
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        view.endEditing(true)
     }
     
     func collectionView(
@@ -467,5 +476,12 @@ extension RecipeViewController: UICollectionViewDelegateFlowLayout {
             modalVC,
             animated: false
         )
+    }
+}
+
+extension RecipeViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchRecipe(text: self.searchBar.textField.text ?? "")
+        return true
     }
 }

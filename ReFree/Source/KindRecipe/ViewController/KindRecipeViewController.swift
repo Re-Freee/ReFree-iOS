@@ -148,6 +148,8 @@ final class KindRecipeViewController: UIViewController {
     }
     
     private func bind() {
+        searchBar.textField.delegate = self
+        
         collectionView.rx.prefetchItems
             .compactMap(\.last?.row)
             .withUnretained(self)
@@ -285,5 +287,24 @@ extension KindRecipeViewController: UICollectionViewDelegateFlowLayout {
             modalVC,
             animated: false
         )
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        view.endEditing(true)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+}
+
+
+extension KindRecipeViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.pageCount = 0
+        self.recipes = []
+        self.dataLoading(page: self.pageCount)
+        
+        return true
     }
 }

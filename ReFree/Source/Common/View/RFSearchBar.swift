@@ -11,6 +11,7 @@ import Then
 
 final class RFSearchBar: UIView {
     let textField = UITextField().then {
+        $0.returnKeyType = .search
         $0.placeHolder(
             string: "Search",
             color: UIColor.refreeColor.text1
