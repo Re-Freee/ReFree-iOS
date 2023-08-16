@@ -14,7 +14,7 @@ import Kingfisher
 final class RFModalParentViewController: UIViewController {
     private let backgroundImageView = UIImageView().then {
         $0.clipsToBounds = true
-        $0.contentMode = .scaleToFill
+        $0.contentMode = .scaleAspectFit
     }
     
     private let type: RFModalViewController.ContentType

@@ -14,7 +14,8 @@ final class RefrigeratorListCell: UICollectionViewCell, Identifiable {
     static let identifier = "RefrigeratorListCellIdentifier"
     
     lazy var imageView = UIImageView(image: UIImage(named: "FourCircle")).then {
-        $0.layer.opacity = 0.8
+        $0.contentMode = .scaleToFill
+        $0.layer.opacity = 1
     }
     
     lazy var gradientWhiteView = UIView().then {
@@ -56,7 +57,9 @@ final class RefrigeratorListCell: UICollectionViewCell, Identifiable {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        gradientView.gradientBackground(type: .halfWhiteAxial)
+         if gradientView.layer.sublayers == nil {
+             gradientView.gradientBackground(type: .halfWhiteAxial)
+        }
     }
     
     private func layout() {
@@ -101,7 +104,7 @@ final class RefrigeratorListCell: UICollectionViewCell, Identifiable {
         }
         
         gradientView.snp.makeConstraints {
-            $0.top.equalTo(gradientWhiteView.snp.top).offset(-40)
+            $0.top.equalTo(stackView.snp.top)
             $0.leading.trailing.equalTo(gradientWhiteView)
             $0.bottom.equalTo(titleLabel.snp.top)
         }
@@ -116,6 +119,6 @@ final class RefrigeratorListCell: UICollectionViewCell, Identifiable {
         else { return }
         imageView.kf.setImage(with: url)
         titleLabel.text = title
-        expirationDateLabel.text = "\(expireDate)까지"
+        expirationDateLabel.text = "\(expireDate)까지"        
     }
 }
