@@ -16,7 +16,7 @@ final class RecipeListCell: UICollectionViewCell, Identifiable {
         $0.layer.opacity = 0.8
     }
     private let titleLabel = UILabel().then {
-        $0.numberOfLines = 1
+        $0.numberOfLines = 3
         $0.text = "돼지고기 김치찌개"
         $0.textColor = .refreeColor.text3
         $0.font = .pretendard.bold15
@@ -60,7 +60,7 @@ final class RecipeListCell: UICollectionViewCell, Identifiable {
         
         heartImageView.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(24)
-            $0.width.height.equalTo(titleLabel.snp.height)
+            $0.width.height.equalTo(20)
             $0.bottom.equalToSuperview().inset(24)
         }
         
