@@ -40,7 +40,7 @@ class SignUpViewController: UIViewController {
         $0.autocapitalizationType = .none
         $0.borderStyle = .roundedRect
         $0.textColor = .black
-        $0.returnKeyType = .done
+        $0.returnKeyType = .next
         $0.backgroundColor = UIColor.refreeColor.textFrame
         $0.placeHolder(string: "이메일", color: UIColor.refreeColor.text1)
         $0.font = .pretendard.extraLight12
@@ -63,7 +63,7 @@ class SignUpViewController: UIViewController {
     let passwordTextField = UITextField().then {
         $0.borderStyle = .roundedRect
         $0.textColor = .black
-        $0.returnKeyType = .done
+        $0.returnKeyType = .next
         $0.backgroundColor = UIColor.refreeColor.textFrame
         $0.placeHolder(string: "비밀번호", color: UIColor.refreeColor.text1)
         $0.font = .pretendard.extraLight12
@@ -89,7 +89,7 @@ class SignUpViewController: UIViewController {
     let confirmPasswordTextField = UITextField().then {
         $0.borderStyle = .roundedRect
         $0.textColor = .black
-        $0.returnKeyType = .done
+        $0.returnKeyType = .next
         $0.backgroundColor = UIColor.refreeColor.textFrame
         $0.placeHolder(string: "비밀번호 확인", color: UIColor.refreeColor.text1)
         $0.font = .pretendard.extraLight12
