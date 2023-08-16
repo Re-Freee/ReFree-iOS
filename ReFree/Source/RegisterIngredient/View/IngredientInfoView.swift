@@ -356,10 +356,11 @@ final class IngredientInfoView: UIView {
         guard
             let currentCount = currentCountLabel.text,
             let countNumber = Int(currentCount),
-            countNumber > 0
+            countNumber > 1
         else { return }
         let newCount = countNumber - 1
         currentCountLabel.text = "\(newCount)"
+        countSubject.onNext("\(newCount)")
     }
     
     func setDefault() {
