@@ -16,7 +16,6 @@ extension String {
     }
     
     func validateVerificationCode() -> Bool {
-        // TODO: 인증코드 자리수에 맞춰 아래 정규식 수정
         let verificationCodeRegEx = "[A-Z0-9]{9}"
         
         return NSPredicate(format: "SELF MATCHES %@", verificationCodeRegEx).evaluate(with: self)
