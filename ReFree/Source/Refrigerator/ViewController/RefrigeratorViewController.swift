@@ -348,7 +348,12 @@ class RefrigeratorViewController: UIViewController {
                 )
             )
 
-            item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
+            item.contentInsets = NSDirectionalEdgeInsets(
+                top: 8,
+                leading: 8,
+                bottom: 8,
+                trailing: 8
+            )
 
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: .init(
