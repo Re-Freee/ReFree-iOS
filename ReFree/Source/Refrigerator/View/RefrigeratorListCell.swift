@@ -14,18 +14,12 @@ final class RefrigeratorListCell: UICollectionViewCell, Identifiable {
     static let identifier = "RefrigeratorListCellIdentifier"
     
     lazy var imageView = UIImageView(image: UIImage(named: "FourCircle")).then {
-        $0.contentMode = .scaleToFill
+        $0.contentMode = .scaleAspectFill
         $0.layer.opacity = 1
     }
     
     lazy var gradientWhiteView = UIView().then {
         $0.backgroundColor = .white
-    }
-    
-    private let stackView = UIStackView().then {
-        $0.axis = .vertical
-        $0.distribution = .fill
-        $0.alignment = .fill
     }
     
     private let titleLabel = UILabel().then {
@@ -67,45 +61,38 @@ final class RefrigeratorListCell: UICollectionViewCell, Identifiable {
         layer.cornerRadius = 10
         
         addSubviews([
-            stackView,
-            titleLabel,
-            expirationDateLabel,
+            imageView,
+            gradientWhiteView,
             gradientView
         ])
         
-        stackView.addArrangedSubviews([
-            imageView,
-            gradientWhiteView,
+        gradientWhiteView.addSubviews([
+            titleLabel,
+            expirationDateLabel,
         ])
         
-        stackView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
         imageView.snp.makeConstraints {
-            $0.height.equalTo(stackView).multipliedBy(0.5)
-            $0.width.equalTo(stackView)
+            $0.height.equalToSuperview().multipliedBy(0.55)
+            $0.top.leading.trailing.equalToSuperview()
         }
         
         gradientWhiteView.snp.makeConstraints {
-            $0.height.equalTo(stackView).multipliedBy(0.5)
-            $0.width.equalTo(stackView)
+            $0.top.equalTo(imageView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
         
         titleLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(14)
-            $0.width.equalToSuperview().multipliedBy(0.6)
-            $0.top.equalTo(gradientWhiteView.snp.top).offset(15)
+            $0.top.leading.equalToSuperview().inset(12)
+            $0.trailing.equalToSuperview()
         }
         
         expirationDateLabel.snp.makeConstraints{
-            $0.top.equalTo(titleLabel.snp.top).offset(30)
-            $0.leading.equalToSuperview().inset(14)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(8)
+            $0.leading.trailing.equalToSuperview().inset(12)
         }
         
         gradientView.snp.makeConstraints {
-            $0.top.equalTo(stackView.snp.top)
-            $0.leading.trailing.equalTo(gradientWhiteView)
+            $0.top.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(titleLabel.snp.top)
         }
     }
