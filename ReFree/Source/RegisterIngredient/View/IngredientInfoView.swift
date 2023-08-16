@@ -52,6 +52,7 @@ final class IngredientInfoView: UIView {
     }
     
     let nameTextField = UITextField().then {
+        $0.returnKeyType = .done
         $0.textColor = .refreeColor.text2
         $0.addLeftPadding(padding: 10)
         $0.clipsToBounds = true
@@ -153,6 +154,7 @@ final class IngredientInfoView: UIView {
     }
     
     let memoTextView = UITextView().then {
+        $0.returnKeyType = .done
         $0.textColor = .refreeColor.text2
         $0.font = .pretendard.extraLight20
         $0.clipsToBounds = true

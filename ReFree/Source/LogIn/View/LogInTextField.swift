@@ -15,6 +15,7 @@ final class LogInTextField: UIView {
     }
     
     public let textField = UITextField().then {
+        $0.returnKeyType = .next
         $0.textColor = .refreeColor.text2
         $0.font = .pretendard.extraLight12
     }
