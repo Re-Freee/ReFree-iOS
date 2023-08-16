@@ -136,6 +136,8 @@ final class FoodTableViewCell: UITableViewCell, Identifiable {
         
         if remainDay == 0 {
             return "소비기한이 오늘입니다."
+        } else if remainDay < 0 {
+            return "\(-remainDay)일 지났습니다."
         }
         
         return "\(remainDay)일 남았습니다."
