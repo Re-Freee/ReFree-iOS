@@ -41,6 +41,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         )
     }
 
+    private let ingredientRepo = IngredientRepository()
     private var ingredients: [Ingredient] = []
     private var isImminentFoodButtonSelected: Bool = true
     private let ingredientRepository = IngredientRepository()
@@ -106,12 +107,47 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     
     private func bind() {
 //        imminentFoodButtonTapped()
+        bindSearchBar()
+    }
+    
+    private func bindSearchBar() {
+        header.searchBar.searchStart.rx.tap
+            .bind(onNext: { [weak self] in
+                guard
+                    let self,
+                    let searchKey = self.header.searchBar.textField.text
+                else { return }
+                self.ingredientRepo
+                    .request(
+                        searchIngredients: .searchIngredients(
+                            options: nil,
+                            searchKey: searchKey
+                        )
+                    )
+                    .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
+                        guard
+                            let self,
+                            self.responseCheck(response: commonResponse)
+                        else { return }
+                        self.ingredients = ingredients
+                        self.foodTableView.reloadData()
+                    }, onError: { [weak self] error in
+                        guard let self else { return }
+                        Alert.errorAlert(
+                            viewController: self,
+                            errorMessage: error.localizedDescription
+                        )
+                    })
+                    .disposed(by:disposeBag)
+            })
+            .disposed(by: disposeBag)
     }
     
     @objc private func imminentFoodButtonTapped() {
         isImminentFoodButtonSelected = true
         foodButtonSelected()
         
+        ingredientRequest()
         ingredientRepository.request(closerIngredients: .closerIngredients)
             .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
                 guard
@@ -136,6 +172,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         isImminentFoodButtonSelected = false
         foodButtonSelected()
         
+        ingredientRequest()
         ingredientRepository.request(endIngredients: .endIngredients)
             .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
                 guard
@@ -199,7 +236,6 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.text = ""
         textField.resignFirstResponder()
         searchStartButtonTapped()
         return true
@@ -218,6 +254,43 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         foodTableView.isHidden = true
         foodEmptyImage.isHidden = false
         foodEmptyLabel.isHidden = false
+    }
+    
+    private func sortIngredientsByExpireDate(ascending: Bool) {
+        ingredients.sort { (ingredient1, ingredient2) in
+            if let date1 = ingredient1.expireDate, let date2 = ingredient2.expireDate {
+                if ascending {
+                    return date1 < date2
+                } else {
+                    return date1 > date2
+                }
+            }
+            return true
+        }
+        foodTableView.reloadData()
+    }
+    
+    private func ingredientRequest() {
+        view.endEditing(true)
+        ingredientRepo.request(
+            searchIngredients: .searchIngredients(options: nil)
+        )
+            .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
+                guard
+                    let self,
+                    self.responseCheck(response: commonResponse)
+                else { return }
+                self.ingredients = ingredients
+                self.sortIngredientsByExpireDate(ascending: true)
+                self.foodTableView.reloadData()
+            }, onError: { [weak self] error in
+                guard let self else { return }
+                Alert.errorAlert(
+                    viewController: self,
+                    errorMessage: error.localizedDescription
+                )
+            })
+            .disposed(by:disposeBag)
     }
 }
 
