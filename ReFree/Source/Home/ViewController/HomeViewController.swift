@@ -199,9 +199,9 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchStartButtonTapped()
         textField.text = ""
         textField.resignFirstResponder()
-        searchStartButtonTapped()
         return true
     }
     

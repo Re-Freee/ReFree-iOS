@@ -157,7 +157,7 @@ class RefrigeratorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         config()
-        configCollectionView()
+        condifDelegate()
         setupActions()
     }
     
@@ -181,9 +181,10 @@ class RefrigeratorViewController: UIViewController {
         bind()
     }
     
-    private func configCollectionView() {
+    private func condifDelegate() {
         collectionView.dataSource = self
         collectionView.delegate = self
+        header.searchBar.textField.delegate = self
     }
     
     private func addDropDownMenu() {
@@ -309,34 +310,37 @@ class RefrigeratorViewController: UIViewController {
     private func bindSearchBar() {
         header.searchBar.searchStart.rx.tap
             .bind(onNext: { [weak self] in
-                guard
-                    let self,
-                    let searchKey = self.header.searchBar.textField.text
-                else { return }
-                self.ingredientRepo
-                    .request(
-                        searchIngredients: .searchIngredients(
-                            options: self.currentKind.networkKind,
-                            searchKey: searchKey
-                        )
-                    )
-                    .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
-                        guard
-                            let self,
-                            self.responseCheck(response: commonResponse)
-                        else { return }
-                        self.ingredients = ingredients
-                        self.collectionView.reloadData()
-                    }, onError: { [weak self] error in
-                        guard let self else { return }
-                        Alert.errorAlert(
-                            viewController: self,
-                            errorMessage: error.localizedDescription
-                        )
-                    })
-                    .disposed(by:disposeBag)
+                self?.searchStart()
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func searchStart() {
+        guard
+            let searchKey = self.header.searchBar.textField.text
+        else { return }
+        self.ingredientRepo
+            .request(
+                searchIngredients: .searchIngredients(
+                    options: self.currentKind.networkKind,
+                    searchKey: searchKey
+                )
+            )
+            .subscribe(onNext: { [weak self] (commonResponse, ingredients) in
+                guard
+                    let self,
+                    self.responseCheck(response: commonResponse)
+                else { return }
+                self.ingredients = ingredients
+                self.collectionView.reloadData()
+            }, onError: { [weak self] error in
+                guard let self else { return }
+                Alert.errorAlert(
+                    viewController: self,
+                    errorMessage: error.localizedDescription
+                )
+            })
+            .disposed(by:disposeBag)
     }
     
     private func collectionViewLayout() -> UICollectionViewCompositionalLayout {
@@ -517,5 +521,14 @@ extension RefrigeratorViewController: UICollectionViewDelegateFlowLayout {
 extension RefrigeratorViewController: UICollectionViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.view.endEditing(true)
+    }
+}
+
+extension RefrigeratorViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchStart()
+        header.searchBar.textField.text = ""
+        textField.resignFirstResponder()
+        return true
     }
 }
