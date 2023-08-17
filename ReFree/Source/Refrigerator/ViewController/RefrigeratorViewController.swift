@@ -10,7 +10,6 @@ import SnapKit
 import Then
 import RxSwift
 
-
 class RefrigeratorViewController: UIViewController {
     private enum SaveKind {
         case whole

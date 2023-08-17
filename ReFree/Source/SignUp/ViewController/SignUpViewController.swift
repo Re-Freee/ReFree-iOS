@@ -138,9 +138,6 @@ class SignUpViewController: UIViewController {
         $0.isEnabled = false
     }
     
-//    createAccountButton.isEnabled = isEmailFormatValid && isPasswordFormatValid && isPasswordsMatch && isNicknameFormatValid
-//    createAccountButton.setTitleColor(createAccountButton.isEnabled ? UIColor.white : UIColor.gray, for: .normal)
-    
     let stackView = UIStackView().then {
         $0.axis = .vertical
         $0.distribution = .fill
@@ -224,11 +221,7 @@ class SignUpViewController: UIViewController {
     
     // 두 텍스트필드 문자가 같은 지 확인
     func isSameBothTextField(_ first: UITextField,_ second: UITextField) -> Bool {
-        if(first.text == second.text) {
-            return true
-        } else {
-            return false
-        }
+        return first.text == second.text
     }
     
     
@@ -240,24 +233,18 @@ class SignUpViewController: UIViewController {
         
         // 비밀번호 유효성 검사
         if sender == passwordTextField {
-            passwordCheckButton.isHidden = isPasswordValid(sender.text ?? "")
+            let isPasswordValid = isPasswordValid(sender.text ?? "")
+            passwordCheckButton.isHidden = !isPasswordValid
+            passwordErrorButton.isHidden = isPasswordValid
+            passwordLabel.isHidden = isPasswordValid
             
-            // 비밀번호 길이 검사
-            if passwordTextField.text?.count ?? 0 < 8 {
-                passwordCheckButton.isHidden = true
-            } else {
-                // 비밀번호 확인 일치 여부 검사
-                if isSameBothTextField(passwordTextField, confirmPasswordTextField) {
-                    confirmpPasswordCheckButton.isHidden = false
-                    confirmPasswordLabel.isHidden = true
-                    confirmPasswordErrorButton.isHidden = true
-                } else {
-                    confirmpPasswordCheckButton.isHidden = true
-                    confirmPasswordLabel.isHidden = false
-                    confirmPasswordErrorButton.isHidden = false
-                }
-                passwordCheckButton.isHidden = false // 비밀번호가 8자 이상인 경우에만 활성화
-            }
+            let isPasswordSameConfirmPassword = isSameBothTextField(
+                passwordTextField, confirmPasswordTextField
+            )
+            
+            confirmpPasswordCheckButton.isHidden = !isPasswordSameConfirmPassword
+            confirmPasswordLabel.isHidden = isPasswordSameConfirmPassword
+            confirmPasswordErrorButton.isHidden = isPasswordSameConfirmPassword
         }
         
         if sender == confirmPasswordTextField {
@@ -309,7 +296,10 @@ class SignUpViewController: UIViewController {
         
         // 모든 조건을 만족할 경우에만 버튼 활성화
         createAccountButton.isEnabled = isEmailFormatValid && isPasswordFormatValid && isPasswordsMatch && isNicknameFormatValid
-        createAccountButton.setTitleColor(createAccountButton.isEnabled ? UIColor.white : UIColor.gray, for: .normal)
+        createAccountButton.setTitleColor(
+            createAccountButton.isEnabled ? UIColor.white : UIColor.gray,
+            for: .normal
+        )
     }
     
     private func addKeyboardNotification() {
@@ -352,7 +342,10 @@ class SignUpViewController: UIViewController {
     }
     
     private func ifTapOutside() {
-        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapOutsideKeyboard))
+        tapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(handleTapOutsideKeyboard)
+        )
         tapGestureRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGestureRecognizer)
     }
