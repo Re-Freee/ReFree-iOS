@@ -221,6 +221,7 @@ final class KindRecipeViewController: UIViewController {
             else { return }
             self.recipes += recipes
             self.collectionView.reloadData()
+            self.searchConfirm()
         }, onError: { [weak self] error in
             guard let self else { return }
             Alert.errorAlert(
@@ -229,6 +230,24 @@ final class KindRecipeViewController: UIViewController {
             )
         })
         .disposed(by: disposeBag)
+    }
+    
+    private func searchConfirm() {
+        if recipes.isEmpty {
+            let alert = AlertView(
+                title: "검색 결과가 없습니다.",
+                description: "이전 화면으로 이동합니다.",
+                alertType: .check
+            )
+            
+            alert.successButton.rx.tap
+                .bind(onNext: { [weak self] in
+                    self?.navigationController?.popViewController(animated: true)
+                })
+                .disposed(by: disposeBag)
+            
+            addsubViewToWindow(view: alert)
+        }
     }
     
     private func searchDataLoading(isSearch: Bool, page: Int) {
