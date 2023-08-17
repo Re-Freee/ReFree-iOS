@@ -325,6 +325,7 @@ final class RecipeViewController: UIViewController {
             .bind(onNext: { [weak self] in
                 guard let self else { return }
                 self.searchRecipe(text: self.searchBar.textField.text ?? "")
+                self.view.endEditing(true)
             })
             .disposed(by: disposeBag)
     }
@@ -354,38 +355,49 @@ final class RecipeViewController: UIViewController {
     }
     
     private func searchRecipe(text: String) {
-        loadingStart()
         if text.isEmpty {
             pageControlIsHiddenByScreenWidth(isHidden: true)
             bindRecommendRecipe()
         } else {
-            pageControlIsHiddenByScreenWidth(isHidden: false)
-            recipeRepository.request(
-                searchRecipe: .searchRecipe(
-                    query: [
-                        .init("title", text),
-                        .init("offset", 0)
-                    ]
-                )
+            let searchVC = KindRecipeViewController(
+                kind: .onlySearch,
+                onlySearchKey: text
             )
-            .subscribe(onNext: { [weak self] (commonResponse, recipes) in
-                guard
-                    let self,
-                    self.responseCheck(response: commonResponse)
-                else { return }
-                self.recipes = recipes
-                self.carouselCollectionView.reloadData()
-                self.loadingCompletion()
-            }, onError: { [weak self] error in
-                guard let self else { return }
-                Alert.errorAlert(
-                    viewController: self,
-                    errorMessage: error.localizedDescription
-                )
-                self.loadingCompletion()
-            })
-            .disposed(by: disposeBag)
+            navigationController?.pushViewController(searchVC, animated: true)
         }
+        
+//        loadingStart()
+//        if text.isEmpty {
+//            pageControlIsHiddenByScreenWidth(isHidden: true)
+//            bindRecommendRecipe()
+//        } else {
+//            pageControlIsHiddenByScreenWidth(isHidden: false)
+//            recipeRepository.request(
+//                searchRecipe: .searchRecipe(
+//                    query: [
+//                        .init("title", text),
+//                        .init("offset", 0)
+//                    ]
+//                )
+//            )
+//            .subscribe(onNext: { [weak self] (commonResponse, recipes) in
+//                guard
+//                    let self,
+//                    self.responseCheck(response: commonResponse)
+//                else { return }
+//                self.recipes = recipes
+//                self.carouselCollectionView.reloadData()
+//                self.loadingCompletion()
+//            }, onError: { [weak self] error in
+//                guard let self else { return }
+//                Alert.errorAlert(
+//                    viewController: self,
+//                    errorMessage: error.localizedDescription
+//                )
+//                self.loadingCompletion()
+//            })
+//            .disposed(by: disposeBag)
+//        }
     }
 }
 
@@ -482,6 +494,7 @@ extension RecipeViewController: UICollectionViewDelegateFlowLayout {
 extension RecipeViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         searchRecipe(text: self.searchBar.textField.text ?? "")
+        view.endEditing(true)
         return true
     }
 }

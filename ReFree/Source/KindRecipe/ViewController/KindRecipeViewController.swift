@@ -17,6 +17,7 @@ final class KindRecipeViewController: UIViewController {
         case soup = "국&찌개 레시피"
         case dessert = "디저트 레시피"
         case sideMenu = "반찬 레시피"
+        case onlySearch = "레시피"
         
         var searchQueryValue: String {
             switch self {
@@ -25,6 +26,7 @@ final class KindRecipeViewController: UIViewController {
             case .soup: return "국"
             case .dessert: return "후식"
             case .sideMenu: return "반찬"
+            case .onlySearch: return "필요 없음"
             }
         }
     }
@@ -50,12 +52,14 @@ final class KindRecipeViewController: UIViewController {
     private var disposeBag = DisposeBag()
     private let recipeRepository = RecipeRepository()
     private var pageCount = 0
+    private let onlySearchKey: String
     
-    init(kind: KindRecipeViewController.TitleKind) {
+    init(kind: KindRecipeViewController.TitleKind, onlySearchKey: String = "") {
         self.kind = kind
+        self.onlySearchKey = onlySearchKey
         super.init(nibName: nil, bundle: Bundle.main)
         titleLabel.text = kind.rawValue
-        if kind == .saved { searchBar.isHidden = true }
+        if kind == .saved || kind == .onlySearch { searchBar.isHidden = true }
     }
     
     required init?(coder: NSCoder) {
@@ -97,7 +101,7 @@ final class KindRecipeViewController: UIViewController {
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(24)
         }
         
-        if kind == .saved {
+        if kind == .saved || kind == .onlySearch {
             collectionView.snp.makeConstraints {
                 $0.top.equalTo(titleLabel.snp.bottom).offset(12)
                 $0.leading.trailing.equalToSuperview()
@@ -172,72 +176,108 @@ final class KindRecipeViewController: UIViewController {
     
     private func dataLoading(page: Int) {
         let isSearch = !(searchBar.textField.text ?? "").isEmpty
-        if kind == TitleKind.saved {
-            recipeRepository.request(savedRecipe: .savedRecipe)
-                .subscribe(onNext: { [weak self] (commonResponse, recipes) in
-                    guard
-                        let self,
-                        self.responseCheck(response: commonResponse)
-                    else { return }
-                    
-                    self.recipes += recipes.map { $0.setIsHeart(true) }
-                    self.collectionView.reloadData()
-                }, onError: { [weak self] error in
-                    guard let self else { return }
-                    Alert.errorAlert(
-                        viewController: self,
-                        errorMessage: error.localizedDescription
-                    )
-                })
-                .disposed(by: disposeBag)
+        if kind == .saved {
+            savedDataLoading()
+        } else if kind == .onlySearch {
+            onlySearchDataLoading(page: page)
         } else {
-            if isSearch {
-                recipeRepository.request(
-                    searchRecipe: .searchRecipe(
-                        query: [
-                            .init("type", kind.searchQueryValue),
-                            .init("title", searchBar.textField.text ?? ""),
-                            .init("offset", page)
-                        ]
-                    )
+            searchDataLoading(isSearch: isSearch, page: page)
+        }
+    }
+    
+    private func savedDataLoading() {
+        recipeRepository.request(savedRecipe: .savedRecipe)
+            .subscribe(onNext: { [weak self] (commonResponse, recipes) in
+                guard
+                    let self,
+                    self.responseCheck(response: commonResponse)
+                else { return }
+                
+                self.recipes += recipes.map { $0.setIsHeart(true) }
+                self.collectionView.reloadData()
+            }, onError: { [weak self] error in
+                guard let self else { return }
+                Alert.errorAlert(
+                    viewController: self,
+                    errorMessage: error.localizedDescription
                 )
-                .subscribe(onNext: { [weak self] (commonResponse, recipes) in
-                    guard
-                        let self,
-                        self.responseCheck(response: commonResponse)
-                    else { return }
-                    self.recipes += recipes
-                    self.collectionView.reloadData()
-                }, onError: { [weak self] error in
-                    guard let self else { return }
-                    Alert.errorAlert(
-                        viewController: self,
-                        errorMessage: error.localizedDescription
-                    )
-                })
-                .disposed(by: disposeBag)
-            } else {
-                recipeRepository.request(
-                    searchRecipe: .searchRecipe(
-                        query: [.init("type", kind.searchQueryValue), .init("offset", page)]
-                    )
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func onlySearchDataLoading(page: Int) {
+        recipeRepository.request(
+            searchRecipe: .searchRecipe(
+                query: [
+                    .init("title", onlySearchKey),
+                    .init("offset", page)
+                ]
+            )
+        )
+        .subscribe(onNext: { [weak self] (commonResponse, recipes) in
+            guard
+                let self,
+                self.responseCheck(response: commonResponse)
+            else { return }
+            self.recipes += recipes
+            self.collectionView.reloadData()
+        }, onError: { [weak self] error in
+            guard let self else { return }
+            Alert.errorAlert(
+                viewController: self,
+                errorMessage: error.localizedDescription
+            )
+        })
+        .disposed(by: disposeBag)
+    }
+    
+    private func searchDataLoading(isSearch: Bool, page: Int) {
+        if isSearch {
+            recipeRepository.request(
+                searchRecipe: .searchRecipe(
+                    query: [
+                        .init("type", kind.searchQueryValue),
+                        .init("title", searchBar.textField.text ?? ""),
+                        .init("offset", page)
+                    ]
                 )
-                .subscribe(onNext: { [weak self] (commonResponse, recipes) in
-                    guard
-                        let self,
-                        self.responseCheck(response: commonResponse)
-                    else { return }
-                    self.recipes += recipes
-                    self.collectionView.reloadData()
-                }, onError: { [weak self] error in
-                    guard let self else { return }
-                    Alert.errorAlert(
-                        viewController: self,
-                        errorMessage: error.localizedDescription
-                    )
-                })
-                .disposed(by: disposeBag)
-            }
+            )
+            .subscribe(onNext: { [weak self] (commonResponse, recipes) in
+                guard
+                    let self,
+                    self.responseCheck(response: commonResponse)
+                else { return }
+                self.recipes += recipes
+                self.collectionView.reloadData()
+            }, onError: { [weak self] error in
+                guard let self else { return }
+                Alert.errorAlert(
+                    viewController: self,
+                    errorMessage: error.localizedDescription
+                )
+            })
+            .disposed(by: disposeBag)
+        } else {
+            recipeRepository.request(
+                searchRecipe: .searchRecipe(
+                    query: [.init("type", kind.searchQueryValue), .init("offset", page)]
+                )
+            )
+            .subscribe(onNext: { [weak self] (commonResponse, recipes) in
+                guard
+                    let self,
+                    self.responseCheck(response: commonResponse)
+                else { return }
+                self.recipes += recipes
+                self.collectionView.reloadData()
+            }, onError: { [weak self] error in
+                guard let self else { return }
+                Alert.errorAlert(
+                    viewController: self,
+                    errorMessage: error.localizedDescription
+                )
+            })
+            .disposed(by: disposeBag)
         }
     }
 }
